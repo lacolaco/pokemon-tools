@@ -1,27 +1,9 @@
-import { z } from 'zod';
-import * as math from 'mathjs';
-
-/**
- * Individual Value
- */
-export const IV = z.number().min(0).max(31).brand<'IV'>();
-export type IV = z.infer<typeof IV>;
-/**
- * Effort Value
- */
-export const EV = z.number().min(0).max(255).brand<'EV'>();
-export type EV = z.infer<typeof EV>;
-/**
- * Nature Value
- */
-export const NV = z.union([z.literal(1), z.literal(1.1), z.literal(0.9)]).brand<'NV'>();
-export type NV = z.infer<typeof NV>;
-
 /**
  * ポケモンの能力値を計算する関数群
  */
 
-export type StatValues<V, H = V> = [/* H */ H, /* A */ V, /* B */ V, /* C */ V, /* D */ V, /* S */ V];
+import * as math from 'mathjs';
+import { StatValues, Nature, IV, EV } from './models';
 
 /**
  * 種族値と個体値と努力値と性格から能力値を計算する
@@ -37,7 +19,7 @@ export function calcStats(
   base: StatValues<number>,
   individual: StatValues<IV>,
   effort: StatValues<EV>,
-  nature: StatValues<NV, 1>,
+  nature: Nature | null,
 ): StatValues<number> {
   // Stat = floor((floor((floor(EV/4) + D) × (Level/100)) + B) × Nature)
   // D = Base×2 + IV + A
@@ -50,6 +32,7 @@ export function calcStats(
     .add(vector(individual))
     .add(A)
     .done();
+  const NV = nature === null ? [1, 1, 1, 1, 1, 1] : createNatureValues(nature);
 
   const mat = math
     .chain(math.matrix(vector([0, 0, 0, 0, 0, 0])))
@@ -59,7 +42,7 @@ export function calcStats(
     .multiply(level / 100)
     .map((v) => math.floor(v))
     .add(B)
-    .multiply(math.diag(nature))
+    .multiply(math.diag(NV))
     .map((v) => math.floor(v))
     .done();
 
@@ -80,8 +63,8 @@ export function calcEVs(
   stats: StatValues<number>,
   base: StatValues<number>,
   individual: StatValues<IV>,
-  nature: StatValues<NV, 1>,
-): StatValues<number> {
+  nature: Nature | null,
+): StatValues<EV> {
   // EV = ceil(ceil(Stat / Nature) - B) × (100/Level)) - D) * 4
   // D  = Base×2 + IV + A
   // HP:    A = 100, B = 10
@@ -93,11 +76,12 @@ export function calcEVs(
     .add(vector(individual))
     .add(A)
     .done();
+  const NV = nature === null ? [1, 1, 1, 1, 1, 1] : createNatureValues(nature);
 
   const mat = math
     .chain(math.matrix(vector([0, 0, 0, 0, 0, 0])))
     .add(vector(stats))
-    .multiply(math.diag(nature.map((v) => math.inv(v))))
+    .multiply(math.diag(NV.map((v) => math.inv(v))))
     .map((v) => math.ceil(v))
     .subtract(B)
     .multiply(100 / level)
@@ -107,6 +91,34 @@ export function calcEVs(
     .multiply(4)
     .done();
   return math.flatten(mat).toArray() as StatValues<EV>;
+}
+
+export function createNatureValues(nature: Nature): StatValues<number> {
+  function getDiff(dir: 'up' | 'down') {
+    const val = dir === 'up' ? 1.1 : 0.9;
+    switch (nature[dir]) {
+      case 'A':
+        return vector([0, val, 0, 0, 0, 0]);
+      case 'B':
+        return vector([0, 0, val, 0, 0, 0]);
+      case 'C':
+        return vector([0, 0, 0, val, 0, 0]);
+      case 'D':
+        return vector([0, 0, 0, 0, val, 0]);
+      case 'S':
+        return vector([0, 0, 0, 0, 0, val]);
+    }
+  }
+  return math
+    .flatten(
+      math
+        .chain(vector([0, 0, 0, 0, 0, 0]))
+        .add(getDiff('up'))
+        .add(getDiff('down'))
+        .map((v) => (v === 0 ? 1 : v))
+        .done(),
+    )
+    .toArray() as StatValues<number>;
 }
 
 function vector(values: number[]) {

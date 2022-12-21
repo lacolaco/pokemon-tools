@@ -1,0 +1,77 @@
+<ng-container *ngIf="state$ | async as state">
+  <div>{{ state | json }}</div>
+
+  <form [formGroup]="form" style="display: flex; flex-direction: column; row-gap: 8px">
+    <div class="calc-grid">
+      <div class="grid-row">
+        <div>レベル</div>
+        <div>
+          <input formControlName="level" type="number" min="1" max="100" required />
+        </div>
+      </div>
+      <div class="grid-row">
+        <div></div>
+        <div class="grid-cell">H</div>
+        <div class="grid-cell">A</div>
+        <div class="grid-cell">B</div>
+        <div class="grid-cell">C</div>
+        <div class="grid-cell">D</div>
+        <div class="grid-cell">S</div>
+      </div>
+      <div class="grid-row" formGroupName="stats">
+        <div>能力値</div>
+        <div class="grid-cell"><input formControlName="hp" type="number" required /></div>
+        <div class="grid-cell"><input formControlName="atk" type="number" required /></div>
+        <div class="grid-cell"><input formControlName="def" type="number" required /></div>
+        <div class="grid-cell"><input formControlName="spa" type="number" required /></div>
+        <div class="grid-cell"><input formControlName="spd" type="number" required /></div>
+        <div class="grid-cell"><input formControlName="spe" type="number" required /></div>
+      </div>
+      <div class="grid-row" formGroupName="ivs">
+        <div>個体値</div>
+        <div class="grid-cell"><input formControlName="hp" type="number" min="0" max="31" required /></div>
+        <div class="grid-cell"><input formControlName="atk" type="number" min="0" max="31" required /></div>
+        <div class="grid-cell"><input formControlName="def" type="number" min="0" max="31" required /></div>
+        <div class="grid-cell"><input formControlName="spa" type="number" min="0" max="31" required /></div>
+        <div class="grid-cell"><input formControlName="spd" type="number" min="0" max="31" required /></div>
+        <div class="grid-cell"><input formControlName="spe" type="number" min="0" max="31" required /></div>
+      </div>
+      <div class="grid-row" formGroupName="evs">
+        <div>努力値</div>
+        <div class="grid-cell"><input formControlName="hp" type="number" min="0" max="252" step="4" required /></div>
+        <div class="grid-cell"><input formControlName="atk" type="number" min="0" max="252" step="4" required /></div>
+        <div class="grid-cell"><input formControlName="def" type="number" min="0" max="252" step="4" required /></div>
+        <div class="grid-cell"><input formControlName="spa" type="number" min="0" max="252" step="4" required /></div>
+        <div class="grid-cell"><input formControlName="spd" type="number" min="0" max="252" step="4" required /></div>
+        <div class="grid-cell"><input formControlName="spe" type="number" min="0" max="252" step="4" required /></div>
+      </div>
+      <div class="grid-row">
+        <div>性格</div>
+        <div class="grid-cell">
+          <div>+</div>
+          <div>-</div>
+        </div>
+        <div class="grid-cell">
+          <input type="checkbox" />
+          <input type="checkbox" />
+        </div>
+        <div class="grid-cell">
+          <input type="checkbox" />
+          <input type="checkbox" />
+        </div>
+        <div class="grid-cell">
+          <input type="checkbox" />
+          <input type="checkbox" />
+        </div>
+        <div class="grid-cell">
+          <input type="checkbox" />
+          <input type="checkbox" />
+        </div>
+        <div class="grid-cell">
+          <input type="checkbox" />
+          <input type="checkbox" />
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-container>

@@ -1,0 +1,39 @@
+:host {
+  display: block;
+  padding: 10px;
+}
+
+input {
+  display: inline-block;
+}
+
+input.ng-invalid {
+  border: 2px solid red;
+}
+
+input[type='number'] {
+  width: 100%;
+}
+
+.calc-grid {
+  display: grid;
+  font-size: 14px;
+  width: auto;
+  row-gap: 8px;
+  grid-template-rows: repeat(4, auto);
+
+  .grid-row {
+    display: grid;
+    column-gap: 8px;
+    align-items: center;
+    grid-template-columns: 64px repeat(6, 56px);
+    align-content: center;
+  }
+
+  .grid-cell {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+    width: 100%;
+  }
+}
