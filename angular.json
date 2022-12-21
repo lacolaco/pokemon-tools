@@ -5,7 +5,18 @@
   "projects": {
     "pokemon-tool": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "standalone": true,
+          "inlineTemplate": true
+        },
+        "@schematics/angular:pipe": {
+          "standalone": true
+        },
+        "@schematics/angular:directive": {
+          "standalone": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -74,7 +85,8 @@
             "tsConfig": "tsconfig.spec.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.css"],
-            "scripts": []
+            "scripts": [],
+            "browsers": "ChromeHeadless"
           }
         }
       }
