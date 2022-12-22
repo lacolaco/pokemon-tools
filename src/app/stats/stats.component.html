@@ -1,6 +1,4 @@
 <ng-container *ngIf="state$ | async as state">
-  <div>{{ state | json }}</div>
-
   <form [formGroup]="form" style="display: flex; flex-direction: column; row-gap: 8px">
     <div class="calc-grid">
       <div class="grid-row">
@@ -10,13 +8,49 @@
         </div>
       </div>
       <div class="grid-row">
+        <div>性格</div>
+        <div class="grid-cell">
+          <nature-select formControlName="nature"></nature-select>
+        </div>
+      </div>
+      <div class="grid-row stat-name-row">
         <div></div>
-        <div class="grid-cell">H</div>
-        <div class="grid-cell">A</div>
-        <div class="grid-cell">B</div>
-        <div class="grid-cell">C</div>
-        <div class="grid-cell">D</div>
-        <div class="grid-cell">S</div>
+        <div class="grid-cell stat-name">H</div>
+        <div
+          class="grid-cell stat-name"
+          [class.stat-nature-up]="state.nature.up === 'A'"
+          [class.stat-nature-down]="state.nature.down === 'A'"
+        >
+          A
+        </div>
+        <div
+          class="grid-cell stat-name"
+          [class.stat-nature-up]="state.nature.up === 'B'"
+          [class.stat-nature-down]="state.nature.down === 'B'"
+        >
+          B
+        </div>
+        <div
+          class="grid-cell stat-name"
+          [class.stat-nature-up]="state.nature.up === 'C'"
+          [class.stat-nature-down]="state.nature.down === 'C'"
+        >
+          C
+        </div>
+        <div
+          class="grid-cell stat-name"
+          [class.stat-nature-up]="state.nature.up === 'D'"
+          [class.stat-nature-down]="state.nature.down === 'D'"
+        >
+          D
+        </div>
+        <div
+          class="grid-cell stat-name"
+          [class.stat-nature-up]="state.nature.up === 'S'"
+          [class.stat-nature-down]="state.nature.down === 'S'"
+        >
+          S
+        </div>
       </div>
       <div class="grid-row" formGroupName="stats">
         <div>能力値</div>
@@ -45,33 +79,8 @@
         <div class="grid-cell"><input formControlName="spd" type="number" min="0" max="252" step="4" required /></div>
         <div class="grid-cell"><input formControlName="spe" type="number" min="0" max="252" step="4" required /></div>
       </div>
-      <div class="grid-row">
-        <div>性格</div>
-        <div class="grid-cell">
-          <div>+</div>
-          <div>-</div>
-        </div>
-        <div class="grid-cell">
-          <input type="checkbox" />
-          <input type="checkbox" />
-        </div>
-        <div class="grid-cell">
-          <input type="checkbox" />
-          <input type="checkbox" />
-        </div>
-        <div class="grid-cell">
-          <input type="checkbox" />
-          <input type="checkbox" />
-        </div>
-        <div class="grid-cell">
-          <input type="checkbox" />
-          <input type="checkbox" />
-        </div>
-        <div class="grid-cell">
-          <input type="checkbox" />
-          <input type="checkbox" />
-        </div>
-      </div>
     </div>
   </form>
+
+  <textarea class="stats-text" [value]="state.statsText" readonly></textarea>
 </ng-container>

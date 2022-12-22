@@ -1,6 +1,9 @@
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
   padding: 10px;
+  width: fit-content;
 }
 
 input {
@@ -18,7 +21,7 @@ input[type='number'] {
 .calc-grid {
   display: grid;
   font-size: 14px;
-  width: auto;
+  width: fit-content;
   row-gap: 8px;
   grid-template-rows: repeat(4, auto);
 
@@ -31,9 +34,27 @@ input[type='number'] {
   }
 
   .grid-cell {
-    display: flex;
-    flex-direction: column;
-    row-gap: 4px;
-    width: 100%;
   }
+}
+
+.stat-name-row {
+  .stat-name {
+    border: 1px solid black;
+    background-color: #fefefe;
+    font-weight: bold;
+    text-align: center;
+
+    &.stat-nature-up {
+      background-color: #ffc7c7;
+    }
+
+    &.stat-nature-down {
+      background-color: #c7d7ff;
+    }
+  }
+}
+
+.stats-text {
+  font-size: 14px;
+  width: 100%;
 }

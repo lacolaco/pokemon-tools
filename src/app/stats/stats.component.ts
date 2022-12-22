@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { calcEVs, calcStats, compareStatValues, ev, EV, iv, IV, nature, Nature, StatValues } from '@lib/calc';
+import { calcEVs, calcStats, compareStatValues, ev, EV, iv, IV, Nature, naturesMap, StatValues } from '@lib/calc';
 import { RxState } from '@rx-angular/state';
-import { combineLatest, distinctUntilChanged, skipWhile, Subject, takeUntil } from 'rxjs';
-import { createEVControl } from './forms';
+import { combineLatest, distinctUntilChanged, map, merge, Subject, takeUntil } from 'rxjs';
+import { formatStats } from './formatter';
+import { createEVControl, NatureSelectComponent } from './forms';
 
 const distinctUntilChangedStatValues = distinctUntilChanged(compareStatValues);
 
@@ -15,33 +16,24 @@ class LocalState extends RxState<{
   level: number;
   ivs: StatValues<IV>;
   evs: StatValues<EV>;
-  nature: Nature | null;
+  nature: Nature;
   stats: StatValues<number>;
 }> {
   constructor() {
     super();
     // Calculate stats
     combineLatest([
-      this.select('baseStats').pipe(distinctUntilChangedStatValues),
       this.select('level'),
+      this.select('nature'),
+      this.select('baseStats').pipe(distinctUntilChangedStatValues),
       this.select('ivs').pipe(distinctUntilChangedStatValues),
       this.select('evs').pipe(distinctUntilChangedStatValues),
-      this.select('nature'),
     ]).subscribe(() => {
       const { level, baseStats, ivs, evs, nature } = this.get();
       this.set({
         stats: calcStats(level, baseStats, ivs, evs, nature),
       });
     });
-    // Calculate EVs from stats
-    this.select('stats')
-      .pipe(distinctUntilChangedStatValues)
-      .subscribe(() => {
-        const { level, stats, baseStats, ivs, nature } = this.get();
-        this.set({
-          evs: calcEVs(level, stats, baseStats, ivs, nature),
-        });
-      });
 
     this.set({
       pokemon: { name: 'マリルリ' },
@@ -49,7 +41,15 @@ class LocalState extends RxState<{
       level: 50,
       ivs: [iv(31), iv(31), iv(31), iv(31), iv(31), iv(31)],
       evs: [ev(0), ev(0), ev(0), ev(0), ev(0), ev(0)],
-      nature: null,
+      nature: naturesMap['いじっぱり'],
+    });
+  }
+
+  updateStats(stats: StatValues<number>) {
+    const { level, baseStats, ivs, nature } = this.get();
+    this.set({
+      stats,
+      evs: calcEVs(level, stats, baseStats, ivs, nature),
     });
   }
 }
@@ -57,19 +57,25 @@ class LocalState extends RxState<{
 @Component({
   selector: 'app-stats',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
   providers: [LocalState],
   templateUrl: './stats.component.html',
   styleUrls: ['./stats.component.scss'],
+  imports: [CommonModule, ReactiveFormsModule, NatureSelectComponent],
 })
 export class StatsComponent implements OnInit, OnDestroy {
   private readonly state = inject(LocalState);
   private readonly fb = inject(FormBuilder).nonNullable;
   private readonly onDestroy$ = new Subject<void>();
-  readonly state$ = this.state.select();
+  readonly state$ = this.state.select().pipe(
+    map((state) => ({
+      ...state,
+      statsText: formatStats(state.pokemon, state.level, state.nature, state.stats, state.evs),
+    })),
+  );
 
   readonly form = this.fb.group({
     level: this.fb.control(0),
+    nature: this.fb.control<Nature>(naturesMap['まじめ']),
     ivs: this.fb.group({
       hp: this.fb.control(0),
       atk: this.fb.control(0),
@@ -94,12 +100,11 @@ export class StatsComponent implements OnInit, OnDestroy {
       spd: this.fb.control(0),
       spe: this.fb.control(0),
     }),
-    nature: this.fb.control<Nature | null>(null),
   });
 
   ngOnInit(): void {
     // Sync state to form
-    this.state.select().subscribe(({ level, baseStats, ivs, evs, nature, stats }) => {
+    this.state.select().subscribe(({ level, ivs, evs, nature, stats }) => {
       this.form.patchValue(
         {
           level,
@@ -111,21 +116,32 @@ export class StatsComponent implements OnInit, OnDestroy {
         { emitEvent: false },
       );
     });
-    // Sync form to state
-    this.form.valueChanges
-      .pipe(
-        takeUntil(this.onDestroy$),
-        skipWhile(() => !this.form.valid),
-      )
+    // Calculate stats from form
+    merge(
+      this.form.controls.level.valueChanges,
+      this.form.controls.nature.valueChanges,
+      this.form.controls.ivs.valueChanges,
+      this.form.controls.evs.valueChanges,
+    )
+      .pipe(takeUntil(this.onDestroy$))
       .subscribe(() => {
-        const { level, ivs, evs, stats, nature } = this.form.getRawValue();
+        this.form.updateValueAndValidity();
+        if (!this.form.valid) return;
+        const { level, ivs, evs, nature } = this.form.getRawValue();
         this.state.set({
           level,
+          nature,
           ivs: [ivs.hp, ivs.atk, ivs.def, ivs.spa, ivs.spd, ivs.spe] as StatValues<IV>, // todo: validation
           evs: [evs.hp, evs.atk, evs.def, evs.spa, evs.spd, evs.spe] as StatValues<EV>, // todo: validation
-          stats: [stats.hp, stats.atk, stats.def, stats.spa, stats.spd, stats.spe],
         });
       });
+    // Calculate EVs from stats
+    this.form.controls.stats.valueChanges.pipe(takeUntil(this.onDestroy$)).subscribe(() => {
+      this.form.updateValueAndValidity();
+      if (!this.form.valid) return;
+      const { stats } = this.form.getRawValue();
+      this.state.updateStats([stats.hp, stats.atk, stats.def, stats.spa, stats.spd, stats.spe]);
+    });
   }
 
   ngOnDestroy(): void {

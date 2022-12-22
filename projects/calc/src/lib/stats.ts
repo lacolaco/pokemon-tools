@@ -19,7 +19,7 @@ export function calcStats(
   base: StatValues<number>,
   individual: StatValues<IV>,
   effort: StatValues<EV>,
-  nature: Nature | null,
+  nature: Nature,
 ): StatValues<number> {
   // Stat = floor((floor((floor(EV/4) + D) × (Level/100)) + B) × Nature)
   // D = Base×2 + IV + A
@@ -63,7 +63,7 @@ export function calcEVs(
   stats: StatValues<number>,
   base: StatValues<number>,
   individual: StatValues<IV>,
-  nature: Nature | null,
+  nature: Nature,
 ): StatValues<EV> {
   // EV = ceil(ceil(Stat / Nature) - B) × (100/Level)) - D) * 4
   // D  = Base×2 + IV + A
@@ -76,7 +76,7 @@ export function calcEVs(
     .add(vector(individual))
     .add(A)
     .done();
-  const NV = nature === null ? [1, 1, 1, 1, 1, 1] : createNatureValues(nature);
+  const NV = createNatureValues(nature);
 
   const mat = math
     .chain(math.matrix(vector([0, 0, 0, 0, 0, 0])))
@@ -96,6 +96,10 @@ export function calcEVs(
 export function createNatureValues(nature: Nature): StatValues<number> {
   function getDiff(dir: 'up' | 'down') {
     const val = dir === 'up' ? 1.1 : 0.9;
+    if (nature.noop) {
+      return vector([0, 0, 0, 0, 0, 0]);
+    }
+
     switch (nature[dir]) {
       case 'A':
         return vector([0, val, 0, 0, 0, 0]);
