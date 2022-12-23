@@ -1,11 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { calcEVs, calcStats, compareStatValues, ev, EV, iv, IV, Nature, naturesMap, StatValues } from '@lib/calc';
+import { calcEVs, calcStats, compareStatValues, ev, EV, iv, IV, Nature, naturesMap, Stat, StatValues } from '@lib/calc';
 import { RxState } from '@rx-angular/state';
 import { combineLatest, distinctUntilChanged, map, merge, Subject, takeUntil } from 'rxjs';
+import { EVInputComponent } from './ev-input.component';
 import { formatStats } from './formatter';
-import { createEVControl, NatureSelectComponent } from './forms';
+import { createStatControlGroup, getStatParamsChanges, getStatValueChanges, getValidValues } from './forms';
+import { IVInputComponent } from './iv-input.component';
+import { LevelInputComponent } from './level-input.component';
+import { NatureSelectComponent } from './nature-select.component';
+import { StatInputComponent } from './stat-input.component';
 
 const distinctUntilChangedStatValues = distinctUntilChanged(compareStatValues);
 
@@ -14,10 +19,10 @@ class LocalState extends RxState<{
   pokemon: { name: string };
   baseStats: StatValues<number>;
   level: number;
+  nature: Nature;
   ivs: StatValues<IV>;
   evs: StatValues<EV>;
-  nature: Nature;
-  stats: StatValues<number>;
+  stats: StatValues<Stat>;
 }> {
   constructor() {
     super();
@@ -45,12 +50,10 @@ class LocalState extends RxState<{
     });
   }
 
-  updateStats(stats: StatValues<number>) {
+  updateStats(stats: StatValues<Stat>) {
     const { level, baseStats, ivs, nature } = this.get();
-    this.set({
-      stats,
-      evs: calcEVs(level, stats, baseStats, ivs, nature),
-    });
+    const evs = calcEVs(level, stats, baseStats, ivs, nature);
+    this.set({ evs });
   }
 }
 
@@ -60,7 +63,15 @@ class LocalState extends RxState<{
   providers: [LocalState],
   templateUrl: './stats.component.html',
   styleUrls: ['./stats.component.scss'],
-  imports: [CommonModule, ReactiveFormsModule, NatureSelectComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    LevelInputComponent,
+    NatureSelectComponent,
+    StatInputComponent,
+    IVInputComponent,
+    EVInputComponent,
+  ],
 })
 export class StatsComponent implements OnInit, OnDestroy {
   private readonly state = inject(LocalState);
@@ -76,30 +87,12 @@ export class StatsComponent implements OnInit, OnDestroy {
   readonly form = this.fb.group({
     level: this.fb.control(0),
     nature: this.fb.control<Nature>(naturesMap['まじめ']),
-    ivs: this.fb.group({
-      hp: this.fb.control(0),
-      atk: this.fb.control(0),
-      def: this.fb.control(0),
-      spa: this.fb.control(0),
-      spd: this.fb.control(0),
-      spe: this.fb.control(0),
-    }),
-    evs: this.fb.group({
-      hp: createEVControl(),
-      atk: createEVControl(),
-      def: createEVControl(),
-      spa: createEVControl(),
-      spd: createEVControl(),
-      spe: createEVControl(),
-    }),
-    stats: this.fb.group({
-      hp: this.fb.control(0),
-      atk: this.fb.control(0),
-      def: this.fb.control(0),
-      spa: this.fb.control(0),
-      spd: this.fb.control(0),
-      spe: this.fb.control(0),
-    }),
+    H: createStatControlGroup(),
+    A: createStatControlGroup(),
+    B: createStatControlGroup(),
+    C: createStatControlGroup(),
+    D: createStatControlGroup(),
+    S: createStatControlGroup(),
   });
 
   ngOnInit(): void {
@@ -109,39 +102,51 @@ export class StatsComponent implements OnInit, OnDestroy {
         {
           level,
           nature,
-          ivs: { hp: ivs[0], atk: ivs[1], def: ivs[2], spa: ivs[3], spd: ivs[4], spe: ivs[5] },
-          evs: { hp: evs[0], atk: evs[1], def: evs[2], spa: evs[3], spd: evs[4], spe: evs[5] },
-          stats: { hp: stats[0], atk: stats[1], def: stats[2], spa: stats[3], spd: stats[4], spe: stats[5] },
+          H: { iv: ivs[0], ev: evs[0], stat: stats[0] },
+          A: { iv: ivs[1], ev: evs[1], stat: stats[1] },
+          B: { iv: ivs[2], ev: evs[2], stat: stats[2] },
+          C: { iv: ivs[3], ev: evs[3], stat: stats[3] },
+          D: { iv: ivs[4], ev: evs[4], stat: stats[4] },
+          S: { iv: ivs[5], ev: evs[5], stat: stats[5] },
         },
         { emitEvent: false },
       );
     });
     // Calculate stats from form
     merge(
-      this.form.controls.level.valueChanges,
-      this.form.controls.nature.valueChanges,
-      this.form.controls.ivs.valueChanges,
-      this.form.controls.evs.valueChanges,
+      getValidValues(this.form.controls.level),
+      getValidValues(this.form.controls.nature),
+      getStatParamsChanges(this.form.controls.H),
+      getStatParamsChanges(this.form.controls.A),
+      getStatParamsChanges(this.form.controls.B),
+      getStatParamsChanges(this.form.controls.C),
+      getStatParamsChanges(this.form.controls.D),
+      getStatParamsChanges(this.form.controls.S),
     )
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(() => {
-        this.form.updateValueAndValidity();
-        if (!this.form.valid) return;
-        const { level, ivs, evs, nature } = this.form.getRawValue();
+        const { level, nature, H, A, B, C, D, S } = this.form.getRawValue();
         this.state.set({
           level,
           nature,
-          ivs: [ivs.hp, ivs.atk, ivs.def, ivs.spa, ivs.spd, ivs.spe] as StatValues<IV>, // todo: validation
-          evs: [evs.hp, evs.atk, evs.def, evs.spa, evs.spd, evs.spe] as StatValues<EV>, // todo: validation
+          ivs: [H.iv, A.iv, B.iv, C.iv, D.iv, S.iv] as StatValues<IV>, // todo: validation
+          evs: [H.ev, A.ev, B.ev, C.ev, D.ev, S.ev] as StatValues<EV>, // todo: validation
         });
       });
     // Calculate EVs from stats
-    this.form.controls.stats.valueChanges.pipe(takeUntil(this.onDestroy$)).subscribe(() => {
-      this.form.updateValueAndValidity();
-      if (!this.form.valid) return;
-      const { stats } = this.form.getRawValue();
-      this.state.updateStats([stats.hp, stats.atk, stats.def, stats.spa, stats.spd, stats.spe]);
-    });
+    merge(
+      getStatValueChanges(this.form.controls.H),
+      getStatValueChanges(this.form.controls.A),
+      getStatValueChanges(this.form.controls.B),
+      getStatValueChanges(this.form.controls.C),
+      getStatValueChanges(this.form.controls.D),
+      getStatValueChanges(this.form.controls.S),
+    )
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(() => {
+        const { H, A, B, C, D, S } = this.form.getRawValue();
+        this.state.updateStats([H.stat, A.stat, B.stat, C.stat, D.stat, S.stat] as StatValues<Stat>);
+      });
   }
 
   ngOnDestroy(): void {

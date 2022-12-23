@@ -2,6 +2,12 @@ import { z } from 'zod';
 
 export type StatValues<V> = [/* H */ V, /* A */ V, /* B */ V, /* C */ V, /* D */ V, /* S */ V];
 
+export const Stat = z.number().min(0).brand('Stat');
+export type Stat = z.infer<typeof Stat>;
+export function stat(value: number): Stat {
+  return Stat.parse(value);
+}
+
 export const IV = z.number().min(0).max(31).brand('IV');
 export type IV = z.infer<typeof IV>;
 export function iv(value: number): IV {

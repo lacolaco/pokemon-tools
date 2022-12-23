@@ -3,7 +3,7 @@
  */
 
 import { inverse, Matrix } from 'ml-matrix';
-import { StatValues, Nature, IV, EV } from './models';
+import { StatValues, Nature, IV, EV, Stat } from './models';
 
 /**
  * 種族値と個体値と努力値と性格から能力値を計算する
@@ -20,7 +20,7 @@ export function calcStats(
   individual: StatValues<IV>,
   effort: StatValues<EV>,
   nature: Nature,
-): StatValues<number> {
+): StatValues<Stat> {
   // Stat = floor((floor((floor(EV/4) + D) × (Level/100)) + B) × Nature)
   // D = Base×2 + IV + A
   // HP:    A = 100, B = 10
@@ -40,7 +40,7 @@ export function calcStats(
     .mmul(NV)
     .floor();
 
-  return mat.getRow(0) as StatValues<number>;
+  return mat.getRow(0) as StatValues<Stat>;
 }
 
 /**
@@ -54,7 +54,7 @@ export function calcStats(
  */
 export function calcEVs(
   level: number,
-  stats: StatValues<number>,
+  stats: StatValues<Stat>,
   base: StatValues<number>,
   individual: StatValues<IV>,
   nature: Nature,
@@ -78,7 +78,7 @@ export function calcEVs(
     .sub(D)
     .mul(4);
 
-  return mat.getRow(0).map((v) => Math.max(v, 0)) as StatValues<EV>;
+  return mat.getRow(0).map((v) => Math.min(Math.max(v, 0), 252)) as StatValues<EV>;
 }
 
 export function createNatureValues(nature: Nature): StatValues<number> {

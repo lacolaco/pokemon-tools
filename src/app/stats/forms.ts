@@ -1,7 +1,13 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { ControlValueAccessor, FormControl, FormsModule, NgControl, Validators } from '@angular/forms';
-import { ev, EV, Nature, natures } from '@lib/calc';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ev, EV, iv, IV, stat, Stat } from '@lib/calc';
+import { combineLatest, filter, map, merge, Observable } from 'rxjs';
+
+export function getValidValues<T>(control: AbstractControl<T>): Observable<T> {
+  return combineLatest([control.valueChanges, control.statusChanges]).pipe(
+    filter(([, status]) => status === 'VALID'),
+    map(([value]) => value),
+  );
+}
 
 export function createEVControl(defaultValue: EV = ev(0)): FormControl<EV> {
   return new FormControl<EV>(defaultValue, {
@@ -19,56 +25,56 @@ export function createEVControl(defaultValue: EV = ev(0)): FormControl<EV> {
   });
 }
 
-@Component({
-  selector: 'nature-select',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  template: `
-    <select [disabled]="disabled" (click)="onTouched()" [ngModel]="value" (ngModelChange)="onChange($event)">
-      <option *ngFor="let option of options" [ngValue]="option">
-        {{ option.name }}
-      </option>
-    </select>
-  `,
-  styles: [
-    `
-      :host {
-        display: block;
-      }
-    `,
-  ],
-})
-export class NatureSelectComponent implements ControlValueAccessor {
-  private readonly ngControl = inject(NgControl, { optional: true });
+export function createIVControl(defaultValue: IV = iv(0)): FormControl<IV> {
+  return new FormControl<IV>(defaultValue, {
+    validators: [
+      Validators.required,
+      (control: FormControl) => {
+        const value = IV.safeParse(control.value);
+        if (!value.success) {
+          return { invalid: true };
+        }
+        return null;
+      },
+    ],
+    nonNullable: true,
+  });
+}
 
-  protected readonly options = natures;
+export function createStatControl(defaultValue: Stat = stat(0)): FormControl<Stat> {
+  return new FormControl<Stat>(defaultValue, {
+    validators: [
+      Validators.required,
+      (control: FormControl) => {
+        const value = Stat.safeParse(control.value);
+        if (!value.success) {
+          return { invalid: true };
+        }
+        return null;
+      },
+    ],
+    nonNullable: true,
+  });
+}
 
-  disabled = false;
-  value: Nature | null = null;
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onChange = (_: Nature) => {};
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onTouched = () => {};
+type StatFormGroup = FormGroup<{
+  stat: FormControl<Stat>;
+  iv: FormControl<IV>;
+  ev: FormControl<EV>;
+}>;
 
-  constructor() {
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
-    }
-  }
+export function createStatControlGroup(): StatFormGroup {
+  return new FormGroup({
+    stat: createStatControl(),
+    iv: createIVControl(),
+    ev: createEVControl(),
+  });
+}
 
-  writeValue(value: Nature | null): void {
-    this.value = value;
-  }
+export function getStatParamsChanges(group: StatFormGroup): Observable<unknown> {
+  return merge(getValidValues(group.controls.ev), getValidValues(group.controls.iv));
+}
 
-  registerOnChange(fn: (_: Nature | null) => void): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-
-  setDisabledState?(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-  }
+export function getStatValueChanges(group: StatFormGroup): Observable<unknown> {
+  return merge(getValidValues(group.controls.stat));
 }

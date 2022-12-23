@@ -6,7 +6,7 @@ import { StatsComponent } from './stats/stats.component';
   selector: 'app-root',
   standalone: true,
   template: ` <app-stats></app-stats> `,
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
   imports: [RouterOutlet, StatsComponent],
 })
 export class AppComponent {

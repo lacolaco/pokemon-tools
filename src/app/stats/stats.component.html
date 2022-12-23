@@ -1,85 +1,88 @@
 <ng-container *ngIf="state$ | async as state">
-  <form [formGroup]="form" style="display: flex; flex-direction: column; row-gap: 8px">
-    <div class="calc-grid">
-      <div class="grid-row">
-        <div>レベル</div>
-        <div>
-          <input formControlName="level" type="number" min="1" max="100" required />
-        </div>
-      </div>
-      <div class="grid-row">
-        <div>性格</div>
-        <div class="grid-cell">
-          <nature-select formControlName="nature"></nature-select>
-        </div>
-      </div>
-      <div class="grid-row stat-name-row">
-        <div></div>
-        <div class="grid-cell stat-name">H</div>
-        <div
-          class="grid-cell stat-name"
+  <div>
+    <input [value]="state.pokemon.name" />
+  </div>
+
+  <form [formGroup]="form">
+    <table class="calc-table">
+      <tbody>
+        <tr></tr>
+        <tr>
+          <td>Lv</td>
+          <td colspan="3">
+            <level-input formControlName="level"></level-input>
+          </td>
+        </tr>
+        <tr>
+          <td>性格</td>
+          <td colspan="3">
+            <nature-select formControlName="nature"></nature-select>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>能力値</td>
+          <td>個体値</td>
+          <td>努力値</td>
+        </tr>
+        <tr formGroupName="H">
+          <td class="stat-name">H</td>
+          <td><stat-input formControlName="stat"></stat-input></td>
+          <td><iv-input formControlName="iv"></iv-input></td>
+          <td><ev-input formControlName="ev"></ev-input></td>
+        </tr>
+        <tr
+          formGroupName="A"
           [class.stat-nature-up]="state.nature.up === 'A'"
           [class.stat-nature-down]="state.nature.down === 'A'"
         >
-          A
-        </div>
-        <div
-          class="grid-cell stat-name"
+          <td class="stat-name">A</td>
+          <td><stat-input formControlName="stat"></stat-input></td>
+          <td><iv-input formControlName="iv"></iv-input></td>
+          <td><ev-input formControlName="ev"></ev-input></td>
+        </tr>
+        <tr
+          formGroupName="B"
           [class.stat-nature-up]="state.nature.up === 'B'"
           [class.stat-nature-down]="state.nature.down === 'B'"
         >
-          B
-        </div>
-        <div
-          class="grid-cell stat-name"
+          <td class="stat-name">B</td>
+          <td><stat-input formControlName="stat"></stat-input></td>
+          <td><iv-input formControlName="iv"></iv-input></td>
+          <td><ev-input formControlName="ev"></ev-input></td>
+        </tr>
+        <tr
+          formGroupName="C"
           [class.stat-nature-up]="state.nature.up === 'C'"
           [class.stat-nature-down]="state.nature.down === 'C'"
         >
-          C
-        </div>
-        <div
-          class="grid-cell stat-name"
+          <td class="stat-name">C</td>
+          <td><stat-input formControlName="stat"></stat-input></td>
+          <td><iv-input formControlName="iv"></iv-input></td>
+          <td><ev-input formControlName="ev"></ev-input></td>
+        </tr>
+        <tr
+          formGroupName="D"
           [class.stat-nature-up]="state.nature.up === 'D'"
           [class.stat-nature-down]="state.nature.down === 'D'"
         >
-          D
-        </div>
-        <div
-          class="grid-cell stat-name"
+          <td class="stat-name">D</td>
+          <td><stat-input formControlName="stat"></stat-input></td>
+          <td><iv-input formControlName="iv"></iv-input></td>
+          <td><ev-input formControlName="ev"></ev-input></td>
+        </tr>
+        <tr
+          formGroupName="S"
           [class.stat-nature-up]="state.nature.up === 'S'"
           [class.stat-nature-down]="state.nature.down === 'S'"
         >
-          S
-        </div>
-      </div>
-      <div class="grid-row" formGroupName="stats">
-        <div>能力値</div>
-        <div class="grid-cell"><input formControlName="hp" type="number" required /></div>
-        <div class="grid-cell"><input formControlName="atk" type="number" required /></div>
-        <div class="grid-cell"><input formControlName="def" type="number" required /></div>
-        <div class="grid-cell"><input formControlName="spa" type="number" required /></div>
-        <div class="grid-cell"><input formControlName="spd" type="number" required /></div>
-        <div class="grid-cell"><input formControlName="spe" type="number" required /></div>
-      </div>
-      <div class="grid-row" formGroupName="ivs">
-        <div>個体値</div>
-        <div class="grid-cell"><input formControlName="hp" type="number" min="0" max="31" required /></div>
-        <div class="grid-cell"><input formControlName="atk" type="number" min="0" max="31" required /></div>
-        <div class="grid-cell"><input formControlName="def" type="number" min="0" max="31" required /></div>
-        <div class="grid-cell"><input formControlName="spa" type="number" min="0" max="31" required /></div>
-        <div class="grid-cell"><input formControlName="spd" type="number" min="0" max="31" required /></div>
-        <div class="grid-cell"><input formControlName="spe" type="number" min="0" max="31" required /></div>
-      </div>
-      <div class="grid-row" formGroupName="evs">
-        <div>努力値</div>
-        <div class="grid-cell"><input formControlName="hp" type="number" min="0" max="252" step="4" required /></div>
-        <div class="grid-cell"><input formControlName="atk" type="number" min="0" max="252" step="4" required /></div>
-        <div class="grid-cell"><input formControlName="def" type="number" min="0" max="252" step="4" required /></div>
-        <div class="grid-cell"><input formControlName="spa" type="number" min="0" max="252" step="4" required /></div>
-        <div class="grid-cell"><input formControlName="spd" type="number" min="0" max="252" step="4" required /></div>
-        <div class="grid-cell"><input formControlName="spe" type="number" min="0" max="252" step="4" required /></div>
-      </div>
-    </div>
+          <td class="stat-name">S</td>
+          <td><stat-input formControlName="stat"></stat-input></td>
+          <td><iv-input formControlName="iv"></iv-input></td>
+          <td><ev-input formControlName="ev"></ev-input></td>
+        </tr>
+      </tbody>
+    </table>
   </form>
 
   <textarea class="stats-text" [value]="state.statsText" readonly></textarea>

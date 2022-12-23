@@ -10,5 +10,5 @@ export function formatStats(
   const formatEV = (ev: EV) => (ev === 0 ? '' : `(${ev})`);
   const statsString = stats.map((stat, i) => `${stat}${formatEV(evs[i])}`).join('-');
 
-  return `${pokemon.name} Lv${level} ${nature.name} ${statsString}`;
+  return `${pokemon.name} ${nature.name} ${statsString}`;
 }
