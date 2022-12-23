@@ -2,7 +2,7 @@
  * ポケモンの能力値を計算する関数群
  */
 
-import * as math from 'mathjs';
+import { inverse, Matrix } from 'ml-matrix';
 import { StatValues, Nature, IV, EV } from './models';
 
 /**
@@ -27,26 +27,20 @@ export function calcStats(
   // HP以外: A = 0,   B = 5
   const A = vector([100, 0, 0, 0, 0, 0]);
   const B = vector([10, 5, 5, 5, 5, 5]);
-  const D = math
-    .chain(math.matrix(math.multiply(vector(base), 2)))
-    .add(vector(individual))
-    .add(A)
-    .done();
-  const NV = nature === null ? [1, 1, 1, 1, 1, 1] : createNatureValues(nature);
+  const D = vector(base).mul(2).add(vector(individual)).add(A);
+  const NV = Matrix.diag(createNatureValues(nature));
 
-  const mat = math
-    .chain(math.matrix(vector([0, 0, 0, 0, 0, 0])))
-    .add(math.multiply(vector(effort), 1 / 4))
-    .map((v) => math.floor(v))
+  const mat = Matrix.zeros(1, 6)
+    .add(vector(effort).divide(4))
+    .floor()
     .add(D)
-    .multiply(level / 100)
-    .map((v) => math.floor(v))
+    .mul(level / 100)
+    .floor()
     .add(B)
-    .multiply(math.diag(NV))
-    .map((v) => math.floor(v))
-    .done();
+    .mmul(NV)
+    .floor();
 
-  return math.flatten(mat).toArray() as StatValues<number>;
+  return mat.getRow(0) as StatValues<number>;
 }
 
 /**
@@ -71,60 +65,34 @@ export function calcEVs(
   // HP以外: A = 0,   B = 5
   const A = vector([100, 0, 0, 0, 0, 0]);
   const B = vector([10, 5, 5, 5, 5, 5]);
-  const D = math
-    .chain(math.matrix(math.multiply(vector(base), 2)))
-    .add(vector(individual))
-    .add(A)
-    .done();
+  const D = vector(base).mul(2).add(vector(individual)).add(A);
   const NV = createNatureValues(nature);
 
-  const mat = math
-    .chain(math.matrix(vector([0, 0, 0, 0, 0, 0])))
+  const mat = Matrix.zeros(1, 6)
     .add(vector(stats))
-    .multiply(math.diag(NV.map((v) => math.inv(v))))
-    .map((v) => math.ceil(v))
-    .subtract(B)
-    .multiply(100 / level)
-    .map((v) => math.ceil(v))
-    .subtract(D)
-    .map((v) => math.max(v, 0))
-    .multiply(4)
-    .done();
-  return math.flatten(mat).toArray() as StatValues<EV>;
+    .mmul(inverse(Matrix.diag(NV)))
+    .ceil()
+    .sub(B)
+    .mul(100 / level)
+    .ceil()
+    .sub(D)
+    .mul(4);
+
+  return mat.getRow(0).map((v) => Math.max(v, 0)) as StatValues<EV>;
 }
 
 export function createNatureValues(nature: Nature): StatValues<number> {
-  function getDiff(dir: 'up' | 'down') {
-    const val = dir === 'up' ? 1.1 : 0.9;
-    if (nature.noop) {
-      return vector([0, 0, 0, 0, 0, 0]);
-    }
+  const vec = vector([1, 1, 1, 1, 1, 1]);
 
-    switch (nature[dir]) {
-      case 'A':
-        return vector([0, val, 0, 0, 0, 0]);
-      case 'B':
-        return vector([0, 0, val, 0, 0, 0]);
-      case 'C':
-        return vector([0, 0, 0, val, 0, 0]);
-      case 'D':
-        return vector([0, 0, 0, 0, val, 0]);
-      case 'S':
-        return vector([0, 0, 0, 0, 0, val]);
-    }
+  if (nature.noop) {
+    return vec.getRow(0) as StatValues<number>;
   }
-  return math
-    .flatten(
-      math
-        .chain(vector([0, 0, 0, 0, 0, 0]))
-        .add(getDiff('up'))
-        .add(getDiff('down'))
-        .map((v) => (v === 0 ? 1 : v))
-        .done(),
-    )
-    .toArray() as StatValues<number>;
+
+  const { up, down } = nature;
+  const statIndex = { A: 1, B: 2, C: 3, D: 4, S: 5 };
+  return vec.set(0, statIndex[up], 1.1).set(0, statIndex[down], 0.9).getRow(0) as StatValues<number>;
 }
 
 function vector(values: number[]) {
-  return math.matrix([values]);
+  return new Matrix([values]);
 }

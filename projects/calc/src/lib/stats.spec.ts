@@ -1,4 +1,4 @@
-import { naturesMap, natures } from './constants';
+import { naturesMap } from './constants';
 import { ev, iv } from './models';
 import { calcEVs, calcStats, createNatureValues } from './stats';
 
