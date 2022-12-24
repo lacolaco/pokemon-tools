@@ -1,0 +1,24 @@
+name: CI
+on: push
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: 'package.json'
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile
+      - run: yarn lint
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: 'package.json'
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile
+      - run: yarn test --no-watch
