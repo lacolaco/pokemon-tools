@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "pokemon-tools": {
+      "hosting": {
+        "app": [
+          "pokemon-tools-1e175"
+        ]
+      }
+    }
+  }
+}
