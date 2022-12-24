@@ -18,5 +18,10 @@ jobs:
           workload_identity_provider: 'projects/39289752392/locations/global/workloadIdentityPools/github-actions-deploy/providers/github-actions-deploy'
           service_account: 'github-actions-deploy@pokemon-tools-1e175.iam.gserviceaccount.com'
           create_credentials_file: true
+      - uses: actions/setup-node@v2
+        with:
+          node-version-file: 'package.json'
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile
       - run: yarn build
       - run: npx firebase-tools deploy
