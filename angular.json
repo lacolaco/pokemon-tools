@@ -17,20 +17,20 @@
           "standalone": true
         }
       },
-      "root": "",
-      "sourceRoot": "src",
+      "root": "projects/app",
+      "sourceRoot": "projects/app/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/app",
-            "index": "src/index.html",
-            "main": "src/main.ts",
+            "index": "projects/app/src/index.html",
+            "main": "projects/app/src/main.ts",
             "polyfills": ["zone.js"],
-            "tsConfig": "tsconfig.app.json",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "tsConfig": "projects/app/tsconfig.app.json",
+            "assets": ["projects/app/src/favicon.ico", "projects/app/src/assets"],
+            "styles": ["projects/app/src/styles.scss"],
             "inlineStyleLanguage": "scss",
             "scripts": []
           },
@@ -83,9 +83,9 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "polyfills": ["zone.js", "zone.js/testing"],
-            "tsConfig": "tsconfig.spec.json",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "tsConfig": "projects/app/tsconfig.spec.json",
+            "assets": ["projects/app/src/favicon.ico", "projects/app/src/assets"],
+            "styles": ["projects/app/src/styles.scss"],
             "scripts": [],
             "browsers": "ChromeHeadless"
           }
