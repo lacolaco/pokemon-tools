@@ -21,15 +21,19 @@
         </tr>
         <tr>
           <td></td>
-          <td>能力値</td>
-          <td>個体値</td>
-          <td>努力値</td>
+          <td class="value-label">種族値</td>
+          <td class="value-label">能力値</td>
+          <td class="value-label">努力値</td>
+          <td class="value-label">個体値</td>
         </tr>
         <tr formGroupName="H">
           <td class="stat-name">H</td>
-          <td><stat-input formControlName="stat"></stat-input></td>
-          <td><iv-input formControlName="iv"></iv-input></td>
+          <td class="base-stat">{{ state.baseStats[0] }}</td>
+          <td>
+            <stat-input formControlName="stat" [isMin]="state.evs[0] === 0" [isMax]="state.evs[0] === 252"></stat-input>
+          </td>
           <td><ev-input formControlName="ev"></ev-input></td>
+          <td><iv-input formControlName="iv"></iv-input></td>
         </tr>
         <tr
           formGroupName="A"
@@ -37,9 +41,12 @@
           [class.stat-nature-down]="state.nature.down === 'A'"
         >
           <td class="stat-name">A</td>
-          <td><stat-input formControlName="stat"></stat-input></td>
-          <td><iv-input formControlName="iv"></iv-input></td>
+          <td class="base-stat">{{ state.baseStats[1] }}</td>
+          <td>
+            <stat-input formControlName="stat" [isMin]="state.evs[1] === 0" [isMax]="state.evs[1] === 252"></stat-input>
+          </td>
           <td><ev-input formControlName="ev"></ev-input></td>
+          <td><iv-input formControlName="iv"></iv-input></td>
         </tr>
         <tr
           formGroupName="B"
@@ -47,9 +54,12 @@
           [class.stat-nature-down]="state.nature.down === 'B'"
         >
           <td class="stat-name">B</td>
-          <td><stat-input formControlName="stat"></stat-input></td>
-          <td><iv-input formControlName="iv"></iv-input></td>
+          <td class="base-stat">{{ state.baseStats[2] }}</td>
+          <td>
+            <stat-input formControlName="stat" [isMin]="state.evs[2] === 0" [isMax]="state.evs[2] === 252"></stat-input>
+          </td>
           <td><ev-input formControlName="ev"></ev-input></td>
+          <td><iv-input formControlName="iv"></iv-input></td>
         </tr>
         <tr
           formGroupName="C"
@@ -57,9 +67,12 @@
           [class.stat-nature-down]="state.nature.down === 'C'"
         >
           <td class="stat-name">C</td>
-          <td><stat-input formControlName="stat"></stat-input></td>
-          <td><iv-input formControlName="iv"></iv-input></td>
+          <td class="base-stat">{{ state.baseStats[3] }}</td>
+          <td>
+            <stat-input formControlName="stat" [isMin]="state.evs[3] === 0" [isMax]="state.evs[3] === 252"></stat-input>
+          </td>
           <td><ev-input formControlName="ev"></ev-input></td>
+          <td><iv-input formControlName="iv"></iv-input></td>
         </tr>
         <tr
           formGroupName="D"
@@ -67,9 +80,12 @@
           [class.stat-nature-down]="state.nature.down === 'D'"
         >
           <td class="stat-name">D</td>
-          <td><stat-input formControlName="stat"></stat-input></td>
-          <td><iv-input formControlName="iv"></iv-input></td>
+          <td class="base-stat">{{ state.baseStats[4] }}</td>
+          <td>
+            <stat-input formControlName="stat" [isMin]="state.evs[4] === 0" [isMax]="state.evs[4] === 252"></stat-input>
+          </td>
           <td><ev-input formControlName="ev"></ev-input></td>
+          <td><iv-input formControlName="iv"></iv-input></td>
         </tr>
         <tr
           formGroupName="S"
@@ -77,9 +93,12 @@
           [class.stat-nature-down]="state.nature.down === 'S'"
         >
           <td class="stat-name">S</td>
-          <td><stat-input formControlName="stat"></stat-input></td>
-          <td><iv-input formControlName="iv"></iv-input></td>
+          <td class="base-stat">{{ state.baseStats[5] }}</td>
+          <td>
+            <stat-input formControlName="stat" [isMin]="state.evs[5] === 0" [isMax]="state.evs[5] === 252"></stat-input>
+          </td>
           <td><ev-input formControlName="ev"></ev-input></td>
+          <td><iv-input formControlName="iv"></iv-input></td>
         </tr>
       </tbody>
     </table>

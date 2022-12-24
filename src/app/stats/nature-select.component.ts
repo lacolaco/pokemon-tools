@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { FormsModule, ControlValueAccessor, NgControl } from '@angular/forms';
-import { natures, Nature } from '@lib/calc';
+import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Nature, natures } from '@lib/calc';
+import { SimpleControlValueAccessor } from '../utitilites/forms';
 
 @Component({
   selector: 'nature-select',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   template: `
-    <select [disabled]="disabled" (click)="onTouched()" [ngModel]="value" (ngModelChange)="onChange($event)">
+    <select [formControl]="formControl" (click)="onTouched()">
       <option *ngFor="let option of options" [ngValue]="option">
         {{ option.name }}
       </option>
@@ -22,37 +23,22 @@ import { natures, Nature } from '@lib/calc';
     `,
   ],
 })
-export class NatureSelectComponent implements ControlValueAccessor {
-  private readonly ngControl = inject(NgControl, { optional: true });
-
-  protected readonly options = natures;
-
-  disabled = false;
-  value: Nature | null = null;
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onChange = (_: Nature) => {};
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onTouched = () => {};
+export class NatureSelectComponent extends SimpleControlValueAccessor<Nature> {
+  readonly options = natures;
+  readonly formControl = new FormControl(natures[0], { nonNullable: true });
 
   constructor() {
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
-    }
+    super();
+    this.formControl.valueChanges.pipe(this.takeUntilDestroyed()).subscribe((value) => {
+      this.onChange(value);
+    });
   }
 
-  writeValue(value: Nature | null): void {
-    this.value = value;
+  override writeValue(value: Nature): void {
+    this.formControl.setValue(value, { emitEvent: false });
   }
 
-  registerOnChange(fn: (_: Nature | null) => void): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-
-  setDisabledState?(isDisabled: boolean): void {
-    this.disabled = isDisabled;
+  override setDisabledState(isDisabled: boolean): void {
+    isDisabled ? this.formControl.disable() : this.formControl.enable();
   }
 }

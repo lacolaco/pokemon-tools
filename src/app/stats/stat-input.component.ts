@@ -1,24 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NgControl } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { stat, Stat } from '@lib/calc';
+import { SimpleControlValueAccessor } from '../utitilites/forms';
 
 @Component({
   selector: 'stat-input',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   template: `
-    <input
-      type="number"
-      min="1"
-      required
-      [ngModel]="value"
-      (ngModelChange)="setValue($event)"
-      (click)="onTouched()"
-      [disabled]="disabled"
-    />
+    <input type="number" min="1" required [formControl]="formControl" (click)="onTouched()" />
     <div class="buttons">
-      <button (click)="onTouched(); setValue(value + 1)" [disabled]="disabled">▲</button>
-      <button (click)="onTouched(); setValue(value - 1)" [disabled]="disabled || value <= 0">▼</button>
+      <button (click)="onTouched(); setValue(formControl.value + 1)" [disabled]="formControl.disabled || isMax">
+        ▲
+      </button>
+      <button (click)="onTouched(); setValue(formControl.value - 1)" [disabled]="formControl.disabled || isMin">
+        ▼
+      </button>
     </div>
   `,
   styles: [
@@ -43,39 +41,28 @@ import { ControlValueAccessor, FormsModule, NgControl } from '@angular/forms';
     `,
   ],
 })
-export class StatInputComponent implements ControlValueAccessor {
-  private readonly ngControl = inject(NgControl, { optional: true });
+export class StatInputComponent extends SimpleControlValueAccessor<Stat> {
+  readonly formControl = new FormControl(stat(1), { nonNullable: true });
 
-  disabled = false;
-  value = 0;
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onChange = (_: number) => {};
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onTouched = () => {};
+  @Input() isMin = false;
+  @Input() isMax = false;
 
   constructor() {
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
-    }
+    super();
+    this.formControl.valueChanges.pipe(this.takeUntilDestroyed()).subscribe((value) => {
+      this.onChange(value);
+    });
+  }
+
+  override writeValue(value: Stat): void {
+    this.formControl.setValue(value, { emitEvent: false });
+  }
+
+  override setDisabledState(isDisabled: boolean): void {
+    isDisabled ? this.formControl.disable() : this.formControl.enable();
   }
 
   setValue(value: number): void {
-    this.value = value;
-    this.onChange(value);
-  }
-
-  writeValue(value: number): void {
-    this.value = value;
-  }
-  registerOnChange(fn: (_: number) => void): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-
-  setDisabledState?(isDisabled: boolean): void {
-    this.disabled = isDisabled;
+    this.formControl.setValue(stat(value));
   }
 }

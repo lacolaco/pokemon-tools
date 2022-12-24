@@ -1,5 +1,5 @@
 import { naturesMap } from './constants';
-import { ev, iv, stat, Stat, StatValues } from './models';
+import { ev, iv, stat } from './models';
 import { calcEVs, calcStats, createNatureValues } from './stats';
 
 it('ガブリアス Lv50 6V 無補正 無振り', () => {

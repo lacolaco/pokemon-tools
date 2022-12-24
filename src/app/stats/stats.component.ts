@@ -1,12 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { calcEVs, calcStats, compareStatValues, ev, EV, iv, IV, Nature, naturesMap, Stat, StatValues } from '@lib/calc';
+import {
+  calcEVs,
+  calcStats,
+  compareStatValues,
+  equalsStatValues,
+  ev,
+  EV,
+  iv,
+  IV,
+  Nature,
+  naturesMap,
+  Stat,
+  StatValues,
+} from '@lib/calc';
 import { RxState } from '@rx-angular/state';
 import { combineLatest, distinctUntilChanged, map, merge, Subject, takeUntil } from 'rxjs';
+import { getValidValueChanges } from '../utitilites/forms';
 import { EVInputComponent } from './ev-input.component';
 import { formatStats } from './formatter';
-import { createStatControlGroup, getStatParamsChanges, getStatValueChanges, getValidValues } from './forms';
+import { createStatControlGroup, getStatParamsChanges, getStatValueChanges } from './forms';
 import { IVInputComponent } from './iv-input.component';
 import { LevelInputComponent } from './level-input.component';
 import { NatureSelectComponent } from './nature-select.component';
@@ -35,9 +49,12 @@ class LocalState extends RxState<{
       this.select('evs').pipe(distinctUntilChangedStatValues),
     ]).subscribe(() => {
       const { level, baseStats, ivs, evs, nature } = this.get();
-      this.set({
-        stats: calcStats(level, baseStats, ivs, evs, nature),
-      });
+      const stats = calcStats(level, baseStats, ivs, evs, nature);
+      if (!this.get().stats || !equalsStatValues(stats, this.get().stats)) {
+        this.set({
+          stats: calcStats(level, baseStats, ivs, evs, nature),
+        });
+      }
     });
 
     this.set({
@@ -53,7 +70,9 @@ class LocalState extends RxState<{
   updateStats(stats: StatValues<Stat>) {
     const { level, baseStats, ivs, nature } = this.get();
     const evs = calcEVs(level, stats, baseStats, ivs, nature);
-    this.set({ evs });
+    if (!this.get().evs || !equalsStatValues(evs, this.get().evs)) {
+      this.set({ evs });
+    }
   }
 }
 
@@ -85,7 +104,7 @@ export class StatsComponent implements OnInit, OnDestroy {
   );
 
   readonly form = this.fb.group({
-    level: this.fb.control(0),
+    level: this.fb.control(1),
     nature: this.fb.control<Nature>(naturesMap['まじめ']),
     H: createStatControlGroup(),
     A: createStatControlGroup(),
@@ -114,8 +133,8 @@ export class StatsComponent implements OnInit, OnDestroy {
     });
     // Calculate stats from form
     merge(
-      getValidValues(this.form.controls.level),
-      getValidValues(this.form.controls.nature),
+      getValidValueChanges(this.form.controls.level),
+      getValidValueChanges(this.form.controls.nature),
       getStatParamsChanges(this.form.controls.H),
       getStatParamsChanges(this.form.controls.A),
       getStatParamsChanges(this.form.controls.B),

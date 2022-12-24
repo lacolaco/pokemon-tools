@@ -1,59 +1,23 @@
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ev, EV, iv, IV, stat, Stat } from '@lib/calc';
-import { combineLatest, filter, map, merge, Observable } from 'rxjs';
+import { merge, Observable } from 'rxjs';
+import { createZodTypeControl, getValidValueChanges } from '../utitilites/forms';
 
-export function getValidValues<T>(control: AbstractControl<T>): Observable<T> {
-  return combineLatest([control.valueChanges, control.statusChanges]).pipe(
-    filter(([, status]) => status === 'VALID'),
-    map(([value]) => value),
-  );
-}
-
-export function createEVControl(defaultValue: EV = ev(0)): FormControl<EV> {
-  return new FormControl<EV>(defaultValue, {
-    validators: [
-      Validators.required,
-      (control: FormControl) => {
-        const value = EV.safeParse(control.value);
-        if (!value.success) {
-          return { invalid: true };
-        }
-        return null;
-      },
-    ],
-    nonNullable: true,
+export function createEVControl(): FormControl<EV> {
+  return createZodTypeControl(EV, ev(0), {
+    validators: [Validators.required],
   });
 }
 
-export function createIVControl(defaultValue: IV = iv(0)): FormControl<IV> {
-  return new FormControl<IV>(defaultValue, {
-    validators: [
-      Validators.required,
-      (control: FormControl) => {
-        const value = IV.safeParse(control.value);
-        if (!value.success) {
-          return { invalid: true };
-        }
-        return null;
-      },
-    ],
-    nonNullable: true,
+export function createIVControl(): FormControl<IV> {
+  return createZodTypeControl(IV, iv(0), {
+    validators: [Validators.required],
   });
 }
 
-export function createStatControl(defaultValue: Stat = stat(0)): FormControl<Stat> {
-  return new FormControl<Stat>(defaultValue, {
-    validators: [
-      Validators.required,
-      (control: FormControl) => {
-        const value = Stat.safeParse(control.value);
-        if (!value.success) {
-          return { invalid: true };
-        }
-        return null;
-      },
-    ],
-    nonNullable: true,
+export function createStatControl(): FormControl<Stat> {
+  return createZodTypeControl(Stat, stat(0), {
+    validators: [Validators.required],
   });
 }
 
@@ -72,9 +36,9 @@ export function createStatControlGroup(): StatFormGroup {
 }
 
 export function getStatParamsChanges(group: StatFormGroup): Observable<unknown> {
-  return merge(getValidValues(group.controls.ev), getValidValues(group.controls.iv));
+  return merge(getValidValueChanges(group.controls.ev), getValidValueChanges(group.controls.iv));
 }
 
 export function getStatValueChanges(group: StatFormGroup): Observable<unknown> {
-  return merge(getValidValues(group.controls.stat));
+  return merge(getValidValueChanges(group.controls.stat));
 }

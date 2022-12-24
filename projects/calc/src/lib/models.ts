@@ -2,6 +2,15 @@ import { z } from 'zod';
 
 export type StatValues<V> = [/* H */ V, /* A */ V, /* B */ V, /* C */ V, /* D */ V, /* S */ V];
 
+export function equalsStatValues<V>(a: StatValues<V>, b: StatValues<V>): boolean {
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== b[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
 export const Stat = z.number().min(0).brand('Stat');
 export type Stat = z.infer<typeof Stat>;
 export function stat(value: number): Stat {
