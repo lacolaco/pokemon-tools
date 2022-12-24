@@ -1,0 +1,22 @@
+name: deploy to firebase hosting
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v2
+      - uses: google-github-actions/auth@v0.4.3
+        with:
+          access_token_scopes: 'email, openid, https://www.googleapis.com/auth/cloud-platform, https://www.googleapis.com/auth/firebase'
+          workload_identity_provider: 'projects/39289752392/locations/global/workloadIdentityPools/github-actions-deploy/providers/github-actions-deploy'
+          service_account: 'github-actions-deploy@pokemon-tools-1e175.iam.gserviceaccount.com'
+          create_credentials_file: true
+      - run: yarn build
+      - run: npx firebase-tools deploy

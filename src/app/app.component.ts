@@ -9,6 +9,4 @@ import { StatsComponent } from './stats/stats.component';
   styleUrls: ['./app.component.scss'],
   imports: [RouterOutlet, StatsComponent],
 })
-export class AppComponent {
-  title = 'pokemon-tool';
-}
+export class AppComponent {}
