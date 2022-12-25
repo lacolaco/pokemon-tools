@@ -30,7 +30,6 @@
             "polyfills": ["zone.js"],
             "tsConfig": "projects/app/tsconfig.app.json",
             "assets": [
-              "projects/app/src/favicon.ico",
               "projects/app/src/assets",
               {
                 "glob": "**/*",
@@ -92,7 +91,7 @@
           "options": {
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/app/tsconfig.spec.json",
-            "assets": ["projects/app/src/favicon.ico", "projects/app/src/assets"],
+            "assets": ["projects/app/src/assets"],
             "styles": ["projects/app/src/styles.scss"],
             "scripts": [],
             "browsers": "ChromeHeadless"
