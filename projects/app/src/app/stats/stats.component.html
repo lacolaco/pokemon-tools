@@ -3,12 +3,11 @@
     <table class="calc-table">
       <tbody>
         <tr>
-          <td><img [src]="state.pokemon.icon" /></td>
           <td colspan="3">
             <div class="pokemon-base-info">
               <pokemon-select formControlName="pokemon"></pokemon-select>
               <a [href]="state.pokemon.url" target="_blank" title="ポケモン徹底攻略を開く" class="info-link">
-                <mat-icon fontIcon="info" inline></mat-icon>
+                <img src="assets/images/yakkun-32x32.png" width="16px" height="16px" />
               </a>
             </div>
           </td>
@@ -110,5 +109,5 @@
     </table>
   </form>
 
-  <textarea class="stats-text" [value]="state.statsText" readonly></textarea>
+  <textarea class="stats-text" [value]="state.statsText" (click)="copyText()" readonly></textarea>
 </ng-container>

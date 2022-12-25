@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { Clipboard, ClipboardModule } from '@angular/cdk/clipboard';
 import { calcEVs, calcStats } from '@lib/calc';
 import { ev, EV, iv, IV, Nature, equalsStatValues, Stat, StatValues } from '@lib/model';
 import { PokemonData, pokemons, pokemonsMap, naturesMap } from '@lib/data';
@@ -87,6 +89,8 @@ class LocalState extends RxState<{
     CommonModule,
     ReactiveFormsModule,
     MatIconModule,
+    MatSnackBarModule,
+    ClipboardModule,
     PokemonSelectComponent,
     LevelInputComponent,
     NatureSelectComponent,
@@ -98,6 +102,9 @@ class LocalState extends RxState<{
 export class StatsComponent implements OnInit, OnDestroy {
   private readonly state = inject(LocalState);
   private readonly fb = inject(FormBuilder).nonNullable;
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly clipboard = inject(Clipboard);
+
   private readonly onDestroy$ = new Subject<void>();
   readonly state$ = this.state.select().pipe(
     map((state) => ({
@@ -178,5 +185,13 @@ export class StatsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.onDestroy$.next();
     this.onDestroy$.complete();
+  }
+
+  copyText() {
+    const state = this.state.get();
+    const text = formatStats(state.pokemon, state.level, state.nature, state.stats, state.evs);
+    if (this.clipboard.copy(text)) {
+      this.snackBar.open('コピーしました', '閉じる', { duration: 3000 });
+    }
   }
 }

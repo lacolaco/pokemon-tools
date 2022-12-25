@@ -25,7 +25,7 @@ import { SimpleControlValueAccessor } from '../utitilites/forms';
   ],
 })
 export class NatureSelectComponent extends SimpleControlValueAccessor<Nature> {
-  readonly options = natures;
+  readonly options = [...natures].sort((a, b) => a.name.localeCompare(b.name));
   readonly formControl = new FormControl(natures[0], { nonNullable: true });
 
   constructor() {
