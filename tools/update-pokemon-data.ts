@@ -15,7 +15,7 @@ async function fetchAllPokemons(): Promise<PokemonData[]> {
 }
 
 async function queryPokemons(browser: Browser): Promise<PokemonData[]> {
-  const baseUrl = new URL('https://yakkun.com/sv/zukan/search/?search=1&paldea=0&mega=2&sort=21');
+  const baseUrl = new URL('https://yakkun.com/sv/zukan/search/?search=1&mega=2&sort=21');
   const page = await createPage(browser);
   await page.goto(baseUrl.toString(), { waitUntil: 'domcontentloaded' });
 

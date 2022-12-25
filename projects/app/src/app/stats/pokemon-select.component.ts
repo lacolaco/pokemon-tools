@@ -22,7 +22,7 @@ import { kataToHira } from '../utitilites/strings';
   styles: [
     `
       :host {
-        display: block;
+        display: inline-block;
       }
     `,
   ],

@@ -1,5 +1,8 @@
 :host {
-  display: block;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  row-gap: 16px;
 
-  padding: 32px;
+  height: 100vh;
+  padding: 16px 32px;
 }

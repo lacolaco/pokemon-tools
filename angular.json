@@ -29,7 +29,15 @@
             "main": "projects/app/src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "projects/app/tsconfig.app.json",
-            "assets": ["projects/app/src/favicon.ico", "projects/app/src/assets"],
+            "assets": [
+              "projects/app/src/favicon.ico",
+              "projects/app/src/assets",
+              {
+                "glob": "**/*",
+                "input": "projects/data/src/images",
+                "output": "assets/images"
+              }
+            ],
             "styles": ["projects/app/src/styles.scss"],
             "inlineStyleLanguage": "scss",
             "scripts": []

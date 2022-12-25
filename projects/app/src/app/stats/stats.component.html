@@ -1,20 +1,27 @@
 <ng-container *ngIf="state$ | async as state">
   <form [formGroup]="form">
-    <div>
-      <pokemon-select formControlName="pokemon"></pokemon-select>
-    </div>
     <table class="calc-table">
       <tbody>
-        <tr></tr>
+        <tr>
+          <td><img [src]="state.pokemon.icon" /></td>
+          <td colspan="3">
+            <div class="pokemon-base-info">
+              <pokemon-select formControlName="pokemon"></pokemon-select>
+              <a [href]="state.pokemon.url" target="_blank" title="ポケモン徹底攻略を開く" class="info-link">
+                <mat-icon fontIcon="info" inline></mat-icon>
+              </a>
+            </div>
+          </td>
+        </tr>
         <tr>
           <td>Lv</td>
-          <td colspan="3">
+          <td colspan="2">
             <level-input formControlName="level"></level-input>
           </td>
         </tr>
         <tr>
           <td>性格</td>
-          <td colspan="3">
+          <td colspan="2">
             <nature-select formControlName="nature"></nature-select>
           </td>
         </tr>

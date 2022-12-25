@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { calcEVs, calcStats } from '@lib/calc';
 import { ev, EV, iv, IV, Nature, equalsStatValues, Stat, StatValues } from '@lib/model';
 import { PokemonData, pokemons, pokemonsMap, naturesMap } from '@lib/data';
@@ -85,6 +86,7 @@ class LocalState extends RxState<{
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    MatIconModule,
     PokemonSelectComponent,
     LevelInputComponent,
     NatureSelectComponent,

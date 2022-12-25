@@ -11,28 +11,41 @@
 
 .calc-table {
   border-spacing: 8px 4px;
+}
 
+.stat-name {
+  background-color: #fefefe;
+  font-weight: bold;
+  text-align: center;
+  padding: 4px 12px;
+}
+
+.value-label {
+  text-align: left;
+  word-break: keep-all;
+}
+
+.stat-nature-up {
   .stat-name {
-    background-color: #fefefe;
-    font-weight: bold;
-    text-align: center;
-    padding: 4px 12px;
+    background-color: #ffc7c7;
   }
+}
 
-  .value-label {
-    text-align: left;
+.stat-nature-down {
+  .stat-name {
+    background-color: #c7d7ff;
   }
+}
 
-  .stat-nature-up {
-    .stat-name {
-      background-color: #ffc7c7;
-    }
-  }
+.pokemon-base-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 4px;
 
-  .stat-nature-down {
-    .stat-name {
-      background-color: #c7d7ff;
-    }
+  .info-link {
+    color: #666;
+    font-size: 1.25em;
   }
 }
 

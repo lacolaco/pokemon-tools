@@ -50,3 +50,7 @@ body {
   margin: 0;
   font-family: 'M PLUS Rounded 1c', sans-serif;
 }
+
+a {
+  color: mat.get-color-from-palette($app-primary, 500);
+}
