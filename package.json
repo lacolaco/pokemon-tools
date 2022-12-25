@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "update-pokemon-data": "tsx tools/update-pokemon-data.ts"
   },
   "private": true,
   "dependencies": {
@@ -44,6 +45,8 @@
     "karma-jasmine-html-reporter": "~2.0.0",
     "ng-packagr": "^15.0.0",
     "prettier": "^2.8.1",
+    "puppeteer": "^19.4.1",
+    "tsx": "^3.12.1",
     "typescript": "~4.8.2"
   },
   "engines": {

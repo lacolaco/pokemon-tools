@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { stat, Stat } from '@lib/calc';
+import { stat, Stat } from '@lib/model';
 import { SimpleControlValueAccessor } from '../utitilites/forms';
 
 @Component({

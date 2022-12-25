@@ -1,7 +1,15 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ev, EV, iv, IV, stat, Stat } from '@lib/calc';
+import { ev, EV, iv, IV, stat, Stat } from '@lib/model';
+import { PokemonData } from '@lib/data';
 import { merge, Observable } from 'rxjs';
 import { createZodTypeControl, getValidValueChanges } from '../utitilites/forms';
+
+export function createPokemonControl(defaultValue: PokemonData): FormControl<PokemonData> {
+  return new FormControl(defaultValue, {
+    validators: [Validators.required],
+    nonNullable: true,
+  });
+}
 
 export function createEVControl(): FormControl<EV> {
   return createZodTypeControl(EV, ev(0), {

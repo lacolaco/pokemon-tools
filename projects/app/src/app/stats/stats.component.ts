@@ -1,37 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import {
-  calcEVs,
-  calcStats,
-  compareStatValues,
-  equalsStatValues,
-  ev,
-  EV,
-  iv,
-  IV,
-  Nature,
-  naturesMap,
-  Stat,
-  StatValues,
-} from '@lib/calc';
+import { calcEVs, calcStats } from '@lib/calc';
+import { ev, EV, iv, IV, Nature, equalsStatValues, Stat, StatValues } from '@lib/model';
+import { PokemonData, pokemons, pokemonsMap, naturesMap } from '@lib/data';
 import { RxState } from '@rx-angular/state';
 import { combineLatest, distinctUntilChanged, map, merge, Subject, takeUntil } from 'rxjs';
 import { getValidValueChanges } from '../utitilites/forms';
 import { EVInputComponent } from './ev-input.component';
 import { formatStats } from './formatter';
-import { createStatControlGroup, getStatParamsChanges, getStatValueChanges } from './forms';
+import { createPokemonControl, createStatControlGroup, getStatParamsChanges, getStatValueChanges } from './forms';
 import { IVInputComponent } from './iv-input.component';
 import { LevelInputComponent } from './level-input.component';
 import { NatureSelectComponent } from './nature-select.component';
+import { PokemonSelectComponent } from './pokemon-select.component';
 import { StatInputComponent } from './stat-input.component';
 
-const distinctUntilChangedStatValues = distinctUntilChanged(compareStatValues);
+const distinctUntilChangedStatValues = distinctUntilChanged(equalsStatValues);
 
 @Injectable()
 class LocalState extends RxState<{
-  pokemon: { name: string };
-  baseStats: StatValues<number>;
+  pokemon: PokemonData;
   level: number;
   nature: Nature;
   ivs: StatValues<IV>;
@@ -42,13 +31,19 @@ class LocalState extends RxState<{
     super();
     // Calculate stats
     combineLatest([
+      this.select('pokemon'),
       this.select('level'),
       this.select('nature'),
-      this.select('baseStats').pipe(distinctUntilChangedStatValues),
       this.select('ivs').pipe(distinctUntilChangedStatValues),
       this.select('evs').pipe(distinctUntilChangedStatValues),
     ]).subscribe(() => {
-      const { level, baseStats, ivs, evs, nature } = this.get();
+      const {
+        pokemon: { baseStats },
+        level,
+        ivs,
+        evs,
+        nature,
+      } = this.get();
       const stats = calcStats(level, baseStats, ivs, evs, nature);
       if (!this.get().stats || !equalsStatValues(stats, this.get().stats)) {
         this.set({
@@ -56,10 +51,10 @@ class LocalState extends RxState<{
         });
       }
     });
+    const pokemon = pokemonsMap['ガブリアス'];
 
     this.set({
-      pokemon: { name: 'マリルリ' },
-      baseStats: [100, 50, 80, 60, 80, 50],
+      pokemon,
       level: 50,
       ivs: [iv(31), iv(31), iv(31), iv(31), iv(31), iv(31)],
       evs: [ev(0), ev(0), ev(0), ev(0), ev(0), ev(0)],
@@ -68,7 +63,12 @@ class LocalState extends RxState<{
   }
 
   updateStats(stats: StatValues<Stat>) {
-    const { level, baseStats, ivs, nature } = this.get();
+    const {
+      level,
+      pokemon: { baseStats },
+      ivs,
+      nature,
+    } = this.get();
     const evs = calcEVs(level, stats, baseStats, ivs, nature);
     if (!this.get().evs || !equalsStatValues(evs, this.get().evs)) {
       this.set({ evs });
@@ -85,6 +85,7 @@ class LocalState extends RxState<{
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    PokemonSelectComponent,
     LevelInputComponent,
     NatureSelectComponent,
     StatInputComponent,
@@ -104,6 +105,7 @@ export class StatsComponent implements OnInit, OnDestroy {
   );
 
   readonly form = this.fb.group({
+    pokemon: createPokemonControl(pokemons[0]),
     level: this.fb.control(1),
     nature: this.fb.control<Nature>(naturesMap['まじめ']),
     H: createStatControlGroup(),
@@ -116,9 +118,10 @@ export class StatsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // Sync state to form
-    this.state.select().subscribe(({ level, ivs, evs, nature, stats }) => {
+    this.state.select().subscribe(({ pokemon, level, ivs, evs, nature, stats }) => {
       this.form.patchValue(
         {
+          pokemon,
           level,
           nature,
           H: { iv: ivs[0], ev: evs[0], stat: stats[0] },
@@ -133,6 +136,7 @@ export class StatsComponent implements OnInit, OnDestroy {
     });
     // Calculate stats from form
     merge(
+      getValidValueChanges(this.form.controls.pokemon),
       getValidValueChanges(this.form.controls.level),
       getValidValueChanges(this.form.controls.nature),
       getStatParamsChanges(this.form.controls.H),
@@ -144,8 +148,9 @@ export class StatsComponent implements OnInit, OnDestroy {
     )
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(() => {
-        const { level, nature, H, A, B, C, D, S } = this.form.getRawValue();
+        const { pokemon, level, nature, H, A, B, C, D, S } = this.form.getRawValue();
         this.state.set({
+          pokemon,
           level,
           nature,
           ivs: [H.iv, A.iv, B.iv, C.iv, D.iv, S.iv] as StatValues<IV>, // todo: validation

@@ -4,7 +4,9 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@lib/calc": ["projects/calc/src/public-api.ts"]
+      "@lib/calc": ["projects/calc/src/public-api.ts"],
+      "@lib/data": ["projects/data/src/public-api.ts"],
+      "@lib/model": ["projects/model/src/public-api.ts"]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
@@ -18,6 +20,8 @@
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",

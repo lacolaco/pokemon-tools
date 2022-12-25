@@ -44,12 +44,3 @@ export type Nature =
       down?: never;
       noop: true;
     };
-
-export function compareStatValues<V>(a: StatValues<V>, b: StatValues<V>): boolean {
-  for (let i = 0; i < a.length; i++) {
-    if (a[i] !== b[i]) {
-      return false;
-    }
-  }
-  return true;
-}

@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { natures } from '@lib/data';
-import { Nature } from '@lib/model';
+import { pokemons, PokemonData } from '@lib/data';
 import { SimpleControlValueAccessor } from '../utitilites/forms';
 
 @Component({
-  selector: 'nature-select',
+  selector: 'pokemon-select',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   template: `
@@ -24,9 +23,9 @@ import { SimpleControlValueAccessor } from '../utitilites/forms';
     `,
   ],
 })
-export class NatureSelectComponent extends SimpleControlValueAccessor<Nature> {
-  readonly options = natures;
-  readonly formControl = new FormControl(natures[0], { nonNullable: true });
+export class PokemonSelectComponent extends SimpleControlValueAccessor<PokemonData> {
+  readonly options = pokemons;
+  readonly formControl = new FormControl(pokemons[0], { nonNullable: true });
 
   constructor() {
     super();
@@ -35,7 +34,7 @@ export class NatureSelectComponent extends SimpleControlValueAccessor<Nature> {
     });
   }
 
-  override writeValue(value: Nature): void {
+  override writeValue(value: PokemonData): void {
     this.formControl.setValue(value, { emitEvent: false });
   }
 

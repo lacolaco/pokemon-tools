@@ -2,8 +2,8 @@
  * ポケモンの能力値を計算する関数群
  */
 
+import { StatValues, Nature, IV, EV, Stat } from '@lib/model';
 import { inverse, Matrix } from 'ml-matrix';
-import { StatValues, Nature, IV, EV, Stat } from './models';
 
 /**
  * 種族値と個体値と努力値と性格から能力値を計算する
@@ -16,7 +16,7 @@ import { StatValues, Nature, IV, EV, Stat } from './models';
  */
 export function calcStats(
   level: number,
-  base: StatValues<number>,
+  base: Readonly<StatValues<number>>,
   individual: StatValues<IV>,
   effort: StatValues<EV>,
   nature: Nature,
@@ -27,7 +27,10 @@ export function calcStats(
   // HP以外: A = 0,   B = 5
   const A = vector([100, 0, 0, 0, 0, 0]);
   const B = vector([10, 5, 5, 5, 5, 5]);
-  const D = vector(base).mul(2).add(vector(individual)).add(A);
+  const D = vector([...base])
+    .mul(2)
+    .add(vector(individual))
+    .add(A);
   const NV = Matrix.diag(createNatureValues(nature));
 
   const mat = Matrix.zeros(1, 6)
@@ -55,7 +58,7 @@ export function calcStats(
 export function calcEVs(
   level: number,
   stats: StatValues<Stat>,
-  base: StatValues<number>,
+  base: Readonly<StatValues<number>>,
   individual: StatValues<IV>,
   nature: Nature,
 ): StatValues<EV> {
@@ -65,7 +68,10 @@ export function calcEVs(
   // HP以外: A = 0,   B = 5
   const A = vector([100, 0, 0, 0, 0, 0]);
   const B = vector([10, 5, 5, 5, 5, 5]);
-  const D = vector(base).mul(2).add(vector(individual)).add(A);
+  const D = vector([...base])
+    .mul(2)
+    .add(vector(individual))
+    .add(A);
   const NV = createNatureValues(nature);
 
   const mat = Matrix.zeros(1, 6)

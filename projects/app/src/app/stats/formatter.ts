@@ -1,4 +1,4 @@
-import { StatValues, EV, Nature } from '@lib/calc';
+import { StatValues, EV, Nature } from '@lib/model';
 
 export function formatStats(
   pokemon: { name: string },
