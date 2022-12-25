@@ -4,6 +4,7 @@
   row-gap: 12px;
   width: fit-content;
   padding: 24px;
+  background-color: #fefefe;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 0.85rem;
@@ -11,12 +12,14 @@
 
 .calc-table {
   border-spacing: 8px 4px;
+
+  tbody tr td:first-child {
+    text-align: center;
+  }
 }
 
 .stat-name {
-  background-color: #fefefe;
   font-weight: bold;
-  text-align: center;
   padding: 4px 12px;
 }
 
