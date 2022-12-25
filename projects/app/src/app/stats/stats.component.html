@@ -6,7 +6,12 @@
           <td colspan="3">
             <div class="pokemon-base-info">
               <pokemon-select formControlName="pokemon"></pokemon-select>
-              <a [href]="state.pokemon.url" target="_blank" title="ポケモン徹底攻略を開く" class="info-link">
+              <a
+                [href]="state.pokemon.url"
+                target="_blank"
+                title="ポケモン徹底攻略で{{ state.pokemon.name }}を見る"
+                class="info-link"
+              >
                 <img src="assets/images/yakkun-32x32.png" width="16px" height="16px" />
               </a>
             </div>
