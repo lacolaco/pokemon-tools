@@ -121,16 +121,7 @@
       "root": "projects/data",
       "sourceRoot": "projects/data/src",
       "prefix": "lib",
-      "architect": {
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "projects/data/tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"],
-            "browsers": "ChromeHeadless"
-          }
-        }
-      }
+      "architect": {}
     },
     "model": {
       "projectType": "library",
