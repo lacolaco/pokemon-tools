@@ -59,7 +59,7 @@ async function queryPokemons(browser: Browser): Promise<PokemonData[]> {
           block.querySelectorAll<HTMLAnchorElement>('dl.tokusei_and_group > dd.tokusei a'),
         ).map((a) => a.textContent!.replace('*', ''));
         const stats = block.querySelector('dl.pokemon > dd.stats')!.textContent!;
-        const [H, A, B, C, D, S] = /^(\d+)-(\d+)-(\d+)-(\d+)-(\d+)-(\d+)\s.*$/.exec(stats)!.slice(1);
+        const [H, A, B, C, D, S, total] = /^(\d+)-(\d+)-(\d+)-(\d+)-(\d+)-(\d+)\s+\((\d+)\)$/.exec(stats)!.slice(1);
 
         return {
           url: nameLink.href,
@@ -75,6 +75,7 @@ async function queryPokemons(browser: Browser): Promise<PokemonData[]> {
             parseInt(D, 10),
             parseInt(S, 10),
           ] as const,
+          baseStatsTotal: parseInt(total, 10),
         };
         /* eslint-enable @typescript-eslint/no-non-null-assertion */
       });

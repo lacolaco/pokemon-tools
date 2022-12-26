@@ -18,6 +18,14 @@
           </td>
         </tr>
         <tr>
+          <td colspan="4">
+            <div class="base-spec">
+              {{ state.pokemon.baseStats.join('-') }} ({{ state.pokemon.baseStatsTotal }})
+              {{ state.pokemon.types.join('/') }}
+            </div>
+          </td>
+        </tr>
+        <tr>
           <td>Lv</td>
           <td colspan="2">
             <level-input formControlName="level"></level-input>
@@ -31,14 +39,12 @@
         </tr>
         <tr>
           <td></td>
-          <td class="value-label">種族値</td>
           <td class="value-label">能力値</td>
           <td class="value-label">努力値</td>
           <td class="value-label">個体値</td>
         </tr>
         <tr formGroupName="H">
           <td class="stat-name">H</td>
-          <td class="base-stat">{{ state.pokemon.baseStats[0] }}</td>
           <td>
             <stat-input formControlName="stat" [isMin]="state.evs[0] === 0" [isMax]="state.evs[0] === 252"></stat-input>
           </td>
@@ -51,7 +57,6 @@
           [class.stat-nature-down]="state.nature.down === 'A'"
         >
           <td class="stat-name">A</td>
-          <td class="base-stat">{{ state.pokemon.baseStats[1] }}</td>
           <td>
             <stat-input formControlName="stat" [isMin]="state.evs[1] === 0" [isMax]="state.evs[1] === 252"></stat-input>
           </td>
@@ -64,7 +69,6 @@
           [class.stat-nature-down]="state.nature.down === 'B'"
         >
           <td class="stat-name">B</td>
-          <td class="base-stat">{{ state.pokemon.baseStats[2] }}</td>
           <td>
             <stat-input formControlName="stat" [isMin]="state.evs[2] === 0" [isMax]="state.evs[2] === 252"></stat-input>
           </td>
@@ -77,7 +81,6 @@
           [class.stat-nature-down]="state.nature.down === 'C'"
         >
           <td class="stat-name">C</td>
-          <td class="base-stat">{{ state.pokemon.baseStats[3] }}</td>
           <td>
             <stat-input formControlName="stat" [isMin]="state.evs[3] === 0" [isMax]="state.evs[3] === 252"></stat-input>
           </td>
@@ -90,7 +93,6 @@
           [class.stat-nature-down]="state.nature.down === 'D'"
         >
           <td class="stat-name">D</td>
-          <td class="base-stat">{{ state.pokemon.baseStats[4] }}</td>
           <td>
             <stat-input formControlName="stat" [isMin]="state.evs[4] === 0" [isMax]="state.evs[4] === 252"></stat-input>
           </td>
@@ -103,7 +105,6 @@
           [class.stat-nature-down]="state.nature.down === 'S'"
         >
           <td class="stat-name">S</td>
-          <td class="base-stat">{{ state.pokemon.baseStats[5] }}</td>
           <td>
             <stat-input formControlName="stat" [isMin]="state.evs[5] === 0" [isMax]="state.evs[5] === 252"></stat-input>
           </td>

@@ -18,7 +18,8 @@ export default {
         60,
         50,
         65
-      ]
+      ],
+      "baseStatsTotal": 309
     },
     {
       "url": "https://yakkun.com/sv/zukan/n5",
@@ -38,7 +39,8 @@ export default {
         80,
         65,
         80
-      ]
+      ],
+      "baseStatsTotal": 405
     },
     {
       "url": "https://yakkun.com/sv/zukan/n6",
@@ -59,7 +61,8 @@ export default {
         109,
         85,
         100
-      ]
+      ],
+      "baseStatsTotal": 534
     },
     {
       "url": "https://yakkun.com/sv/zukan/n25",
@@ -79,7 +82,8 @@ export default {
         50,
         50,
         90
-      ]
+      ],
+      "baseStatsTotal": 320
     },
     {
       "url": "https://yakkun.com/sv/zukan/n26",
@@ -99,7 +103,8 @@ export default {
         90,
         80,
         110
-      ]
+      ],
+      "baseStatsTotal": 485
     },
     {
       "url": "https://yakkun.com/sv/zukan/n39",
@@ -121,7 +126,8 @@ export default {
         45,
         25,
         20
-      ]
+      ],
+      "baseStatsTotal": 270
     },
     {
       "url": "https://yakkun.com/sv/zukan/n40",
@@ -143,7 +149,8 @@ export default {
         85,
         50,
         45
-      ]
+      ],
+      "baseStatsTotal": 435
     },
     {
       "url": "https://yakkun.com/sv/zukan/n48",
@@ -165,7 +172,8 @@ export default {
         40,
         55,
         45
-      ]
+      ],
+      "baseStatsTotal": 305
     },
     {
       "url": "https://yakkun.com/sv/zukan/n49",
@@ -187,7 +195,8 @@ export default {
         90,
         75,
         90
-      ]
+      ],
+      "baseStatsTotal": 450
     },
     {
       "url": "https://yakkun.com/sv/zukan/n50",
@@ -208,7 +217,8 @@ export default {
         35,
         45,
         95
-      ]
+      ],
+      "baseStatsTotal": 265
     },
     {
       "url": "https://yakkun.com/sv/zukan/n51",
@@ -229,7 +239,8 @@ export default {
         50,
         70,
         120
-      ]
+      ],
+      "baseStatsTotal": 425
     },
     {
       "url": "https://yakkun.com/sv/zukan/n52",
@@ -250,7 +261,8 @@ export default {
         40,
         40,
         90
-      ]
+      ],
+      "baseStatsTotal": 290
     },
     {
       "url": "https://yakkun.com/sv/zukan/n52g",
@@ -271,7 +283,8 @@ export default {
         40,
         40,
         40
-      ]
+      ],
+      "baseStatsTotal": 290
     },
     {
       "url": "https://yakkun.com/sv/zukan/n53",
@@ -292,7 +305,8 @@ export default {
         65,
         65,
         115
-      ]
+      ],
+      "baseStatsTotal": 440
     },
     {
       "url": "https://yakkun.com/sv/zukan/n54",
@@ -313,7 +327,8 @@ export default {
         65,
         50,
         55
-      ]
+      ],
+      "baseStatsTotal": 320
     },
     {
       "url": "https://yakkun.com/sv/zukan/n55",
@@ -334,7 +349,8 @@ export default {
         95,
         80,
         85
-      ]
+      ],
+      "baseStatsTotal": 500
     },
     {
       "url": "https://yakkun.com/sv/zukan/n56",
@@ -355,7 +371,8 @@ export default {
         35,
         45,
         70
-      ]
+      ],
+      "baseStatsTotal": 305
     },
     {
       "url": "https://yakkun.com/sv/zukan/n57",
@@ -376,7 +393,8 @@ export default {
         60,
         70,
         95
-      ]
+      ],
+      "baseStatsTotal": 455
     },
     {
       "url": "https://yakkun.com/sv/zukan/n58",
@@ -397,7 +415,8 @@ export default {
         70,
         50,
         60
-      ]
+      ],
+      "baseStatsTotal": 350
     },
     {
       "url": "https://yakkun.com/sv/zukan/n59",
@@ -418,7 +437,8 @@ export default {
         100,
         80,
         95
-      ]
+      ],
+      "baseStatsTotal": 555
     },
     {
       "url": "https://yakkun.com/sv/zukan/n79",
@@ -440,7 +460,8 @@ export default {
         40,
         40,
         15
-      ]
+      ],
+      "baseStatsTotal": 315
     },
     {
       "url": "https://yakkun.com/sv/zukan/n80",
@@ -462,7 +483,8 @@ export default {
         100,
         80,
         30
-      ]
+      ],
+      "baseStatsTotal": 490
     },
     {
       "url": "https://yakkun.com/sv/zukan/n81",
@@ -484,7 +506,8 @@ export default {
         95,
         55,
         45
-      ]
+      ],
+      "baseStatsTotal": 325
     },
     {
       "url": "https://yakkun.com/sv/zukan/n82",
@@ -506,7 +529,8 @@ export default {
         120,
         70,
         70
-      ]
+      ],
+      "baseStatsTotal": 465
     },
     {
       "url": "https://yakkun.com/sv/zukan/n88",
@@ -527,7 +551,8 @@ export default {
         40,
         50,
         25
-      ]
+      ],
+      "baseStatsTotal": 325
     },
     {
       "url": "https://yakkun.com/sv/zukan/n89",
@@ -548,7 +573,8 @@ export default {
         65,
         100,
         50
-      ]
+      ],
+      "baseStatsTotal": 500
     },
     {
       "url": "https://yakkun.com/sv/zukan/n90",
@@ -569,7 +595,8 @@ export default {
         45,
         25,
         40
-      ]
+      ],
+      "baseStatsTotal": 305
     },
     {
       "url": "https://yakkun.com/sv/zukan/n91",
@@ -591,7 +618,8 @@ export default {
         85,
         45,
         70
-      ]
+      ],
+      "baseStatsTotal": 525
     },
     {
       "url": "https://yakkun.com/sv/zukan/n92",
@@ -611,7 +639,8 @@ export default {
         100,
         35,
         80
-      ]
+      ],
+      "baseStatsTotal": 310
     },
     {
       "url": "https://yakkun.com/sv/zukan/n93",
@@ -631,7 +660,8 @@ export default {
         115,
         55,
         95
-      ]
+      ],
+      "baseStatsTotal": 405
     },
     {
       "url": "https://yakkun.com/sv/zukan/n94",
@@ -651,7 +681,8 @@ export default {
         130,
         75,
         110
-      ]
+      ],
+      "baseStatsTotal": 500
     },
     {
       "url": "https://yakkun.com/sv/zukan/n96",
@@ -672,7 +703,8 @@ export default {
         43,
         90,
         42
-      ]
+      ],
+      "baseStatsTotal": 328
     },
     {
       "url": "https://yakkun.com/sv/zukan/n97",
@@ -693,7 +725,8 @@ export default {
         73,
         115,
         67
-      ]
+      ],
+      "baseStatsTotal": 483
     },
     {
       "url": "https://yakkun.com/sv/zukan/n100",
@@ -714,7 +747,8 @@ export default {
         55,
         55,
         100
-      ]
+      ],
+      "baseStatsTotal": 330
     },
     {
       "url": "https://yakkun.com/sv/zukan/n101",
@@ -735,7 +769,8 @@ export default {
         80,
         80,
         150
-      ]
+      ],
+      "baseStatsTotal": 490
     },
     {
       "url": "https://yakkun.com/sv/zukan/n113",
@@ -756,7 +791,8 @@ export default {
         35,
         105,
         50
-      ]
+      ],
+      "baseStatsTotal": 450
     },
     {
       "url": "https://yakkun.com/sv/zukan/n123",
@@ -778,7 +814,8 @@ export default {
         55,
         80,
         105
-      ]
+      ],
+      "baseStatsTotal": 500
     },
     {
       "url": "https://yakkun.com/sv/zukan/n128a",
@@ -799,7 +836,8 @@ export default {
         30,
         70,
         100
-      ]
+      ],
+      "baseStatsTotal": 490
     },
     {
       "url": "https://yakkun.com/sv/zukan/n128b",
@@ -821,7 +859,8 @@ export default {
         30,
         70,
         100
-      ]
+      ],
+      "baseStatsTotal": 490
     },
     {
       "url": "https://yakkun.com/sv/zukan/n128c",
@@ -843,7 +882,8 @@ export default {
         30,
         70,
         100
-      ]
+      ],
+      "baseStatsTotal": 490
     },
     {
       "url": "https://yakkun.com/sv/zukan/n129",
@@ -863,7 +903,8 @@ export default {
         15,
         20,
         80
-      ]
+      ],
+      "baseStatsTotal": 200
     },
     {
       "url": "https://yakkun.com/sv/zukan/n130",
@@ -884,7 +925,8 @@ export default {
         60,
         100,
         81
-      ]
+      ],
+      "baseStatsTotal": 540
     },
     {
       "url": "https://yakkun.com/sv/zukan/n132",
@@ -904,7 +946,8 @@ export default {
         48,
         48,
         48
-      ]
+      ],
+      "baseStatsTotal": 288
     },
     {
       "url": "https://yakkun.com/sv/zukan/n133",
@@ -925,7 +968,8 @@ export default {
         45,
         65,
         55
-      ]
+      ],
+      "baseStatsTotal": 325
     },
     {
       "url": "https://yakkun.com/sv/zukan/n134",
@@ -945,7 +989,8 @@ export default {
         110,
         95,
         65
-      ]
+      ],
+      "baseStatsTotal": 525
     },
     {
       "url": "https://yakkun.com/sv/zukan/n135",
@@ -965,7 +1010,8 @@ export default {
         110,
         95,
         130
-      ]
+      ],
+      "baseStatsTotal": 525
     },
     {
       "url": "https://yakkun.com/sv/zukan/n136",
@@ -985,7 +1031,8 @@ export default {
         95,
         110,
         65
-      ]
+      ],
+      "baseStatsTotal": 525
     },
     {
       "url": "https://yakkun.com/sv/zukan/n147",
@@ -1005,7 +1052,8 @@ export default {
         50,
         50,
         50
-      ]
+      ],
+      "baseStatsTotal": 300
     },
     {
       "url": "https://yakkun.com/sv/zukan/n148",
@@ -1025,7 +1073,8 @@ export default {
         70,
         70,
         70
-      ]
+      ],
+      "baseStatsTotal": 420
     },
     {
       "url": "https://yakkun.com/sv/zukan/n149",
@@ -1046,7 +1095,8 @@ export default {
         100,
         100,
         80
-      ]
+      ],
+      "baseStatsTotal": 600
     },
     {
       "url": "https://yakkun.com/sv/zukan/n172",
@@ -1066,7 +1116,8 @@ export default {
         35,
         35,
         60
-      ]
+      ],
+      "baseStatsTotal": 205
     },
     {
       "url": "https://yakkun.com/sv/zukan/n174",
@@ -1088,7 +1139,8 @@ export default {
         40,
         20,
         15
-      ]
+      ],
+      "baseStatsTotal": 210
     },
     {
       "url": "https://yakkun.com/sv/zukan/n179",
@@ -1108,7 +1160,8 @@ export default {
         65,
         45,
         35
-      ]
+      ],
+      "baseStatsTotal": 280
     },
     {
       "url": "https://yakkun.com/sv/zukan/n180",
@@ -1128,7 +1181,8 @@ export default {
         80,
         60,
         45
-      ]
+      ],
+      "baseStatsTotal": 365
     },
     {
       "url": "https://yakkun.com/sv/zukan/n181",
@@ -1148,7 +1202,8 @@ export default {
         115,
         90,
         55
-      ]
+      ],
+      "baseStatsTotal": 510
     },
     {
       "url": "https://yakkun.com/sv/zukan/n183",
@@ -1170,7 +1225,8 @@ export default {
         20,
         50,
         40
-      ]
+      ],
+      "baseStatsTotal": 250
     },
     {
       "url": "https://yakkun.com/sv/zukan/n184",
@@ -1192,7 +1248,8 @@ export default {
         60,
         80,
         50
-      ]
+      ],
+      "baseStatsTotal": 420
     },
     {
       "url": "https://yakkun.com/sv/zukan/n185",
@@ -1213,7 +1270,8 @@ export default {
         30,
         65,
         30
-      ]
+      ],
+      "baseStatsTotal": 410
     },
     {
       "url": "https://yakkun.com/sv/zukan/n187",
@@ -1235,7 +1293,8 @@ export default {
         35,
         55,
         50
-      ]
+      ],
+      "baseStatsTotal": 250
     },
     {
       "url": "https://yakkun.com/sv/zukan/n188",
@@ -1257,7 +1316,8 @@ export default {
         45,
         65,
         80
-      ]
+      ],
+      "baseStatsTotal": 340
     },
     {
       "url": "https://yakkun.com/sv/zukan/n189",
@@ -1279,7 +1339,8 @@ export default {
         55,
         95,
         110
-      ]
+      ],
+      "baseStatsTotal": 460
     },
     {
       "url": "https://yakkun.com/sv/zukan/n191",
@@ -1300,7 +1361,8 @@ export default {
         30,
         30,
         30
-      ]
+      ],
+      "baseStatsTotal": 180
     },
     {
       "url": "https://yakkun.com/sv/zukan/n192",
@@ -1321,7 +1383,8 @@ export default {
         105,
         85,
         30
-      ]
+      ],
+      "baseStatsTotal": 425
     },
     {
       "url": "https://yakkun.com/sv/zukan/n194",
@@ -1343,7 +1406,8 @@ export default {
         25,
         25,
         15
-      ]
+      ],
+      "baseStatsTotal": 210
     },
     {
       "url": "https://yakkun.com/sv/zukan/n194p",
@@ -1365,7 +1429,8 @@ export default {
         25,
         25,
         15
-      ]
+      ],
+      "baseStatsTotal": 210
     },
     {
       "url": "https://yakkun.com/sv/zukan/n195",
@@ -1387,7 +1452,8 @@ export default {
         65,
         65,
         35
-      ]
+      ],
+      "baseStatsTotal": 430
     },
     {
       "url": "https://yakkun.com/sv/zukan/n196",
@@ -1407,7 +1473,8 @@ export default {
         130,
         95,
         110
-      ]
+      ],
+      "baseStatsTotal": 525
     },
     {
       "url": "https://yakkun.com/sv/zukan/n197",
@@ -1427,7 +1494,8 @@ export default {
         60,
         130,
         65
-      ]
+      ],
+      "baseStatsTotal": 525
     },
     {
       "url": "https://yakkun.com/sv/zukan/n198",
@@ -1449,7 +1517,8 @@ export default {
         85,
         42,
         91
-      ]
+      ],
+      "baseStatsTotal": 405
     },
     {
       "url": "https://yakkun.com/sv/zukan/n199",
@@ -1471,7 +1540,8 @@ export default {
         100,
         110,
         30
-      ]
+      ],
+      "baseStatsTotal": 490
     },
     {
       "url": "https://yakkun.com/sv/zukan/n200",
@@ -1490,7 +1560,8 @@ export default {
         85,
         85,
         85
-      ]
+      ],
+      "baseStatsTotal": 435
     },
     {
       "url": "https://yakkun.com/sv/zukan/n203",
@@ -1512,7 +1583,8 @@ export default {
         90,
         65,
         85
-      ]
+      ],
+      "baseStatsTotal": 455
     },
     {
       "url": "https://yakkun.com/sv/zukan/n204",
@@ -1532,7 +1604,8 @@ export default {
         35,
         35,
         15
-      ]
+      ],
+      "baseStatsTotal": 290
     },
     {
       "url": "https://yakkun.com/sv/zukan/n205",
@@ -1553,7 +1626,8 @@ export default {
         60,
         60,
         40
-      ]
+      ],
+      "baseStatsTotal": 465
     },
     {
       "url": "https://yakkun.com/sv/zukan/n206",
@@ -1574,7 +1648,8 @@ export default {
         65,
         65,
         45
-      ]
+      ],
+      "baseStatsTotal": 415
     },
     {
       "url": "https://yakkun.com/sv/zukan/n211",
@@ -1596,7 +1671,8 @@ export default {
         55,
         55,
         85
-      ]
+      ],
+      "baseStatsTotal": 440
     },
     {
       "url": "https://yakkun.com/sv/zukan/n212",
@@ -1618,7 +1694,8 @@ export default {
         55,
         80,
         65
-      ]
+      ],
+      "baseStatsTotal": 500
     },
     {
       "url": "https://yakkun.com/sv/zukan/n214",
@@ -1640,7 +1717,8 @@ export default {
         40,
         95,
         85
-      ]
+      ],
+      "baseStatsTotal": 500
     },
     {
       "url": "https://yakkun.com/sv/zukan/n215",
@@ -1662,7 +1740,8 @@ export default {
         35,
         75,
         115
-      ]
+      ],
+      "baseStatsTotal": 430
     },
     {
       "url": "https://yakkun.com/sv/zukan/n216",
@@ -1683,7 +1762,8 @@ export default {
         50,
         50,
         40
-      ]
+      ],
+      "baseStatsTotal": 330
     },
     {
       "url": "https://yakkun.com/sv/zukan/n217",
@@ -1704,7 +1784,8 @@ export default {
         75,
         75,
         55
-      ]
+      ],
+      "baseStatsTotal": 500
     },
     {
       "url": "https://yakkun.com/sv/zukan/n225",
@@ -1726,7 +1807,8 @@ export default {
         65,
         45,
         75
-      ]
+      ],
+      "baseStatsTotal": 330
     },
     {
       "url": "https://yakkun.com/sv/zukan/n228",
@@ -1748,7 +1830,8 @@ export default {
         80,
         50,
         65
-      ]
+      ],
+      "baseStatsTotal": 330
     },
     {
       "url": "https://yakkun.com/sv/zukan/n229",
@@ -1770,7 +1853,8 @@ export default {
         110,
         80,
         95
-      ]
+      ],
+      "baseStatsTotal": 500
     },
     {
       "url": "https://yakkun.com/sv/zukan/n231",
@@ -1790,7 +1874,8 @@ export default {
         40,
         40,
         40
-      ]
+      ],
+      "baseStatsTotal": 330
     },
     {
       "url": "https://yakkun.com/sv/zukan/n232",
@@ -1810,7 +1895,8 @@ export default {
         60,
         60,
         50
-      ]
+      ],
+      "baseStatsTotal": 500
     },
     {
       "url": "https://yakkun.com/sv/zukan/n234",
@@ -1831,7 +1917,8 @@ export default {
         85,
         65,
         85
-      ]
+      ],
+      "baseStatsTotal": 465
     },
     {
       "url": "https://yakkun.com/sv/zukan/n242",
@@ -1852,7 +1939,8 @@ export default {
         75,
         135,
         55
-      ]
+      ],
+      "baseStatsTotal": 540
     },
     {
       "url": "https://yakkun.com/sv/zukan/n246",
@@ -1873,7 +1961,8 @@ export default {
         45,
         50,
         41
-      ]
+      ],
+      "baseStatsTotal": 300
     },
     {
       "url": "https://yakkun.com/sv/zukan/n247",
@@ -1893,7 +1982,8 @@ export default {
         65,
         70,
         51
-      ]
+      ],
+      "baseStatsTotal": 410
     },
     {
       "url": "https://yakkun.com/sv/zukan/n248",
@@ -1914,7 +2004,8 @@ export default {
         95,
         100,
         61
-      ]
+      ],
+      "baseStatsTotal": 600
     },
     {
       "url": "https://yakkun.com/sv/zukan/n278",
@@ -1936,7 +2027,8 @@ export default {
         55,
         30,
         85
-      ]
+      ],
+      "baseStatsTotal": 270
     },
     {
       "url": "https://yakkun.com/sv/zukan/n279",
@@ -1958,7 +2050,8 @@ export default {
         95,
         70,
         65
-      ]
+      ],
+      "baseStatsTotal": 440
     },
     {
       "url": "https://yakkun.com/sv/zukan/n280",
@@ -1980,7 +2073,8 @@ export default {
         45,
         35,
         40
-      ]
+      ],
+      "baseStatsTotal": 198
     },
     {
       "url": "https://yakkun.com/sv/zukan/n281",
@@ -2002,7 +2096,8 @@ export default {
         65,
         55,
         50
-      ]
+      ],
+      "baseStatsTotal": 278
     },
     {
       "url": "https://yakkun.com/sv/zukan/n282",
@@ -2024,7 +2119,8 @@ export default {
         125,
         115,
         80
-      ]
+      ],
+      "baseStatsTotal": 518
     },
     {
       "url": "https://yakkun.com/sv/zukan/n283",
@@ -2045,7 +2141,8 @@ export default {
         50,
         52,
         65
-      ]
+      ],
+      "baseStatsTotal": 269
     },
     {
       "url": "https://yakkun.com/sv/zukan/n284",
@@ -2066,7 +2163,8 @@ export default {
         100,
         82,
         80
-      ]
+      ],
+      "baseStatsTotal": 454
     },
     {
       "url": "https://yakkun.com/sv/zukan/n285",
@@ -2087,7 +2185,8 @@ export default {
         40,
         60,
         35
-      ]
+      ],
+      "baseStatsTotal": 295
     },
     {
       "url": "https://yakkun.com/sv/zukan/n286",
@@ -2109,7 +2208,8 @@ export default {
         60,
         60,
         70
-      ]
+      ],
+      "baseStatsTotal": 460
     },
     {
       "url": "https://yakkun.com/sv/zukan/n287",
@@ -2128,7 +2228,8 @@ export default {
         35,
         35,
         30
-      ]
+      ],
+      "baseStatsTotal": 280
     },
     {
       "url": "https://yakkun.com/sv/zukan/n288",
@@ -2147,7 +2248,8 @@ export default {
         55,
         55,
         90
-      ]
+      ],
+      "baseStatsTotal": 440
     },
     {
       "url": "https://yakkun.com/sv/zukan/n289",
@@ -2166,7 +2268,8 @@ export default {
         95,
         65,
         100
-      ]
+      ],
+      "baseStatsTotal": 670
     },
     {
       "url": "https://yakkun.com/sv/zukan/n296",
@@ -2187,7 +2290,8 @@ export default {
         20,
         30,
         25
-      ]
+      ],
+      "baseStatsTotal": 237
     },
     {
       "url": "https://yakkun.com/sv/zukan/n297",
@@ -2208,7 +2312,8 @@ export default {
         40,
         60,
         50
-      ]
+      ],
+      "baseStatsTotal": 474
     },
     {
       "url": "https://yakkun.com/sv/zukan/n298",
@@ -2230,7 +2335,8 @@ export default {
         20,
         40,
         20
-      ]
+      ],
+      "baseStatsTotal": 190
     },
     {
       "url": "https://yakkun.com/sv/zukan/n302",
@@ -2252,7 +2358,8 @@ export default {
         65,
         65,
         50
-      ]
+      ],
+      "baseStatsTotal": 380
     },
     {
       "url": "https://yakkun.com/sv/zukan/n307",
@@ -2273,7 +2380,8 @@ export default {
         40,
         55,
         60
-      ]
+      ],
+      "baseStatsTotal": 280
     },
     {
       "url": "https://yakkun.com/sv/zukan/n308",
@@ -2294,7 +2402,8 @@ export default {
         60,
         75,
         80
-      ]
+      ],
+      "baseStatsTotal": 410
     },
     {
       "url": "https://yakkun.com/sv/zukan/n316",
@@ -2315,7 +2424,8 @@ export default {
         43,
         53,
         40
-      ]
+      ],
+      "baseStatsTotal": 302
     },
     {
       "url": "https://yakkun.com/sv/zukan/n317",
@@ -2336,7 +2446,8 @@ export default {
         73,
         83,
         55
-      ]
+      ],
+      "baseStatsTotal": 467
     },
     {
       "url": "https://yakkun.com/sv/zukan/n322",
@@ -2358,7 +2469,8 @@ export default {
         65,
         45,
         35
-      ]
+      ],
+      "baseStatsTotal": 305
     },
     {
       "url": "https://yakkun.com/sv/zukan/n323",
@@ -2380,7 +2492,8 @@ export default {
         105,
         75,
         40
-      ]
+      ],
+      "baseStatsTotal": 460
     },
     {
       "url": "https://yakkun.com/sv/zukan/n324",
@@ -2401,7 +2514,8 @@ export default {
         85,
         70,
         20
-      ]
+      ],
+      "baseStatsTotal": 470
     },
     {
       "url": "https://yakkun.com/sv/zukan/n325",
@@ -2422,7 +2536,8 @@ export default {
         70,
         80,
         60
-      ]
+      ],
+      "baseStatsTotal": 330
     },
     {
       "url": "https://yakkun.com/sv/zukan/n326",
@@ -2443,7 +2558,8 @@ export default {
         90,
         110,
         80
-      ]
+      ],
+      "baseStatsTotal": 470
     },
     {
       "url": "https://yakkun.com/sv/zukan/n331",
@@ -2463,7 +2579,8 @@ export default {
         85,
         40,
         35
-      ]
+      ],
+      "baseStatsTotal": 335
     },
     {
       "url": "https://yakkun.com/sv/zukan/n332",
@@ -2484,7 +2601,8 @@ export default {
         115,
         60,
         55
-      ]
+      ],
+      "baseStatsTotal": 475
     },
     {
       "url": "https://yakkun.com/sv/zukan/n333",
@@ -2505,7 +2623,8 @@ export default {
         40,
         75,
         50
-      ]
+      ],
+      "baseStatsTotal": 310
     },
     {
       "url": "https://yakkun.com/sv/zukan/n334",
@@ -2526,7 +2645,8 @@ export default {
         70,
         105,
         80
-      ]
+      ],
+      "baseStatsTotal": 490
     },
     {
       "url": "https://yakkun.com/sv/zukan/n335",
@@ -2546,7 +2666,8 @@ export default {
         60,
         60,
         90
-      ]
+      ],
+      "baseStatsTotal": 458
     },
     {
       "url": "https://yakkun.com/sv/zukan/n336",
@@ -2566,7 +2687,8 @@ export default {
         100,
         60,
         65
-      ]
+      ],
+      "baseStatsTotal": 458
     },
     {
       "url": "https://yakkun.com/sv/zukan/n339",
@@ -2588,7 +2710,8 @@ export default {
         46,
         41,
         60
-      ]
+      ],
+      "baseStatsTotal": 288
     },
     {
       "url": "https://yakkun.com/sv/zukan/n340",
@@ -2610,7 +2733,8 @@ export default {
         76,
         71,
         60
-      ]
+      ],
+      "baseStatsTotal": 468
     },
     {
       "url": "https://yakkun.com/sv/zukan/n353",
@@ -2631,7 +2755,8 @@ export default {
         63,
         33,
         45
-      ]
+      ],
+      "baseStatsTotal": 295
     },
     {
       "url": "https://yakkun.com/sv/zukan/n354",
@@ -2652,7 +2777,8 @@ export default {
         83,
         63,
         65
-      ]
+      ],
+      "baseStatsTotal": 455
     },
     {
       "url": "https://yakkun.com/sv/zukan/n357",
@@ -2674,7 +2800,8 @@ export default {
         72,
         87,
         51
-      ]
+      ],
+      "baseStatsTotal": 460
     },
     {
       "url": "https://yakkun.com/sv/zukan/n361",
@@ -2695,7 +2822,8 @@ export default {
         50,
         50,
         50
-      ]
+      ],
+      "baseStatsTotal": 300
     },
     {
       "url": "https://yakkun.com/sv/zukan/n362",
@@ -2716,7 +2844,8 @@ export default {
         80,
         80,
         80
-      ]
+      ],
+      "baseStatsTotal": 480
     },
     {
       "url": "https://yakkun.com/sv/zukan/n370",
@@ -2736,7 +2865,8 @@ export default {
         40,
         65,
         97
-      ]
+      ],
+      "baseStatsTotal": 330
     },
     {
       "url": "https://yakkun.com/sv/zukan/n371",
@@ -2756,7 +2886,8 @@ export default {
         40,
         30,
         50
-      ]
+      ],
+      "baseStatsTotal": 300
     },
     {
       "url": "https://yakkun.com/sv/zukan/n372",
@@ -2776,7 +2907,8 @@ export default {
         60,
         50,
         50
-      ]
+      ],
+      "baseStatsTotal": 420
     },
     {
       "url": "https://yakkun.com/sv/zukan/n373",
@@ -2797,7 +2929,8 @@ export default {
         110,
         80,
         100
-      ]
+      ],
+      "baseStatsTotal": 600
     },
     {
       "url": "https://yakkun.com/sv/zukan/n396",
@@ -2818,7 +2951,8 @@ export default {
         30,
         30,
         60
-      ]
+      ],
+      "baseStatsTotal": 245
     },
     {
       "url": "https://yakkun.com/sv/zukan/n397",
@@ -2839,7 +2973,8 @@ export default {
         40,
         40,
         80
-      ]
+      ],
+      "baseStatsTotal": 340
     },
     {
       "url": "https://yakkun.com/sv/zukan/n398",
@@ -2860,7 +2995,8 @@ export default {
         50,
         60,
         100
-      ]
+      ],
+      "baseStatsTotal": 485
     },
     {
       "url": "https://yakkun.com/sv/zukan/n401",
@@ -2880,7 +3016,8 @@ export default {
         25,
         41,
         25
-      ]
+      ],
+      "baseStatsTotal": 194
     },
     {
       "url": "https://yakkun.com/sv/zukan/n402",
@@ -2900,7 +3037,8 @@ export default {
         55,
         51,
         65
-      ]
+      ],
+      "baseStatsTotal": 384
     },
     {
       "url": "https://yakkun.com/sv/zukan/n403",
@@ -2921,7 +3059,8 @@ export default {
         40,
         34,
         45
-      ]
+      ],
+      "baseStatsTotal": 263
     },
     {
       "url": "https://yakkun.com/sv/zukan/n404",
@@ -2942,7 +3081,8 @@ export default {
         60,
         49,
         60
-      ]
+      ],
+      "baseStatsTotal": 363
     },
     {
       "url": "https://yakkun.com/sv/zukan/n405",
@@ -2963,7 +3103,8 @@ export default {
         95,
         79,
         70
-      ]
+      ],
+      "baseStatsTotal": 523
     },
     {
       "url": "https://yakkun.com/sv/zukan/n415",
@@ -2984,7 +3125,8 @@ export default {
         30,
         42,
         70
-      ]
+      ],
+      "baseStatsTotal": 244
     },
     {
       "url": "https://yakkun.com/sv/zukan/n416",
@@ -3005,7 +3147,8 @@ export default {
         80,
         102,
         40
-      ]
+      ],
+      "baseStatsTotal": 474
     },
     {
       "url": "https://yakkun.com/sv/zukan/n417",
@@ -3026,7 +3169,8 @@ export default {
         45,
         90,
         95
-      ]
+      ],
+      "baseStatsTotal": 405
     },
     {
       "url": "https://yakkun.com/sv/zukan/n418",
@@ -3046,7 +3190,8 @@ export default {
         60,
         30,
         85
-      ]
+      ],
+      "baseStatsTotal": 330
     },
     {
       "url": "https://yakkun.com/sv/zukan/n419",
@@ -3066,7 +3211,8 @@ export default {
         85,
         50,
         115
-      ]
+      ],
+      "baseStatsTotal": 495
     },
     {
       "url": "https://yakkun.com/sv/zukan/n422",
@@ -3087,7 +3233,8 @@ export default {
         57,
         62,
         34
-      ]
+      ],
+      "baseStatsTotal": 325
     },
     {
       "url": "https://yakkun.com/sv/zukan/n423",
@@ -3109,7 +3256,8 @@ export default {
         92,
         82,
         39
-      ]
+      ],
+      "baseStatsTotal": 475
     },
     {
       "url": "https://yakkun.com/sv/zukan/n425",
@@ -3131,7 +3279,8 @@ export default {
         60,
         44,
         70
-      ]
+      ],
+      "baseStatsTotal": 348
     },
     {
       "url": "https://yakkun.com/sv/zukan/n426",
@@ -3153,7 +3302,8 @@ export default {
         90,
         54,
         80
-      ]
+      ],
+      "baseStatsTotal": 498
     },
     {
       "url": "https://yakkun.com/sv/zukan/n429",
@@ -3172,7 +3322,8 @@ export default {
         105,
         105,
         105
-      ]
+      ],
+      "baseStatsTotal": 495
     },
     {
       "url": "https://yakkun.com/sv/zukan/n430",
@@ -3194,7 +3345,8 @@ export default {
         105,
         52,
         71
-      ]
+      ],
+      "baseStatsTotal": 505
     },
     {
       "url": "https://yakkun.com/sv/zukan/n434",
@@ -3216,7 +3368,8 @@ export default {
         41,
         41,
         74
-      ]
+      ],
+      "baseStatsTotal": 329
     },
     {
       "url": "https://yakkun.com/sv/zukan/n435",
@@ -3238,7 +3391,8 @@ export default {
         71,
         61,
         84
-      ]
+      ],
+      "baseStatsTotal": 479
     },
     {
       "url": "https://yakkun.com/sv/zukan/n436",
@@ -3260,7 +3414,8 @@ export default {
         24,
         86,
         23
-      ]
+      ],
+      "baseStatsTotal": 300
     },
     {
       "url": "https://yakkun.com/sv/zukan/n437",
@@ -3282,7 +3437,8 @@ export default {
         79,
         116,
         33
-      ]
+      ],
+      "baseStatsTotal": 500
     },
     {
       "url": "https://yakkun.com/sv/zukan/n438",
@@ -3303,7 +3459,8 @@ export default {
         10,
         45,
         10
-      ]
+      ],
+      "baseStatsTotal": 290
     },
     {
       "url": "https://yakkun.com/sv/zukan/n440",
@@ -3324,7 +3481,8 @@ export default {
         15,
         65,
         30
-      ]
+      ],
+      "baseStatsTotal": 220
     },
     {
       "url": "https://yakkun.com/sv/zukan/n442",
@@ -3345,7 +3503,8 @@ export default {
         92,
         108,
         35
-      ]
+      ],
+      "baseStatsTotal": 485
     },
     {
       "url": "https://yakkun.com/sv/zukan/n443",
@@ -3366,7 +3525,8 @@ export default {
         40,
         45,
         42
-      ]
+      ],
+      "baseStatsTotal": 300
     },
     {
       "url": "https://yakkun.com/sv/zukan/n444",
@@ -3387,7 +3547,8 @@ export default {
         50,
         55,
         82
-      ]
+      ],
+      "baseStatsTotal": 410
     },
     {
       "url": "https://yakkun.com/sv/zukan/n445",
@@ -3408,7 +3569,8 @@ export default {
         80,
         85,
         102
-      ]
+      ],
+      "baseStatsTotal": 600
     },
     {
       "url": "https://yakkun.com/sv/zukan/n447",
@@ -3429,7 +3591,8 @@ export default {
         35,
         40,
         60
-      ]
+      ],
+      "baseStatsTotal": 285
     },
     {
       "url": "https://yakkun.com/sv/zukan/n448",
@@ -3451,7 +3614,8 @@ export default {
         115,
         70,
         90
-      ]
+      ],
+      "baseStatsTotal": 525
     },
     {
       "url": "https://yakkun.com/sv/zukan/n449",
@@ -3471,7 +3635,8 @@ export default {
         38,
         42,
         32
-      ]
+      ],
+      "baseStatsTotal": 330
     },
     {
       "url": "https://yakkun.com/sv/zukan/n450",
@@ -3491,7 +3656,8 @@ export default {
         68,
         72,
         47
-      ]
+      ],
+      "baseStatsTotal": 525
     },
     {
       "url": "https://yakkun.com/sv/zukan/n453",
@@ -3513,7 +3679,8 @@ export default {
         61,
         40,
         50
-      ]
+      ],
+      "baseStatsTotal": 300
     },
     {
       "url": "https://yakkun.com/sv/zukan/n454",
@@ -3535,7 +3702,8 @@ export default {
         86,
         65,
         85
-      ]
+      ],
+      "baseStatsTotal": 490
     },
     {
       "url": "https://yakkun.com/sv/zukan/n456",
@@ -3556,7 +3724,8 @@ export default {
         49,
         61,
         66
-      ]
+      ],
+      "baseStatsTotal": 330
     },
     {
       "url": "https://yakkun.com/sv/zukan/n457",
@@ -3577,7 +3746,8 @@ export default {
         69,
         86,
         91
-      ]
+      ],
+      "baseStatsTotal": 460
     },
     {
       "url": "https://yakkun.com/sv/zukan/n459",
@@ -3598,7 +3768,8 @@ export default {
         62,
         60,
         40
-      ]
+      ],
+      "baseStatsTotal": 334
     },
     {
       "url": "https://yakkun.com/sv/zukan/n460",
@@ -3619,7 +3790,8 @@ export default {
         92,
         85,
         60
-      ]
+      ],
+      "baseStatsTotal": 494
     },
     {
       "url": "https://yakkun.com/sv/zukan/n461",
@@ -3640,7 +3812,8 @@ export default {
         45,
         85,
         125
-      ]
+      ],
+      "baseStatsTotal": 510
     },
     {
       "url": "https://yakkun.com/sv/zukan/n462",
@@ -3662,7 +3835,8 @@ export default {
         130,
         90,
         60
-      ]
+      ],
+      "baseStatsTotal": 535
     },
     {
       "url": "https://yakkun.com/sv/zukan/n470",
@@ -3682,7 +3856,8 @@ export default {
         60,
         65,
         95
-      ]
+      ],
+      "baseStatsTotal": 525
     },
     {
       "url": "https://yakkun.com/sv/zukan/n471",
@@ -3702,7 +3877,8 @@ export default {
         130,
         95,
         65
-      ]
+      ],
+      "baseStatsTotal": 525
     },
     {
       "url": "https://yakkun.com/sv/zukan/n475",
@@ -3724,7 +3900,8 @@ export default {
         65,
         115,
         80
-      ]
+      ],
+      "baseStatsTotal": 518
     },
     {
       "url": "https://yakkun.com/sv/zukan/n478",
@@ -3745,7 +3922,8 @@ export default {
         80,
         70,
         110
-      ]
+      ],
+      "baseStatsTotal": 480
     },
     {
       "url": "https://yakkun.com/sv/zukan/n479",
@@ -3765,7 +3943,8 @@ export default {
         95,
         77,
         91
-      ]
+      ],
+      "baseStatsTotal": 440
     },
     {
       "url": "https://yakkun.com/sv/zukan/n479h",
@@ -3785,7 +3964,8 @@ export default {
         105,
         107,
         86
-      ]
+      ],
+      "baseStatsTotal": 520
     },
     {
       "url": "https://yakkun.com/sv/zukan/n479w",
@@ -3805,7 +3985,8 @@ export default {
         105,
         107,
         86
-      ]
+      ],
+      "baseStatsTotal": 520
     },
     {
       "url": "https://yakkun.com/sv/zukan/n479f",
@@ -3825,7 +4006,8 @@ export default {
         105,
         107,
         86
-      ]
+      ],
+      "baseStatsTotal": 520
     },
     {
       "url": "https://yakkun.com/sv/zukan/n479s",
@@ -3845,7 +4027,8 @@ export default {
         105,
         107,
         86
-      ]
+      ],
+      "baseStatsTotal": 520
     },
     {
       "url": "https://yakkun.com/sv/zukan/n479c",
@@ -3865,7 +4048,8 @@ export default {
         105,
         107,
         86
-      ]
+      ],
+      "baseStatsTotal": 520
     },
     {
       "url": "https://yakkun.com/sv/zukan/n548",
@@ -3886,7 +4070,8 @@ export default {
         70,
         50,
         30
-      ]
+      ],
+      "baseStatsTotal": 280
     },
     {
       "url": "https://yakkun.com/sv/zukan/n549",
@@ -3907,7 +4092,8 @@ export default {
         110,
         75,
         90
-      ]
+      ],
+      "baseStatsTotal": 480
     },
     {
       "url": "https://yakkun.com/sv/zukan/n550",
@@ -3928,7 +4114,8 @@ export default {
         80,
         55,
         98
-      ]
+      ],
+      "baseStatsTotal": 460
     },
     {
       "url": "https://yakkun.com/sv/zukan/n550f",
@@ -3949,7 +4136,8 @@ export default {
         80,
         55,
         98
-      ]
+      ],
+      "baseStatsTotal": 460
     },
     {
       "url": "https://yakkun.com/sv/zukan/n551",
@@ -3971,7 +4159,8 @@ export default {
         35,
         35,
         65
-      ]
+      ],
+      "baseStatsTotal": 292
     },
     {
       "url": "https://yakkun.com/sv/zukan/n552",
@@ -3993,7 +4182,8 @@ export default {
         45,
         45,
         74
-      ]
+      ],
+      "baseStatsTotal": 351
     },
     {
       "url": "https://yakkun.com/sv/zukan/n553",
@@ -4015,7 +4205,8 @@ export default {
         65,
         70,
         92
-      ]
+      ],
+      "baseStatsTotal": 519
     },
     {
       "url": "https://yakkun.com/sv/zukan/n570",
@@ -4034,7 +4225,8 @@ export default {
         80,
         40,
         65
-      ]
+      ],
+      "baseStatsTotal": 330
     },
     {
       "url": "https://yakkun.com/sv/zukan/n571",
@@ -4053,7 +4245,8 @@ export default {
         120,
         60,
         105
-      ]
+      ],
+      "baseStatsTotal": 510
     },
     {
       "url": "https://yakkun.com/sv/zukan/n574",
@@ -4074,7 +4267,8 @@ export default {
         55,
         65,
         45
-      ]
+      ],
+      "baseStatsTotal": 290
     },
     {
       "url": "https://yakkun.com/sv/zukan/n575",
@@ -4095,7 +4289,8 @@ export default {
         75,
         85,
         55
-      ]
+      ],
+      "baseStatsTotal": 390
     },
     {
       "url": "https://yakkun.com/sv/zukan/n576",
@@ -4116,7 +4311,8 @@ export default {
         95,
         110,
         65
-      ]
+      ],
+      "baseStatsTotal": 490
     },
     {
       "url": "https://yakkun.com/sv/zukan/n585",
@@ -4138,7 +4334,8 @@ export default {
         40,
         50,
         75
-      ]
+      ],
+      "baseStatsTotal": 335
     },
     {
       "url": "https://yakkun.com/sv/zukan/n586",
@@ -4160,7 +4357,8 @@ export default {
         60,
         70,
         95
-      ]
+      ],
+      "baseStatsTotal": 475
     },
     {
       "url": "https://yakkun.com/sv/zukan/n590",
@@ -4181,7 +4379,8 @@ export default {
         55,
         55,
         15
-      ]
+      ],
+      "baseStatsTotal": 294
     },
     {
       "url": "https://yakkun.com/sv/zukan/n591",
@@ -4202,7 +4401,8 @@ export default {
         85,
         80,
         30
-      ]
+      ],
+      "baseStatsTotal": 464
     },
     {
       "url": "https://yakkun.com/sv/zukan/n594",
@@ -4223,7 +4423,8 @@ export default {
         40,
         45,
         65
-      ]
+      ],
+      "baseStatsTotal": 470
     },
     {
       "url": "https://yakkun.com/sv/zukan/n602",
@@ -4242,7 +4443,8 @@ export default {
         45,
         40,
         60
-      ]
+      ],
+      "baseStatsTotal": 275
     },
     {
       "url": "https://yakkun.com/sv/zukan/n603",
@@ -4261,7 +4463,8 @@ export default {
         75,
         70,
         40
-      ]
+      ],
+      "baseStatsTotal": 405
     },
     {
       "url": "https://yakkun.com/sv/zukan/n604",
@@ -4280,7 +4483,8 @@ export default {
         105,
         80,
         50
-      ]
+      ],
+      "baseStatsTotal": 515
     },
     {
       "url": "https://yakkun.com/sv/zukan/n610",
@@ -4301,7 +4505,8 @@ export default {
         30,
         40,
         57
-      ]
+      ],
+      "baseStatsTotal": 320
     },
     {
       "url": "https://yakkun.com/sv/zukan/n611",
@@ -4322,7 +4527,8 @@ export default {
         40,
         50,
         67
-      ]
+      ],
+      "baseStatsTotal": 410
     },
     {
       "url": "https://yakkun.com/sv/zukan/n612",
@@ -4343,7 +4549,8 @@ export default {
         60,
         70,
         97
-      ]
+      ],
+      "baseStatsTotal": 540
     },
     {
       "url": "https://yakkun.com/sv/zukan/n613",
@@ -4364,7 +4571,8 @@ export default {
         60,
         40,
         40
-      ]
+      ],
+      "baseStatsTotal": 305
     },
     {
       "url": "https://yakkun.com/sv/zukan/n614",
@@ -4385,7 +4593,8 @@ export default {
         70,
         80,
         50
-      ]
+      ],
+      "baseStatsTotal": 505
     },
     {
       "url": "https://yakkun.com/sv/zukan/n615",
@@ -4404,7 +4613,8 @@ export default {
         95,
         135,
         105
-      ]
+      ],
+      "baseStatsTotal": 515
     },
     {
       "url": "https://yakkun.com/sv/zukan/n624",
@@ -4426,7 +4636,8 @@ export default {
         40,
         40,
         60
-      ]
+      ],
+      "baseStatsTotal": 340
     },
     {
       "url": "https://yakkun.com/sv/zukan/n625",
@@ -4448,7 +4659,8 @@ export default {
         60,
         70,
         70
-      ]
+      ],
+      "baseStatsTotal": 490
     },
     {
       "url": "https://yakkun.com/sv/zukan/n627",
@@ -4470,7 +4682,8 @@ export default {
         37,
         50,
         60
-      ]
+      ],
+      "baseStatsTotal": 350
     },
     {
       "url": "https://yakkun.com/sv/zukan/n628",
@@ -4492,7 +4705,8 @@ export default {
         57,
         75,
         80
-      ]
+      ],
+      "baseStatsTotal": 510
     },
     {
       "url": "https://yakkun.com/sv/zukan/n633",
@@ -4512,7 +4726,8 @@ export default {
         45,
         50,
         38
-      ]
+      ],
+      "baseStatsTotal": 300
     },
     {
       "url": "https://yakkun.com/sv/zukan/n634",
@@ -4532,7 +4747,8 @@ export default {
         65,
         70,
         58
-      ]
+      ],
+      "baseStatsTotal": 420
     },
     {
       "url": "https://yakkun.com/sv/zukan/n635",
@@ -4552,7 +4768,8 @@ export default {
         125,
         90,
         98
-      ]
+      ],
+      "baseStatsTotal": 600
     },
     {
       "url": "https://yakkun.com/sv/zukan/n636",
@@ -4573,7 +4790,8 @@ export default {
         50,
         55,
         60
-      ]
+      ],
+      "baseStatsTotal": 360
     },
     {
       "url": "https://yakkun.com/sv/zukan/n637",
@@ -4594,7 +4812,8 @@ export default {
         135,
         105,
         100
-      ]
+      ],
+      "baseStatsTotal": 550
     },
     {
       "url": "https://yakkun.com/sv/zukan/n661",
@@ -4615,7 +4834,8 @@ export default {
         40,
         38,
         62
-      ]
+      ],
+      "baseStatsTotal": 278
     },
     {
       "url": "https://yakkun.com/sv/zukan/n662",
@@ -4636,7 +4856,8 @@ export default {
         56,
         52,
         84
-      ]
+      ],
+      "baseStatsTotal": 382
     },
     {
       "url": "https://yakkun.com/sv/zukan/n663",
@@ -4657,7 +4878,8 @@ export default {
         74,
         69,
         126
-      ]
+      ],
+      "baseStatsTotal": 499
     },
     {
       "url": "https://yakkun.com/sv/zukan/n664",
@@ -4678,7 +4900,8 @@ export default {
         27,
         25,
         35
-      ]
+      ],
+      "baseStatsTotal": 200
     },
     {
       "url": "https://yakkun.com/sv/zukan/n665",
@@ -4698,7 +4921,8 @@ export default {
         27,
         30,
         29
-      ]
+      ],
+      "baseStatsTotal": 213
     },
     {
       "url": "https://yakkun.com/sv/zukan/n666",
@@ -4720,7 +4944,8 @@ export default {
         90,
         50,
         89
-      ]
+      ],
+      "baseStatsTotal": 411
     },
     {
       "url": "https://yakkun.com/sv/zukan/n667",
@@ -4742,7 +4967,8 @@ export default {
         73,
         54,
         72
-      ]
+      ],
+      "baseStatsTotal": 369
     },
     {
       "url": "https://yakkun.com/sv/zukan/n668",
@@ -4764,7 +4990,8 @@ export default {
         109,
         66,
         106
-      ]
+      ],
+      "baseStatsTotal": 507
     },
     {
       "url": "https://yakkun.com/sv/zukan/n669",
@@ -4784,7 +5011,8 @@ export default {
         61,
         79,
         42
-      ]
+      ],
+      "baseStatsTotal": 303
     },
     {
       "url": "https://yakkun.com/sv/zukan/n670",
@@ -4804,7 +5032,8 @@ export default {
         75,
         98,
         52
-      ]
+      ],
+      "baseStatsTotal": 371
     },
     {
       "url": "https://yakkun.com/sv/zukan/n671",
@@ -4824,7 +5053,8 @@ export default {
         112,
         154,
         75
-      ]
+      ],
+      "baseStatsTotal": 552
     },
     {
       "url": "https://yakkun.com/sv/zukan/n672",
@@ -4844,7 +5074,8 @@ export default {
         62,
         57,
         52
-      ]
+      ],
+      "baseStatsTotal": 350
     },
     {
       "url": "https://yakkun.com/sv/zukan/n673",
@@ -4864,7 +5095,8 @@ export default {
         97,
         81,
         68
-      ]
+      ],
+      "baseStatsTotal": 531
     },
     {
       "url": "https://yakkun.com/sv/zukan/n690",
@@ -4886,7 +5118,8 @@ export default {
         60,
         60,
         30
-      ]
+      ],
+      "baseStatsTotal": 320
     },
     {
       "url": "https://yakkun.com/sv/zukan/n691",
@@ -4908,7 +5141,8 @@ export default {
         97,
         123,
         44
-      ]
+      ],
+      "baseStatsTotal": 494
     },
     {
       "url": "https://yakkun.com/sv/zukan/n692",
@@ -4927,7 +5161,8 @@ export default {
         58,
         63,
         44
-      ]
+      ],
+      "baseStatsTotal": 330
     },
     {
       "url": "https://yakkun.com/sv/zukan/n693",
@@ -4946,7 +5181,8 @@ export default {
         120,
         89,
         59
-      ]
+      ],
+      "baseStatsTotal": 500
     },
     {
       "url": "https://yakkun.com/sv/zukan/n700",
@@ -4966,7 +5202,8 @@ export default {
         110,
         130,
         60
-      ]
+      ],
+      "baseStatsTotal": 525
     },
     {
       "url": "https://yakkun.com/sv/zukan/n701",
@@ -4988,7 +5225,8 @@ export default {
         74,
         63,
         118
-      ]
+      ],
+      "baseStatsTotal": 500
     },
     {
       "url": "https://yakkun.com/sv/zukan/n702",
@@ -5010,7 +5248,8 @@ export default {
         81,
         67,
         101
-      ]
+      ],
+      "baseStatsTotal": 431
     },
     {
       "url": "https://yakkun.com/sv/zukan/n704",
@@ -5031,7 +5270,8 @@ export default {
         55,
         75,
         40
-      ]
+      ],
+      "baseStatsTotal": 300
     },
     {
       "url": "https://yakkun.com/sv/zukan/n705",
@@ -5052,7 +5292,8 @@ export default {
         83,
         113,
         60
-      ]
+      ],
+      "baseStatsTotal": 452
     },
     {
       "url": "https://yakkun.com/sv/zukan/n706",
@@ -5073,7 +5314,8 @@ export default {
         110,
         150,
         80
-      ]
+      ],
+      "baseStatsTotal": 600
     },
     {
       "url": "https://yakkun.com/sv/zukan/n707",
@@ -5094,7 +5336,8 @@ export default {
         80,
         87,
         75
-      ]
+      ],
+      "baseStatsTotal": 470
     },
     {
       "url": "https://yakkun.com/sv/zukan/n712",
@@ -5115,7 +5358,8 @@ export default {
         32,
         35,
         28
-      ]
+      ],
+      "baseStatsTotal": 304
     },
     {
       "url": "https://yakkun.com/sv/zukan/n713",
@@ -5136,7 +5380,8 @@ export default {
         44,
         46,
         28
-      ]
+      ],
+      "baseStatsTotal": 514
     },
     {
       "url": "https://yakkun.com/sv/zukan/n714",
@@ -5158,7 +5403,8 @@ export default {
         45,
         40,
         55
-      ]
+      ],
+      "baseStatsTotal": 245
     },
     {
       "url": "https://yakkun.com/sv/zukan/n715",
@@ -5180,7 +5426,8 @@ export default {
         97,
         80,
         123
-      ]
+      ],
+      "baseStatsTotal": 535
     },
     {
       "url": "https://yakkun.com/sv/zukan/n734",
@@ -5201,7 +5448,8 @@ export default {
         30,
         30,
         45
-      ]
+      ],
+      "baseStatsTotal": 253
     },
     {
       "url": "https://yakkun.com/sv/zukan/n735",
@@ -5222,7 +5470,8 @@ export default {
         55,
         60,
         45
-      ]
+      ],
+      "baseStatsTotal": 418
     },
     {
       "url": "https://yakkun.com/sv/zukan/n739",
@@ -5243,7 +5492,8 @@ export default {
         42,
         47,
         63
-      ]
+      ],
+      "baseStatsTotal": 338
     },
     {
       "url": "https://yakkun.com/sv/zukan/n740",
@@ -5265,7 +5515,8 @@ export default {
         62,
         67,
         43
-      ]
+      ],
+      "baseStatsTotal": 478
     },
     {
       "url": "https://yakkun.com/sv/zukan/n741",
@@ -5285,7 +5536,8 @@ export default {
         98,
         70,
         93
-      ]
+      ],
+      "baseStatsTotal": 476
     },
     {
       "url": "https://yakkun.com/sv/zukan/n741p",
@@ -5305,7 +5557,8 @@ export default {
         98,
         70,
         93
-      ]
+      ],
+      "baseStatsTotal": 476
     },
     {
       "url": "https://yakkun.com/sv/zukan/n741f",
@@ -5325,7 +5578,8 @@ export default {
         98,
         70,
         93
-      ]
+      ],
+      "baseStatsTotal": 476
     },
     {
       "url": "https://yakkun.com/sv/zukan/n741m",
@@ -5345,7 +5599,8 @@ export default {
         98,
         70,
         93
-      ]
+      ],
+      "baseStatsTotal": 476
     },
     {
       "url": "https://yakkun.com/sv/zukan/n744",
@@ -5366,7 +5621,8 @@ export default {
         30,
         40,
         60
-      ]
+      ],
+      "baseStatsTotal": 280
     },
     {
       "url": "https://yakkun.com/sv/zukan/n745",
@@ -5387,7 +5643,8 @@ export default {
         55,
         65,
         112
-      ]
+      ],
+      "baseStatsTotal": 487
     },
     {
       "url": "https://yakkun.com/sv/zukan/n745f",
@@ -5408,7 +5665,8 @@ export default {
         55,
         75,
         82
-      ]
+      ],
+      "baseStatsTotal": 487
     },
     {
       "url": "https://yakkun.com/sv/zukan/n745d",
@@ -5427,7 +5685,8 @@ export default {
         55,
         65,
         110
-      ]
+      ],
+      "baseStatsTotal": 487
     },
     {
       "url": "https://yakkun.com/sv/zukan/n747",
@@ -5449,7 +5708,8 @@ export default {
         43,
         52,
         45
-      ]
+      ],
+      "baseStatsTotal": 305
     },
     {
       "url": "https://yakkun.com/sv/zukan/n748",
@@ -5471,7 +5731,8 @@ export default {
         53,
         142,
         35
-      ]
+      ],
+      "baseStatsTotal": 495
     },
     {
       "url": "https://yakkun.com/sv/zukan/n749",
@@ -5492,7 +5753,8 @@ export default {
         45,
         55,
         45
-      ]
+      ],
+      "baseStatsTotal": 385
     },
     {
       "url": "https://yakkun.com/sv/zukan/n750",
@@ -5513,7 +5775,8 @@ export default {
         55,
         85,
         35
-      ]
+      ],
+      "baseStatsTotal": 500
     },
     {
       "url": "https://yakkun.com/sv/zukan/n753",
@@ -5533,7 +5796,8 @@ export default {
         50,
         35,
         35
-      ]
+      ],
+      "baseStatsTotal": 250
     },
     {
       "url": "https://yakkun.com/sv/zukan/n754",
@@ -5553,7 +5817,8 @@ export default {
         80,
         90,
         45
-      ]
+      ],
+      "baseStatsTotal": 480
     },
     {
       "url": "https://yakkun.com/sv/zukan/n757",
@@ -5574,7 +5839,8 @@ export default {
         71,
         40,
         77
-      ]
+      ],
+      "baseStatsTotal": 320
     },
     {
       "url": "https://yakkun.com/sv/zukan/n758",
@@ -5595,7 +5861,8 @@ export default {
         111,
         60,
         117
-      ]
+      ],
+      "baseStatsTotal": 480
     },
     {
       "url": "https://yakkun.com/sv/zukan/n761",
@@ -5616,7 +5883,8 @@ export default {
         30,
         38,
         32
-      ]
+      ],
+      "baseStatsTotal": 210
     },
     {
       "url": "https://yakkun.com/sv/zukan/n762",
@@ -5637,7 +5905,8 @@ export default {
         40,
         48,
         62
-      ]
+      ],
+      "baseStatsTotal": 290
     },
     {
       "url": "https://yakkun.com/sv/zukan/n763",
@@ -5658,7 +5927,8 @@ export default {
         50,
         98,
         72
-      ]
+      ],
+      "baseStatsTotal": 510
     },
     {
       "url": "https://yakkun.com/sv/zukan/n765",
@@ -5680,7 +5950,8 @@ export default {
         90,
         110,
         60
-      ]
+      ],
+      "baseStatsTotal": 490
     },
     {
       "url": "https://yakkun.com/sv/zukan/n766",
@@ -5700,7 +5971,8 @@ export default {
         40,
         60,
         80
-      ]
+      ],
+      "baseStatsTotal": 490
     },
     {
       "url": "https://yakkun.com/sv/zukan/n769",
@@ -5721,7 +5993,8 @@ export default {
         70,
         45,
         15
-      ]
+      ],
+      "baseStatsTotal": 320
     },
     {
       "url": "https://yakkun.com/sv/zukan/n770",
@@ -5742,7 +6015,8 @@ export default {
         100,
         75,
         35
-      ]
+      ],
+      "baseStatsTotal": 480
     },
     {
       "url": "https://yakkun.com/sv/zukan/n775",
@@ -5761,7 +6035,8 @@ export default {
         75,
         95,
         65
-      ]
+      ],
+      "baseStatsTotal": 480
     },
     {
       "url": "https://yakkun.com/sv/zukan/n778",
@@ -5781,7 +6056,8 @@ export default {
         50,
         105,
         96
-      ]
+      ],
+      "baseStatsTotal": 476
     },
     {
       "url": "https://yakkun.com/sv/zukan/n779",
@@ -5803,7 +6079,8 @@ export default {
         70,
         70,
         92
-      ]
+      ],
+      "baseStatsTotal": 475
     },
     {
       "url": "https://yakkun.com/sv/zukan/n813",
@@ -5823,7 +6100,8 @@ export default {
         40,
         40,
         69
-      ]
+      ],
+      "baseStatsTotal": 310
     },
     {
       "url": "https://yakkun.com/sv/zukan/n814",
@@ -5843,7 +6121,8 @@ export default {
         55,
         60,
         94
-      ]
+      ],
+      "baseStatsTotal": 420
     },
     {
       "url": "https://yakkun.com/sv/zukan/n815",
@@ -5863,7 +6142,8 @@ export default {
         65,
         75,
         119
-      ]
+      ],
+      "baseStatsTotal": 530
     },
     {
       "url": "https://yakkun.com/sv/zukan/n819",
@@ -5883,7 +6163,8 @@ export default {
         35,
         35,
         25
-      ]
+      ],
+      "baseStatsTotal": 275
     },
     {
       "url": "https://yakkun.com/sv/zukan/n820",
@@ -5903,7 +6184,8 @@ export default {
         55,
         75,
         20
-      ]
+      ],
+      "baseStatsTotal": 460
     },
     {
       "url": "https://yakkun.com/sv/zukan/n821",
@@ -5924,7 +6206,8 @@ export default {
         33,
         35,
         57
-      ]
+      ],
+      "baseStatsTotal": 245
     },
     {
       "url": "https://yakkun.com/sv/zukan/n822",
@@ -5945,7 +6228,8 @@ export default {
         43,
         55,
         77
-      ]
+      ],
+      "baseStatsTotal": 365
     },
     {
       "url": "https://yakkun.com/sv/zukan/n823",
@@ -5967,7 +6251,8 @@ export default {
         53,
         85,
         67
-      ]
+      ],
+      "baseStatsTotal": 495
     },
     {
       "url": "https://yakkun.com/sv/zukan/n833",
@@ -5988,7 +6273,8 @@ export default {
         38,
         38,
         44
-      ]
+      ],
+      "baseStatsTotal": 284
     },
     {
       "url": "https://yakkun.com/sv/zukan/n834",
@@ -6010,7 +6296,8 @@ export default {
         48,
         68,
         74
-      ]
+      ],
+      "baseStatsTotal": 485
     },
     {
       "url": "https://yakkun.com/sv/zukan/n837",
@@ -6031,7 +6318,8 @@ export default {
         40,
         50,
         30
-      ]
+      ],
+      "baseStatsTotal": 240
     },
     {
       "url": "https://yakkun.com/sv/zukan/n838",
@@ -6053,7 +6341,8 @@ export default {
         60,
         70,
         50
-      ]
+      ],
+      "baseStatsTotal": 410
     },
     {
       "url": "https://yakkun.com/sv/zukan/n839",
@@ -6075,7 +6364,8 @@ export default {
         80,
         90,
         30
-      ]
+      ],
+      "baseStatsTotal": 510
     },
     {
       "url": "https://yakkun.com/sv/zukan/n840",
@@ -6097,7 +6387,8 @@ export default {
         40,
         40,
         20
-      ]
+      ],
+      "baseStatsTotal": 260
     },
     {
       "url": "https://yakkun.com/sv/zukan/n841",
@@ -6119,7 +6410,8 @@ export default {
         95,
         60,
         70
-      ]
+      ],
+      "baseStatsTotal": 485
     },
     {
       "url": "https://yakkun.com/sv/zukan/n842",
@@ -6141,7 +6433,8 @@ export default {
         100,
         80,
         30
-      ]
+      ],
+      "baseStatsTotal": 485
     },
     {
       "url": "https://yakkun.com/sv/zukan/n843",
@@ -6162,7 +6455,8 @@ export default {
         35,
         50,
         46
-      ]
+      ],
+      "baseStatsTotal": 315
     },
     {
       "url": "https://yakkun.com/sv/zukan/n844",
@@ -6183,7 +6477,8 @@ export default {
         65,
         70,
         71
-      ]
+      ],
+      "baseStatsTotal": 510
     },
     {
       "url": "https://yakkun.com/sv/zukan/n846",
@@ -6203,7 +6498,8 @@ export default {
         40,
         30,
         66
-      ]
+      ],
+      "baseStatsTotal": 280
     },
     {
       "url": "https://yakkun.com/sv/zukan/n847",
@@ -6223,7 +6519,8 @@ export default {
         60,
         50,
         136
-      ]
+      ],
+      "baseStatsTotal": 490
     },
     {
       "url": "https://yakkun.com/sv/zukan/n848",
@@ -6245,7 +6542,8 @@ export default {
         54,
         35,
         40
-      ]
+      ],
+      "baseStatsTotal": 242
     },
     {
       "url": "https://yakkun.com/sv/zukan/n849",
@@ -6267,7 +6565,8 @@ export default {
         114,
         70,
         75
-      ]
+      ],
+      "baseStatsTotal": 502
     },
     {
       "url": "https://yakkun.com/sv/zukan/n849f",
@@ -6289,7 +6588,8 @@ export default {
         114,
         70,
         75
-      ]
+      ],
+      "baseStatsTotal": 502
     },
     {
       "url": "https://yakkun.com/sv/zukan/n854",
@@ -6309,7 +6609,8 @@ export default {
         74,
         54,
         50
-      ]
+      ],
+      "baseStatsTotal": 308
     },
     {
       "url": "https://yakkun.com/sv/zukan/n855",
@@ -6329,7 +6630,8 @@ export default {
         134,
         114,
         70
-      ]
+      ],
+      "baseStatsTotal": 508
     },
     {
       "url": "https://yakkun.com/sv/zukan/n856",
@@ -6350,7 +6652,8 @@ export default {
         56,
         53,
         39
-      ]
+      ],
+      "baseStatsTotal": 265
     },
     {
       "url": "https://yakkun.com/sv/zukan/n857",
@@ -6371,7 +6674,8 @@ export default {
         86,
         73,
         49
-      ]
+      ],
+      "baseStatsTotal": 370
     },
     {
       "url": "https://yakkun.com/sv/zukan/n858",
@@ -6393,7 +6697,8 @@ export default {
         136,
         103,
         29
-      ]
+      ],
+      "baseStatsTotal": 510
     },
     {
       "url": "https://yakkun.com/sv/zukan/n859",
@@ -6415,7 +6720,8 @@ export default {
         55,
         40,
         50
-      ]
+      ],
+      "baseStatsTotal": 265
     },
     {
       "url": "https://yakkun.com/sv/zukan/n860",
@@ -6437,7 +6743,8 @@ export default {
         75,
         55,
         70
-      ]
+      ],
+      "baseStatsTotal": 370
     },
     {
       "url": "https://yakkun.com/sv/zukan/n861",
@@ -6459,7 +6766,8 @@ export default {
         95,
         75,
         60
-      ]
+      ],
+      "baseStatsTotal": 510
     },
     {
       "url": "https://yakkun.com/sv/zukan/n863",
@@ -6480,7 +6788,8 @@ export default {
         50,
         60,
         50
-      ]
+      ],
+      "baseStatsTotal": 440
     },
     {
       "url": "https://yakkun.com/sv/zukan/n870",
@@ -6500,7 +6809,8 @@ export default {
         70,
         60,
         75
-      ]
+      ],
+      "baseStatsTotal": 470
     },
     {
       "url": "https://yakkun.com/sv/zukan/n871",
@@ -6520,7 +6830,8 @@ export default {
         91,
         85,
         15
-      ]
+      ],
+      "baseStatsTotal": 435
     },
     {
       "url": "https://yakkun.com/sv/zukan/n872",
@@ -6541,7 +6852,8 @@ export default {
         45,
         30,
         20
-      ]
+      ],
+      "baseStatsTotal": 185
     },
     {
       "url": "https://yakkun.com/sv/zukan/n873",
@@ -6562,7 +6874,8 @@ export default {
         125,
         90,
         65
-      ]
+      ],
+      "baseStatsTotal": 475
     },
     {
       "url": "https://yakkun.com/sv/zukan/n874",
@@ -6581,7 +6894,8 @@ export default {
         20,
         20,
         70
-      ]
+      ],
+      "baseStatsTotal": 470
     },
     {
       "url": "https://yakkun.com/sv/zukan/n875",
@@ -6600,7 +6914,8 @@ export default {
         65,
         90,
         50
-      ]
+      ],
+      "baseStatsTotal": 470
     },
     {
       "url": "https://yakkun.com/sv/zukan/n875f",
@@ -6619,7 +6934,8 @@ export default {
         65,
         50,
         130
-      ]
+      ],
+      "baseStatsTotal": 470
     },
     {
       "url": "https://yakkun.com/sv/zukan/n876",
@@ -6641,7 +6957,8 @@ export default {
         105,
         95,
         95
-      ]
+      ],
+      "baseStatsTotal": 475
     },
     {
       "url": "https://yakkun.com/sv/zukan/n876f",
@@ -6663,7 +6980,8 @@ export default {
         95,
         105,
         85
-      ]
+      ],
+      "baseStatsTotal": 475
     },
     {
       "url": "https://yakkun.com/sv/zukan/n878",
@@ -6683,7 +7001,8 @@ export default {
         40,
         49,
         40
-      ]
+      ],
+      "baseStatsTotal": 330
     },
     {
       "url": "https://yakkun.com/sv/zukan/n879",
@@ -6703,7 +7022,8 @@ export default {
         80,
         69,
         30
-      ]
+      ],
+      "baseStatsTotal": 500
     },
     {
       "url": "https://yakkun.com/sv/zukan/n885",
@@ -6725,7 +7045,8 @@ export default {
         40,
         30,
         82
-      ]
+      ],
+      "baseStatsTotal": 270
     },
     {
       "url": "https://yakkun.com/sv/zukan/n886",
@@ -6747,7 +7068,8 @@ export default {
         60,
         50,
         102
-      ]
+      ],
+      "baseStatsTotal": 410
     },
     {
       "url": "https://yakkun.com/sv/zukan/n887",
@@ -6769,7 +7091,8 @@ export default {
         100,
         75,
         142
-      ]
+      ],
+      "baseStatsTotal": 600
     },
     {
       "url": "https://yakkun.com/sv/zukan/n906",
@@ -6789,7 +7112,8 @@ export default {
         45,
         45,
         65
-      ]
+      ],
+      "baseStatsTotal": 310
     },
     {
       "url": "https://yakkun.com/sv/zukan/n907",
@@ -6809,7 +7133,8 @@ export default {
         60,
         63,
         83
-      ]
+      ],
+      "baseStatsTotal": 410
     },
     {
       "url": "https://yakkun.com/sv/zukan/n908",
@@ -6830,7 +7155,8 @@ export default {
         81,
         70,
         123
-      ]
+      ],
+      "baseStatsTotal": 530
     },
     {
       "url": "https://yakkun.com/sv/zukan/n909",
@@ -6850,7 +7176,8 @@ export default {
         63,
         40,
         36
-      ]
+      ],
+      "baseStatsTotal": 310
     },
     {
       "url": "https://yakkun.com/sv/zukan/n910",
@@ -6870,7 +7197,8 @@ export default {
         90,
         58,
         49
-      ]
+      ],
+      "baseStatsTotal": 411
     },
     {
       "url": "https://yakkun.com/sv/zukan/n911",
@@ -6891,7 +7219,8 @@ export default {
         110,
         75,
         66
-      ]
+      ],
+      "baseStatsTotal": 530
     },
     {
       "url": "https://yakkun.com/sv/zukan/n912",
@@ -6911,7 +7240,8 @@ export default {
         50,
         45,
         50
-      ]
+      ],
+      "baseStatsTotal": 310
     },
     {
       "url": "https://yakkun.com/sv/zukan/n913",
@@ -6931,7 +7261,8 @@ export default {
         65,
         60,
         65
-      ]
+      ],
+      "baseStatsTotal": 410
     },
     {
       "url": "https://yakkun.com/sv/zukan/n914",
@@ -6952,7 +7283,8 @@ export default {
         85,
         75,
         85
-      ]
+      ],
+      "baseStatsTotal": 530
     },
     {
       "url": "https://yakkun.com/sv/zukan/n915",
@@ -6973,7 +7305,8 @@ export default {
         35,
         45,
         35
-      ]
+      ],
+      "baseStatsTotal": 254
     },
     {
       "url": "https://yakkun.com/sv/zukan/n916",
@@ -6994,7 +7327,8 @@ export default {
         59,
         80,
         65
-      ]
+      ],
+      "baseStatsTotal": 489
     },
     {
       "url": "https://yakkun.com/sv/zukan/n916f",
@@ -7015,7 +7349,8 @@ export default {
         59,
         90,
         65
-      ]
+      ],
+      "baseStatsTotal": 489
     },
     {
       "url": "https://yakkun.com/sv/zukan/n917",
@@ -7036,7 +7371,8 @@ export default {
         85,
         75,
         55
-      ]
+      ],
+      "baseStatsTotal": 520
     },
     {
       "url": "https://yakkun.com/sv/zukan/n917f",
@@ -7057,7 +7393,8 @@ export default {
         85,
         75,
         55
-      ]
+      ],
+      "baseStatsTotal": 520
     },
     {
       "url": "https://yakkun.com/sv/zukan/n918",
@@ -7077,7 +7414,8 @@ export default {
         29,
         40,
         20
-      ]
+      ],
+      "baseStatsTotal": 210
     },
     {
       "url": "https://yakkun.com/sv/zukan/n919",
@@ -7097,7 +7435,8 @@ export default {
         52,
         86,
         35
-      ]
+      ],
+      "baseStatsTotal": 404
     },
     {
       "url": "https://yakkun.com/sv/zukan/n920",
@@ -7117,7 +7456,8 @@ export default {
         21,
         25,
         45
-      ]
+      ],
+      "baseStatsTotal": 210
     },
     {
       "url": "https://yakkun.com/sv/zukan/n921",
@@ -7138,7 +7478,8 @@ export default {
         52,
         55,
         92
-      ]
+      ],
+      "baseStatsTotal": 450
     },
     {
       "url": "https://yakkun.com/sv/zukan/n922",
@@ -7158,7 +7499,8 @@ export default {
         31,
         58,
         30
-      ]
+      ],
+      "baseStatsTotal": 270
     },
     {
       "url": "https://yakkun.com/sv/zukan/n923",
@@ -7179,7 +7521,8 @@ export default {
         115,
         100,
         45
-      ]
+      ],
+      "baseStatsTotal": 470
     },
     {
       "url": "https://yakkun.com/sv/zukan/n924",
@@ -7199,7 +7542,8 @@ export default {
         30,
         55,
         34
-      ]
+      ],
+      "baseStatsTotal": 290
     },
     {
       "url": "https://yakkun.com/sv/zukan/n925",
@@ -7219,7 +7563,8 @@ export default {
         50,
         97,
         68
-      ]
+      ],
+      "baseStatsTotal": 488
     },
     {
       "url": "https://yakkun.com/sv/zukan/n926",
@@ -7240,7 +7585,8 @@ export default {
         55,
         30,
         75
-      ]
+      ],
+      "baseStatsTotal": 255
     },
     {
       "url": "https://yakkun.com/sv/zukan/n927",
@@ -7261,7 +7607,8 @@ export default {
         101,
         60,
         105
-      ]
+      ],
+      "baseStatsTotal": 481
     },
     {
       "url": "https://yakkun.com/sv/zukan/n928",
@@ -7283,7 +7630,8 @@ export default {
         110,
         70,
         60
-      ]
+      ],
+      "baseStatsTotal": 520
     },
     {
       "url": "https://yakkun.com/sv/zukan/n929",
@@ -7304,7 +7652,8 @@ export default {
         35,
         25,
         95
-      ]
+      ],
+      "baseStatsTotal": 245
     },
     {
       "url": "https://yakkun.com/sv/zukan/n930",
@@ -7325,7 +7674,8 @@ export default {
         50,
         70,
         120
-      ]
+      ],
+      "baseStatsTotal": 425
     },
     {
       "url": "https://yakkun.com/sv/zukan/n931",
@@ -7346,7 +7696,8 @@ export default {
         65,
         65,
         35
-      ]
+      ],
+      "baseStatsTotal": 530
     },
     {
       "url": "https://yakkun.com/sv/zukan/n932",
@@ -7367,7 +7718,8 @@ export default {
         78,
         65,
         70
-      ]
+      ],
+      "baseStatsTotal": 478
     },
     {
       "url": "https://yakkun.com/sv/zukan/n933",
@@ -7386,7 +7738,8 @@ export default {
         45,
         40,
         75
-      ]
+      ],
+      "baseStatsTotal": 315
     },
     {
       "url": "https://yakkun.com/sv/zukan/n934",
@@ -7405,7 +7758,8 @@ export default {
         53,
         62,
         100
-      ]
+      ],
+      "baseStatsTotal": 457
     },
     {
       "url": "https://yakkun.com/sv/zukan/n934f",
@@ -7424,7 +7778,8 @@ export default {
         106,
         87,
         100
-      ]
+      ],
+      "baseStatsTotal": 650
     },
     {
       "url": "https://yakkun.com/sv/zukan/n935",
@@ -7445,7 +7800,8 @@ export default {
         58,
         51,
         30
-      ]
+      ],
+      "baseStatsTotal": 260
     },
     {
       "url": "https://yakkun.com/sv/zukan/n936",
@@ -7466,7 +7822,8 @@ export default {
         78,
         78,
         33
-      ]
+      ],
+      "baseStatsTotal": 354
     },
     {
       "url": "https://yakkun.com/sv/zukan/n937",
@@ -7487,7 +7844,8 @@ export default {
         125,
         109,
         39
-      ]
+      ],
+      "baseStatsTotal": 510
     },
     {
       "url": "https://yakkun.com/sv/zukan/n938",
@@ -7508,7 +7866,8 @@ export default {
         62,
         40,
         50
-      ]
+      ],
+      "baseStatsTotal": 304
     },
     {
       "url": "https://yakkun.com/sv/zukan/n939",
@@ -7530,7 +7889,8 @@ export default {
         108,
         65,
         75
-      ]
+      ],
+      "baseStatsTotal": 486
     },
     {
       "url": "https://yakkun.com/sv/zukan/n940",
@@ -7551,7 +7911,8 @@ export default {
         59,
         35,
         45
-      ]
+      ],
+      "baseStatsTotal": 272
     },
     {
       "url": "https://yakkun.com/sv/zukan/n941",
@@ -7572,7 +7933,8 @@ export default {
         103,
         83,
         45
-      ]
+      ],
+      "baseStatsTotal": 495
     },
     {
       "url": "https://yakkun.com/sv/zukan/n942",
@@ -7593,7 +7955,8 @@ export default {
         30,
         45,
         47
-      ]
+      ],
+      "baseStatsTotal": 300
     },
     {
       "url": "https://yakkun.com/sv/zukan/n943",
@@ -7614,7 +7977,8 @@ export default {
         54,
         67,
         90
-      ]
+      ],
+      "baseStatsTotal": 500
     },
     {
       "url": "https://yakkun.com/sv/zukan/n944",
@@ -7634,7 +7998,8 @@ export default {
         60,
         55,
         65
-      ]
+      ],
+      "baseStatsTotal": 480
     },
     {
       "url": "https://yakkun.com/sv/zukan/n945",
@@ -7655,7 +8020,8 @@ export default {
         40,
         45,
         75
-      ]
+      ],
+      "baseStatsTotal": 305
     },
     {
       "url": "https://yakkun.com/sv/zukan/n946",
@@ -7676,7 +8042,8 @@ export default {
         65,
         75,
         111
-      ]
+      ],
+      "baseStatsTotal": 470
     },
     {
       "url": "https://yakkun.com/sv/zukan/n946f",
@@ -7697,7 +8064,8 @@ export default {
         65,
         75,
         111
-      ]
+      ],
+      "baseStatsTotal": 470
     },
     {
       "url": "https://yakkun.com/sv/zukan/n947",
@@ -7718,7 +8086,8 @@ export default {
         30,
         40,
         43
-      ]
+      ],
+      "baseStatsTotal": 334
     },
     {
       "url": "https://yakkun.com/sv/zukan/n948",
@@ -7739,7 +8108,8 @@ export default {
         45,
         55,
         73
-      ]
+      ],
+      "baseStatsTotal": 521
     },
     {
       "url": "https://yakkun.com/sv/zukan/n949",
@@ -7760,7 +8130,8 @@ export default {
         35,
         45,
         55
-      ]
+      ],
+      "baseStatsTotal": 320
     },
     {
       "url": "https://yakkun.com/sv/zukan/n950",
@@ -7781,7 +8152,8 @@ export default {
         45,
         65,
         62
-      ]
+      ],
+      "baseStatsTotal": 423
     },
     {
       "url": "https://yakkun.com/sv/zukan/n951",
@@ -7802,7 +8174,8 @@ export default {
         75,
         86,
         87
-      ]
+      ],
+      "baseStatsTotal": 600
     },
     {
       "url": "https://yakkun.com/sv/zukan/n952",
@@ -7823,7 +8196,8 @@ export default {
         120,
         95,
         82
-      ]
+      ],
+      "baseStatsTotal": 475
     },
     {
       "url": "https://yakkun.com/sv/zukan/n952t",
@@ -7844,7 +8218,8 @@ export default {
         120,
         95,
         82
-      ]
+      ],
+      "baseStatsTotal": 475
     },
     {
       "url": "https://yakkun.com/sv/zukan/n952n",
@@ -7865,7 +8240,8 @@ export default {
         120,
         95,
         82
-      ]
+      ],
+      "baseStatsTotal": 475
     },
     {
       "url": "https://yakkun.com/sv/zukan/n953",
@@ -7886,7 +8262,8 @@ export default {
         85,
         65,
         121
-      ]
+      ],
+      "baseStatsTotal": 501
     },
     {
       "url": "https://yakkun.com/sv/zukan/n954",
@@ -7907,7 +8284,8 @@ export default {
         40,
         25,
         60
-      ]
+      ],
+      "baseStatsTotal": 240
     },
     {
       "url": "https://yakkun.com/sv/zukan/n955",
@@ -7929,7 +8307,8 @@ export default {
         50,
         40,
         85
-      ]
+      ],
+      "baseStatsTotal": 350
     },
     {
       "url": "https://yakkun.com/sv/zukan/n956",
@@ -7951,7 +8330,8 @@ export default {
         70,
         60,
         105
-      ]
+      ],
+      "baseStatsTotal": 490
     },
     {
       "url": "https://yakkun.com/sv/zukan/n957",
@@ -7973,7 +8353,8 @@ export default {
         55,
         40,
         70
-      ]
+      ],
+      "baseStatsTotal": 280
     },
     {
       "url": "https://yakkun.com/sv/zukan/n958",
@@ -7995,7 +8376,8 @@ export default {
         105,
         60,
         125
-      ]
+      ],
+      "baseStatsTotal": 490
     },
     {
       "url": "https://yakkun.com/sv/zukan/n959",
@@ -8017,7 +8399,8 @@ export default {
         60,
         85,
         82
-      ]
+      ],
+      "baseStatsTotal": 485
     },
     {
       "url": "https://yakkun.com/sv/zukan/n960",
@@ -8039,7 +8422,8 @@ export default {
         45,
         51,
         92
-      ]
+      ],
+      "baseStatsTotal": 417
     },
     {
       "url": "https://yakkun.com/sv/zukan/n960b",
@@ -8061,7 +8445,8 @@ export default {
         45,
         51,
         92
-      ]
+      ],
+      "baseStatsTotal": 417
     },
     {
       "url": "https://yakkun.com/sv/zukan/n960y",
@@ -8083,7 +8468,8 @@ export default {
         45,
         51,
         92
-      ]
+      ],
+      "baseStatsTotal": 417
     },
     {
       "url": "https://yakkun.com/sv/zukan/n960w",
@@ -8105,7 +8491,8 @@ export default {
         45,
         51,
         92
-      ]
+      ],
+      "baseStatsTotal": 417
     },
     {
       "url": "https://yakkun.com/sv/zukan/n961",
@@ -8127,7 +8514,8 @@ export default {
         75,
         64,
         90
-      ]
+      ],
+      "baseStatsTotal": 500
     },
     {
       "url": "https://yakkun.com/sv/zukan/n962",
@@ -8148,7 +8536,8 @@ export default {
         35,
         55,
         75
-      ]
+      ],
+      "baseStatsTotal": 450
     },
     {
       "url": "https://yakkun.com/sv/zukan/n963",
@@ -8169,7 +8558,8 @@ export default {
         35,
         35,
         25
-      ]
+      ],
+      "baseStatsTotal": 280
     },
     {
       "url": "https://yakkun.com/sv/zukan/n964",
@@ -8190,7 +8580,8 @@ export default {
         35,
         65,
         35
-      ]
+      ],
+      "baseStatsTotal": 355
     },
     {
       "url": "https://yakkun.com/sv/zukan/n965",
@@ -8211,7 +8602,8 @@ export default {
         45,
         90,
         35
-      ]
+      ],
+      "baseStatsTotal": 500
     },
     {
       "url": "https://yakkun.com/sv/zukan/n966",
@@ -8232,7 +8624,8 @@ export default {
         105,
         60,
         60
-      ]
+      ],
+      "baseStatsTotal": 350
     },
     {
       "url": "https://yakkun.com/sv/zukan/n967",
@@ -8253,7 +8646,8 @@ export default {
         130,
         81,
         86
-      ]
+      ],
+      "baseStatsTotal": 525
     },
     {
       "url": "https://yakkun.com/sv/zukan/n968",
@@ -8275,7 +8669,8 @@ export default {
         40,
         35,
         75
-      ]
+      ],
+      "baseStatsTotal": 290
     },
     {
       "url": "https://yakkun.com/sv/zukan/n969",
@@ -8297,7 +8692,8 @@ export default {
         80,
         72,
         110
-      ]
+      ],
+      "baseStatsTotal": 485
     },
     {
       "url": "https://yakkun.com/sv/zukan/n970",
@@ -8317,7 +8713,8 @@ export default {
         30,
         55,
         65
-      ]
+      ],
+      "baseStatsTotal": 312
     },
     {
       "url": "https://yakkun.com/sv/zukan/n971",
@@ -8337,7 +8734,8 @@ export default {
         50,
         80,
         95
-      ]
+      ],
+      "baseStatsTotal": 477
     },
     {
       "url": "https://yakkun.com/sv/zukan/n972",
@@ -8358,7 +8756,8 @@ export default {
         40,
         51,
         51
-      ]
+      ],
+      "baseStatsTotal": 340
     },
     {
       "url": "https://yakkun.com/sv/zukan/n973",
@@ -8379,7 +8778,8 @@ export default {
         60,
         70,
         85
-      ]
+      ],
+      "baseStatsTotal": 505
     },
     {
       "url": "https://yakkun.com/sv/zukan/n974",
@@ -8400,7 +8800,8 @@ export default {
         45,
         35,
         60
-      ]
+      ],
+      "baseStatsTotal": 275
     },
     {
       "url": "https://yakkun.com/sv/zukan/n975",
@@ -8421,7 +8822,8 @@ export default {
         80,
         70,
         90
-      ]
+      ],
+      "baseStatsTotal": 480
     },
     {
       "url": "https://yakkun.com/sv/zukan/n976",
@@ -8440,7 +8842,8 @@ export default {
         75,
         70,
         10
-      ]
+      ],
+      "baseStatsTotal": 300
     },
     {
       "url": "https://yakkun.com/sv/zukan/n977",
@@ -8460,7 +8863,8 @@ export default {
         133,
         91,
         84
-      ]
+      ],
+      "baseStatsTotal": 550
     },
     {
       "url": "https://yakkun.com/sv/zukan/n978",
@@ -8480,7 +8884,8 @@ export default {
         53,
         53,
         87
-      ]
+      ],
+      "baseStatsTotal": 570
     },
     {
       "url": "https://yakkun.com/sv/zukan/n979",
@@ -8500,7 +8905,8 @@ export default {
         79,
         99,
         55
-      ]
+      ],
+      "baseStatsTotal": 570
     },
     {
       "url": "https://yakkun.com/sv/zukan/n981",
@@ -8520,7 +8926,8 @@ export default {
         121,
         85,
         101
-      ]
+      ],
+      "baseStatsTotal": 570
     },
     {
       "url": "https://yakkun.com/sv/zukan/n982",
@@ -8540,7 +8947,8 @@ export default {
         65,
         115,
         111
-      ]
+      ],
+      "baseStatsTotal": 570
     },
     {
       "url": "https://yakkun.com/sv/zukan/n983",
@@ -8560,7 +8968,8 @@ export default {
         135,
         135,
         135
-      ]
+      ],
+      "baseStatsTotal": 570
     },
     {
       "url": "https://yakkun.com/sv/zukan/n984",
@@ -8580,7 +8989,8 @@ export default {
         85,
         105,
         81
-      ]
+      ],
+      "baseStatsTotal": 570
     },
     {
       "url": "https://yakkun.com/sv/zukan/n985",
@@ -8600,7 +9010,8 @@ export default {
         55,
         101,
         119
-      ]
+      ],
+      "baseStatsTotal": 590
     },
     {
       "url": "https://yakkun.com/sv/zukan/n986",
@@ -8620,7 +9031,8 @@ export default {
         72,
         70,
         106
-      ]
+      ],
+      "baseStatsTotal": 570
     },
     {
       "url": "https://yakkun.com/sv/zukan/n988",
@@ -8640,7 +9052,8 @@ export default {
         140,
         110,
         110
-      ]
+      ],
+      "baseStatsTotal": 570
     },
     {
       "url": "https://yakkun.com/sv/zukan/n989",
@@ -8660,7 +9073,8 @@ export default {
         50,
         68,
         50
-      ]
+      ],
+      "baseStatsTotal": 570
     },
     {
       "url": "https://yakkun.com/sv/zukan/n990",
@@ -8680,7 +9094,8 @@ export default {
         122,
         80,
         108
-      ]
+      ],
+      "baseStatsTotal": 570
     },
     {
       "url": "https://yakkun.com/sv/zukan/n991",
@@ -8700,7 +9115,8 @@ export default {
         70,
         84,
         72
-      ]
+      ],
+      "baseStatsTotal": 570
     },
     {
       "url": "https://yakkun.com/sv/zukan/n992",
@@ -8720,7 +9136,8 @@ export default {
         124,
         60,
         136
-      ]
+      ],
+      "baseStatsTotal": 570
     },
     {
       "url": "https://yakkun.com/sv/zukan/n993",
@@ -8740,7 +9157,8 @@ export default {
         120,
         60,
         116
-      ]
+      ],
+      "baseStatsTotal": 590
     },
     {
       "url": "https://yakkun.com/sv/zukan/n994",
@@ -8760,7 +9178,8 @@ export default {
         55,
         80,
         45
-      ]
+      ],
+      "baseStatsTotal": 570
     },
     {
       "url": "https://yakkun.com/sv/zukan/n995",
@@ -8780,7 +9199,8 @@ export default {
         90,
         65,
         135
-      ]
+      ],
+      "baseStatsTotal": 570
     },
     {
       "url": "https://yakkun.com/sv/zukan/n996",
@@ -8800,7 +9220,8 @@ export default {
         95,
         135,
         70
-      ]
+      ],
+      "baseStatsTotal": 570
     },
     {
       "url": "https://yakkun.com/sv/zukan/n997",
@@ -8820,7 +9241,8 @@ export default {
         135,
         120,
         100
-      ]
+      ],
+      "baseStatsTotal": 570
     },
     {
       "url": "https://yakkun.com/sv/zukan/n998",
@@ -8840,7 +9262,8 @@ export default {
         85,
         100,
         135
-      ]
+      ],
+      "baseStatsTotal": 670
     },
     {
       "url": "https://yakkun.com/sv/zukan/n999",
@@ -8860,7 +9283,8 @@ export default {
         135,
         115,
         135
-      ]
+      ],
+      "baseStatsTotal": 670
     },
     {
       "url": "https://yakkun.com/sv/zukan/n1000",
@@ -8882,7 +9306,8 @@ export default {
         35,
         64,
         58
-      ]
+      ],
+      "baseStatsTotal": 297
     },
     {
       "url": "https://yakkun.com/sv/zukan/n1001",
@@ -8904,7 +9329,8 @@ export default {
         45,
         82,
         78
-      ]
+      ],
+      "baseStatsTotal": 380
     },
     {
       "url": "https://yakkun.com/sv/zukan/n1002",
@@ -8926,7 +9352,8 @@ export default {
         70,
         105,
         94
-      ]
+      ],
+      "baseStatsTotal": 506
     },
     {
       "url": "https://yakkun.com/sv/zukan/n1003",
@@ -8946,7 +9373,8 @@ export default {
         50,
         40,
         35
-      ]
+      ],
+      "baseStatsTotal": 255
     },
     {
       "url": "https://yakkun.com/sv/zukan/n1004",
@@ -8967,7 +9395,8 @@ export default {
         125,
         80,
         75
-      ]
+      ],
+      "baseStatsTotal": 525
     },
     {
       "url": "https://yakkun.com/sv/zukan/n1005",
@@ -8988,7 +9417,8 @@ export default {
         60,
         100,
         85
-      ]
+      ],
+      "baseStatsTotal": 525
     },
     {
       "url": "https://yakkun.com/sv/zukan/n1006",
@@ -9008,7 +9438,8 @@ export default {
         50,
         100,
         70
-      ]
+      ],
+      "baseStatsTotal": 335
     },
     {
       "url": "https://yakkun.com/sv/zukan/n1007",
@@ -9028,7 +9459,8 @@ export default {
         80,
         120,
         100
-      ]
+      ],
+      "baseStatsTotal": 515
     },
     {
       "url": "https://yakkun.com/sv/zukan/n1008",
@@ -9050,7 +9482,8 @@ export default {
         60,
         85,
         50
-      ]
+      ],
+      "baseStatsTotal": 550
     },
     {
       "url": "https://yakkun.com/sv/zukan/n1009",
@@ -9072,7 +9505,8 @@ export default {
         45,
         100,
         20
-      ]
+      ],
+      "baseStatsTotal": 430
     },
     {
       "url": "https://yakkun.com/sv/zukan/n1010",
@@ -9094,8 +9528,9 @@ export default {
         50,
         90,
         90
-      ]
+      ],
+      "baseStatsTotal": 535
     }
   ],
-  "lastUpdatedAt": "2022-12-25T14:13:36.757Z"
+  "lastUpdatedAt": "2022-12-26T00:04:54.748Z"
 } as const;

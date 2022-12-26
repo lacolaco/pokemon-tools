@@ -27,6 +27,7 @@ import { SimpleControlValueAccessor } from '../utitilites/forms';
       }
       button {
         padding: 0 4px;
+        font-size: 0.85em;
       }
       .buttons {
         display: grid;

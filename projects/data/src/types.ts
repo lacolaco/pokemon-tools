@@ -7,4 +7,5 @@ export type PokemonData = {
   types: readonly string[];
   abilities: readonly string[];
   baseStats: Readonly<StatValues<number>>;
+  baseStatsTotal: number;
 };

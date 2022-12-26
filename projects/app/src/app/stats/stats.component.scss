@@ -13,9 +13,13 @@
 .calc-table {
   border-spacing: 8px 4px;
 
-  tbody tr td:first-child {
+  tbody tr td:first-child:not([colspan]) {
     text-align: center;
   }
+}
+
+.base-spec {
+  color: #999;
 }
 
 .stat-name {
