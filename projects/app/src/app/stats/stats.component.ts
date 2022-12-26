@@ -79,6 +79,9 @@ class LocalState extends RxState<{
   }
 }
 
+// TODO: 努力値合計が510を超えないようにする
+// TODO: HP倍数調整
+// TODO: URLに状態保存
 @Component({
   selector: 'app-stats',
   standalone: true,

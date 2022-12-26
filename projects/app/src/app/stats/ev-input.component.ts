@@ -10,47 +10,31 @@ import { SimpleControlValueAccessor } from '../utitilites/forms';
   imports: [CommonModule, ReactiveFormsModule],
   template: `
     <input type="number" min="0" max="252" step="4" required [formControl]="formControl" (click)="onTouched()" />
-    <div class="buttons">
-      <button (click)="onTouched(); setValue(formControl.value + 4)" [disabled]="formControl.disabled || isMax">
-        ▲
-      </button>
-      <button (click)="onTouched(); setValue(formControl.value - 4)" [disabled]="formControl.disabled || isMin">
-        ▼
-      </button>
-      <button (click)="onTouched(); setValue(252)" [disabled]="formControl.disabled">252</button>
-      <button (click)="onTouched(); setValue(0)" [disabled]="formControl.disabled">0</button>
+    <div class="buttons-outer">
+      <div class="buttons">
+        <button (click)="onTouched(); setValue(formControl.value + 4)" [disabled]="formControl.disabled || isMax">
+          ▲
+        </button>
+        <button (click)="onTouched(); setValue(formControl.value - 4)" [disabled]="formControl.disabled || isMin">
+          ▼
+        </button>
+      </div>
+      <div class="buttons">
+        <button (click)="onTouched(); setValue(252)" [disabled]="formControl.disabled">252</button>
+        <button (click)="onTouched(); setValue(0)" [disabled]="formControl.disabled">0</button>
+      </div>
     </div>
   `,
-  styles: [
-    `
-      :host {
-        display: flex;
-        flex-direction: row;
-        column-gap: 4px;
-      }
-      input {
-        width: 3.75em;
-      }
-      button {
-        padding: 0 4px;
-        font-size: 0.85em;
-      }
-      .buttons {
-        display: grid;
-        grid-template-columns: repeat(4, auto);
-        column-gap: 4px;
-      }
-    `,
-  ],
+  styleUrls: ['./ev-input.component.scss'],
 })
 export class EVInputComponent extends SimpleControlValueAccessor<EV> {
   readonly formControl = new FormControl(ev(0), { nonNullable: true });
 
   get isMax(): boolean {
-    return this.formControl.value < 252;
+    return this.formControl.value >= 252;
   }
   get isMin(): boolean {
-    return this.formControl.value > 0;
+    return this.formControl.value <= 0;
   }
 
   constructor() {

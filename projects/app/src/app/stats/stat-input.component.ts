@@ -9,7 +9,7 @@ import { SimpleControlValueAccessor } from '../utitilites/forms';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   template: `
-    <input type="number" min="1" required [formControl]="formControl" (click)="onTouched()" />
+    <input type="number" min="1" max="999" required [formControl]="formControl" (click)="onTouched()" />
     <div class="buttons">
       <button (click)="onTouched(); setValue(formControl.value + 1)" [disabled]="formControl.disabled || isMax">
         ▲
@@ -19,27 +19,7 @@ import { SimpleControlValueAccessor } from '../utitilites/forms';
       </button>
     </div>
   `,
-  styles: [
-    `
-      :host {
-        display: flex;
-        flex-direction: row;
-        column-gap: 4px;
-      }
-      input {
-        width: 3.75em;
-      }
-      button {
-        padding: 0 4px;
-        font-size: 0.85em;
-      }
-      .buttons {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        column-gap: 4px;
-      }
-    `,
-  ],
+  styleUrls: ['./stat-input.component.scss'],
 })
 export class StatInputComponent extends SimpleControlValueAccessor<Stat> {
   readonly formControl = new FormControl(stat(1), { nonNullable: true });
