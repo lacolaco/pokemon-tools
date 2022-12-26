@@ -4,7 +4,7 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { PokemonData, pokemons, pokemonsMap } from '@lib/data';
 import { map } from 'rxjs';
-import { getValidValueChanges, SimpleControlValueAccessor } from '../utitilites/forms';
+import { SimpleControlValueAccessor } from '../utitilites/forms';
 import { kataToHira } from '../utitilites/strings';
 
 @Component({
@@ -12,7 +12,12 @@ import { kataToHira } from '../utitilites/strings';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, MatAutocompleteModule],
   template: `
-    <mat-autocomplete #auto="matAutocomplete">
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="selectPokemon($event)"
+      autoActiveFirstOption
+      autoSelectActiveOption
+    >
       <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
         {{ option }}
       </mat-option>
@@ -41,20 +46,16 @@ export class PokemonSelectComponent extends SimpleControlValueAccessor<PokemonDa
     }),
   );
 
-  ngOnInit() {
-    getValidValueChanges<string>(this.formControl)
-      .pipe(this.takeUntilDestroyed())
-      .subscribe((value) => {
-        const pokemon = pokemonsMap[value];
-        this.onChange(pokemon);
-      });
-  }
-
   override writeValue(value: PokemonData): void {
     this.formControl.setValue(value.name, { emitEvent: false });
   }
 
   override setDisabledState(isDisabled: boolean): void {
     isDisabled ? this.formControl.disable() : this.formControl.enable();
+  }
+
+  selectPokemon(event: { option: { value: string } }) {
+    const pokemon = pokemonsMap[event.option.value];
+    this.onChange(pokemon);
   }
 }

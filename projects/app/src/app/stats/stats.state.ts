@@ -18,9 +18,15 @@ export class StatsComponentState extends RxState<{
 }> {
   constructor() {
     super();
+    // Reset stats when pokemon changes
+    this.select('pokemon').subscribe(() => {
+      this.set({
+        evs: [ev(0), ev(0), ev(0), ev(0), ev(0), ev(0)],
+        ivs: [iv(31), iv(31), iv(31), iv(31), iv(31), iv(31)],
+      });
+    });
     // Calculate stats
     combineLatest([
-      this.select('pokemon'),
       this.select('level'),
       this.select('nature'),
       this.select('ivs').pipe(distinctUntilChangedStatValues),
@@ -35,9 +41,7 @@ export class StatsComponentState extends RxState<{
       } = this.get();
       const stats = calcStats(level, baseStats, ivs, evs, nature);
       if (!this.get().stats || !equalsStatValues(stats, this.get().stats)) {
-        this.set({
-          stats,
-        });
+        this.set({ stats });
       }
     });
 
@@ -46,8 +50,6 @@ export class StatsComponentState extends RxState<{
     this.set({
       pokemon,
       level: 50,
-      ivs: [iv(31), iv(31), iv(31), iv(31), iv(31), iv(31)],
-      evs: [ev(0), ev(0), ev(0), ev(0), ev(0), ev(0)],
       nature: naturesMap['いじっぱり'],
     });
   }
