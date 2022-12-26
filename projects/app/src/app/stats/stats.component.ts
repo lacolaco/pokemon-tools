@@ -1,14 +1,12 @@
+import { Clipboard, ClipboardModule } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
-import { Component, inject, Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { Clipboard, ClipboardModule } from '@angular/cdk/clipboard';
-import { calcEVs, calcStats } from '@lib/calc';
-import { ev, EV, iv, IV, Nature, equalsStatValues, Stat, StatValues } from '@lib/model';
-import { PokemonData, pokemons, pokemonsMap, naturesMap } from '@lib/data';
-import { RxState } from '@rx-angular/state';
-import { combineLatest, distinctUntilChanged, map, merge, Subject, takeUntil } from 'rxjs';
+import { naturesMap, pokemons } from '@lib/data';
+import { EV, IV, Nature, Stat, StatValues } from '@lib/model';
+import { map, merge, Subject, takeUntil } from 'rxjs';
 import { getValidValueChanges } from '../utitilites/forms';
 import { EVInputComponent } from './ev-input.component';
 import { formatStats } from './formatter';
@@ -18,66 +16,7 @@ import { LevelInputComponent } from './level-input.component';
 import { NatureSelectComponent } from './nature-select.component';
 import { PokemonSelectComponent } from './pokemon-select.component';
 import { StatInputComponent } from './stat-input.component';
-
-const distinctUntilChangedStatValues = distinctUntilChanged(equalsStatValues);
-
-@Injectable()
-class LocalState extends RxState<{
-  pokemon: PokemonData;
-  level: number;
-  nature: Nature;
-  ivs: StatValues<IV>;
-  evs: StatValues<EV>;
-  stats: StatValues<Stat>;
-}> {
-  constructor() {
-    super();
-    // Calculate stats
-    combineLatest([
-      this.select('pokemon'),
-      this.select('level'),
-      this.select('nature'),
-      this.select('ivs').pipe(distinctUntilChangedStatValues),
-      this.select('evs').pipe(distinctUntilChangedStatValues),
-    ]).subscribe(() => {
-      const {
-        pokemon: { baseStats },
-        level,
-        ivs,
-        evs,
-        nature,
-      } = this.get();
-      const stats = calcStats(level, baseStats, ivs, evs, nature);
-      if (!this.get().stats || !equalsStatValues(stats, this.get().stats)) {
-        this.set({
-          stats: calcStats(level, baseStats, ivs, evs, nature),
-        });
-      }
-    });
-    const pokemon = pokemonsMap['ガブリアス'];
-
-    this.set({
-      pokemon,
-      level: 50,
-      ivs: [iv(31), iv(31), iv(31), iv(31), iv(31), iv(31)],
-      evs: [ev(0), ev(0), ev(0), ev(0), ev(0), ev(0)],
-      nature: naturesMap['いじっぱり'],
-    });
-  }
-
-  updateStats(stats: StatValues<Stat>) {
-    const {
-      level,
-      pokemon: { baseStats },
-      ivs,
-      nature,
-    } = this.get();
-    const evs = calcEVs(level, stats, baseStats, ivs, nature);
-    if (!this.get().evs || !equalsStatValues(evs, this.get().evs)) {
-      this.set({ evs });
-    }
-  }
-}
+import { StatsComponentState } from './stats.state';
 
 // TODO: 努力値合計が510を超えないようにする
 // TODO: HP倍数調整
@@ -85,7 +24,7 @@ class LocalState extends RxState<{
 @Component({
   selector: 'app-stats',
   standalone: true,
-  providers: [LocalState],
+  providers: [StatsComponentState],
   templateUrl: './stats.component.html',
   styleUrls: ['./stats.component.scss'],
   imports: [
@@ -103,7 +42,7 @@ class LocalState extends RxState<{
   ],
 })
 export class StatsComponent implements OnInit, OnDestroy {
-  private readonly state = inject(LocalState);
+  private readonly state = inject(StatsComponentState);
   private readonly fb = inject(FormBuilder).nonNullable;
   private readonly snackBar = inject(MatSnackBar);
   private readonly clipboard = inject(Clipboard);

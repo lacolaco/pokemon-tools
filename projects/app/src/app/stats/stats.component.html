@@ -19,9 +19,10 @@
         </tr>
         <tr>
           <td colspan="4">
-            <div class="base-spec">
-              {{ state.pokemon.baseStats.join('-') }} ({{ state.pokemon.baseStatsTotal }})
-              {{ state.pokemon.types.join('/') }}
+            <div class="base-specs">
+              <span>{{ state.pokemon.baseStats.join('-') }}</span>
+              <span>({{ state.pokemon.baseStatsTotal }})</span>
+              <span>{{ state.pokemon.types.join('/') }}</span>
             </div>
           </td>
         </tr>
