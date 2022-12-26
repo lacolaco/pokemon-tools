@@ -23,7 +23,15 @@ export function iv(value: number): IV {
   return IV.parse(value);
 }
 
-export const EV = z.number().min(0).max(255).brand('EV');
+export const EV = z
+  .number()
+  .int()
+  .min(0)
+  .max(255)
+  .transform((v) => {
+    return Math.floor(v / 4) * 4;
+  })
+  .brand('EV');
 export type EV = z.infer<typeof EV>;
 export function ev(value: number): EV {
   return EV.parse(value);

@@ -1,6 +1,6 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ev, EV, iv, IV, stat, Stat } from '@lib/model';
 import { PokemonData } from '@lib/data';
+import { ev, EV, iv, IV, stat, Stat } from '@lib/model';
 import { merge, Observable } from 'rxjs';
 import { createZodTypeControl, getValidValueChanges } from '../utitilites/forms';
 

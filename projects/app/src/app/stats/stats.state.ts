@@ -36,10 +36,11 @@ export class StatsComponentState extends RxState<{
       const stats = calcStats(level, baseStats, ivs, evs, nature);
       if (!this.get().stats || !equalsStatValues(stats, this.get().stats)) {
         this.set({
-          stats: calcStats(level, baseStats, ivs, evs, nature),
+          stats,
         });
       }
     });
+
     const pokemon = pokemonsMap['ガブリアス'];
 
     this.set({

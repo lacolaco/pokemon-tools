@@ -7,8 +7,10 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { naturesMap, pokemons } from '@lib/data';
 import { EV, IV, Nature, Stat, StatValues } from '@lib/model';
 import { map, merge, Subject, takeUntil } from 'rxjs';
+import { sum } from '../utitilites/collections';
 import { getValidValueChanges } from '../utitilites/forms';
 import { EVInputComponent } from './ev-input.component';
+import { EVTotalControlComponent } from './ev-total-control.component';
 import { formatStats } from './formatter';
 import { createPokemonControl, createStatControlGroup, getStatParamsChanges, getStatValueChanges } from './forms';
 import { IVInputComponent } from './iv-input.component';
@@ -18,7 +20,6 @@ import { PokemonSelectComponent } from './pokemon-select.component';
 import { StatInputComponent } from './stat-input.component';
 import { StatsComponentState } from './stats.state';
 
-// TODO: 努力値合計が510を超えないようにする
 // TODO: HP倍数調整
 // TODO: URLに状態保存
 @Component({
@@ -39,6 +40,7 @@ import { StatsComponentState } from './stats.state';
     StatInputComponent,
     IVInputComponent,
     EVInputComponent,
+    EVTotalControlComponent,
   ],
 })
 export class StatsComponent implements OnInit, OnDestroy {
@@ -52,6 +54,7 @@ export class StatsComponent implements OnInit, OnDestroy {
     map((state) => ({
       ...state,
       statsText: formatStats(state.pokemon, state.level, state.nature, state.stats, state.evs),
+      usedEVs: sum(state.evs),
     })),
   );
 
@@ -127,6 +130,10 @@ export class StatsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.onDestroy$.next();
     this.onDestroy$.complete();
+  }
+
+  resetEVs() {
+    this.state.set({ evs: [0, 0, 0, 0, 0, 0] as StatValues<EV> });
   }
 
   copyText() {

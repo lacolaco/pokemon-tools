@@ -1,6 +1,14 @@
 button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 0 4px;
   font-size: 0.75rem;
+
+  .mat-icon {
+    font-weight: bold;
+    line-height: 100%;
+  }
 
   @media screen and (max-width: 600px) {
     padding: 4px;

@@ -1,27 +1,33 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { MAX_EV_TOTAL, MAX_EV_VALUE } from '@lib/data';
 import { ev, EV } from '@lib/model';
 import { SimpleControlValueAccessor } from '../utitilites/forms';
+
+const STEP = 4;
 
 @Component({
   selector: 'ev-input',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatIconModule],
   template: `
     <input type="number" min="0" max="252" step="4" required [formControl]="formControl" (click)="onTouched()" />
     <div class="buttons-outer">
       <div class="buttons">
-        <button (click)="onTouched(); setValue(formControl.value + 4)" [disabled]="formControl.disabled || isMax">
-          ▲
+        <button (click)="onTouched(); increment()" [disabled]="formControl.disabled || isMax">
+          <mat-icon fontIcon="add" inline></mat-icon>
         </button>
-        <button (click)="onTouched(); setValue(formControl.value - 4)" [disabled]="formControl.disabled || isMin">
-          ▼
+        <button (click)="onTouched(); decrement()" [disabled]="formControl.disabled || isMin">
+          <mat-icon fontIcon="remove" inline></mat-icon>
         </button>
       </div>
       <div class="buttons">
-        <button (click)="onTouched(); setValue(252)" [disabled]="formControl.disabled">252</button>
-        <button (click)="onTouched(); setValue(0)" [disabled]="formControl.disabled">0</button>
+        <button (click)="onTouched(); setMaxValue()" [disabled]="formControl.disabled || isMax">
+          <mat-icon fontIcon="keyboard_double_arrow_up" inline></mat-icon>
+        </button>
+        <button (click)="onTouched(); setZero()" [disabled]="formControl.disabled || isMin">0</button>
       </div>
     </div>
   `,
@@ -30,9 +36,17 @@ import { SimpleControlValueAccessor } from '../utitilites/forms';
 export class EVInputComponent extends SimpleControlValueAccessor<EV> {
   readonly formControl = new FormControl(ev(0), { nonNullable: true });
 
-  get isMax(): boolean {
-    return this.formControl.value >= 252;
+  @Input() usedEVs = 0;
+
+  get max(): number {
+    const free = MAX_EV_TOTAL - this.usedEVs;
+    return Math.min(this.formControl.value + free, MAX_EV_VALUE);
   }
+
+  get isMax(): boolean {
+    return this.max - this.formControl.value < STEP;
+  }
+
   get isMin(): boolean {
     return this.formControl.value <= 0;
   }
@@ -52,7 +66,19 @@ export class EVInputComponent extends SimpleControlValueAccessor<EV> {
     isDisabled ? this.formControl.disable() : this.formControl.enable();
   }
 
-  setValue(value: number): void {
-    this.formControl.setValue(ev(value));
+  increment() {
+    this.formControl.setValue(ev(this.formControl.value + STEP));
+  }
+
+  decrement() {
+    this.formControl.setValue(ev(this.formControl.value - STEP));
+  }
+
+  setMaxValue() {
+    this.formControl.setValue(ev(this.max));
+  }
+
+  setZero() {
+    this.formControl.setValue(ev(0));
   }
 }

@@ -49,7 +49,7 @@
           <td>
             <stat-input formControlName="stat" [isMin]="state.evs[0] === 0" [isMax]="state.evs[0] === 252"></stat-input>
           </td>
-          <td><ev-input formControlName="ev"></ev-input></td>
+          <td><ev-input formControlName="ev" [usedEVs]="state.usedEVs"></ev-input></td>
           <td><iv-input formControlName="iv"></iv-input></td>
         </tr>
         <tr
@@ -61,7 +61,7 @@
           <td>
             <stat-input formControlName="stat" [isMin]="state.evs[1] === 0" [isMax]="state.evs[1] === 252"></stat-input>
           </td>
-          <td><ev-input formControlName="ev"></ev-input></td>
+          <td><ev-input formControlName="ev" [usedEVs]="state.usedEVs"></ev-input></td>
           <td><iv-input formControlName="iv"></iv-input></td>
         </tr>
         <tr
@@ -73,7 +73,7 @@
           <td>
             <stat-input formControlName="stat" [isMin]="state.evs[2] === 0" [isMax]="state.evs[2] === 252"></stat-input>
           </td>
-          <td><ev-input formControlName="ev"></ev-input></td>
+          <td><ev-input formControlName="ev" [usedEVs]="state.usedEVs"></ev-input></td>
           <td><iv-input formControlName="iv"></iv-input></td>
         </tr>
         <tr
@@ -85,7 +85,7 @@
           <td>
             <stat-input formControlName="stat" [isMin]="state.evs[3] === 0" [isMax]="state.evs[3] === 252"></stat-input>
           </td>
-          <td><ev-input formControlName="ev"></ev-input></td>
+          <td><ev-input formControlName="ev" [usedEVs]="state.usedEVs"></ev-input></td>
           <td><iv-input formControlName="iv"></iv-input></td>
         </tr>
         <tr
@@ -97,7 +97,7 @@
           <td>
             <stat-input formControlName="stat" [isMin]="state.evs[4] === 0" [isMax]="state.evs[4] === 252"></stat-input>
           </td>
-          <td><ev-input formControlName="ev"></ev-input></td>
+          <td><ev-input formControlName="ev" [usedEVs]="state.usedEVs"></ev-input></td>
           <td><iv-input formControlName="iv"></iv-input></td>
         </tr>
         <tr
@@ -109,8 +109,16 @@
           <td>
             <stat-input formControlName="stat" [isMin]="state.evs[5] === 0" [isMax]="state.evs[5] === 252"></stat-input>
           </td>
-          <td><ev-input formControlName="ev"></ev-input></td>
+          <td><ev-input formControlName="ev" [usedEVs]="state.usedEVs"></ev-input></td>
           <td><iv-input formControlName="iv"></iv-input></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>
+            <ev-total-control [usedEVs]="state.usedEVs" (reset)="resetEVs()"></ev-total-control>
+          </td>
+          <td></td>
         </tr>
       </tbody>
     </table>

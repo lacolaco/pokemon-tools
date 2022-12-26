@@ -7,7 +7,7 @@ import {
   NgControl,
   ValidatorFn,
 } from '@angular/forms';
-import { distinctUntilChanged, filter, Observable, pipe, Subject, takeUntil, tap } from 'rxjs';
+import { filter, Observable, pipe, Subject, takeUntil, tap } from 'rxjs';
 import { z } from 'zod';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -47,7 +47,6 @@ export abstract class SimpleControlValueAccessor<T> implements ControlValueAcces
 
 export function getValidValueChanges<T>(control: AbstractControl<T>): Observable<T> {
   return control.valueChanges.pipe(
-    distinctUntilChanged(),
     tap(() => control.updateValueAndValidity({ emitEvent: false })),
     filter(() => control.valid),
   );

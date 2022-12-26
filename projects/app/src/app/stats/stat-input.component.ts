@@ -1,21 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { stat, Stat } from '@lib/model';
 import { SimpleControlValueAccessor } from '../utitilites/forms';
 
 @Component({
   selector: 'stat-input',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatIconModule],
   template: `
     <input type="number" min="1" max="999" required [formControl]="formControl" (click)="onTouched()" />
     <div class="buttons">
       <button (click)="onTouched(); setValue(formControl.value + 1)" [disabled]="formControl.disabled || isMax">
-        ▲
+        <mat-icon fontIcon="add" inline></mat-icon>
       </button>
       <button (click)="onTouched(); setValue(formControl.value - 1)" [disabled]="formControl.disabled || isMin">
-        ▼
+        <mat-icon fontIcon="remove" inline></mat-icon>
       </button>
     </div>
   `,
