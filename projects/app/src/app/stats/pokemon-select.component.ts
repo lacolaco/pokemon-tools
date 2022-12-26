@@ -12,7 +12,7 @@ import { kataToHira } from '../utitilites/strings';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, MatAutocompleteModule],
   template: `
-    <mat-autocomplete #auto="matAutocomplete" autoSelectActiveOption>
+    <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
         {{ option }}
       </mat-option>
@@ -40,14 +40,11 @@ export class PokemonSelectComponent extends SimpleControlValueAccessor<PokemonDa
         .filter((pokemonName) => pokemonName.includes(value) || kataToHira(pokemonName).includes(value));
     }),
   );
-  private lastSelectedPokemonName: string | null = null;
 
-  constructor() {
-    super();
+  ngOnInit() {
     getValidValueChanges<string>(this.formControl)
       .pipe(this.takeUntilDestroyed())
       .subscribe((value) => {
-        this.lastSelectedPokemonName = value;
         const pokemon = pokemonsMap[value];
         this.onChange(pokemon);
       });
@@ -59,12 +56,5 @@ export class PokemonSelectComponent extends SimpleControlValueAccessor<PokemonDa
 
   override setDisabledState(isDisabled: boolean): void {
     isDisabled ? this.formControl.disable() : this.formControl.enable();
-  }
-
-  onBlur() {
-    this.formControl.updateValueAndValidity();
-    if (!this.formControl.valid) {
-      this.formControl.setValue(this.lastSelectedPokemonName ?? pokemons[0].name);
-    }
   }
 }
