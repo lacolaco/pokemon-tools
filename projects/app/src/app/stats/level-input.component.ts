@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { asLevel, Level } from '@lib/model';
 import { SimpleControlValueAccessor } from '../utitilites/forms';
 
 @Component({
@@ -36,8 +37,8 @@ import { SimpleControlValueAccessor } from '../utitilites/forms';
     `,
   ],
 })
-export class LevelInputComponent extends SimpleControlValueAccessor<number> {
-  readonly formControl = new FormControl(1, { nonNullable: true });
+export class LevelInputComponent extends SimpleControlValueAccessor<Level> {
+  readonly formControl = new FormControl(asLevel(1), { nonNullable: true });
 
   constructor() {
     super();
@@ -46,7 +47,7 @@ export class LevelInputComponent extends SimpleControlValueAccessor<number> {
     });
   }
 
-  override writeValue(value: number): void {
+  override writeValue(value: Level): void {
     this.formControl.setValue(value, { emitEvent: false });
   }
 
@@ -55,6 +56,6 @@ export class LevelInputComponent extends SimpleControlValueAccessor<number> {
   }
 
   setValue(value: number): void {
-    this.formControl.setValue(value);
+    this.formControl.setValue(asLevel(value));
   }
 }

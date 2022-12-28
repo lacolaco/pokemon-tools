@@ -1,9 +1,5 @@
-import Matrix from 'ml-matrix';
+import { StatValues } from '@lib/model';
 
-export function vector(values: number[]) {
-  return new Matrix([values]);
-}
-
-export function sum(value: number[]): number {
-  return value.reduce((a, b) => a + b, 0);
+export function sumOfStatValues<V extends number>(values: StatValues<V>): number {
+  return [values.H, values.A, values.B, values.C, values.D, values.S].reduce((a, b) => a + b, 0);
 }

@@ -1,12 +1,7 @@
-import { distinctUntilChanged, MonoTypeOperatorFunction, pipe } from 'rxjs';
+import { StatValues } from '@lib/model';
+import { distinctUntilSomeChanged } from '@rx-angular/state';
+import { MonoTypeOperatorFunction, pipe } from 'rxjs';
 
-export function distinctUntilArrayChanged<T extends unknown[]>(): MonoTypeOperatorFunction<T> {
-  return pipe(
-    distinctUntilChanged((a, b) => {
-      if (a.length !== b.length) {
-        return false;
-      }
-      return a.every((value, index) => value === b[index]);
-    }),
-  );
+export function distinctUntilStatValuesChanged<V extends number>(): MonoTypeOperatorFunction<StatValues<V>> {
+  return pipe(distinctUntilSomeChanged(['H', 'A', 'B', 'C', 'D', 'S']));
 }

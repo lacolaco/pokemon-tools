@@ -1,34 +1,28 @@
-import { ev, EV, IV, Nature, StatValues } from '@lib/model';
-import { calcStats } from './stats';
-import { sum } from './utilities';
+import { asEV, EVs, IVs, Level, Nature, Stats } from '@lib/model';
+import { calculateStats } from './stats';
+import { sumOfStatValues } from './utilities';
 
 /**
  * 総合耐久指数が最大になるように努力値を振り分ける
  * 参考: ニンフィア・カミツルギの耐久調整 ―― 総合耐久指数 \- 机上論は強い http://firefly1987.blog.fc2.com/blog-entry-5.html
  */
-export function optimizeDurability(
-  baseStats: Readonly<StatValues<number>>,
-  level: number,
-  nature: Nature,
-  ivs: StatValues<IV>,
-  evs: StatValues<EV>,
-): StatValues<EV> {
-  const optimizedEVs: StatValues<EV> = [ev(0), evs[1], ev(0), evs[3], ev(0), evs[5]];
-  while (sum(optimizedEVs) < 508) {
-    const [H, , B, , D] = calcStats(baseStats, level, nature, ivs, optimizedEVs);
+export function optimizeDurability(base: Readonly<Stats>, level: Level, nature: Nature, ivs: IVs, evs: EVs): EVs {
+  const optimizedEVs: EVs = { ...evs, H: asEV(0), B: asEV(0), D: asEV(0) };
+  while (sumOfStatValues(optimizedEVs) < 508) {
+    const { H, B, D } = calculateStats(base, level, nature, ivs, optimizedEVs);
     let { dSdH, dSdB, dSdD } = getDerivatives(H, B, D);
     // もう振れない場合は微分値を0にする
-    dSdH = optimizedEVs[0] >= 252 ? 0 : dSdH;
-    dSdB = optimizedEVs[2] >= 252 ? 0 : dSdB;
-    dSdD = optimizedEVs[4] >= 252 ? 0 : dSdD;
+    dSdH = optimizedEVs.H >= 252 ? 0 : dSdH;
+    dSdB = optimizedEVs.B >= 252 ? 0 : dSdB;
+    dSdD = optimizedEVs.D >= 252 ? 0 : dSdD;
     // dSdH, dSdB, dSdDのうち最大のパラメータに+4する
     // すべての傾きが0になったら中断する
     if (dSdH > dSdB && dSdH > dSdD) {
-      optimizedEVs[0] = ev(optimizedEVs[0] + 4);
+      optimizedEVs.H = asEV(optimizedEVs.H + 4);
     } else if (dSdB > dSdD) {
-      optimizedEVs[2] = ev(optimizedEVs[2] + 4);
+      optimizedEVs.B = asEV(optimizedEVs.B + 4);
     } else if (dSdD > 0) {
-      optimizedEVs[4] = ev(optimizedEVs[4] + 4);
+      optimizedEVs.D = asEV(optimizedEVs.D + 4);
     } else {
       break;
     }

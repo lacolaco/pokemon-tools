@@ -2,40 +2,33 @@
  * ポケモンの能力値を計算する関数群
  */
 
-import { StatValues, Nature, IV, EV, Stat } from '@lib/model';
+import { EVs, IVs, Level, Nature, Stats, StatValues } from '@lib/model';
 import { inverse, Matrix } from 'ml-matrix';
-import { vector } from './utilities';
 
 /**
  * 種族値と個体値と努力値と性格から能力値を計算する
  * @param level レベル
  * @param base 種族値 [H, A, B, C, D, S]
- * @param individual 個体値 [H, A, B, C, D, S]
- * @param effort 努力値 [H, A, B, C, D, S]
+ * @param ivs 個体値 [H, A, B, C, D, S]
+ * @param evs 努力値 [H, A, B, C, D, S]
  * @param nature 性格補正 [H, A, B, C, D, S]
  * @returns 能力値 [H, A, B, C, D, S]
  */
-export function calcStats(
-  base: Readonly<StatValues<number>>,
-  level: number,
-  nature: Nature,
-  individual: StatValues<IV>,
-  effort: StatValues<EV>,
-): StatValues<Stat> {
+export function calculateStats(base: Readonly<Stats>, level: Level, nature: Nature, ivs: IVs, evs: EVs): Stats {
   // Stat = floor((floor((floor(EV/4) + D) × (Level/100)) + B) × Nature)
   // D = Base×2 + IV + A
   // HP:    A = 100, B = 10
   // HP以外: A = 0,   B = 5
+  const Base = vectorFromStatValues(base);
+  const IV = vectorFromStatValues(ivs);
+  const EV = vectorFromStatValues(evs);
   const A = vector([100, 0, 0, 0, 0, 0]);
   const B = vector([10, 5, 5, 5, 5, 5]);
-  const D = vector([...base])
-    .mul(2)
-    .add(vector(individual))
-    .add(A);
-  const NV = Matrix.diag(createNatureValues(nature));
+  const D = Base.mul(2).add(IV).add(A);
+  const NV = createNatureDiagonal(nature);
 
   const mat = Matrix.zeros(1, 6)
-    .add(vector(effort).divide(4))
+    .add(EV.divide(4))
     .floor()
     .add(D)
     .mul(level / 100)
@@ -44,58 +37,72 @@ export function calcStats(
     .mmul(NV)
     .floor();
 
-  return mat.getRow(0) as StatValues<Stat>;
+  return statValuesFromVector(mat);
 }
 
 /**
  * 種族値と個体値と性格と能力値から必要な努力値を計算する
  * @param level レベル
  * @param base 種族値 [H, A, B, C, D, S]
- * @param individual 個体値 [H, A, B, C, D, S]
+ * @param ivs 個体値 [H, A, B, C, D, S]
  * @param nature 性格補正 [H, A, B, C, D, S]
  * @param stats 能力値 [H, A, B, C, D, S]
  * @returns 努力値 [H, A, B, C, D, S]
  */
-export function calcEVs(
-  base: Readonly<StatValues<number>>,
-  level: number,
-  nature: Nature,
-  individual: StatValues<IV>,
-  stats: StatValues<Stat>,
-): StatValues<EV> {
+export function calculateEVs(base: Readonly<Stats>, level: Level, nature: Nature, ivs: IVs, stats: Stats): EVs {
   // EV = ceil(ceil(Stat / Nature) - B) × (100/Level)) - D) * 4
   // D  = Base×2 + IV + A
   // HP:    A = 100, B = 10
   // HP以外: A = 0,   B = 5
+  const Base = vectorFromStatValues(base);
+  const IV = vectorFromStatValues(ivs);
+  const Stat = vectorFromStatValues(stats);
   const A = vector([100, 0, 0, 0, 0, 0]);
   const B = vector([10, 5, 5, 5, 5, 5]);
-  const D = vector([...base])
-    .mul(2)
-    .add(vector(individual))
-    .add(A);
-  const NV = createNatureValues(nature);
+  const D = Base.mul(2).add(IV).add(A);
+  const NV = createNatureDiagonal(nature);
 
   const mat = Matrix.zeros(1, 6)
-    .add(vector(stats))
-    .mmul(inverse(Matrix.diag(NV)))
+    .add(Stat)
+    .mmul(inverse(NV))
     .ceil()
     .sub(B)
     .mul(100 / level)
     .ceil()
     .sub(D)
-    .mul(4);
-
-  return mat.getRow(0).map((v) => Math.min(Math.max(v, 0), 252)) as StatValues<EV>;
+    .mul(4)
+    .apply(function (this: Matrix, i, j) {
+      // 負の値は0に、252より大きい値は252にする
+      const v = this.get(i, j);
+      return this.set(i, j, Math.min(Math.max(v, 0), 252));
+    });
+  return statValuesFromVector(mat);
 }
 
-export function createNatureValues(nature: Nature): StatValues<number> {
-  const vec = vector([1, 1, 1, 1, 1, 1]);
-
+function createNatureDiagonal(nature: Nature): Matrix {
   if (nature.noop) {
-    return vec.getRow(0) as StatValues<number>;
+    return Matrix.diag([1, 1, 1, 1, 1, 1]);
   }
 
+  const vec = vector([1, 1, 1, 1, 1, 1]);
   const { up, down } = nature;
   const statIndex = { A: 1, B: 2, C: 3, D: 4, S: 5 };
-  return vec.set(0, statIndex[up], 1.1).set(0, statIndex[down], 0.9).getRow(0) as StatValues<number>;
+  return Matrix.diag(vec.set(0, statIndex[up], 1.1).set(0, statIndex[down], 0.9).getRow(0));
+}
+
+function vector(values: number[]) {
+  return new Matrix([values]);
+}
+
+function vectorFromStatValues<V extends number>({ H, A, B, C, D, S }: StatValues<V>) {
+  return vector([H, A, B, C, D, S]);
+}
+
+function statValuesFromVector<V extends number>(vec: Matrix): StatValues<V> {
+  if (vec.rows !== 1 || vec.columns !== 6) {
+    console.error(vec.toString());
+    throw new Error('Invalid vector');
+  }
+  const [H, A, B, C, D, S] = vec.getRow(0);
+  return { H, A, B, C, D, S } as StatValues<V>;
 }

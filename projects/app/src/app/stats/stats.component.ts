@@ -4,11 +4,12 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { sum } from '@lib/calc';
+import { sumOfStatValues } from '@lib/calc';
 import { naturesMap, pokemons } from '@lib/data';
-import { EV, IV, Nature, Stat, StatValues } from '@lib/model';
+import { asLevel, Level, Nature } from '@lib/model';
 import { combineLatest, map, merge, Subject, takeUntil } from 'rxjs';
 import { getValidValueChanges } from '../utitilites/forms';
+import { JoinStatValuesPipe } from '../utitilites/pipes';
 import { EVInputComponent } from './ev-input.component';
 import { EVTotalControlComponent } from './ev-total-control.component';
 import { formatStats } from './formatter';
@@ -18,8 +19,8 @@ import { LevelInputComponent } from './level-input.component';
 import { NatureSelectComponent } from './nature-select.component';
 import { PokemonSelectComponent } from './pokemon-select.component';
 import { StatInputComponent } from './stat-input.component';
-import { StatsComponentState } from './stats.state';
 import { StatsIndicatorComponent } from './stats-indicator.component';
+import { StatsComponentState } from './stats.state';
 
 // TODO: URLに状態保存
 @Component({
@@ -42,6 +43,7 @@ import { StatsIndicatorComponent } from './stats-indicator.component';
     EVInputComponent,
     EVTotalControlComponent,
     StatsIndicatorComponent,
+    JoinStatValuesPipe,
   ],
 })
 export class StatsComponent implements OnInit, OnDestroy {
@@ -54,7 +56,7 @@ export class StatsComponent implements OnInit, OnDestroy {
   readonly state$ = combineLatest([this.state.select(), this.state.stats$]).pipe(
     map(([state, stats]) => ({
       ...state,
-      usedEVs: sum(state.evs),
+      usedEVs: sumOfStatValues(state.evs),
       stats,
       statsText: formatStats(state.pokemon, state.level, state.nature, stats, state.evs),
     })),
@@ -62,7 +64,7 @@ export class StatsComponent implements OnInit, OnDestroy {
 
   readonly form = this.fb.group({
     pokemon: createPokemonControl(pokemons[0]),
-    level: this.fb.control(1),
+    level: this.fb.control<Level>(asLevel(1)),
     nature: this.fb.control<Nature>(naturesMap['まじめ']),
     H: createStatControlGroup(),
     A: createStatControlGroup(),
@@ -80,12 +82,12 @@ export class StatsComponent implements OnInit, OnDestroy {
           pokemon,
           level,
           nature,
-          H: { iv: ivs[0], ev: evs[0], stat: stats[0] },
-          A: { iv: ivs[1], ev: evs[1], stat: stats[1] },
-          B: { iv: ivs[2], ev: evs[2], stat: stats[2] },
-          C: { iv: ivs[3], ev: evs[3], stat: stats[3] },
-          D: { iv: ivs[4], ev: evs[4], stat: stats[4] },
-          S: { iv: ivs[5], ev: evs[5], stat: stats[5] },
+          H: { iv: ivs.H, ev: evs.H, stat: stats.H },
+          A: { iv: ivs.A, ev: evs.A, stat: stats.A },
+          B: { iv: ivs.B, ev: evs.B, stat: stats.B },
+          C: { iv: ivs.C, ev: evs.C, stat: stats.C },
+          D: { iv: ivs.D, ev: evs.D, stat: stats.D },
+          S: { iv: ivs.S, ev: evs.S, stat: stats.S },
         },
         { emitEvent: false },
       );
@@ -109,8 +111,8 @@ export class StatsComponent implements OnInit, OnDestroy {
           pokemon,
           level,
           nature,
-          ivs: [H.iv, A.iv, B.iv, C.iv, D.iv, S.iv] as StatValues<IV>, // todo: validation
-          evs: [H.ev, A.ev, B.ev, C.ev, D.ev, S.ev] as StatValues<EV>, // todo: validation
+          ivs: { H: H.iv, A: A.iv, B: B.iv, C: C.iv, D: D.iv, S: S.iv }, // todo: validation
+          evs: { H: H.ev, A: A.ev, B: B.ev, C: C.ev, D: D.ev, S: S.ev }, // todo: validation
         });
       });
     // Calculate EVs from stats
@@ -125,7 +127,7 @@ export class StatsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(() => {
         const { H, A, B, C, D, S } = this.form.getRawValue();
-        this.state.updateWithStats([H.stat, A.stat, B.stat, C.stat, D.stat, S.stat] as StatValues<Stat>);
+        this.state.updateWithStats({ H: H.stat, A: A.stat, B: B.stat, C: C.stat, D: D.stat, S: S.stat });
       });
   }
 

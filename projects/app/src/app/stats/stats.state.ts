@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { calcEVs, calcStats, optimizeDurability } from '@lib/calc';
+import { calculateEVs, calculateStats, optimizeDurability } from '@lib/calc';
 import { naturesMap, PokemonData, pokemonsMap } from '@lib/data';
-import { ev, EV, iv, IV, Nature, Stat, StatValues } from '@lib/model';
+import { asEV, asIV, asLevel, asStats, EVs, IVs, Level, Nature, Stat, StatValues } from '@lib/model';
 import { RxState } from '@rx-angular/state';
 import { combineLatest, debounceTime, distinctUntilChanged, map } from 'rxjs';
-import { distinctUntilArrayChanged } from '../utitilites/rx';
+import { distinctUntilStatValuesChanged } from '../utitilites/rx';
 
 type State = {
   pokemon: PokemonData;
-  level: number;
+  level: Level;
   nature: Nature;
-  ivs: StatValues<IV>;
-  evs: StatValues<EV>;
+  ivs: IVs;
+  evs: EVs;
 };
 
 @Injectable()
@@ -20,12 +20,12 @@ export class StatsComponentState extends RxState<State> {
     this.select('pokemon').pipe(distinctUntilChanged()),
     this.select('level').pipe(distinctUntilChanged()),
     this.select('nature').pipe(distinctUntilChanged()),
-    this.select('ivs').pipe(distinctUntilArrayChanged()),
-    this.select('evs').pipe(distinctUntilArrayChanged()),
+    this.select('ivs').pipe(distinctUntilStatValuesChanged()),
+    this.select('evs').pipe(distinctUntilStatValuesChanged()),
   ]).pipe(
     debounceTime(50),
-    map(([pokemon, level, nature, ivs, evs]) => calcStats(pokemon.baseStats, level, nature, ivs, evs)),
-    distinctUntilArrayChanged(),
+    map(([{ baseStats }, level, nature, ivs, evs]) => calculateStats(asStats(baseStats), level, nature, ivs, evs)),
+    distinctUntilStatValuesChanged(),
   );
 
   constructor() {
@@ -46,10 +46,10 @@ export class StatsComponentState extends RxState<State> {
     this.set(
       (): State => ({
         pokemon: pokemonsMap['ガブリアス'],
-        level: 50,
+        level: asLevel(50),
         nature: naturesMap['いじっぱり'],
-        evs: [ev(0), ev(0), ev(0), ev(0), ev(0), ev(0)],
-        ivs: [iv(31), iv(31), iv(31), iv(31), iv(31), iv(31)],
+        evs: { H: asEV(0), A: asEV(0), B: asEV(0), C: asEV(0), D: asEV(0), S: asEV(0) },
+        ivs: { H: asIV(31), A: asIV(31), B: asIV(31), C: asIV(31), D: asIV(31), S: asIV(31) },
         ...override,
       }),
     );
@@ -62,11 +62,11 @@ export class StatsComponentState extends RxState<State> {
       ivs,
       nature,
     } = this.get();
-    this.set({ evs: calcEVs(baseStats, level, nature, ivs, stats) });
+    this.set({ evs: calculateEVs(asStats(baseStats), level, nature, ivs, stats) });
   }
 
   resetEVs() {
-    this.set({ evs: [ev(0), ev(0), ev(0), ev(0), ev(0), ev(0)] });
+    this.set({ evs: { H: asEV(0), A: asEV(0), B: asEV(0), C: asEV(0), D: asEV(0), S: asEV(0) } });
   }
 
   optimizeDurability() {
@@ -77,6 +77,6 @@ export class StatsComponentState extends RxState<State> {
       ivs,
       evs,
     } = this.get();
-    this.set({ evs: optimizeDurability(baseStats, level, nature, ivs, evs) });
+    this.set({ evs: optimizeDurability(asStats(baseStats), level, nature, ivs, evs) });
   }
 }

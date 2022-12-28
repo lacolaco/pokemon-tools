@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { iv, IV } from '@lib/model';
+import { asIV, IV } from '@lib/model';
 import { SimpleControlValueAccessor } from '../utitilites/forms';
 
 @Component({
@@ -18,7 +18,7 @@ import { SimpleControlValueAccessor } from '../utitilites/forms';
   styleUrls: ['./iv-input.component.scss'],
 })
 export class IVInputComponent extends SimpleControlValueAccessor<IV> {
-  readonly formControl = new FormControl(iv(0), { nonNullable: true });
+  readonly formControl = new FormControl(asIV(0), { nonNullable: true });
 
   constructor() {
     super();
@@ -36,6 +36,6 @@ export class IVInputComponent extends SimpleControlValueAccessor<IV> {
   }
 
   setValue(value: number): void {
-    this.formControl.setValue(iv(value));
+    this.formControl.setValue(asIV(value));
   }
 }

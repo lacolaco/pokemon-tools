@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
-import { StatValues } from '@lib/model';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { Stats } from '@lib/model';
 
 @Component({
   selector: 'stats-indicator',
@@ -52,25 +52,25 @@ import { StatValues } from '@lib/model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatsIndicatorComponent {
-  @Input() stats!: StatValues<number>;
+  @Input() stats!: Stats;
 
   get hpIndicators() {
-    const [hp] = this.stats;
+    const { H } = this.stats;
     return [
-      { label: '2n+1', value: hp % 2 === 1, description: 'じこさいせい等の回復量を最大化する' },
-      { label: '3n', value: hp % 3 === 0, description: 'さいせいりょく、混乱きのみの回復量を最大化する' },
-      { label: '4n', value: hp % 4 === 0, description: 'みがわり3回で混乱きのみ・能力上昇きのみを発動する' },
-      { label: '4n+1', value: hp % 4 === 1, description: 'みがわり4回で残りHPが1になる' },
-      { label: '6n-1', value: hp % 6 === 5, description: 'ゴツゴツメットの接触ダメージを最小化する' },
-      { label: '8n-1', value: hp % 8 === 7, description: 'どくやさめはだ・てつのトゲ等の1/8ダメージを最小化する' },
+      { label: '2n+1', value: H % 2 === 1, description: 'じこさいせい等の回復量を最大化する' },
+      { label: '3n', value: H % 3 === 0, description: 'さいせいりょく、混乱きのみの回復量を最大化する' },
+      { label: '4n', value: H % 4 === 0, description: 'みがわり3回で混乱きのみ・能力上昇きのみを発動する' },
+      { label: '4n+1', value: H % 4 === 1, description: 'みがわり4回で残りHPが1になる' },
+      { label: '6n-1', value: H % 6 === 5, description: 'ゴツゴツメットの接触ダメージを最小化する' },
+      { label: '8n-1', value: H % 8 === 7, description: 'どくやさめはだ・てつのトゲ等の1/8ダメージを最小化する' },
       {
         label: '16n-1',
-        value: hp % 16 === 15,
+        value: H % 16 === 15,
         description: 'もうどく・やけど・すなあらし等の1/16ダメージを最小限にする',
       },
-      { label: '16n', value: hp % 16 === 0, description: 'たべのこし・くろいヘドロの回復量を最大化する' },
-      { label: '16n+1', value: hp % 16 === 1, description: 'たべのこし4回でみがわりを発動できる' },
-      { label: '50n+1', value: hp % 50 === 1, description: 'ちきゅうなげ・ナイトヘッドの攻撃を1回多く耐えられる' },
+      { label: '16n', value: H % 16 === 0, description: 'たべのこし・くろいヘドロの回復量を最大化する' },
+      { label: '16n+1', value: H % 16 === 1, description: 'たべのこし4回でみがわりを発動できる' },
+      { label: '50n+1', value: H % 50 === 1, description: 'ちきゅうなげ・ナイトヘッドの攻撃を1回多く耐えられる' },
     ];
   }
 

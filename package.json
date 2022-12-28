@@ -7,8 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "eslint .",
-    "update-pokemon-data": "tsx tools/update-pokemon-data.ts"
+    "lint": "eslint ."
   },
   "private": true,
   "dependencies": {
@@ -22,6 +21,7 @@
     "@angular/platform-browser": "^15.0.0",
     "@angular/platform-browser-dynamic": "^15.0.0",
     "@angular/router": "^15.0.0",
+    "@lacolaco/pokemon-data": "^1.0.0",
     "@rx-angular/state": "^1.7.0",
     "ml-matrix": "^6.10.4",
     "normalize.css": "^8.0.1",
@@ -47,8 +47,6 @@
     "karma-jasmine-html-reporter": "~2.0.0",
     "ng-packagr": "^15.0.0",
     "prettier": "^2.8.1",
-    "puppeteer": "^19.4.1",
-    "tsx": "^3.12.1",
     "typescript": "~4.8.2"
   },
   "engines": {
