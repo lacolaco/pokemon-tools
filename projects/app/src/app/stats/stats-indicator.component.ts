@@ -16,6 +16,7 @@ import { StatValues } from '@lib/model';
           *ngFor="let indicator of hpIndicators; trackBy: trackIndicator"
           [class.off]="!indicator.value"
           [highlighted]="indicator.value"
+          disableRipple
           [matTooltip]="indicator.description"
           [matTooltipDisabled]="false"
         >

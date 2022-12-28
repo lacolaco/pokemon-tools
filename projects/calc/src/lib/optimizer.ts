@@ -1,4 +1,3 @@
-import { MAX_EV_TOTAL, MAX_EV_VALUE } from '@lib/data';
 import { ev, EV, IV, Nature, StatValues } from '@lib/model';
 import { calcStats } from './stats';
 import { sum } from './utilities';
@@ -15,19 +14,15 @@ export function optimizeDurability(
   evs: StatValues<EV>,
 ): StatValues<EV> {
   const optimizedEVs: StatValues<EV> = [ev(0), evs[1], ev(0), evs[3], ev(0), evs[5]];
-  while (sum(optimizedEVs) + 4 < MAX_EV_TOTAL) {
+  while (sum(optimizedEVs) < 508) {
     const [H, , B, , D] = calcStats(baseStats, level, nature, ivs, optimizedEVs);
-    let { dSdH, dSdB, dSdD } = getDifferentialS(H, B, D);
+    let { dSdH, dSdB, dSdD } = getDerivatives(H, B, D);
     // もう振れない場合は微分値を0にする
-    dSdH = optimizedEVs[0] >= MAX_EV_VALUE ? 0 : dSdH;
-    dSdB = optimizedEVs[2] >= MAX_EV_VALUE ? 0 : dSdB;
-    dSdD = optimizedEVs[4] >= MAX_EV_VALUE ? 0 : dSdD;
-    /**
-     * - Hの寄与が最大でまだ振れるならHを振る
-     * - Hに振らなかった場合、Bの寄与が最大でまだ振れるならBを振る
-     * - H, Bに振らなかった場合、Dを振る
-     * - Dにも振れなかったら終了
-     */
+    dSdH = optimizedEVs[0] >= 252 ? 0 : dSdH;
+    dSdB = optimizedEVs[2] >= 252 ? 0 : dSdB;
+    dSdD = optimizedEVs[4] >= 252 ? 0 : dSdD;
+    // dSdH, dSdB, dSdDのうち最大のパラメータに+4する
+    // すべての傾きが0になったら中断する
     if (dSdH > dSdB && dSdH > dSdD) {
       optimizedEVs[0] = ev(optimizedEVs[0] + 4);
     } else if (dSdB > dSdD) {
@@ -43,13 +38,13 @@ export function optimizeDurability(
 }
 
 /**
- * S を H, B, D で偏微分する
+ * S を H, B, D で偏微分した値を返す
  * S = (H * B * D) / (B + D)
  * dSdH = (B * D) / (B + D)
  * dSdB = (H * D^2) / (B + D)^2
  * dSdD = (H * B^2) / (B + D)^2
  */
-function getDifferentialS(H: number, B: number, D: number): { dSdH: number; dSdB: number; dSdD: number } {
+function getDerivatives(H: number, B: number, D: number): { dSdH: number; dSdB: number; dSdD: number } {
   return {
     dSdH: (B * D) / (B + D),
     dSdB: (H * Math.pow(D, 2)) / Math.pow(B + D, 2),
