@@ -21,7 +21,6 @@ import { StatInputComponent } from './stat-input.component';
 import { StatsComponentState } from './stats.state';
 import { StatsIndicatorComponent } from './stats-indicator.component';
 
-// TODO: HP倍数調整
 // TODO: URLに状態保存
 @Component({
   selector: 'app-stats',
