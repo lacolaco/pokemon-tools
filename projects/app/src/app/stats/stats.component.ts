@@ -4,10 +4,10 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { sum } from '@lib/calc';
 import { naturesMap, pokemons } from '@lib/data';
 import { EV, IV, Nature, Stat, StatValues } from '@lib/model';
 import { map, merge, Subject, takeUntil } from 'rxjs';
-import { sum } from '../utitilites/collections';
 import { getValidValueChanges } from '../utitilites/forms';
 import { EVInputComponent } from './ev-input.component';
 import { EVTotalControlComponent } from './ev-total-control.component';
@@ -133,7 +133,11 @@ export class StatsComponent implements OnInit, OnDestroy {
   }
 
   resetEVs() {
-    this.state.set({ evs: [0, 0, 0, 0, 0, 0] as StatValues<EV> });
+    this.state.resetEVs();
+  }
+
+  optimizeDurability() {
+    this.state.optimizeDurability();
   }
 
   copyText() {

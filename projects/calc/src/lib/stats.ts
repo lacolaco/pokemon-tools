@@ -4,6 +4,7 @@
 
 import { StatValues, Nature, IV, EV, Stat } from '@lib/model';
 import { inverse, Matrix } from 'ml-matrix';
+import { vector } from './utilities';
 
 /**
  * 種族値と個体値と努力値と性格から能力値を計算する
@@ -97,8 +98,4 @@ export function createNatureValues(nature: Nature): StatValues<number> {
   const { up, down } = nature;
   const statIndex = { A: 1, B: 2, C: 3, D: 4, S: 5 };
   return vec.set(0, statIndex[up], 1.1).set(0, statIndex[down], 0.9).getRow(0) as StatValues<number>;
-}
-
-function vector(values: number[]) {
-  return new Matrix([values]);
 }

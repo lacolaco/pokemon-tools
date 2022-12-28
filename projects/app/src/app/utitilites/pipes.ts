@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { sum } from './collections';
+import { sum } from '@lib/calc';
 
 @Pipe({
   name: 'sum',

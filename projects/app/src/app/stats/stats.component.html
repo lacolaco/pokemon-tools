@@ -113,12 +113,13 @@
           <td><iv-input formControlName="iv"></iv-input></td>
         </tr>
         <tr>
-          <td></td>
-          <td></td>
-          <td>
-            <ev-total-control [usedEVs]="state.usedEVs" (reset)="resetEVs()"></ev-total-control>
+          <td colspan="4">
+            <ev-total-control
+              [usedEVs]="state.usedEVs"
+              (reset)="resetEVs()"
+              (optimizeDurability)="optimizeDurability()"
+            ></ev-total-control>
           </td>
-          <td></td>
         </tr>
       </tbody>
     </table>
