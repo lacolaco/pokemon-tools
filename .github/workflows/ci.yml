@@ -10,6 +10,8 @@ jobs:
         with:
           node-version-file: 'package.json'
           cache: 'yarn'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@lacolaco'
       - run: yarn install --frozen-lockfile
       - run: yarn lint
   test:
@@ -20,5 +22,7 @@ jobs:
         with:
           node-version-file: 'package.json'
           cache: 'yarn'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@lacolaco'
       - run: yarn install --frozen-lockfile
       - run: yarn test --no-watch
