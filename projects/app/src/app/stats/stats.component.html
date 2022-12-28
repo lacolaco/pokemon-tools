@@ -139,7 +139,7 @@
     class="stats-text"
     [value]="state.statsText"
     title="クリックしてクリップボードにコピー"
-    (click)="copyText()"
+    (click)="copyText(state.statsText)"
     readonly
   ></textarea>
 </ng-container>

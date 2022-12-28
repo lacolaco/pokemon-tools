@@ -16,11 +16,11 @@ import { vector } from './utilities';
  * @returns 能力値 [H, A, B, C, D, S]
  */
 export function calcStats(
-  level: number,
   base: Readonly<StatValues<number>>,
+  level: number,
+  nature: Nature,
   individual: StatValues<IV>,
   effort: StatValues<EV>,
-  nature: Nature,
 ): StatValues<Stat> {
   // Stat = floor((floor((floor(EV/4) + D) × (Level/100)) + B) × Nature)
   // D = Base×2 + IV + A
@@ -57,11 +57,11 @@ export function calcStats(
  * @returns 努力値 [H, A, B, C, D, S]
  */
 export function calcEVs(
-  level: number,
-  stats: StatValues<Stat>,
   base: Readonly<StatValues<number>>,
-  individual: StatValues<IV>,
+  level: number,
   nature: Nature,
+  individual: StatValues<IV>,
+  stats: StatValues<Stat>,
 ): StatValues<EV> {
   // EV = ceil(ceil(Stat / Nature) - B) × (100/Level)) - D) * 4
   // D  = Base×2 + IV + A

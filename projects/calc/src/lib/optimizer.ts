@@ -16,7 +16,7 @@ export function optimizeDurability(
 ): StatValues<EV> {
   const optimizedEVs: StatValues<EV> = [ev(0), evs[1], ev(0), evs[3], ev(0), evs[5]];
   while (sum(optimizedEVs) + 4 < MAX_EV_TOTAL) {
-    const [H, , B, , D] = calcStats(level, baseStats, ivs, optimizedEVs, nature);
+    const [H, , B, , D] = calcStats(baseStats, level, nature, ivs, optimizedEVs);
     let { dSdH, dSdB, dSdD } = getDifferentialS(H, B, D);
     // もう振れない場合は微分値を0にする
     dSdH = optimizedEVs[0] >= MAX_EV_VALUE ? 0 : dSdH;

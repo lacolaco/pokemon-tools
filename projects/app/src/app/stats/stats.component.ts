@@ -7,7 +7,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { sum } from '@lib/calc';
 import { naturesMap, pokemons } from '@lib/data';
 import { EV, IV, Nature, Stat, StatValues } from '@lib/model';
-import { map, merge, Subject, takeUntil } from 'rxjs';
+import { combineLatest, map, merge, Subject, takeUntil } from 'rxjs';
 import { getValidValueChanges } from '../utitilites/forms';
 import { EVInputComponent } from './ev-input.component';
 import { EVTotalControlComponent } from './ev-total-control.component';
@@ -51,11 +51,12 @@ export class StatsComponent implements OnInit, OnDestroy {
   private readonly clipboard = inject(Clipboard);
 
   private readonly onDestroy$ = new Subject<void>();
-  readonly state$ = this.state.select().pipe(
-    map((state) => ({
+  readonly state$ = combineLatest([this.state.select(), this.state.stats$]).pipe(
+    map(([state, stats]) => ({
       ...state,
-      statsText: formatStats(state.pokemon, state.level, state.nature, state.stats, state.evs),
       usedEVs: sum(state.evs),
+      stats,
+      statsText: formatStats(state.pokemon, state.level, state.nature, stats, state.evs),
     })),
   );
 
@@ -73,7 +74,7 @@ export class StatsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // Sync state to form
-    this.state.select().subscribe(({ pokemon, level, ivs, evs, nature, stats }) => {
+    this.state$.subscribe(({ pokemon, level, ivs, evs, nature, stats }) => {
       this.form.patchValue(
         {
           pokemon,
@@ -124,7 +125,7 @@ export class StatsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(() => {
         const { H, A, B, C, D, S } = this.form.getRawValue();
-        this.state.updateStats([H.stat, A.stat, B.stat, C.stat, D.stat, S.stat] as StatValues<Stat>);
+        this.state.updateWithStats([H.stat, A.stat, B.stat, C.stat, D.stat, S.stat] as StatValues<Stat>);
       });
   }
 
@@ -141,9 +142,7 @@ export class StatsComponent implements OnInit, OnDestroy {
     this.state.optimizeDurability();
   }
 
-  copyText() {
-    const state = this.state.get();
-    const text = formatStats(state.pokemon, state.level, state.nature, state.stats, state.evs);
+  copyText(text: string) {
     if (this.clipboard.copy(text)) {
       this.snackBar.open('コピーしました', '閉じる', { duration: 3000 });
     }

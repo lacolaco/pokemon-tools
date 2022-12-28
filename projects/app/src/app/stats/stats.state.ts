@@ -1,74 +1,72 @@
 import { Injectable } from '@angular/core';
 import { calcEVs, calcStats, optimizeDurability } from '@lib/calc';
 import { naturesMap, PokemonData, pokemonsMap } from '@lib/data';
-import { equalsStatValues, ev, EV, iv, IV, Nature, Stat, StatValues } from '@lib/model';
+import { ev, EV, iv, IV, Nature, Stat, StatValues } from '@lib/model';
 import { RxState } from '@rx-angular/state';
-import { combineLatest, distinctUntilChanged } from 'rxjs';
+import { combineLatest, debounceTime, distinctUntilChanged, map } from 'rxjs';
+import { distinctUntilArrayChanged } from '../utitilites/rx';
 
-const distinctUntilChangedStatValues = distinctUntilChanged(equalsStatValues);
-
-@Injectable()
-export class StatsComponentState extends RxState<{
+type State = {
   pokemon: PokemonData;
   level: number;
   nature: Nature;
   ivs: StatValues<IV>;
   evs: StatValues<EV>;
-  stats: StatValues<Stat>;
-}> {
+};
+
+@Injectable()
+export class StatsComponentState extends RxState<State> {
+  readonly stats$ = combineLatest([
+    this.select('pokemon').pipe(distinctUntilChanged()),
+    this.select('level').pipe(distinctUntilChanged()),
+    this.select('nature').pipe(distinctUntilChanged()),
+    this.select('ivs').pipe(distinctUntilArrayChanged()),
+    this.select('evs').pipe(distinctUntilArrayChanged()),
+  ]).pipe(
+    debounceTime(50),
+    map(([pokemon, level, nature, ivs, evs]) => calcStats(pokemon.baseStats, level, nature, ivs, evs)),
+    distinctUntilArrayChanged(),
+  );
+
   constructor() {
     super();
-    // Reset stats when pokemon changes
-    this.select('pokemon').subscribe(() => {
-      this.set({
-        evs: [ev(0), ev(0), ev(0), ev(0), ev(0), ev(0)],
-        ivs: [iv(31), iv(31), iv(31), iv(31), iv(31), iv(31)],
-      });
-    });
-    // Calculate stats
-    combineLatest([
-      this.select('level'),
-      this.select('nature'),
-      this.select('ivs').pipe(distinctUntilChangedStatValues),
-      this.select('evs').pipe(distinctUntilChangedStatValues),
-    ]).subscribe(() => {
-      const {
-        pokemon: { baseStats },
-        level,
-        ivs,
-        evs,
-        nature,
-      } = this.get();
-      const stats = calcStats(level, baseStats, ivs, evs, nature);
-      if (!this.get().stats || !equalsStatValues(stats, this.get().stats)) {
-        this.set({ stats });
-      }
-    });
-
+    // Set initial state
     const pokemon = pokemonsMap['ガブリアス'];
+    this.reset({ pokemon });
 
-    this.set({
-      pokemon,
-      level: 50,
-      nature: naturesMap['いじっぱり'],
-    });
+    // Reset stats when pokemon changes
+    this.select('pokemon')
+      .pipe(distinctUntilChanged())
+      .subscribe((pokemon) => {
+        this.reset({ pokemon });
+      });
   }
 
-  updateStats(stats: StatValues<Stat>) {
+  private reset(override: Partial<State> = {}) {
+    this.set(
+      (): State => ({
+        pokemon: pokemonsMap['ガブリアス'],
+        level: 50,
+        nature: naturesMap['いじっぱり'],
+        evs: [ev(0), ev(0), ev(0), ev(0), ev(0), ev(0)],
+        ivs: [iv(31), iv(31), iv(31), iv(31), iv(31), iv(31)],
+        ...override,
+      }),
+    );
+  }
+
+  updateWithStats(stats: StatValues<Stat>) {
     const {
       level,
       pokemon: { baseStats },
       ivs,
       nature,
     } = this.get();
-    const evs = calcEVs(level, stats, baseStats, ivs, nature);
-    if (!this.get().evs || !equalsStatValues(evs, this.get().evs)) {
-      this.set({ evs });
-    }
+    this.set({ evs: calcEVs(baseStats, level, nature, ivs, stats) });
   }
 
   resetEVs() {
-    this.set({ evs: [0, 0, 0, 0, 0, 0] as StatValues<EV> });
+    this.set({ evs: [ev(0), ev(0), ev(0), ev(0), ev(0), ev(0)] });
   }
 
   optimizeDurability() {
@@ -79,9 +77,6 @@ export class StatsComponentState extends RxState<{
       ivs,
       evs,
     } = this.get();
-    const optimized = optimizeDurability(baseStats, level, nature, ivs, evs);
-    if (!equalsStatValues(optimized, evs)) {
-      this.set({ evs: optimized });
-    }
+    this.set({ evs: optimizeDurability(baseStats, level, nature, ivs, evs) });
   }
 }
