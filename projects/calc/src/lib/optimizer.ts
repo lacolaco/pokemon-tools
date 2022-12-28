@@ -1,3 +1,4 @@
+import { MAX_EV_TOTAL, MAX_EV_VALUE } from '@lib/data';
 import { ev, EV, IV, Nature, StatValues } from '@lib/model';
 import { calcStats } from './stats';
 import { sum } from './utilities';
@@ -13,14 +14,14 @@ export function optimizeDurability(
   ivs: StatValues<IV>,
   evs: StatValues<EV>,
 ): StatValues<EV> {
-  const tempEVs: StatValues<EV> = [ev(0), evs[1], ev(0), evs[3], ev(0), evs[5]];
-  while (sum(tempEVs) + 4 < 510) {
-    const [H, , B, , D] = calcStats(level, baseStats, ivs, tempEVs, nature);
+  const optimizedEVs: StatValues<EV> = [ev(0), evs[1], ev(0), evs[3], ev(0), evs[5]];
+  while (sum(optimizedEVs) + 4 < MAX_EV_TOTAL) {
+    const [H, , B, , D] = calcStats(level, baseStats, ivs, optimizedEVs, nature);
     let { dSdH, dSdB, dSdD } = getDifferentialS(H, B, D);
     // もう振れない場合は微分値を0にする
-    dSdH = tempEVs[0] >= 252 ? 0 : dSdH;
-    dSdB = tempEVs[2] >= 252 ? 0 : dSdB;
-    dSdD = tempEVs[4] >= 252 ? 0 : dSdD;
+    dSdH = optimizedEVs[0] >= MAX_EV_VALUE ? 0 : dSdH;
+    dSdB = optimizedEVs[2] >= MAX_EV_VALUE ? 0 : dSdB;
+    dSdD = optimizedEVs[4] >= MAX_EV_VALUE ? 0 : dSdD;
     /**
      * - Hの寄与が最大でまだ振れるならHを振る
      * - Hに振らなかった場合、Bの寄与が最大でまだ振れるならBを振る
@@ -28,17 +29,17 @@ export function optimizeDurability(
      * - Dにも振れなかったら終了
      */
     if (dSdH > dSdB && dSdH > dSdD) {
-      tempEVs[0] = ev(tempEVs[0] + 4);
+      optimizedEVs[0] = ev(optimizedEVs[0] + 4);
     } else if (dSdB > dSdD) {
-      tempEVs[2] = ev(tempEVs[2] + 4);
+      optimizedEVs[2] = ev(optimizedEVs[2] + 4);
     } else if (dSdD > 0) {
-      tempEVs[4] = ev(tempEVs[4] + 4);
+      optimizedEVs[4] = ev(optimizedEVs[4] + 4);
     } else {
       break;
     }
   }
 
-  return tempEVs;
+  return optimizedEVs;
 }
 
 /**
