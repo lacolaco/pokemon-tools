@@ -1,12 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { sum } from '@lib/calc';
+import { StatValues } from '@lib/model';
+import { joinStatValues } from './strings';
 
 @Pipe({
-  name: 'sum',
+  name: 'joinStatValues',
   standalone: true,
 })
-export class SumPipe implements PipeTransform {
-  transform(value: number[]): number {
-    return sum(value);
+export class JoinStatValuesPipe implements PipeTransform {
+  transform(value: StatValues<number>, delimiter = '-'): string {
+    return joinStatValues(value, delimiter);
   }
 }

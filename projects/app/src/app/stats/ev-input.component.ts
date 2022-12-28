@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MAX_EV_TOTAL, MAX_EV_VALUE } from '@lib/data';
-import { ev, EV } from '@lib/model';
+import { asEV, EV } from '@lib/model';
 import { SimpleControlValueAccessor } from '../utitilites/forms';
 
 const STEP = 4;
@@ -34,7 +34,7 @@ const STEP = 4;
   styleUrls: ['./ev-input.component.scss'],
 })
 export class EVInputComponent extends SimpleControlValueAccessor<EV> {
-  readonly formControl = new FormControl(ev(0), { nonNullable: true });
+  readonly formControl = new FormControl(asEV(0), { nonNullable: true });
 
   @Input() usedEVs = 0;
 
@@ -67,18 +67,18 @@ export class EVInputComponent extends SimpleControlValueAccessor<EV> {
   }
 
   increment() {
-    this.formControl.setValue(ev(this.formControl.value + STEP));
+    this.formControl.setValue(asEV(this.formControl.value + STEP));
   }
 
   decrement() {
-    this.formControl.setValue(ev(this.formControl.value - STEP));
+    this.formControl.setValue(asEV(this.formControl.value - STEP));
   }
 
   setMaxValue() {
-    this.formControl.setValue(ev(this.max));
+    this.formControl.setValue(asEV(this.max));
   }
 
   setZero() {
-    this.formControl.setValue(ev(0));
+    this.formControl.setValue(asEV(0));
   }
 }

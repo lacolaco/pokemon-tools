@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { stat, Stat } from '@lib/model';
+import { asStat, Stat } from '@lib/model';
 import { SimpleControlValueAccessor } from '../utitilites/forms';
 
 @Component({
@@ -23,7 +23,7 @@ import { SimpleControlValueAccessor } from '../utitilites/forms';
   styleUrls: ['./stat-input.component.scss'],
 })
 export class StatInputComponent extends SimpleControlValueAccessor<Stat> {
-  readonly formControl = new FormControl(stat(1), { nonNullable: true });
+  readonly formControl = new FormControl(asStat(1), { nonNullable: true });
 
   @Input() isMin = false;
   @Input() isMax = false;
@@ -44,6 +44,6 @@ export class StatInputComponent extends SimpleControlValueAccessor<Stat> {
   }
 
   setValue(value: number): void {
-    this.formControl.setValue(stat(value));
+    this.formControl.setValue(asStat(value));
   }
 }
