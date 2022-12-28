@@ -1,13 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MAX_EV_TOTAL } from '@lib/data';
 
 @Component({
   selector: 'ev-total-control',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatTooltipModule],
+  imports: [CommonModule, MatTooltipModule],
   template: `
     <div class="row">
       <div class="total">
@@ -46,11 +45,9 @@ import { MAX_EV_TOTAL } from '@lib/data';
         padding: 4px;
         font-size: 0.85rem;
       }
-      .tooltip {
-        font-size: 0.85rem;
-      }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EVTotalControlComponent {
   @Input() usedEVs = 0;

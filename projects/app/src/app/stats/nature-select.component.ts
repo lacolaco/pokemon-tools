@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { natures } from '@lib/data';
 import { Nature } from '@lib/model';
@@ -11,7 +11,7 @@ import { SimpleControlValueAccessor } from '../utitilites/forms';
   imports: [CommonModule, ReactiveFormsModule],
   template: `
     <select [formControl]="formControl" (click)="onTouched()">
-      <option *ngFor="let option of options" [ngValue]="option">
+      <option *ngFor="let option of options; trackBy: trackNature" [ngValue]="option">
         {{ option.name }}
       </option>
     </select>
@@ -23,6 +23,7 @@ import { SimpleControlValueAccessor } from '../utitilites/forms';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NatureSelectComponent extends SimpleControlValueAccessor<Nature> {
   readonly options = [...natures].sort((a, b) => a.name.localeCompare(b.name));
@@ -41,5 +42,9 @@ export class NatureSelectComponent extends SimpleControlValueAccessor<Nature> {
 
   override setDisabledState(isDisabled: boolean): void {
     isDisabled ? this.formControl.disable() : this.formControl.enable();
+  }
+
+  trackNature(index: number, nature: Nature): string {
+    return nature.name;
   }
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { PokemonData, pokemons, pokemonsMap } from '@lib/data';
@@ -31,6 +31,7 @@ import { kataToHira } from '../utitilites/strings';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PokemonSelectComponent extends SimpleControlValueAccessor<PokemonData> {
   readonly formControl = new FormControl<string>('', {

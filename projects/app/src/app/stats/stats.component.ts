@@ -19,6 +19,7 @@ import { NatureSelectComponent } from './nature-select.component';
 import { PokemonSelectComponent } from './pokemon-select.component';
 import { StatInputComponent } from './stat-input.component';
 import { StatsComponentState } from './stats.state';
+import { StatsIndicatorComponent } from './stats-indicator.component';
 
 // TODO: HP倍数調整
 // TODO: URLに状態保存
@@ -41,6 +42,7 @@ import { StatsComponentState } from './stats.state';
     IVInputComponent,
     EVInputComponent,
     EVTotalControlComponent,
+    StatsIndicatorComponent,
   ],
 })
 export class StatsComponent implements OnInit, OnDestroy {
