@@ -40,6 +40,10 @@ import { SimpleControlValueAccessor } from '../utitilites/forms';
 export class LevelInputComponent extends SimpleControlValueAccessor<Level> {
   readonly formControl = new FormControl(asLevel(1), { nonNullable: true });
 
+  protected get value() {
+    return this.formControl.value;
+  }
+
   constructor() {
     super();
     this.formControl.valueChanges.pipe(this.takeUntilDestroyed()).subscribe((value) => {
@@ -48,7 +52,9 @@ export class LevelInputComponent extends SimpleControlValueAccessor<Level> {
   }
 
   override writeValue(value: Level): void {
-    this.formControl.setValue(value, { emitEvent: false });
+    if (this.value !== value) {
+      this.formControl.setValue(value, { emitEvent: false });
+    }
   }
 
   override setDisabledState(isDisabled: boolean): void {

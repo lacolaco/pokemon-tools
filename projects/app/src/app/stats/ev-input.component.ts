@@ -51,6 +51,10 @@ export class EVInputComponent extends SimpleControlValueAccessor<EV> {
     return this.formControl.value <= 0;
   }
 
+  protected get value() {
+    return this.formControl.value;
+  }
+
   constructor() {
     super();
     this.formControl.valueChanges.pipe(this.takeUntilDestroyed()).subscribe((value) => {
@@ -59,7 +63,9 @@ export class EVInputComponent extends SimpleControlValueAccessor<EV> {
   }
 
   override writeValue(value: EV): void {
-    this.formControl.setValue(value, { emitEvent: false });
+    if (this.value !== value) {
+      this.formControl.setValue(value, { emitEvent: false });
+    }
   }
 
   override setDisabledState(isDisabled: boolean): void {

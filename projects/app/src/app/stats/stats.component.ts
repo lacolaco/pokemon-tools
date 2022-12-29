@@ -4,15 +4,13 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { sumOfStatValues } from '@lib/calc';
-import { naturesMap, pokemons } from '@lib/data';
+import { natures, pokemons } from '@lib/data';
 import { asLevel, Level, Nature } from '@lib/model';
-import { combineLatest, map, merge, Subject, takeUntil } from 'rxjs';
+import { merge, Subject, takeUntil } from 'rxjs';
 import { getValidValueChanges } from '../utitilites/forms';
 import { JoinStatValuesPipe } from '../utitilites/pipes';
 import { EVInputComponent } from './ev-input.component';
 import { EVTotalControlComponent } from './ev-total-control.component';
-import { formatStats } from './formatter';
 import { createPokemonControl, createStatControlGroup, getStatParamsChanges, getStatValueChanges } from './forms';
 import { IVInputComponent } from './iv-input.component';
 import { LevelInputComponent } from './level-input.component';
@@ -53,19 +51,12 @@ export class StatsComponent implements OnInit, OnDestroy {
   private readonly clipboard = inject(Clipboard);
 
   private readonly onDestroy$ = new Subject<void>();
-  readonly state$ = combineLatest([this.state.select(), this.state.stats$]).pipe(
-    map(([state, stats]) => ({
-      ...state,
-      usedEVs: sumOfStatValues(state.evs),
-      stats,
-      statsText: formatStats(state.pokemon, state.level, state.nature, stats, state.evs),
-    })),
-  );
+  readonly state$ = this.state.state$;
 
   readonly form = this.fb.group({
     pokemon: createPokemonControl(pokemons[0]),
     level: this.fb.control<Level>(asLevel(1)),
-    nature: this.fb.control<Nature>(naturesMap['まじめ']),
+    nature: this.fb.control<Nature>(natures[0]),
     H: createStatControlGroup(),
     A: createStatControlGroup(),
     B: createStatControlGroup(),
@@ -77,7 +68,7 @@ export class StatsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Sync state to form
     this.state$.subscribe(({ pokemon, level, ivs, evs, nature, stats }) => {
-      this.form.patchValue(
+      this.form.setValue(
         {
           pokemon,
           level,

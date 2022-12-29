@@ -29,6 +29,10 @@ export class NatureSelectComponent extends SimpleControlValueAccessor<Nature> {
   readonly options = [...natures].sort((a, b) => a.name.localeCompare(b.name));
   readonly formControl = new FormControl(natures[0], { nonNullable: true });
 
+  protected get value() {
+    return this.formControl.value;
+  }
+
   constructor() {
     super();
     this.formControl.valueChanges.pipe(this.takeUntilDestroyed()).subscribe((value) => {
@@ -37,7 +41,9 @@ export class NatureSelectComponent extends SimpleControlValueAccessor<Nature> {
   }
 
   override writeValue(value: Nature): void {
-    this.formControl.setValue(value, { emitEvent: false });
+    if (this.value !== value) {
+      this.formControl.setValue(value, { emitEvent: false });
+    }
   }
 
   override setDisabledState(isDisabled: boolean): void {

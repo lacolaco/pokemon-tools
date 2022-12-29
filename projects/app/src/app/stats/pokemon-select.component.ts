@@ -47,8 +47,14 @@ export class PokemonSelectComponent extends SimpleControlValueAccessor<PokemonDa
     }),
   );
 
+  protected get value() {
+    return pokemonsMap[this.formControl.value];
+  }
+
   override writeValue(value: PokemonData): void {
-    this.formControl.setValue(value.name, { emitEvent: false });
+    if (this.value !== value) {
+      this.formControl.setValue(value.name, { emitEvent: false });
+    }
   }
 
   override setDisabledState(isDisabled: boolean): void {

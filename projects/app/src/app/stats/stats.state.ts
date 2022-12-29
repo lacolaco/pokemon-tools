@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { calculateEVs, calculateStats, optimizeDurability } from '@lib/calc';
+import { calculateEVs, calculateStats, optimizeDurability, sumOfStatValues } from '@lib/calc';
 import { naturesMap, PokemonData, pokemonsMap } from '@lib/data';
 import { asEV, asIV, asLevel, asStats, EVs, IVs, Level, Nature, Stat, StatValues } from '@lib/model';
-import { RxState } from '@rx-angular/state';
-import { combineLatest, debounceTime, distinctUntilChanged, map } from 'rxjs';
-import { distinctUntilStatValuesChanged } from '../utitilites/rx';
+import { RxState, stateful } from '@rx-angular/state';
+import { combineLatest, distinctUntilChanged, map, shareReplay, skip } from 'rxjs';
+import { debug, distinctUntilStatValuesChanged } from '../utitilites/rx';
+import { formatStats } from './formatter';
 
 type State = {
   pokemon: PokemonData;
@@ -16,30 +17,38 @@ type State = {
 
 @Injectable()
 export class StatsComponentState extends RxState<State> {
-  readonly stats$ = combineLatest([
-    this.select('pokemon').pipe(distinctUntilChanged()),
-    this.select('level').pipe(distinctUntilChanged()),
-    this.select('nature').pipe(distinctUntilChanged()),
-    this.select('ivs').pipe(distinctUntilStatValuesChanged()),
-    this.select('evs').pipe(distinctUntilStatValuesChanged()),
+  readonly state$ = combineLatest([
+    this.select('pokemon').pipe(stateful(distinctUntilChanged(), debug('[change] pokemon'))),
+    this.select('level').pipe(stateful(distinctUntilChanged(), debug('[change] level'))),
+    this.select('nature').pipe(stateful(distinctUntilChanged(), debug('[change] nature'))),
+    this.select('ivs').pipe(stateful(distinctUntilStatValuesChanged(), debug('[change] ivs'))),
+    this.select('evs').pipe(stateful(distinctUntilStatValuesChanged(), debug('[change] evs'))),
   ]).pipe(
-    debounceTime(50),
-    map(([{ baseStats }, level, nature, ivs, evs]) => calculateStats(asStats(baseStats), level, nature, ivs, evs)),
+    map(([pokemon, level, nature, ivs, evs]) => calculateStats(asStats(pokemon.baseStats), level, nature, ivs, evs)),
     distinctUntilStatValuesChanged(),
+    debug('[change] stats'),
+    map((stats) => {
+      const { pokemon, level, nature, ivs, evs } = this.get();
+      const usedEVs = sumOfStatValues(evs);
+      const statsText = formatStats(pokemon, level, nature, stats, evs);
+      return { pokemon, level, nature, ivs, evs, stats, usedEVs, statsText };
+    }),
+    debug('[change] state'),
+    shareReplay(1),
   );
 
   constructor() {
     super();
-    // Set initial state
-    const pokemon = pokemonsMap['ガブリアス'];
-    this.reset({ pokemon });
 
     // Reset stats when pokemon changes
     this.select('pokemon')
-      .pipe(distinctUntilChanged())
+      .pipe(skip(1), distinctUntilChanged())
       .subscribe((pokemon) => {
         this.reset({ pokemon });
       });
+
+    // Set initial state
+    this.reset();
   }
 
   private reset(override: Partial<State> = {}) {
@@ -56,13 +65,8 @@ export class StatsComponentState extends RxState<State> {
   }
 
   updateWithStats(stats: StatValues<Stat>) {
-    const {
-      level,
-      pokemon: { baseStats },
-      ivs,
-      nature,
-    } = this.get();
-    this.set({ evs: calculateEVs(asStats(baseStats), level, nature, ivs, stats) });
+    const { level, pokemon, ivs, nature } = this.get();
+    this.set({ evs: calculateEVs(asStats(pokemon.baseStats), level, nature, ivs, stats) });
   }
 
   resetEVs() {
@@ -70,13 +74,7 @@ export class StatsComponentState extends RxState<State> {
   }
 
   optimizeDurability() {
-    const {
-      pokemon: { baseStats },
-      level,
-      nature,
-      ivs,
-      evs,
-    } = this.get();
-    this.set({ evs: optimizeDurability(asStats(baseStats), level, nature, ivs, evs) });
+    const { pokemon, level, nature, ivs, evs } = this.get();
+    this.set({ evs: optimizeDurability(asStats(pokemon.baseStats), level, nature, ivs, evs) });
   }
 }

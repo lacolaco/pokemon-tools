@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { asStat, Stat } from '@lib/model';
+import { distinctUntilChanged, map } from 'rxjs';
 import { SimpleControlValueAccessor } from '../utitilites/forms';
 
 @Component({
@@ -10,7 +11,15 @@ import { SimpleControlValueAccessor } from '../utitilites/forms';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, MatIconModule],
   template: `
-    <input type="number" min="1" max="999" required [formControl]="formControl" (click)="onTouched()" />
+    <input
+      type="number"
+      min="1"
+      max="999"
+      required
+      [formControl]="formControl"
+      (click)="onTouched(); dispatchChange.emit()"
+      (blur)="dispatchChange.emit()"
+    />
     <div class="buttons">
       <button (click)="onTouched(); setValue(formControl.value + 1)" [disabled]="formControl.disabled || isMax">
         <mat-icon fontIcon="add" inline></mat-icon>
@@ -28,15 +37,30 @@ export class StatInputComponent extends SimpleControlValueAccessor<Stat> {
   @Input() isMin = false;
   @Input() isMax = false;
 
+  protected readonly dispatchChange = new EventEmitter<void>();
+
+  protected get value() {
+    return this.formControl.value;
+  }
+
   constructor() {
     super();
-    this.formControl.valueChanges.pipe(this.takeUntilDestroyed()).subscribe((value) => {
-      this.onChange(value);
-    });
+    // 編集中には値の変更を通知しない
+    this.dispatchChange
+      .pipe(
+        this.takeUntilDestroyed(),
+        map(() => this.value),
+        distinctUntilChanged(),
+      )
+      .subscribe((value) => {
+        this.onChange(value);
+      });
   }
 
   override writeValue(value: Stat): void {
-    this.formControl.setValue(value, { emitEvent: false });
+    if (value !== this.value) {
+      this.formControl.setValue(value, { emitEvent: false });
+    }
   }
 
   override setDisabledState(isDisabled: boolean): void {
@@ -45,5 +69,6 @@ export class StatInputComponent extends SimpleControlValueAccessor<Stat> {
 
   setValue(value: number): void {
     this.formControl.setValue(asStat(value));
+    this.dispatchChange.emit();
   }
 }
