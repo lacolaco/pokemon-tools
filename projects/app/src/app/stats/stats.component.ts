@@ -44,7 +44,7 @@ import { StatsComponentState } from './stats.state';
     JoinStatValuesPipe,
   ],
 })
-export class StatsComponent implements OnInit, OnDestroy {
+export class StatsPageComponent implements OnInit, OnDestroy {
   private readonly state = inject(StatsComponentState);
   private readonly fb = inject(FormBuilder).nonNullable;
   private readonly snackBar = inject(MatSnackBar);
@@ -67,7 +67,8 @@ export class StatsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // Sync state to form
-    this.state$.subscribe(({ pokemon, level, ivs, evs, nature, stats }) => {
+    this.state$.subscribe((state) => {
+      const { pokemon, level, ivs, evs, nature, stats } = state;
       this.form.setValue(
         {
           pokemon,
@@ -85,7 +86,6 @@ export class StatsComponent implements OnInit, OnDestroy {
     });
     // Calculate stats from form
     merge(
-      getValidValueChanges(this.form.controls.pokemon),
       getValidValueChanges(this.form.controls.level),
       getValidValueChanges(this.form.controls.nature),
       getStatParamsChanges(this.form.controls.H),
@@ -119,6 +119,13 @@ export class StatsComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         const { H, A, B, C, D, S } = this.form.getRawValue();
         this.state.updateWithStats({ H: H.stat, A: A.stat, B: B.stat, C: C.stat, D: D.stat, S: S.stat });
+      });
+    // Reset IVs/EVs when pokemon changes
+    getValidValueChanges(this.form.controls.pokemon)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(() => {
+        const { pokemon } = this.form.getRawValue();
+        this.state.resetPokemon(pokemon);
       });
   }
 

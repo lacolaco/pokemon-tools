@@ -3,7 +3,7 @@ import { calculateEVs, calculateStats, optimizeDurability, sumOfStatValues } fro
 import { naturesMap, PokemonData, pokemonsMap } from '@lib/data';
 import { asEV, asIV, asLevel, asStats, EVs, IVs, Level, Nature, Stat, StatValues } from '@lib/model';
 import { RxState, stateful } from '@rx-angular/state';
-import { combineLatest, distinctUntilChanged, map, shareReplay, skip } from 'rxjs';
+import { combineLatest, distinctUntilChanged, map, shareReplay } from 'rxjs';
 import { debug, distinctUntilStatValuesChanged } from '../utitilites/rx';
 import { formatStats } from './formatter';
 
@@ -39,15 +39,6 @@ export class StatsComponentState extends RxState<State> {
 
   constructor() {
     super();
-
-    // Reset stats when pokemon changes
-    this.select('pokemon')
-      .pipe(skip(1), distinctUntilChanged())
-      .subscribe((pokemon) => {
-        this.reset({ pokemon });
-      });
-
-    // Set initial state
     this.reset();
   }
 
@@ -62,6 +53,10 @@ export class StatsComponentState extends RxState<State> {
         ...override,
       }),
     );
+  }
+
+  resetPokemon(pokemon: PokemonData) {
+    this.reset({ pokemon });
   }
 
   updateWithStats(stats: StatValues<Stat>) {

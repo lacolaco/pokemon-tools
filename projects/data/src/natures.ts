@@ -28,4 +28,6 @@ export const naturesMap = {
   まじめ: { name: 'まじめ', noop: true },
 } as const;
 
+export type NatureName = keyof typeof naturesMap;
+
 export const natures: ReadonlyArray<Nature> = Object.values(naturesMap);
