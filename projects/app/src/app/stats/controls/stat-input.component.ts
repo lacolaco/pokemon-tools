@@ -4,7 +4,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { asStat, Stat } from '@lib/model';
 import { distinctUntilChanged, map } from 'rxjs';
-import { SimpleControlValueAccessor } from '../utitilites/forms';
+import { SimpleControlValueAccessor } from '../../utitilites/forms';
 
 @Component({
   selector: 'stat-input',

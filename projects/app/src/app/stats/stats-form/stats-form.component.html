@@ -1,0 +1,143 @@
+<ng-container *ngIf="state$ | async as state">
+  <ng-container *ngIf="state.pokemon">
+    <form [formGroup]="form">
+      <table class="calc-table">
+        <tbody>
+          <tr>
+            <td colspan="4">
+              <div class="pokemon-base-info">
+                <pokemon-sprite [pokemon]="state.pokemon"></pokemon-sprite>
+                <pokemon-select formControlName="pokemon"></pokemon-select>
+                <a
+                  [href]="state.pokemon.meta.url"
+                  target="_blank"
+                  title="ポケモン徹底攻略で{{ state.pokemon.name }}を見る"
+                  class="info-link"
+                >
+                  <img src="assets/images/yakkun-32x32.png" width="16px" height="16px" />
+                </a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">
+              <div class="base-specs">
+                <span>{{ state.pokemon.baseStats | joinStatValues }}</span>
+                <span>({{ state.pokemon.baseStatsTotal }})</span>
+                <span>{{ state.pokemon.types | join : '/' }}</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Lv</td>
+            <td colspan="3">
+              <level-input formControlName="level"></level-input>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td colspan="3">
+              <nature-select formControlName="nature"></nature-select>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="value-label">能力値</td>
+            <td class="value-label">努力値</td>
+            <td class="value-label">個体値</td>
+          </tr>
+          <tr formGroupName="H">
+            <td class="stat-name">H</td>
+            <td>
+              <stat-input formControlName="stat" [isMin]="state.evs.H === 0" [isMax]="state.evs.H === 252"></stat-input>
+            </td>
+            <td><ev-input formControlName="ev" [usedEVs]="state.usedEVs"></ev-input></td>
+            <td><iv-input formControlName="iv"></iv-input></td>
+          </tr>
+          <tr
+            formGroupName="A"
+            [class.stat-nature-up]="state.nature.up === 'A'"
+            [class.stat-nature-down]="state.nature.down === 'A'"
+          >
+            <td class="stat-name">A</td>
+            <td>
+              <stat-input formControlName="stat" [isMin]="state.evs.A === 0" [isMax]="state.evs.A === 252"></stat-input>
+            </td>
+            <td><ev-input formControlName="ev" [usedEVs]="state.usedEVs"></ev-input></td>
+            <td><iv-input formControlName="iv"></iv-input></td>
+          </tr>
+          <tr
+            formGroupName="B"
+            [class.stat-nature-up]="state.nature.up === 'B'"
+            [class.stat-nature-down]="state.nature.down === 'B'"
+          >
+            <td class="stat-name">B</td>
+            <td>
+              <stat-input formControlName="stat" [isMin]="state.evs.B === 0" [isMax]="state.evs.B === 252"></stat-input>
+            </td>
+            <td><ev-input formControlName="ev" [usedEVs]="state.usedEVs"></ev-input></td>
+            <td><iv-input formControlName="iv"></iv-input></td>
+          </tr>
+          <tr
+            formGroupName="C"
+            [class.stat-nature-up]="state.nature.up === 'C'"
+            [class.stat-nature-down]="state.nature.down === 'C'"
+          >
+            <td class="stat-name">C</td>
+            <td>
+              <stat-input formControlName="stat" [isMin]="state.evs.C === 0" [isMax]="state.evs.C === 252"></stat-input>
+            </td>
+            <td><ev-input formControlName="ev" [usedEVs]="state.usedEVs"></ev-input></td>
+            <td><iv-input formControlName="iv"></iv-input></td>
+          </tr>
+          <tr
+            formGroupName="D"
+            [class.stat-nature-up]="state.nature.up === 'D'"
+            [class.stat-nature-down]="state.nature.down === 'D'"
+          >
+            <td class="stat-name">D</td>
+            <td>
+              <stat-input formControlName="stat" [isMin]="state.evs.D === 0" [isMax]="state.evs.D === 252"></stat-input>
+            </td>
+            <td><ev-input formControlName="ev" [usedEVs]="state.usedEVs"></ev-input></td>
+            <td><iv-input formControlName="iv"></iv-input></td>
+          </tr>
+          <tr
+            formGroupName="S"
+            [class.stat-nature-up]="state.nature.up === 'S'"
+            [class.stat-nature-down]="state.nature.down === 'S'"
+          >
+            <td class="stat-name">S</td>
+            <td>
+              <stat-input formControlName="stat" [isMin]="state.evs.S === 0" [isMax]="state.evs.S === 252"></stat-input>
+            </td>
+            <td><ev-input formControlName="ev" [usedEVs]="state.usedEVs"></ev-input></td>
+            <td><iv-input formControlName="iv"></iv-input></td>
+          </tr>
+          <tr>
+            <td colspan="4">
+              <ev-total-control
+                [usedEVs]="state.usedEVs"
+                (reset)="resetEVs()"
+                (optimizeDurability)="optimizeDurability()"
+              ></ev-total-control>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">
+              <stats-indicator [stats]="state.stats"></stats-indicator>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+
+    <textarea
+      class="stats-text"
+      [value]="state.statsText"
+      title="クリックしてクリップボードにコピー"
+      (click)="copyText(state.statsText)"
+      readonly
+    ></textarea>
+  </ng-container>
+</ng-container>

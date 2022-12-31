@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { asLevel, Level } from '@lib/model';
-import { SimpleControlValueAccessor } from '../utitilites/forms';
+import { SimpleControlValueAccessor } from '../../utitilites/forms';
 
 @Component({
   selector: 'level-input',

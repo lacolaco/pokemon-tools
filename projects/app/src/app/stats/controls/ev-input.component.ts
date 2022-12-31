@@ -4,7 +4,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MAX_EV_TOTAL, MAX_EV_VALUE } from '@lib/data';
 import { asEV, EV } from '@lib/model';
-import { SimpleControlValueAccessor } from '../utitilites/forms';
+import { SimpleControlValueAccessor } from '../../utitilites/forms';
 
 const STEP = 4;
 

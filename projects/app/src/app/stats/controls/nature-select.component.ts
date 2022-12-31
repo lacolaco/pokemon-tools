@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { natures } from '@lib/data';
 import { Nature } from '@lib/model';
-import { SimpleControlValueAccessor } from '../utitilites/forms';
+import { SimpleControlValueAccessor } from '../../utitilites/forms';
 
 @Component({
   selector: 'nature-select',

@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { Pokemon, PokemonName, Pokemons } from '@lacolaco/pokemon-data';
+import { getPokemons, Pokemon, PokemonName } from '@lacolaco/pokemon-data';
 import { map } from 'rxjs';
-import { SimpleControlValueAccessor } from '../utitilites/forms';
-import { kataToHira } from '../utitilites/strings';
+import { SimpleControlValueAccessor } from '../../utitilites/forms';
+import { kataToHira } from '../../utitilites/strings';
+
+const pokemons = getPokemons();
 
 @Component({
   selector: 'pokemon-select',
@@ -39,10 +41,8 @@ import { kataToHira } from '../utitilites/strings';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PokemonSelectComponent extends SimpleControlValueAccessor<Pokemon> {
-  @Input() pokemons!: Pokemons;
-
   get pokemonNames() {
-    return Object.values(this.pokemons)
+    return Object.values(pokemons)
       .sort((a, b) => a.index - b.index)
       .map((pokemon) => pokemon.name);
   }
@@ -79,6 +79,6 @@ export class PokemonSelectComponent extends SimpleControlValueAccessor<Pokemon> 
   }
 
   private findPokemonByName(name: PokemonName) {
-    return this.pokemons[name] ?? null;
+    return pokemons[name] ?? null;
   }
 }

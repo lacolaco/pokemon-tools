@@ -3,7 +3,7 @@ import { Pokemon } from '@lacolaco/pokemon-data';
 import { natures } from '@lib/data';
 import { asEV, EV, asIV, IV, asStat, Stat, Level, asLevel, Nature } from '@lib/model';
 import { merge, Observable } from 'rxjs';
-import { createZodTypeControl, getValidValueChanges } from '../utitilites/forms';
+import { createZodTypeControl, getValidValueChanges } from '../../utitilites/forms';
 
 export function createPokemonControl(): FormControl<Pokemon | null> {
   return new FormControl<Pokemon | null>(null, {
