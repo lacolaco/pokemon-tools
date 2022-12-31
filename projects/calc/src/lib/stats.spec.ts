@@ -1,7 +1,9 @@
-import { pokemons } from '@lacolaco/pokemon-data';
+import { getPokemons } from '@lacolaco/pokemon-data';
 import { naturesMap } from '@lib/data';
 import { asEV, asIV, asLevel, asStat, Stats } from '@lib/model';
 import { calculateEVs, calculateStats } from './stats';
+
+const pokemons = getPokemons();
 
 it('ガブリアス Lv50 6V 無補正 無振り', () => {
   const stats = calculateStats(

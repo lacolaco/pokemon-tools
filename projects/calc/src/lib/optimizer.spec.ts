@@ -1,7 +1,9 @@
-import { pokemons } from '@lacolaco/pokemon-data';
+import { getPokemons } from '@lacolaco/pokemon-data';
 import { naturesMap } from '@lib/data';
 import { asEV, asIV, asLevel, asStat, Stats } from '@lib/model';
 import { optimizeDurability } from './optimizer';
+
+const pokemons = getPokemons();
 
 describe('optimizeDurability', () => {
   it('ニンフィア ひかえめ C252 残り耐久', () => {
