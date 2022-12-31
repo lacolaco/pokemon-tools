@@ -18,14 +18,15 @@ jobs:
           workload_identity_provider: 'projects/39289752392/locations/global/workloadIdentityPools/github-actions-deploy/providers/github-actions-deploy'
           service_account: 'github-actions-deploy@pokemon-tools-1e175.iam.gserviceaccount.com'
           create_credentials_file: true
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
         with:
           node-version-file: 'package.json'
-          cache: 'yarn'
+          cache: 'pnpm'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@lacolaco'
-      - run: yarn install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: yarn build
+      - run: pnpm run build
       - run: npx firebase-tools deploy --project ${GCP_PROJECT} --only hosting

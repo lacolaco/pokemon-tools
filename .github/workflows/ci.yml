@@ -6,27 +6,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
         with:
           node-version-file: 'package.json'
-          cache: 'yarn'
+          cache: 'pnpm'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@lacolaco'
-      - run: yarn install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: yarn lint
+      - run: pnpm run lint
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
         with:
           node-version-file: 'package.json'
-          cache: 'yarn'
+          cache: 'pnpm'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@lacolaco'
-      - run: yarn install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: yarn test --no-watch
+      - run: pnpm run test --no-watch
