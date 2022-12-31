@@ -4,9 +4,10 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { merge, Subject, takeUntil } from 'rxjs';
+import { filter, merge, Subject, takeUntil } from 'rxjs';
+import { PokemonSpriteComponent } from '../shared/pokemon-sprite.component';
 import { getValidValueChanges } from '../utitilites/forms';
-import { JoinStatValuesPipe } from '../utitilites/pipes';
+import { JoinPipe, JoinStatValuesPipe } from '../utitilites/pipes';
 import { EVInputComponent } from './ev-input.component';
 import { EVTotalControlComponent } from './ev-total-control.component';
 import {
@@ -46,7 +47,9 @@ import { StatsComponentState } from './stats.state';
     EVInputComponent,
     EVTotalControlComponent,
     StatsIndicatorComponent,
+    PokemonSpriteComponent,
     JoinStatValuesPipe,
+    JoinPipe,
   ],
 })
 export class StatsPageComponent implements OnInit, OnDestroy {
@@ -127,10 +130,14 @@ export class StatsPageComponent implements OnInit, OnDestroy {
       });
     // Reset IVs/EVs when pokemon changes
     getValidValueChanges(this.form.controls.pokemon)
-      .pipe(takeUntil(this.onDestroy$))
+      .pipe(
+        takeUntil(this.onDestroy$),
+        filter((pokemon) => !!pokemon),
+      )
       .subscribe(() => {
         const { pokemon } = this.form.getRawValue();
-        this.state.resetPokemon(pokemon);
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        this.state.resetPokemon(pokemon!);
       });
   }
 

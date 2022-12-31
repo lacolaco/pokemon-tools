@@ -10,6 +10,7 @@
           <tr>
             <td colspan="4">
               <div class="pokemon-base-info">
+                <pokemon-sprite [pokemon]="state.pokemon"></pokemon-sprite>
                 <pokemon-select formControlName="pokemon" [pokemons]="state.pokemons"></pokemon-select>
                 <a
                   [href]="state.pokemon.meta.url"
@@ -27,7 +28,7 @@
               <div class="base-specs">
                 <span>{{ state.pokemon.baseStats | joinStatValues }}</span>
                 <span>({{ state.pokemon.baseStatsTotal }})</span>
-                <span>{{ state.pokemon.types.join('/') }}</span>
+                <span>{{ state.pokemon.types | join : '/' }}</span>
               </div>
             </td>
           </tr>
@@ -38,7 +39,7 @@
             </td>
           </tr>
           <tr>
-            <td>性格</td>
+            <td></td>
             <td colspan="3">
               <nature-select formControlName="nature"></nature-select>
             </td>

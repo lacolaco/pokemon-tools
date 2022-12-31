@@ -11,3 +11,13 @@ export class JoinStatValuesPipe implements PipeTransform {
     return joinStatValues(value, delimiter);
   }
 }
+
+@Pipe({
+  name: 'join',
+  standalone: true,
+})
+export class JoinPipe implements PipeTransform {
+  transform(value: readonly unknown[], delimiter = ','): string {
+    return value.join(delimiter);
+  }
+}

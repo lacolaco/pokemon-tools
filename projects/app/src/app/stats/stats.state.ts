@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
+import { getPokemons, Pokemon, Pokemons } from '@lacolaco/pokemon-data';
 import { calculateEVs, calculateStats, optimizeDurability, sumOfStatValues } from '@lib/calc';
-import { naturesMap, PokemonData, Pokemons } from '@lib/data';
+import { naturesMap } from '@lib/data';
 import { asEV, asIV, asLevel, asStats, EVs, IVs, Level, Nature, Stat, StatValues } from '@lib/model';
 import { RxState, stateful } from '@rx-angular/state';
 import { combineLatest, filter, map, shareReplay, take } from 'rxjs';
-import { pokemons$ } from '../shared/pokemons';
 import { debug, distinctUntilStatValuesChanged } from '../utitilites/rx';
 import { formatStats } from './formatter';
 
 type State = {
   pokemons: Pokemons;
-  pokemon: PokemonData;
+  pokemon: Pokemon | null;
   level: Level;
   nature: Nature;
   ivs: IVs;
@@ -38,7 +38,7 @@ export class StatsComponentState extends RxState<State> {
     map(([stats]) => {
       const { pokemons, pokemon, level, nature, ivs, evs } = this.get();
       const usedEVs = sumOfStatValues(evs);
-      const statsText = formatStats(pokemon, level, nature, stats, evs);
+      const statsText = pokemon ? formatStats(pokemon, level, nature, stats, evs) : '';
       return { pokemons, pokemon, level, nature, ivs, evs, stats, usedEVs, statsText };
     }),
     debug('[change] state'),
@@ -47,13 +47,14 @@ export class StatsComponentState extends RxState<State> {
 
   constructor() {
     super();
-    this.connect('pokemons', pokemons$);
     this.select('pokemons')
       .pipe(stateful(take(1)))
       .subscribe((pokemons) => this.resetPokemon(pokemons['ガブリアス']));
+
+    this.set({ pokemons: getPokemons() });
   }
 
-  resetPokemon(pokemon: PokemonData) {
+  resetPokemon(pokemon: Pokemon) {
     this.set({
       pokemon,
       level: asLevel(50),
@@ -65,7 +66,9 @@ export class StatsComponentState extends RxState<State> {
 
   updateWithStats(stats: StatValues<Stat>) {
     const { level, pokemon, ivs, nature } = this.get();
-    this.set({ evs: calculateEVs(asStats(pokemon.baseStats), level, nature, ivs, stats) });
+    if (pokemon) {
+      this.set({ evs: calculateEVs(asStats(pokemon.baseStats), level, nature, ivs, stats) });
+    }
   }
 
   resetEVs() {
@@ -74,6 +77,8 @@ export class StatsComponentState extends RxState<State> {
 
   optimizeDurability() {
     const { pokemon, level, nature, ivs, evs } = this.get();
-    this.set({ evs: optimizeDurability(asStats(pokemon.baseStats), level, nature, ivs, evs) });
+    if (pokemon) {
+      this.set({ evs: optimizeDurability(asStats(pokemon.baseStats), level, nature, ivs, evs) });
+    }
   }
 }

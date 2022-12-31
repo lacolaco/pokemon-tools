@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { PokemonData, PokemonName, Pokemons } from '@lib/data';
+import { Pokemon, PokemonName, Pokemons } from '@lacolaco/pokemon-data';
 import { map } from 'rxjs';
 import { SimpleControlValueAccessor } from '../utitilites/forms';
 import { kataToHira } from '../utitilites/strings';
@@ -38,7 +38,7 @@ import { kataToHira } from '../utitilites/strings';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PokemonSelectComponent extends SimpleControlValueAccessor<PokemonData> {
+export class PokemonSelectComponent extends SimpleControlValueAccessor<Pokemon> {
   @Input() pokemons!: Pokemons;
 
   get pokemonNames() {
@@ -57,9 +57,9 @@ export class PokemonSelectComponent extends SimpleControlValueAccessor<PokemonDa
     }),
   );
 
-  value: PokemonData | null = null;
+  value: Pokemon | null = null;
 
-  override writeValue(value: PokemonData): void {
+  override writeValue(value: Pokemon): void {
     if (this.value !== value) {
       this.value = value;
       this.formControl.setValue(value.name, { emitEvent: false });

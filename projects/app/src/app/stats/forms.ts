@@ -1,14 +1,13 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { natures, PokemonData } from '@lib/data';
+import { Pokemon } from '@lacolaco/pokemon-data';
+import { natures } from '@lib/data';
 import { asEV, EV, asIV, IV, asStat, Stat, Level, asLevel, Nature } from '@lib/model';
 import { merge, Observable } from 'rxjs';
-import { emptyPokemon } from '../shared/pokemons';
 import { createZodTypeControl, getValidValueChanges } from '../utitilites/forms';
 
-export function createPokemonControl(): FormControl<PokemonData> {
-  return new FormControl<PokemonData>(emptyPokemon, {
+export function createPokemonControl(): FormControl<Pokemon | null> {
+  return new FormControl<Pokemon | null>(null, {
     validators: [Validators.required],
-    nonNullable: true,
   });
 }
 
