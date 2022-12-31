@@ -1,11 +1,25 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PokemonData } from '@lib/data';
-import { asEV, EV, asIV, IV, asStat, Stat } from '@lib/model';
+import { natures, PokemonData } from '@lib/data';
+import { asEV, EV, asIV, IV, asStat, Stat, Level, asLevel, Nature } from '@lib/model';
 import { merge, Observable } from 'rxjs';
+import { emptyPokemon } from '../shared/pokemons';
 import { createZodTypeControl, getValidValueChanges } from '../utitilites/forms';
 
-export function createPokemonControl(defaultValue: PokemonData): FormControl<PokemonData> {
-  return new FormControl(defaultValue, {
+export function createPokemonControl(): FormControl<PokemonData> {
+  return new FormControl<PokemonData>(emptyPokemon, {
+    validators: [Validators.required],
+    nonNullable: true,
+  });
+}
+
+export function createLevelControl(): FormControl<Level> {
+  return createZodTypeControl(Level, asLevel(1), {
+    validators: [Validators.required],
+  });
+}
+
+export function createNatureControl(): FormControl<Nature> {
+  return new FormControl(natures[0], {
     validators: [Validators.required],
     nonNullable: true,
   });

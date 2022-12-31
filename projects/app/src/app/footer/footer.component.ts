@@ -10,7 +10,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         当サイトは個人ファンサイトであり、株式会社ポケモン他企業様とは一切関係ありません。
       </p>
       <p>
-        また、このサイトで使用しているポケモンの情報は、<a href="https://yakkun.com/">ポケモン徹底攻略</a
+        また、このサイトで使用しているポケモンのデータは、<a href="https://yakkun.com/">ポケモン徹底攻略</a
         >様で公開されているものを使用しています。下記はサイト独自の内容にのみ関する著作権を示すものです。
       </p>
 

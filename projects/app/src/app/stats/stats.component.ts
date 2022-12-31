@@ -4,14 +4,19 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { natures, pokemons } from '@lib/data';
-import { asLevel, Level, Nature } from '@lib/model';
 import { merge, Subject, takeUntil } from 'rxjs';
 import { getValidValueChanges } from '../utitilites/forms';
 import { JoinStatValuesPipe } from '../utitilites/pipes';
 import { EVInputComponent } from './ev-input.component';
 import { EVTotalControlComponent } from './ev-total-control.component';
-import { createPokemonControl, createStatControlGroup, getStatParamsChanges, getStatValueChanges } from './forms';
+import {
+  createLevelControl,
+  createNatureControl,
+  createPokemonControl,
+  createStatControlGroup,
+  getStatParamsChanges,
+  getStatValueChanges,
+} from './forms';
 import { IVInputComponent } from './iv-input.component';
 import { LevelInputComponent } from './level-input.component';
 import { NatureSelectComponent } from './nature-select.component';
@@ -54,9 +59,9 @@ export class StatsPageComponent implements OnInit, OnDestroy {
   readonly state$ = this.state.state$;
 
   readonly form = this.fb.group({
-    pokemon: createPokemonControl(pokemons[0]),
-    level: this.fb.control<Level>(asLevel(1)),
-    nature: this.fb.control<Nature>(natures[0]),
+    pokemon: createPokemonControl(),
+    level: createLevelControl(),
+    nature: createNatureControl(),
     H: createStatControlGroup(),
     A: createStatControlGroup(),
     B: createStatControlGroup(),
