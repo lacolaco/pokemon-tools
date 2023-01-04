@@ -60,3 +60,8 @@ body {
 a {
   color: mat.get-color-from-palette($app-primary, 500);
 }
+
+.ad {
+  width: 100%;
+  padding: 0 64px;
+}
