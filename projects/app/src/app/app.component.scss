@@ -5,9 +5,12 @@
   min-height: 100vh;
   height: fit-content;
   width: 100%;
-  padding: 8px;
+}
 
-  @media screen and (min-width: 600px) {
-    padding: 16px;
-  }
+main {
+  padding: 16px;
+}
+
+footer {
+  padding: 16px;
 }

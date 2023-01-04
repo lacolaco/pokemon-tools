@@ -1,0 +1,25 @@
+:host {
+  display: block;
+  color: #666;
+}
+
+.container {
+  display: grid;
+  padding: 8px 16px;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  column-gap: 0.5em;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.menu-item {
+  font-size: 0.8rem;
+
+  .mat-icon {
+    color: #666;
+  }
+}

@@ -3,13 +3,16 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
 import { StatsPageComponent } from './stats/stats.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   template: `
-    <header></header>
+    <header>
+      <app-header></app-header>
+    </header>
     <main>
       <router-outlet></router-outlet>
     </main>
@@ -18,7 +21,7 @@ import { StatsPageComponent } from './stats/stats.component';
     </footer>
   `,
   styleUrls: ['./app.component.scss'],
-  imports: [RouterOutlet, StatsPageComponent, FooterComponent],
+  imports: [RouterOutlet, StatsPageComponent, HeaderComponent, FooterComponent],
 })
 export class AppComponent implements OnInit {
   readonly loc = inject(Location);

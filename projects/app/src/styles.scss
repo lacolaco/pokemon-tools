@@ -62,7 +62,12 @@ a {
 }
 
 .ad {
+  display: flex;
+  justify-content: center;
   width: 100%;
-  max-width: 728px;
-  padding: 0 5%;
+
+  ins {
+    width: 100%;
+    max-width: 728px;
+  }
 }
