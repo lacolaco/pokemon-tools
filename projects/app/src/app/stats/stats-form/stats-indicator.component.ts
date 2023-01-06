@@ -63,6 +63,7 @@ export class StatsIndicatorComponent {
       { label: '4n+1', value: H % 4 === 1, description: 'みがわり4回で残りHPが1になる' },
       { label: '6n-1', value: H % 6 === 5, description: 'ゴツゴツメットの接触ダメージを最小化する' },
       { label: '8n-1', value: H % 8 === 7, description: 'どくやさめはだ・てつのトゲ等の1/8ダメージを最小化する' },
+      { label: '10n-1', value: H % 10 === 9, description: 'いのちのたまの反動ダメージを最小化する' },
       {
         label: '16n-1',
         value: H % 16 === 15,
