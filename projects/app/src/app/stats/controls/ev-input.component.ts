@@ -13,7 +13,16 @@ const STEP = 4;
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, MatIconModule],
   template: `
-    <input type="number" min="0" max="252" step="4" required [formControl]="formControl" (click)="onTouched()" />
+    <input
+      type="number"
+      min="0"
+      max="252"
+      step="4"
+      required
+      [formControl]="formControl"
+      (click)="onTouched()"
+      class="form-input"
+    />
     <div class="buttons-outer">
       <div class="buttons">
         <button (click)="onTouched(); increment()" [disabled]="formControl.disabled || isMax">

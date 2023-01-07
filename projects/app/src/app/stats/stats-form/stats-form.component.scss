@@ -9,8 +9,6 @@
 }
 
 .calc-table {
-  border-spacing: 8px 4px;
-
   tbody tr:first-child td {
     height: 40px;
   }
@@ -18,14 +16,6 @@
   tbody tr td:first-child:not([colspan]) {
     text-align: center;
   }
-}
-
-.base-specs {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  column-gap: 0.5em;
-  color: #999;
 }
 
 .stat-name {
@@ -60,9 +50,4 @@
   flex-direction: row;
   align-items: flex-end;
   column-gap: 8px;
-}
-
-.stats-text {
-  font-size: 14px;
-  width: 100%;
 }

@@ -1,26 +1,8 @@
-@use 'normalize.css';
-
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-// Plus imports for other components in your app.
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat.core();
-
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
 $app-primary: mat.define-palette(mat.$indigo-palette);
 $app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
 $app-warn: mat.define-palette(mat.$red-palette);
-
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
 $app-theme: mat.define-light-theme(
   (
     color: (
@@ -31,43 +13,86 @@ $app-theme: mat.define-light-theme(
   )
 );
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($app-theme);
-
-.mdc-tooltip {
-  font-size: 0.85rem;
-}
+@include mat.core();
+@tailwind base;
+@include mat.core-theme($app-theme);
+@include mat.autocomplete-theme($app-theme);
+@include mat.chips-theme($app-theme);
+@include mat.icon-theme($app-theme);
+@include mat.menu-theme($app-theme);
+@include mat.snack-bar-theme($app-theme);
+@include mat.tooltip-theme($app-theme);
+@tailwind components;
+@tailwind utilities;
 
 /* You can add global styles to this file, and also import other style files */
 
-* {
-  box-sizing: border-box;
+@layer base {
+  body {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    background-color: #fefefe;
+  }
+
+  ::before,
+  ::after {
+    border-style: unset;
+  }
+
+  a {
+    color: mat.get-color-from-palette($app-primary, 500);
+  }
+
+  button {
+    line-height: 1.15;
+    @apply rounded bg-gray-200 bg-opacity-50 border border-gray-500;
+
+    &:disabled {
+      @apply border-gray-100 text-gray-400;
+    }
+  }
+
+  table {
+    border-collapse: separate;
+  }
 }
 
-html,
-body {
-  height: 100%;
-  width: 100%;
-}
-body {
-  margin: 0;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
-  background-color: #fefefe;
-}
+@layer components {
+  .form-input,
+  .form-textarea,
+  .form-select {
+    font-size: inherit;
+    line-height: inherit;
+    @apply rounded border-gray-500 focus:border-indigo-300 focus:ring focus:ring-indigo-400 focus:ring-opacity-50;
+  }
 
-a {
-  color: mat.get-color-from-palette($app-primary, 500);
-}
+  .form-input {
+    @apply px-2 py-0;
+  }
+  .form-input[type='number'] {
+    @apply pl-2 pr-0 py-0;
+  }
+  .form-textarea {
+    @apply px-2 py-1;
+  }
+  .form-select {
+    @apply pl-2 pr-12 py-0;
+  }
 
-.ad {
-  display: flex;
-  justify-content: center;
-  width: 100%;
+  .mdc-tooltip {
+    font-size: 0.85rem;
+  }
+  .mat-mdc-chip {
+    border-style: unset;
+  }
 
-  ins {
+  .ad {
+    display: flex;
+    justify-content: center;
     width: 100%;
-    max-width: 728px;
+
+    ins {
+      width: 100%;
+      max-width: 728px;
+    }
   }
 }

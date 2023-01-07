@@ -1,6 +1,6 @@
 {
   "root": true,
-  "ignorePatterns": ["node_modules", "dist", "*.generated.ts"],
+  "ignorePatterns": ["node_modules", "dist", "*.generated.ts", "tailwind.config.cjs"],
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint", "prettier"],

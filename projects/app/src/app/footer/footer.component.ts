@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'app-footer',
   standalone: true,
   template: `
-    <div class="rows">
+    <div class="flex flex-col items-start gap-x-2 text-gray-600 text-xs">
       <p>
         ポケットモンスター・ポケモン・Pokémonは任天堂・クリーチャーズ・ゲームフリークの登録商標です。
         当サイトは個人ファンサイトであり、株式会社ポケモン他企業様とは一切関係ありません。

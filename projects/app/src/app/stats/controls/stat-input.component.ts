@@ -19,6 +19,7 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
       [formControl]="formControl"
       (click)="onTouched(); dispatchChange.emit()"
       (blur)="dispatchChange.emit()"
+      class="form-input"
     />
     <div class="buttons">
       <button (click)="onTouched(); setValue(formControl.value + 1)" [disabled]="formControl.disabled || isMax">

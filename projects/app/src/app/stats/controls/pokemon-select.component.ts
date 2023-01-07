@@ -29,6 +29,7 @@ const pokemons = getPokemons();
       (click)="onTouched()"
       [matAutocomplete]="auto"
       placeholder="ポケモンを選択してください"
+      class="form-input"
     />
   `,
   styles: [

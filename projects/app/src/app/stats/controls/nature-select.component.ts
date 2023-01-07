@@ -10,7 +10,7 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   template: `
-    <select [formControl]="formControl" (click)="onTouched()">
+    <select [formControl]="formControl" (click)="onTouched()" class="form-select">
       <option *ngFor="let option of options; trackBy: trackNature" [ngValue]="option">
         {{ option.name }}
       </option>

@@ -9,7 +9,15 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   template: `
-    <input type="number" min="0" max="31" required [formControl]="formControl" (click)="onTouched()" />
+    <input
+      type="number"
+      min="0"
+      max="31"
+      required
+      [formControl]="formControl"
+      (click)="onTouched()"
+      class="form-input"
+    />
     <div class="buttons">
       <button (click)="onTouched(); setValue(31)" [disabled]="formControl.disabled">31</button>
       <button (click)="onTouched(); setValue(0)" [disabled]="formControl.disabled">0</button>

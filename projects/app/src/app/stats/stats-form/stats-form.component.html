@@ -1,12 +1,14 @@
 <ng-container *ngIf="state$ | async as state">
   <ng-container *ngIf="state.pokemon">
     <form [formGroup]="form">
-      <table class="calc-table">
+      <table class="calc-table border-spacing-1">
         <tbody>
           <tr>
-            <td colspan="4">
+            <td>
+              <pokemon-sprite [pokemon]="state.pokemon"></pokemon-sprite>
+            </td>
+            <td colspan="3">
               <div class="pokemon-base-info">
-                <pokemon-sprite [pokemon]="state.pokemon"></pokemon-sprite>
                 <pokemon-select formControlName="pokemon"></pokemon-select>
                 <a
                   [href]="state.pokemon.meta.url"
@@ -14,14 +16,19 @@
                   title="ポケモン徹底攻略で{{ state.pokemon.name }}を見る"
                   class="info-link"
                 >
-                  <img src="assets/images/yakkun-32x32.png" width="16px" height="16px" />
+                  <img
+                    src="assets/images/yakkun-32x32.png"
+                    width="16px"
+                    height="16px"
+                    class="inline-block align-text-top"
+                  />
                 </a>
               </div>
             </td>
           </tr>
           <tr>
             <td colspan="4">
-              <div class="base-specs">
+              <div class="flex flex-row flex-wrap gap-2 text-sm text-gray-500">
                 <span>{{ state.pokemon.baseStats | joinStatValues }}</span>
                 <span>({{ state.pokemon.baseStatsTotal }})</span>
                 <span>{{ state.pokemon.types | join : '/' }}</span>
@@ -133,7 +140,7 @@
     </form>
 
     <textarea
-      class="stats-text"
+      class="form-textarea text-base w-full"
       [value]="state.statsText"
       title="クリックしてクリップボードにコピー"
       (click)="copyText(state.statsText)"
