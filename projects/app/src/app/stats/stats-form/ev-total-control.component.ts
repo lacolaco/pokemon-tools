@@ -12,8 +12,6 @@ import { MAX_EV_TOTAL } from '@lib/data';
       <div class="total">
         努力値合計: <span [class.error]="isTooHigh">{{ usedEVs }}</span> / <span>{{ maxEVTotal }}</span>
       </div>
-    </div>
-    <div class="row">
       <button (click)="reset.emit()" matTooltip="すべての努力値を0にリセットします">リセット</button>
       <button (click)="optimizeDurability.emit()" matTooltip="総合耐久指数が最大になるようにH,B,Dの努力値を配分します">
         耐久最適化

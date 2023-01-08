@@ -1,7 +1,7 @@
 <ng-container *ngIf="state$ | async as state">
   <ng-container *ngIf="state.pokemon">
-    <form [formGroup]="form">
-      <table class="calc-table border-spacing-1">
+    <form [formGroup]="form" class="grid grid-cols-1 gap-y-3">
+      <table class="calc-table border-spacing-1 w-auto">
         <tbody>
           <tr>
             <td>
@@ -121,30 +121,18 @@
             <td><ev-input formControlName="ev" [usedEVs]="state.usedEVs"></ev-input></td>
             <td><iv-input formControlName="iv"></iv-input></td>
           </tr>
-          <tr>
-            <td colspan="4">
-              <ev-total-control
-                [usedEVs]="state.usedEVs"
-                (reset)="resetEVs()"
-                (optimizeDurability)="optimizeDurability()"
-              ></ev-total-control>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="4">
-              <stats-indicator [stats]="state.stats"></stats-indicator>
-            </td>
-          </tr>
         </tbody>
       </table>
     </form>
-
-    <textarea
-      class="form-textarea text-base w-full"
-      [value]="state.statsText"
-      title="クリックしてクリップボードにコピー"
-      (click)="copyText(state.statsText)"
-      readonly
-    ></textarea>
+    <div class="w-full">
+      <ev-total-control
+        class="w-full"
+        [usedEVs]="state.usedEVs"
+        (reset)="resetEVs()"
+        (optimizeDurability)="optimizeDurability()"
+      >
+      </ev-total-control>
+      <stats-indicator class="w-full" [stats]="state.stats"></stats-indicator>
+    </div>
   </ng-container>
 </ng-container>

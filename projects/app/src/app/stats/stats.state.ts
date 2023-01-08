@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { getPokemons, Pokemon } from '@lacolaco/pokemon-data';
 import { calculateEVs, calculateStats, optimizeDurability, sumOfStatValues } from '@lib/calc';
 import { naturesMap } from '@lib/data';
-import { asEV, asIV, asLevel, asStats, EVs, IVs, Level, Nature, Stat, StatValues } from '@lib/model';
+import { asEV, asIV, asLevel, asStats, EVs, IVs, Level, Nature, Stat, Stats, StatValues } from '@lib/model';
 import { RxState, stateful } from '@rx-angular/state';
-import { combineLatest, filter, map, shareReplay } from 'rxjs';
+import { combineLatest, filter, map, Observable, shareReplay } from 'rxjs';
 import { debug, distinctUntilStatValuesChanged } from '../utitilites/rx';
-import { formatStats } from './formatter';
 
 const pokemons = getPokemons();
 
@@ -20,7 +19,7 @@ type State = {
 
 @Injectable()
 export class StatsState extends RxState<State> {
-  private readonly stats$ = combineLatest([
+  private readonly stats$: Observable<Stats> = combineLatest([
     this.select('pokemon').pipe(stateful(debug('[change] pokemon'))),
     this.select('level').pipe(stateful(debug('[change] level'))),
     this.select('nature').pipe(stateful(debug('[change] nature'))),
@@ -39,8 +38,7 @@ export class StatsState extends RxState<State> {
     map(([stats]) => {
       const { pokemon, level, nature, ivs, evs } = this.get();
       const usedEVs = sumOfStatValues(evs);
-      const statsText = pokemon ? formatStats(pokemon, level, nature, stats, evs) : '';
-      return { pokemon, level, nature, ivs, evs, stats, usedEVs, statsText };
+      return { pokemon, level, nature, ivs, evs, stats, usedEVs };
     }),
     debug('[change] state'),
     shareReplay(1),

@@ -1,20 +1,14 @@
-import { Clipboard, ClipboardModule } from '@angular/cdk/clipboard';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { filter, merge, Subject, takeUntil } from 'rxjs';
 import { PokemonSpriteComponent } from '../../shared/pokemon-sprite.component';
 import { getValidValueChanges } from '../../utitilites/forms';
 import { JoinPipe, JoinStatValuesPipe } from '../../utitilites/pipes';
 import { EVInputComponent } from '../controls/ev-input.component';
-import { IVInputComponent } from '../controls/iv-input.component';
-import { LevelInputComponent } from '../controls/level-input.component';
-import { NatureSelectComponent } from '../controls/nature-select.component';
-import { PokemonSelectComponent } from '../controls/pokemon-select.component';
-import { StatInputComponent } from '../controls/stat-input.component';
-import { EVTotalControlComponent } from './ev-total-control.component';
 import {
   createLevelControl,
   createNatureControl,
@@ -23,8 +17,14 @@ import {
   getStatParamsChanges,
   getStatValueChanges,
 } from '../controls/forms';
-import { StatsIndicatorComponent } from './stats-indicator.component';
+import { IVInputComponent } from '../controls/iv-input.component';
+import { LevelInputComponent } from '../controls/level-input.component';
+import { NatureSelectComponent } from '../controls/nature-select.component';
+import { PokemonSelectComponent } from '../controls/pokemon-select.component';
+import { StatInputComponent } from '../controls/stat-input.component';
+import { StatsIndicatorComponent } from '../stats-indicator/stats-indicator.component';
 import { StatsState } from '../stats.state';
+import { EVTotalControlComponent } from './ev-total-control.component';
 
 @Component({
   selector: 'app-stats-form',
@@ -51,13 +51,11 @@ import { StatsState } from '../stats.state';
   ],
 })
 export class StatsFormComponent implements OnInit, OnDestroy {
-  private readonly state = inject(StatsState);
+  private readonly statsState = inject(StatsState);
   private readonly fb = inject(FormBuilder).nonNullable;
-  private readonly snackBar = inject(MatSnackBar);
-  private readonly clipboard = inject(Clipboard);
 
   private readonly onDestroy$ = new Subject<void>();
-  readonly state$ = this.state.state$;
+  readonly state$ = this.statsState.state$;
 
   readonly form = this.fb.group({
     pokemon: createPokemonControl(),
@@ -104,7 +102,7 @@ export class StatsFormComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(() => {
         const { pokemon, level, nature, H, A, B, C, D, S } = this.form.getRawValue();
-        this.state.set({
+        this.statsState.set({
           pokemon,
           level,
           nature,
@@ -124,7 +122,7 @@ export class StatsFormComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(() => {
         const { H, A, B, C, D, S } = this.form.getRawValue();
-        this.state.updateWithStats({ H: H.stat, A: A.stat, B: B.stat, C: C.stat, D: D.stat, S: S.stat });
+        this.statsState.updateWithStats({ H: H.stat, A: A.stat, B: B.stat, C: C.stat, D: D.stat, S: S.stat });
       });
     // Reset IVs/EVs when pokemon changes
     getValidValueChanges(this.form.controls.pokemon)
@@ -135,7 +133,7 @@ export class StatsFormComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         const { pokemon } = this.form.getRawValue();
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        this.state.resetPokemon(pokemon!);
+        this.statsState.resetPokemon(pokemon!);
       });
   }
 
@@ -145,16 +143,10 @@ export class StatsFormComponent implements OnInit, OnDestroy {
   }
 
   resetEVs() {
-    this.state.resetEVs();
+    this.statsState.resetEVs();
   }
 
   optimizeDurability() {
-    this.state.optimizeDurability();
-  }
-
-  copyText(text: string) {
-    if (this.clipboard.copy(text)) {
-      this.snackBar.open('コピーしました', '閉じる', { duration: 3000 });
-    }
+    this.statsState.optimizeDurability();
   }
 }

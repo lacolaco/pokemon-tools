@@ -10,37 +10,26 @@ import { Stats } from '@lib/model';
   imports: [CommonModule, MatTooltipModule, MatChipsModule],
   template: `
     <div>HP倍数</div>
-    <div class="rows">
-      <mat-chip-set>
-        <mat-chip
-          *ngFor="let indicator of hpIndicators; trackBy: trackIndicator"
-          [class.off]="!indicator.value"
-          [highlighted]="indicator.value"
-          disableRipple
-          [matTooltip]="indicator.description"
-          [matTooltipDisabled]="false"
-        >
-          {{ indicator.label }}
-        </mat-chip>
-      </mat-chip-set>
-    </div>
+    <mat-chip-set>
+      <mat-chip
+        *ngFor="let indicator of hpIndicators; trackBy: trackIndicator"
+        [class.off]="!indicator.value"
+        [highlighted]="indicator.value"
+        disableRipple
+        [matTooltip]="indicator.description"
+        [matTooltipDisabled]="false"
+      >
+        {{ indicator.label }}
+      </mat-chip>
+    </mat-chip-set>
   `,
   styles: [
     `
       :host {
         display: grid;
         grid-template-columns: 1fr;
-        row-gap: 4px;
-      }
-      .rows {
-        display: grid;
-        grid-template-columns: 1fr;
-        align-items: center;
-        column-gap: 8px;
-        width: 100%;
       }
       mat-chip-set {
-        width: 400px;
         font-size: 12px;
         --mdc-chip-container-height: 20px;
       }
