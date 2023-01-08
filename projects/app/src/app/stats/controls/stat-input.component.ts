@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { asStat, Stat } from '@lib/model';
@@ -22,17 +22,17 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
       class="form-input"
     />
     <div class="buttons">
-      <button (click)="onTouched(); setValue(formControl.value + 1)" [disabled]="formControl.disabled || isMax">
+      <button (click)="onTouched(); increment()" [disabled]="formControl.disabled || value === null || isMax">
         <mat-icon fontIcon="add" inline></mat-icon>
       </button>
-      <button (click)="onTouched(); setValue(formControl.value - 1)" [disabled]="formControl.disabled || isMin">
+      <button (click)="onTouched(); decrement()" [disabled]="formControl.disabled || value === null || isMin">
         <mat-icon fontIcon="remove" inline></mat-icon>
       </button>
     </div>
   `,
   styleUrls: ['./stat-input.component.scss'],
 })
-export class StatInputComponent extends SimpleControlValueAccessor<Stat> {
+export class StatInputComponent extends SimpleControlValueAccessor<Stat> implements OnInit {
   readonly formControl = new FormControl(asStat(1), { nonNullable: true });
 
   @Input() isMin = false;
@@ -44,8 +44,7 @@ export class StatInputComponent extends SimpleControlValueAccessor<Stat> {
     return this.formControl.value;
   }
 
-  constructor() {
-    super();
+  ngOnInit() {
     // 編集中には値の変更を通知しない
     this.dispatchChange
       .pipe(
@@ -62,13 +61,28 @@ export class StatInputComponent extends SimpleControlValueAccessor<Stat> {
     if (value !== this.value) {
       this.formControl.setValue(value, { emitEvent: false });
     }
+    this.setDisabledState(this.value === null);
   }
 
   override setDisabledState(isDisabled: boolean): void {
     isDisabled ? this.formControl.disable() : this.formControl.enable();
   }
 
-  setValue(value: number): void {
+  increment() {
+    if (this.value === null) {
+      return;
+    }
+    this.setValue(this.value + 1);
+  }
+
+  decrement() {
+    if (this.value === null) {
+      return;
+    }
+    this.setValue(this.value - 1);
+  }
+
+  private setValue(value: number): void {
     this.formControl.setValue(asStat(value));
     this.dispatchChange.emit();
   }

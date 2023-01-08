@@ -1,13 +1,13 @@
 import { z } from 'zod';
 import { StatValues } from './stat-values';
 
-export const Stat = z.number().int().min(0).brand('Stat');
+export const Stat = z.union([z.number().int().positive().brand('Stat'), z.null()]);
 export type Stat = z.infer<typeof Stat>;
-export function asStat(value: number): Stat {
+export function asStat(value: number | null): Stat {
   return Stat.parse(value);
 }
 export type Stats = StatValues<Stat>;
-export function asStats(value: StatValues<number>): Stats {
+export function asStats(value: StatValues<number | null>): Stats {
   return {
     H: asStat(value.H),
     A: asStat(value.A),
@@ -18,9 +18,9 @@ export function asStats(value: StatValues<number>): Stats {
   };
 }
 
-export const IV = z.number().int().min(0).max(31).brand('IV');
+export const IV = z.union([z.number().int().min(0).max(31).brand('IV'), z.null()]);
 export type IV = z.infer<typeof IV>;
-export function asIV(value: number): IV {
+export function asIV(value: number | null): IV {
   return IV.parse(value);
 }
 export type IVs = StatValues<IV>;

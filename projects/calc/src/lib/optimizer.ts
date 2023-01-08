@@ -1,4 +1,4 @@
-import { asEV, EVs, IVs, Level, Nature, Stats } from '@lib/model';
+import { asEV, EVs, IVs, Level, Nature, Stat, Stats } from '@lib/model';
 import { calculateStats } from './stats';
 import { sumOfStatValues } from './utilities';
 
@@ -38,7 +38,10 @@ export function optimizeDurability(base: Readonly<Stats>, level: Level, nature: 
  * dSdB = (H * D^2) / (B + D)^2
  * dSdD = (H * B^2) / (B + D)^2
  */
-function getDerivatives(H: number, B: number, D: number): { dSdH: number; dSdB: number; dSdD: number } {
+function getDerivatives(H: Stat, B: Stat, D: Stat): { dSdH: number; dSdB: number; dSdD: number } {
+  if (H === null || B === null || D === null) {
+    return { dSdH: 0, dSdB: 0, dSdD: 0 };
+  }
   return {
     dSdH: (B * D) / (B + D),
     dSdB: (H * Math.pow(D, 2)) / Math.pow(B + D, 2),

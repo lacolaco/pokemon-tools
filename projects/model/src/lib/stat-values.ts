@@ -1,6 +1,6 @@
-export type StatValues<V extends number> = { H: V; A: V; B: V; C: V; D: V; S: V };
+export type StatValues<V> = { H: V; A: V; B: V; C: V; D: V; S: V };
 
-export function compareStatValues<V extends number>(a: StatValues<V>, b: StatValues<V>): boolean {
+export function compareStatValues<V>(a: StatValues<V>, b: StatValues<V>): boolean {
   return a.H === b.H && a.A === b.A && a.B === b.B && a.C === b.C && a.D === b.D && a.S === b.S;
 }
 

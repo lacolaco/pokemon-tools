@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { asIV, IV } from '@lib/model';
 import { SimpleControlValueAccessor } from '../../utitilites/forms';
 
 @Component({
   selector: 'iv-input',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatIconModule],
   template: `
     <input
       type="number"
@@ -21,6 +22,9 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
     <div class="buttons">
       <button (click)="onTouched(); setValue(31)" [disabled]="formControl.disabled">31</button>
       <button (click)="onTouched(); setValue(0)" [disabled]="formControl.disabled">0</button>
+      <button (click)="onTouched(); setValue(null)" [disabled]="formControl.disabled">
+        <mat-icon fontIcon="close" inline></mat-icon>
+      </button>
     </div>
   `,
   styleUrls: ['./iv-input.component.scss'],
@@ -49,7 +53,7 @@ export class IVInputComponent extends SimpleControlValueAccessor<IV> {
     isDisabled ? this.formControl.disable() : this.formControl.enable();
   }
 
-  setValue(value: number): void {
+  setValue(value: number | null): void {
     this.formControl.setValue(asIV(value));
   }
 }

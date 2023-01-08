@@ -32,13 +32,13 @@ export function createEVControl(): FormControl<EV> {
 
 export function createIVControl(): FormControl<IV> {
   return createZodTypeControl(IV, asIV(0), {
-    validators: [Validators.required],
+    validators: [],
   });
 }
 
 export function createStatControl(): FormControl<Stat> {
-  return createZodTypeControl(Stat, asStat(0), {
-    validators: [Validators.required],
+  return createZodTypeControl(Stat, asStat(1), {
+    validators: [],
   });
 }
 

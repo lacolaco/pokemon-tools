@@ -2,7 +2,7 @@
  * ポケモンの能力値を計算する関数群
  */
 
-import { EVs, IVs, Level, Nature, Stats, StatValues } from '@lib/model';
+import { asStats, EVs, IVs, Level, Nature, Stats, StatValues } from '@lib/model';
 import { inverse, Matrix } from 'ml-matrix';
 
 /**
@@ -37,7 +37,16 @@ export function calculateStats(base: Readonly<Stats>, level: Level, nature: Natu
     .mmul(NV)
     .floor();
 
-  return statValuesFromVector(mat);
+  // ignore stat values if the iv is ignored
+  const values = statValuesFromVector(mat);
+  return asStats({
+    H: ivs.H === null ? null : values.H,
+    A: ivs.A === null ? null : values.A,
+    B: ivs.B === null ? null : values.B,
+    C: ivs.C === null ? null : values.C,
+    D: ivs.D === null ? null : values.D,
+    S: ivs.S === null ? null : values.S,
+  });
 }
 
 /**
@@ -94,8 +103,8 @@ function vector(values: number[]) {
   return new Matrix([values]);
 }
 
-function vectorFromStatValues<V extends number>({ H, A, B, C, D, S }: StatValues<V>) {
-  return vector([H, A, B, C, D, S]);
+function vectorFromStatValues<V extends number | null>({ H, A, B, C, D, S }: StatValues<V>) {
+  return vector([H ?? 0, A ?? 0, B ?? 0, C ?? 0, D ?? 0, S ?? 0]);
 }
 
 function statValuesFromVector<V extends number>(vec: Matrix): StatValues<V> {

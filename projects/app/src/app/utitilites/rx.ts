@@ -2,7 +2,7 @@ import { isDevMode } from '@angular/core';
 import { compareStatValues, StatValues } from '@lib/model';
 import { distinctUntilChanged, MonoTypeOperatorFunction, pipe, tap } from 'rxjs';
 
-export function distinctUntilStatValuesChanged<V extends number>(): MonoTypeOperatorFunction<StatValues<V>> {
+export function distinctUntilStatValuesChanged<V>(): MonoTypeOperatorFunction<StatValues<V>> {
   return pipe(
     distinctUntilChanged((a, b) => {
       return compareStatValues(a, b);

@@ -63,6 +63,10 @@ $app-theme: mat.define-light-theme(
     font-size: inherit;
     line-height: inherit;
     @apply rounded border-gray-500 focus:border-indigo-300 focus:ring focus:ring-indigo-400 focus:ring-opacity-50;
+
+    &:disabled {
+      @apply bg-gray-200 bg-opacity-50 text-gray-400;
+    }
   }
 
   .form-input {

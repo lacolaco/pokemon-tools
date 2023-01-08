@@ -55,7 +55,7 @@ export class StatsIndicatorComponent {
   @Input() stats!: Stats;
 
   get hpIndicators() {
-    const { H } = this.stats;
+    const H = this.stats.H || 0;
     return [
       { label: '2n+1', value: H % 2 === 1, description: 'じこさいせい等の回復量を最大化する' },
       { label: '3n', value: H % 3 === 0, description: 'さいせいりょく、混乱きのみの回復量を最大化する' },
