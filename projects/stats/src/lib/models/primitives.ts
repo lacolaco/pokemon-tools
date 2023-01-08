@@ -29,19 +29,3 @@ export type Level = z.infer<typeof Level>;
 export function asLevel(value: number): Level {
   return Level.parse(value);
 }
-
-export type NatureStat = 'A' | 'B' | 'C' | 'D' | 'S';
-
-export type Nature =
-  | {
-      name: string;
-      up: NatureStat;
-      down: NatureStat;
-      noop?: never;
-    }
-  | {
-      name: string;
-      up?: never;
-      down?: never;
-      noop: true;
-    };

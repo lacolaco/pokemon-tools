@@ -10,7 +10,7 @@ import {
   IV,
   Level,
   Nature,
-  naturesMap,
+  natures,
   optimizeDurability,
   Stat,
   StatValues,
@@ -66,7 +66,7 @@ export class StatsPageState extends RxState<State> {
     this.set({
       pokemon,
       level: asLevel(50),
-      nature: naturesMap['いじっぱり'],
+      nature: natures['いじっぱり'],
       evs: { H: asEV(0), A: asEV(0), B: asEV(0), C: asEV(0), D: asEV(0), S: asEV(0) },
       ivs: { H: asIV(31), A: asIV(31), B: asIV(31), C: asIV(31), D: asIV(31), S: asIV(31) },
     });
@@ -86,7 +86,7 @@ export class StatsPageState extends RxState<State> {
   optimizeDurability() {
     const { pokemon, level, nature, ivs, evs } = this.get();
     if (pokemon) {
-      this.set({ evs: optimizeDurability(pokemon.baseStats as StatValues<Stat>, level, nature, ivs, evs) });
+      this.set({ evs: optimizeDurability(pokemon.baseStats as StatValues<Stat>, level, ivs, evs, nature) });
     }
   }
 }

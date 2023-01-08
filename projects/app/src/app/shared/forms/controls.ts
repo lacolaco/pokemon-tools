@@ -17,7 +17,7 @@ export function createLevelControl(): FormControl<Level> {
 }
 
 export function createNatureControl(): FormControl<Nature> {
-  return new FormControl(natures[0], {
+  return new FormControl(natures['いじっぱり'], {
     validators: [Validators.required],
     nonNullable: true,
   });

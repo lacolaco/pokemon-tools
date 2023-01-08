@@ -1,4 +1,5 @@
-import { asEV, EV, IV, Level, Nature, Stat } from '../models/primitives';
+import { Nature } from '../models/natures';
+import { asEV, EV, IV, Level, Stat } from '../models/primitives';
 import { StatValues } from '../models/stat-values';
 import { calculateAllStats } from './stats';
 import { sumOfStatValues } from './utilities';
@@ -10,9 +11,9 @@ import { sumOfStatValues } from './utilities';
 export function optimizeDurability(
   base: Readonly<StatValues<Stat>>,
   level: Level,
-  nature: Nature,
   ivs: StatValues<IV | null>,
   evs: StatValues<EV>,
+  nature: Nature,
 ): StatValues<EV> {
   const optimizedEVs = { ...evs, H: asEV(0), B: asEV(0), D: asEV(0) };
   while (sumOfStatValues(optimizedEVs) < 508) {

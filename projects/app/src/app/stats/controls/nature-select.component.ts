@@ -25,8 +25,8 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NatureSelectComponent extends SimpleControlValueAccessor<Nature> {
-  readonly options = [...natures].sort((a, b) => a.name.localeCompare(b.name));
-  readonly formControl = new FormControl(natures[0], { nonNullable: true });
+  readonly options = Object.values(natures).sort((a, b) => a.name.localeCompare(b.name));
+  readonly formControl = new FormControl<Nature>(natures['いじっぱり'], { nonNullable: true });
 
   protected get value() {
     return this.formControl.value;

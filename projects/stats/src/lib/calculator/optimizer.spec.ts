@@ -1,5 +1,5 @@
 import { getPokemonByName } from '@lacolaco/pokemon-data';
-import { naturesMap } from '../models/natures';
+import { natures } from '../models/natures';
 import { Stat, asLevel, asIV, asEV, asStat } from '../models/primitives';
 import { StatValues } from '../models/stat-values';
 import { optimizeDurability } from './optimizer';
@@ -10,9 +10,9 @@ describe('optimizeDurability', () => {
     const result = optimizeDurability(
       pokemon.baseStats as StatValues<Stat>,
       asLevel(50),
-      naturesMap['ひかえめ'],
       { H: asIV(31), A: asIV(31), B: asIV(31), C: asIV(31), D: asIV(31), S: asIV(31) },
       { H: asEV(0), A: asEV(0), B: asEV(0), C: asEV(252), D: asEV(0), S: asEV(0) },
+      natures['ひかえめ'],
     );
 
     expect(result).toEqual({
@@ -29,9 +29,9 @@ describe('optimizeDurability', () => {
     const result = optimizeDurability(
       { H: asStat(59), A: asStat(181), B: asStat(131), C: asStat(59), D: asStat(31), S: asStat(109) },
       asLevel(50),
-      naturesMap['ようき'],
       { H: asIV(31), A: asIV(31), B: asIV(31), C: asIV(31), D: asIV(31), S: asIV(31) },
       { H: asEV(0), A: asEV(252), B: asEV(0), C: asEV(0), D: asEV(0), S: asEV(0) },
+      natures['ようき'],
     );
     expect(result).toEqual({
       H: asEV(4),
@@ -47,9 +47,9 @@ describe('optimizeDurability', () => {
     const result = optimizeDurability(
       { H: asStat(110), A: asStat(135), B: asStat(60), C: asStat(50), D: asStat(65), S: asStat(88) },
       asLevel(50),
-      naturesMap['ようき'],
       { H: asIV(31), A: asIV(31), B: asIV(31), C: asIV(31), D: asIV(31), S: asIV(31) },
       { H: asEV(0), A: asEV(252), B: asEV(0), C: asEV(0), D: asEV(0), S: asEV(4) },
+      natures['ようき'],
     );
     expect(result).toEqual({
       H: asEV(44),
