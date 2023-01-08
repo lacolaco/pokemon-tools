@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Stats } from '@lib/model';
+import { Stat, StatValues } from '@lib/model';
 
 @Component({
   selector: 'stats-indicator',
@@ -41,7 +41,7 @@ import { Stats } from '@lib/model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatsIndicatorComponent {
-  @Input() stats!: Stats;
+  @Input() stats!: StatValues<Stat | null>;
 
   get hpIndicators() {
     const H = this.stats.H || 0;

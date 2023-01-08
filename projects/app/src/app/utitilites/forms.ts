@@ -1,12 +1,5 @@
 import { Directive, inject, OnDestroy } from '@angular/core';
-import {
-  AbstractControl,
-  ControlValueAccessor,
-  FormControl,
-  FormControlOptions,
-  NgControl,
-  ValidatorFn,
-} from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, NgControl, ValidatorFn } from '@angular/forms';
 import { filter, Observable, pipe, Subject, takeUntil, tap } from 'rxjs';
 import { z } from 'zod';
 
@@ -64,19 +57,4 @@ export function zodTypeValidator<T extends z.ZodType>(zodType: T): ValidatorFn {
     }
     return null;
   };
-}
-
-export function createZodTypeControl<T extends z.ZodType>(
-  zodType: T,
-  defaultValue: z.infer<T>,
-  opts: FormControlOptions = {},
-): FormControl<z.infer<T>> {
-  return new FormControl(defaultValue, {
-    ...opts,
-    validators: [
-      ...(opts.validators ? (Array.isArray(opts.validators) ? opts.validators : [opts.validators]) : []),
-      zodTypeValidator(zodType),
-    ],
-    nonNullable: true,
-  });
 }

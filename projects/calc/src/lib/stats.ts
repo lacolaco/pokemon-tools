@@ -2,51 +2,32 @@
  * ポケモンの能力値を計算する関数群
  */
 
-import { asStats, EVs, IVs, Level, Nature, Stats, StatValues } from '@lib/model';
-import { inverse, Matrix } from 'ml-matrix';
+import { asEV, asStat, EV, IV, Level, Nature, Stat, StatValues } from '@lib/model';
 
 /**
  * 種族値と個体値と努力値と性格から能力値を計算する
  * @param level レベル
- * @param base 種族値 [H, A, B, C, D, S]
- * @param ivs 個体値 [H, A, B, C, D, S]
- * @param evs 努力値 [H, A, B, C, D, S]
- * @param nature 性格補正 [H, A, B, C, D, S]
- * @returns 能力値 [H, A, B, C, D, S]
+ * @param base 種族値
+ * @param ivs 個体値
+ * @param evs 努力値
+ * @param nature 性格補正
+ * @returns 能力値
  */
-export function calculateStats(base: Readonly<Stats>, level: Level, nature: Nature, ivs: IVs, evs: EVs): Stats {
-  // Stat = floor((floor((floor(EV/4) + D) × (Level/100)) + B) × Nature)
-  // D = Base×2 + IV + A
-  // HP:    A = 100, B = 10
-  // HP以外: A = 0,   B = 5
-  const Base = vectorFromStatValues(base);
-  const IV = vectorFromStatValues(ivs);
-  const EV = vectorFromStatValues(evs);
-  const A = vector([100, 0, 0, 0, 0, 0]);
-  const B = vector([10, 5, 5, 5, 5, 5]);
-  const D = Base.mul(2).add(IV).add(A);
-  const NV = createNatureDiagonal(nature);
-
-  const mat = Matrix.zeros(1, 6)
-    .add(EV.divide(4))
-    .floor()
-    .add(D)
-    .mul(level / 100)
-    .floor()
-    .add(B)
-    .mmul(NV)
-    .floor();
-
-  // ignore stat values if the iv is ignored
-  const values = statValuesFromVector(mat);
-  return asStats({
-    H: ivs.H === null ? null : values.H,
-    A: ivs.A === null ? null : values.A,
-    B: ivs.B === null ? null : values.B,
-    C: ivs.C === null ? null : values.C,
-    D: ivs.D === null ? null : values.D,
-    S: ivs.S === null ? null : values.S,
-  });
+export function calculateAllStats(
+  base: Readonly<StatValues<Stat>>,
+  level: Level,
+  ivs: StatValues<IV | null>,
+  evs: StatValues<EV>,
+  nature: Nature,
+): StatValues<Stat | null> {
+  return {
+    H: calculateStatForHP(base.H, level, ivs.H, evs.H),
+    A: calculateStatForNonHP(base.A, level, ivs.A, evs.A, nature.up === 'A' ? 1.1 : nature.down === 'A' ? 0.9 : 1),
+    B: calculateStatForNonHP(base.B, level, ivs.B, evs.B, nature.up === 'B' ? 1.1 : nature.down === 'B' ? 0.9 : 1),
+    C: calculateStatForNonHP(base.C, level, ivs.C, evs.C, nature.up === 'C' ? 1.1 : nature.down === 'C' ? 0.9 : 1),
+    D: calculateStatForNonHP(base.D, level, ivs.D, evs.D, nature.up === 'D' ? 1.1 : nature.down === 'D' ? 0.9 : 1),
+    S: calculateStatForNonHP(base.S, level, ivs.S, evs.S, nature.up === 'S' ? 1.1 : nature.down === 'S' ? 0.9 : 1),
+  };
 }
 
 /**
@@ -58,60 +39,81 @@ export function calculateStats(base: Readonly<Stats>, level: Level, nature: Natu
  * @param stats 能力値 [H, A, B, C, D, S]
  * @returns 努力値 [H, A, B, C, D, S]
  */
-export function calculateEVs(base: Readonly<Stats>, level: Level, nature: Nature, ivs: IVs, stats: Stats): EVs {
+export function calculateAllEVs(
+  base: Readonly<StatValues<Stat>>,
+  level: Level,
+  ivs: StatValues<IV | null>,
+  stats: StatValues<Stat | null>,
+  nature: Nature,
+): StatValues<EV> {
+  return {
+    H: calculateEVForHP(base.H, level, ivs.H, stats.H),
+    A: calculateEVForNonHP(base.A, level, ivs.A, stats.A, nature.up === 'A' ? 1.1 : nature.down === 'A' ? 0.9 : 1),
+    B: calculateEVForNonHP(base.B, level, ivs.B, stats.B, nature.up === 'B' ? 1.1 : nature.down === 'B' ? 0.9 : 1),
+    C: calculateEVForNonHP(base.C, level, ivs.C, stats.C, nature.up === 'C' ? 1.1 : nature.down === 'C' ? 0.9 : 1),
+    D: calculateEVForNonHP(base.D, level, ivs.D, stats.D, nature.up === 'D' ? 1.1 : nature.down === 'D' ? 0.9 : 1),
+    S: calculateEVForNonHP(base.S, level, ivs.S, stats.S, nature.up === 'S' ? 1.1 : nature.down === 'S' ? 0.9 : 1),
+  };
+}
+
+export type NatureEffect = 1 | 1.1 | 0.9;
+
+export function calculateStatForHP(base: Stat, level: Level, iv: IV | null, ev: EV): Stat | null {
+  if (base === null || iv === null) {
+    return null;
+  }
+  // Stat = floor((floor((floor(EV/4) + D) × (Level/100)) + B))
+  // D = Base × 2 + IV + A
+  // A = 100, B = 10
+  const D = base * 2 + iv + 100;
+  const stat = Math.floor(Math.floor(Math.floor(ev / 4) + D) * (level / 100) + 10);
+  return asStat(stat);
+}
+
+export function calculateStatForNonHP(
+  base: Stat,
+  level: Level,
+  iv: IV | null,
+  ev: EV,
+  nature: NatureEffect,
+): Stat | null {
+  if (base === null || iv === null) {
+    return null;
+  }
+  // Stat = floor((floor((floor(EV/4) + D) × (Level/100)) + B) × Nature)
+  // D = Base × 2 + IV + A
+  // A = 0, B = 5
+  const D = base * 2 + iv;
+  const stat = Math.floor((Math.floor(Math.floor(ev / 4) + D) * (level / 100) + 5) * nature);
+  return asStat(stat);
+}
+
+export function calculateEVForHP(base: Stat, level: Level, iv: IV | null, stat: Stat | null): EV {
+  if (iv === null || stat === null) {
+    return asEV(0);
+  }
+  // EV = ceil((Stat - B) × (100/Level) - D) * 4
+  // D  = Base×2 + IV + A
+  // A = 100, B = 10
+  const D = base * 2 + iv + 100;
+  const ev = (Math.ceil((stat - 10) * (100 / level)) - D) * 4;
+  return asEV(Math.min(Math.max(ev, 0), 252));
+}
+
+export function calculateEVForNonHP(
+  base: Stat,
+  level: Level,
+  iv: IV | null,
+  stat: Stat | null,
+  nature: NatureEffect,
+): EV {
+  if (iv === null || stat === null) {
+    return asEV(0);
+  }
   // EV = ceil(ceil(Stat / Nature) - B) × (100/Level)) - D) * 4
   // D  = Base×2 + IV + A
-  // HP:    A = 100, B = 10
-  // HP以外: A = 0,   B = 5
-  const Base = vectorFromStatValues(base);
-  const IV = vectorFromStatValues(ivs);
-  const Stat = vectorFromStatValues(stats);
-  const A = vector([100, 0, 0, 0, 0, 0]);
-  const B = vector([10, 5, 5, 5, 5, 5]);
-  const D = Base.mul(2).add(IV).add(A);
-  const NV = createNatureDiagonal(nature);
-
-  const mat = Matrix.zeros(1, 6)
-    .add(Stat)
-    .mmul(inverse(NV))
-    .ceil()
-    .sub(B)
-    .mul(100 / level)
-    .ceil()
-    .sub(D)
-    .mul(4)
-    .apply(function (this: Matrix, i, j) {
-      // 負の値は0に、252より大きい値は252にする
-      const v = this.get(i, j);
-      return this.set(i, j, Math.min(Math.max(v, 0), 252));
-    });
-  return statValuesFromVector(mat);
-}
-
-function createNatureDiagonal(nature: Nature): Matrix {
-  if (nature.noop) {
-    return Matrix.diag([1, 1, 1, 1, 1, 1]);
-  }
-
-  const vec = vector([1, 1, 1, 1, 1, 1]);
-  const { up, down } = nature;
-  const statIndex = { A: 1, B: 2, C: 3, D: 4, S: 5 };
-  return Matrix.diag(vec.set(0, statIndex[up], 1.1).set(0, statIndex[down], 0.9).getRow(0));
-}
-
-function vector(values: number[]) {
-  return new Matrix([values]);
-}
-
-function vectorFromStatValues<V extends number | null>({ H, A, B, C, D, S }: StatValues<V>) {
-  return vector([H ?? 0, A ?? 0, B ?? 0, C ?? 0, D ?? 0, S ?? 0]);
-}
-
-function statValuesFromVector<V extends number>(vec: Matrix): StatValues<V> {
-  if (vec.rows !== 1 || vec.columns !== 6) {
-    console.error(vec.toString());
-    throw new Error('Invalid vector');
-  }
-  const [H, A, B, C, D, S] = vec.getRow(0);
-  return { H, A, B, C, D, S } as StatValues<V>;
+  // A = 0, B = 5
+  const D = base * 2 + iv;
+  const ev = Math.ceil((Math.ceil(stat / nature) - 5) * (100 / level) - D) * 4;
+  return asEV(Math.min(Math.max(ev, 0), 252));
 }

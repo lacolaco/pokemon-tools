@@ -28,8 +28,8 @@ import { StatsPageState } from '../stats.state';
 import { EVTotalControlComponent } from './ev-total-control.component';
 
 type StatFormGroup = FormGroup<{
-  stat: FormControl<Stat>;
-  iv: FormControl<IV>;
+  stat: FormControl<Stat | null>;
+  iv: FormControl<IV | null>;
   ev: FormControl<EV>;
 }>;
 

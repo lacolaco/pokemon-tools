@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { getPokemonByName, Pokemon } from '@lacolaco/pokemon-data';
-import { calculateEVs, calculateStats, optimizeDurability, sumOfStatValues } from '@lib/calc';
+import { calculateAllStats, calculateAllEVs, optimizeDurability, sumOfStatValues } from '@lib/calc';
 import { naturesMap } from '@lib/data';
-import { asEV, asIV, asLevel, asStats, EVs, IVs, Level, Nature, Stat, Stats, StatValues } from '@lib/model';
+import { asEV, asIV, asLevel, EV, IV, Level, Nature, Stat, StatValues } from '@lib/model';
 import { RxState, stateful } from '@rx-angular/state';
 import { combineLatest, filter, map, Observable, shareReplay } from 'rxjs';
 import { debug, distinctUntilStatValuesChanged } from '../utitilites/rx';
@@ -11,13 +11,13 @@ type State = {
   pokemon: Pokemon | null;
   level: Level;
   nature: Nature;
-  ivs: IVs;
-  evs: EVs;
+  ivs: StatValues<IV | null>;
+  evs: StatValues<EV>;
 };
 
 @Injectable()
 export class StatsPageState extends RxState<State> {
-  private readonly stats$: Observable<Stats> = combineLatest([
+  private readonly stats$: Observable<StatValues<Stat | null>> = combineLatest([
     this.select('pokemon').pipe(stateful(debug('[change] pokemon'))),
     this.select('level').pipe(stateful(debug('[change] level'))),
     this.select('nature').pipe(stateful(debug('[change] nature'))),
@@ -25,8 +25,10 @@ export class StatsPageState extends RxState<State> {
     this.select('evs').pipe(stateful(distinctUntilStatValuesChanged(), debug('[change] evs'))),
   ]).pipe(
     filter(([pokemon]) => !!pokemon),
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    map(([pokemon, level, nature, ivs, evs]) => calculateStats(asStats(pokemon!.baseStats), level, nature, ivs, evs)),
+    map(([pokemon, level, nature, ivs, evs]) =>
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      calculateAllStats(pokemon!.baseStats as StatValues<Stat>, level, ivs, evs, nature),
+    ),
     distinctUntilStatValuesChanged(),
     debug('[change] stats'),
     shareReplay(1),
@@ -57,10 +59,10 @@ export class StatsPageState extends RxState<State> {
     });
   }
 
-  updateWithStats(stats: StatValues<Stat>) {
+  updateWithStats(stats: StatValues<Stat | null>) {
     const { level, pokemon, ivs, nature } = this.get();
     if (pokemon) {
-      this.set({ evs: calculateEVs(asStats(pokemon.baseStats), level, nature, ivs, stats) });
+      this.set({ evs: calculateAllEVs(pokemon.baseStats as StatValues<Stat>, level, ivs, stats, nature) });
     }
   }
 
@@ -71,7 +73,7 @@ export class StatsPageState extends RxState<State> {
   optimizeDurability() {
     const { pokemon, level, nature, ivs, evs } = this.get();
     if (pokemon) {
-      this.set({ evs: optimizeDurability(asStats(pokemon.baseStats), level, nature, ivs, evs) });
+      this.set({ evs: optimizeDurability(pokemon.baseStats as StatValues<Stat>, level, nature, ivs, evs) });
     }
   }
 }

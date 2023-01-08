@@ -29,8 +29,8 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
   `,
   styleUrls: ['./iv-input.component.scss'],
 })
-export class IVInputComponent extends SimpleControlValueAccessor<IV> {
-  readonly formControl = new FormControl(asIV(0), { nonNullable: true });
+export class IVInputComponent extends SimpleControlValueAccessor<IV | null> {
+  readonly formControl = new FormControl<IV | null>(asIV(0), { nonNullable: true });
 
   protected get value() {
     return this.formControl.value;
@@ -54,6 +54,6 @@ export class IVInputComponent extends SimpleControlValueAccessor<IV> {
   }
 
   setValue(value: number | null): void {
-    this.formControl.setValue(asIV(value));
+    this.formControl.setValue(value === null ? null : asIV(value));
   }
 }
