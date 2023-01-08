@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { StatValues } from '@lib/model';
+import { StatValues } from '@lib/stats';
 import { joinStatValues } from './strings';
 
 @Pipe({

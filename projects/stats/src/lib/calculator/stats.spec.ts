@@ -1,6 +1,7 @@
 import { getPokemonByName } from '@lacolaco/pokemon-data';
-import { naturesMap } from '@lib/data';
-import { asEV, asIV, asLevel, asStat, Stat, StatValues } from '@lib/model';
+import { naturesMap } from '../models/natures';
+import { asEV, asIV, asLevel, asStat, Stat } from '../models/primitives';
+import { StatValues } from '../models/stat-values';
 import { calculateAllEVs, calculateAllStats } from './stats';
 
 it('ガブリアス Lv50 6V 無補正 無振り', () => {

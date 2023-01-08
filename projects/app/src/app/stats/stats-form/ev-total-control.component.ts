@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MAX_EV_TOTAL } from '@lib/data';
+import { MAX_EV_TOTAL } from '@lib/stats';
 
 @Component({
   selector: 'ev-total-control',

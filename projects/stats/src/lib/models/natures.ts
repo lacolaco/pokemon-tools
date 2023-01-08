@@ -1,4 +1,4 @@
-import { Nature } from '@lib/model';
+import { Nature } from './primitives';
 
 export const naturesMap = {
   さみしがり: { name: 'さみしがり', up: 'A', down: 'B' },

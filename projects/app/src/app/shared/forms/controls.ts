@@ -1,7 +1,6 @@
 import { FormControl, Validators } from '@angular/forms';
 import { Pokemon } from '@lacolaco/pokemon-data';
-import { natures } from '@lib/data';
-import { asEV, asIV, asLevel, EV, IV, Level, Nature, Stat } from '@lib/model';
+import { asEV, asIV, asLevel, EV, IV, Level, Nature, natures, Stat } from '@lib/stats';
 import { zodTypeValidator } from '../../utitilites/forms';
 
 export function createPokemonControl(): FormControl<Pokemon | null> {

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { asIV, IV } from '@lib/model';
+import { asIV, IV } from '@lib/stats';
 import { SimpleControlValueAccessor } from '../../utitilites/forms';
 
 @Component({

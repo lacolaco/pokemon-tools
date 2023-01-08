@@ -2,7 +2,8 @@
  * ポケモンの能力値を計算する関数群
  */
 
-import { asEV, asStat, EV, IV, Level, Nature, Stat, StatValues } from '@lib/model';
+import { asEV, asStat, EV, IV, Level, Nature, Stat } from '../models/primitives';
+import { StatValues } from '../models/stat-values';
 
 /**
  * 種族値と個体値と努力値と性格から能力値を計算する

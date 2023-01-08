@@ -1,6 +1,7 @@
 import { getPokemonByName } from '@lacolaco/pokemon-data';
-import { naturesMap } from '@lib/data';
-import { asEV, asIV, asLevel, asStat, Stat, StatValues } from '@lib/model';
+import { naturesMap } from '../models/natures';
+import { Stat, asLevel, asIV, asEV, asStat } from '../models/primitives';
+import { StatValues } from '../models/stat-values';
 import { optimizeDurability } from './optimizer';
 
 describe('optimizeDurability', () => {

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { asLevel, Level } from '@lib/model';
+import { asLevel, Level } from '@lib/stats';
 import { SimpleControlValueAccessor } from '../../utitilites/forms';
 
 @Component({

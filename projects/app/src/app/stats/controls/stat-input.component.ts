@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { asStat, Stat } from '@lib/model';
+import { asStat, Stat } from '@lib/stats';
 import { distinctUntilChanged, map } from 'rxjs';
 import { SimpleControlValueAccessor } from '../../utitilites/forms';
 

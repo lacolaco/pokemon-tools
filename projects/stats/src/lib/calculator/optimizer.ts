@@ -1,4 +1,5 @@
-import { asEV, EV, IV, Level, Nature, Stat, StatValues } from '@lib/model';
+import { asEV, EV, IV, Level, Nature, Stat } from '../models/primitives';
+import { StatValues } from '../models/stat-values';
 import { calculateAllStats } from './stats';
 import { sumOfStatValues } from './utilities';
 

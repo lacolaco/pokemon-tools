@@ -1,4 +1,4 @@
-import { StatValues } from '@lib/model';
+import { StatValues } from '@lib/stats';
 
 /**
  * カタカナをひらがなに変換する

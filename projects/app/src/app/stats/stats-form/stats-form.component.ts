@@ -4,7 +4,7 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { Stat, IV, EV } from '@lib/model';
+import { EV, IV, Stat } from '@lib/stats';
 import { filter, merge, Observable, Subject, takeUntil } from 'rxjs';
 import {
   createEVControl,

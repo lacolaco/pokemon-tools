@@ -1,4 +1,4 @@
-import { asIV } from './models';
+import { asIV } from './primitives';
 
 describe('iv', () => {
   it('should be able to create a valid IV', () => {

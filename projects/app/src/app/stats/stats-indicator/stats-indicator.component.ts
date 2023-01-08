@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Stat, StatValues } from '@lib/model';
+import { Stat, StatValues } from '@lib/stats';
 
 @Component({
   selector: 'stats-indicator',

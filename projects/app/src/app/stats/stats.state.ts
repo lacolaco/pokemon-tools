@@ -1,8 +1,21 @@
 import { Injectable } from '@angular/core';
 import { getPokemonByName, Pokemon } from '@lacolaco/pokemon-data';
-import { calculateAllStats, calculateAllEVs, optimizeDurability, sumOfStatValues } from '@lib/calc';
-import { naturesMap } from '@lib/data';
-import { asEV, asIV, asLevel, EV, IV, Level, Nature, Stat, StatValues } from '@lib/model';
+import {
+  asEV,
+  asIV,
+  asLevel,
+  calculateAllEVs,
+  calculateAllStats,
+  EV,
+  IV,
+  Level,
+  Nature,
+  naturesMap,
+  optimizeDurability,
+  Stat,
+  StatValues,
+  sumOfStatValues,
+} from '@lib/stats';
 import { RxState, stateful } from '@rx-angular/state';
 import { combineLatest, filter, map, Observable, shareReplay } from 'rxjs';
 import { debug, distinctUntilStatValuesChanged } from '../utitilites/rx';

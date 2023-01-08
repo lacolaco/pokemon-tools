@@ -1,4 +1,4 @@
-import { EV, Level, Nature, Stat, StatValues } from '@lib/model';
+import { EV, Level, Nature, Stat, StatValues } from '@lib/stats';
 
 const UNDEFINED_SYMBOL = 'x';
 
