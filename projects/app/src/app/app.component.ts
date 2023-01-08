@@ -11,13 +11,13 @@ import { StatsPageComponent } from './stats/stats.component';
   standalone: true,
   template: `
     <header class="w-full z-10 shadow">
-      <app-header class="container mx-auto px-4"></app-header>
+      <app-header class="container mx-auto px-2 sm:px-4"></app-header>
     </header>
-    <main class="container mx-auto px-4">
+    <main class="container mx-auto px-2 sm:px-4">
       <router-outlet></router-outlet>
     </main>
     <footer class="w-full">
-      <app-footer class="container mx-auto px-4"></app-footer>
+      <app-footer class="container mx-auto px-2 sm:px-4"></app-footer>
     </footer>
   `,
   styleUrls: ['./app.component.scss'],

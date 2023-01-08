@@ -15,7 +15,7 @@ specifiers:
   '@angular/platform-browser': ^15.0.0
   '@angular/platform-browser-dynamic': ^15.0.0
   '@angular/router': ^15.0.0
-  '@lacolaco/pokemon-data': ^1.1.1
+  '@lacolaco/pokemon-data': ^1.2.0
   '@rx-angular/state': ^1.7.0
   '@tailwindcss/forms': ^0.5.3
   '@types/jasmine': ~4.3.0
@@ -54,7 +54,7 @@ dependencies:
   '@angular/platform-browser': 15.0.4_bwwplqn6fknm3semymfqlvw5bm
   '@angular/platform-browser-dynamic': 15.0.4_hnn6v3m7xpfwy5wugozvutqsyi
   '@angular/router': 15.0.4_6qoe6dvkj2mvffppuvjrhovg7y
-  '@lacolaco/pokemon-data': 1.1.1_tslib@2.4.1
+  '@lacolaco/pokemon-data': 1.2.0_tslib@2.4.1
   '@rx-angular/state': 1.7.0_kbm7tzcvbc2caog325npmyyft4
   ml-matrix: 6.10.4
   normalize.css: 8.0.1
@@ -2616,8 +2616,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
-  /@lacolaco/pokemon-data/1.1.1_tslib@2.4.1:
-    resolution: {integrity: sha512-yYQQykdYkL1He/zYl/gCzNfhf397xp6nQDOwAuxeS6767Pshlwizg7m+S5ybGV5Vy8Si9pbZmTqz8x9Zt67Liw==, tarball: download/@lacolaco/pokemon-data/1.1.1/dc747d1b5cb81e6f7760a12bb407763d7ccedf35}
+  /@lacolaco/pokemon-data/1.2.0_tslib@2.4.1:
+    resolution: {integrity: sha512-6fBjroJMaKrG9Yh6h3H8Tu1xZ9ZudLzKOqi8BzwhHV9KNWyLdQum9DYMGEZyEnF4UwAedlYBhw41mHy3eUy8Eg==, tarball: download/@lacolaco/pokemon-data/1.2.0/7cbd41ad1735a6c602b026bbd9110394efdbe836}
     peerDependencies:
       tslib: 2.4.1
     dependencies:

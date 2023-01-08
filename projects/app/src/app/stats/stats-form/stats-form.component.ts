@@ -1,30 +1,53 @@
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { filter, merge, Subject, takeUntil } from 'rxjs';
-import { PokemonSpriteComponent } from '../../shared/pokemon-sprite.component';
-import { getValidValueChanges } from '../../utitilites/forms';
-import { JoinPipe, JoinStatValuesPipe } from '../../utitilites/pipes';
-import { EVInputComponent } from '../controls/ev-input.component';
+import { Stat, IV, EV } from '@lib/model';
+import { filter, merge, Observable, Subject, takeUntil } from 'rxjs';
 import {
+  createEVControl,
+  createIVControl,
   createLevelControl,
   createNatureControl,
   createPokemonControl,
-  createStatControlGroup,
-  getStatParamsChanges,
-  getStatValueChanges,
-} from '../controls/forms';
+  createStatControl,
+} from '../../shared/forms/controls';
+import { PokemonBaseInfoComponent } from '../../shared/pokemon-base-info.component';
+import { PokemonSelectComponent } from '../../shared/pokemon-select.component';
+import { PokemonSpriteComponent } from '../../shared/pokemon-sprite.component';
+import { getValidValueChanges } from '../../utitilites/forms';
+import { EVInputComponent } from '../controls/ev-input.component';
 import { IVInputComponent } from '../controls/iv-input.component';
 import { LevelInputComponent } from '../controls/level-input.component';
 import { NatureSelectComponent } from '../controls/nature-select.component';
-import { PokemonSelectComponent } from '../controls/pokemon-select.component';
 import { StatInputComponent } from '../controls/stat-input.component';
 import { StatsIndicatorComponent } from '../stats-indicator/stats-indicator.component';
-import { StatsState } from '../stats.state';
+import { StatsPageState } from '../stats.state';
 import { EVTotalControlComponent } from './ev-total-control.component';
+
+type StatFormGroup = FormGroup<{
+  stat: FormControl<Stat>;
+  iv: FormControl<IV>;
+  ev: FormControl<EV>;
+}>;
+
+function createStatControlGroup(): StatFormGroup {
+  return new FormGroup({
+    stat: createStatControl(),
+    iv: createIVControl(),
+    ev: createEVControl(),
+  });
+}
+
+function getStatParamsChanges(group: StatFormGroup): Observable<unknown> {
+  return merge(getValidValueChanges(group.controls.ev), getValidValueChanges(group.controls.iv));
+}
+
+function getStatValueChanges(group: StatFormGroup): Observable<unknown> {
+  return merge(getValidValueChanges(group.controls.stat));
+}
 
 @Component({
   selector: 'app-stats-form',
@@ -46,12 +69,11 @@ import { EVTotalControlComponent } from './ev-total-control.component';
     EVTotalControlComponent,
     StatsIndicatorComponent,
     PokemonSpriteComponent,
-    JoinStatValuesPipe,
-    JoinPipe,
+    PokemonBaseInfoComponent,
   ],
 })
 export class StatsFormComponent implements OnInit, OnDestroy {
-  private readonly statsState = inject(StatsState);
+  private readonly statsState = inject(StatsPageState);
   private readonly fb = inject(FormBuilder).nonNullable;
 
   private readonly onDestroy$ = new Subject<void>();

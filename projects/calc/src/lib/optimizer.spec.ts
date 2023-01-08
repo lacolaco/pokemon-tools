@@ -1,13 +1,11 @@
-import { getPokemons } from '@lacolaco/pokemon-data';
+import { getPokemonByName } from '@lacolaco/pokemon-data';
 import { naturesMap } from '@lib/data';
 import { asEV, asIV, asLevel, asStat, Stats } from '@lib/model';
 import { optimizeDurability } from './optimizer';
 
-const pokemons = getPokemons();
-
 describe('optimizeDurability', () => {
   it('ニンフィア ひかえめ C252 残り耐久', () => {
-    const pokemon = pokemons['ニンフィア'];
+    const pokemon = getPokemonByName('ニンフィア');
     const result = optimizeDurability(
       pokemon.baseStats as Stats,
       asLevel(50),

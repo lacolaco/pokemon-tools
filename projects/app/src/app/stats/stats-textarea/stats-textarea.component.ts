@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { map } from 'rxjs';
-import { StatsState } from '../stats.state';
+import { StatsPageState } from '../stats.state';
 import { formatStats } from './formatter';
 
 @Component({
@@ -33,7 +33,7 @@ import { formatStats } from './formatter';
 export class StatsTextareaComponent {
   private readonly snackBar = inject(MatSnackBar);
   private readonly clipboard = inject(Clipboard);
-  private readonly statsState = inject(StatsState);
+  private readonly statsState = inject(StatsPageState);
 
   readonly state$ = this.statsState.state$.pipe(
     map(({ pokemon, level, nature, stats, evs }) => ({

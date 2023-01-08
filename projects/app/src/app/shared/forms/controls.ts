@@ -1,9 +1,8 @@
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { Pokemon } from '@lacolaco/pokemon-data';
 import { natures } from '@lib/data';
-import { asEV, EV, asIV, IV, asStat, Stat, Level, asLevel, Nature } from '@lib/model';
-import { merge, Observable } from 'rxjs';
-import { createZodTypeControl, getValidValueChanges } from '../../utitilites/forms';
+import { Level, asLevel, Nature, EV, asEV, IV, asIV, Stat, asStat } from '@lib/model';
+import { createZodTypeControl } from '../../utitilites/forms';
 
 export function createPokemonControl(): FormControl<Pokemon | null> {
   return new FormControl<Pokemon | null>(null, {
@@ -40,26 +39,4 @@ export function createStatControl(): FormControl<Stat> {
   return createZodTypeControl(Stat, asStat(1), {
     validators: [],
   });
-}
-
-type StatFormGroup = FormGroup<{
-  stat: FormControl<Stat>;
-  iv: FormControl<IV>;
-  ev: FormControl<EV>;
-}>;
-
-export function createStatControlGroup(): StatFormGroup {
-  return new FormGroup({
-    stat: createStatControl(),
-    iv: createIVControl(),
-    ev: createEVControl(),
-  });
-}
-
-export function getStatParamsChanges(group: StatFormGroup): Observable<unknown> {
-  return merge(getValidValueChanges(group.controls.ev), getValidValueChanges(group.controls.iv));
-}
-
-export function getStatValueChanges(group: StatFormGroup): Observable<unknown> {
-  return merge(getValidValueChanges(group.controls.stat));
 }

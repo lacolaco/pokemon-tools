@@ -2,35 +2,39 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { getPokemons, Pokemon, PokemonName } from '@lacolaco/pokemon-data';
+import { findPokemonByName, getPokemons, Pokemon, PokemonName } from '@lacolaco/pokemon-data';
 import { map } from 'rxjs';
-import { SimpleControlValueAccessor } from '../../utitilites/forms';
-import { kataToHira } from '../../utitilites/strings';
+import { SimpleControlValueAccessor } from '../utitilites/forms';
+import { kataToHira } from '../utitilites/strings';
+import { PokemonSpriteComponent } from './pokemon-sprite.component';
 
 const pokemons = getPokemons();
 
 @Component({
   selector: 'pokemon-select',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatAutocompleteModule],
+  imports: [CommonModule, ReactiveFormsModule, MatAutocompleteModule, PokemonSpriteComponent],
   template: `
-    <mat-autocomplete
-      #auto="matAutocomplete"
-      (optionSelected)="selectPokemon($event)"
-      autoActiveFirstOption
-      autoSelectActiveOption
-    >
-      <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
-        {{ option }}
-      </mat-option>
-    </mat-autocomplete>
-    <input
-      [formControl]="formControl"
-      (click)="onTouched()"
-      [matAutocomplete]="auto"
-      placeholder="ポケモンを選択してください"
-      class="form-input"
-    />
+    <div class="flex flex-row gap-1 items-end">
+      <pokemon-sprite *ngIf="value" [pokemon]="value" class="w-10 h-10"></pokemon-sprite>
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        (optionSelected)="selectPokemon($event)"
+        autoActiveFirstOption
+        autoSelectActiveOption
+      >
+        <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+      <input
+        [formControl]="formControl"
+        (click)="onTouched()"
+        [matAutocomplete]="auto"
+        placeholder="ポケモンを選択してください"
+        class="form-input"
+      />
+    </div>
   `,
   styles: [
     `
@@ -72,14 +76,10 @@ export class PokemonSelectComponent extends SimpleControlValueAccessor<Pokemon> 
   }
 
   selectPokemon(event: { option: { value: PokemonName } }) {
-    const pokemon = this.findPokemonByName(event.option.value);
+    const pokemon = findPokemonByName(event.option.value);
     if (pokemon) {
       this.value = pokemon;
       this.onChange(pokemon);
     }
-  }
-
-  private findPokemonByName(name: PokemonName) {
-    return pokemons[name] ?? null;
   }
 }

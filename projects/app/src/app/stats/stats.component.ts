@@ -2,13 +2,21 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { StatsFormComponent } from './stats-form/stats-form.component';
 import { StatsTextareaComponent } from './stats-textarea/stats-textarea.component';
-import { StatsState } from './stats.state';
+import { StatsPageState } from './stats.state';
 
 @Component({
   selector: 'app-stats',
   standalone: true,
-  providers: [StatsState],
-  templateUrl: './stats.component.html',
+  providers: [StatsPageState],
+  template: `
+    <h1 class="text-xl font-bold">ステータス計算機 for スカーレット・バイオレット</h1>
+
+    <div class="w-full flex flex-col gap-y-2">
+      <app-stats-form class="w-full"></app-stats-form>
+
+      <app-stats-textarea class="w-full"></app-stats-textarea>
+    </div>
+  `,
   styleUrls: ['./stats.component.scss'],
   imports: [CommonModule, StatsFormComponent, StatsTextareaComponent],
 })

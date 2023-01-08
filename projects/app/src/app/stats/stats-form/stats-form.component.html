@@ -1,40 +1,12 @@
 <ng-container *ngIf="state$ | async as state">
   <ng-container *ngIf="state.pokemon">
-    <form [formGroup]="form" class="grid grid-cols-1 gap-y-3">
+    <form [formGroup]="form" class="grid grid-cols-1 gap-y-1">
+      <div>
+        <pokemon-select formControlName="pokemon"></pokemon-select>
+        <pokemon-base-info [pokemon]="state.pokemon"></pokemon-base-info>
+      </div>
       <table class="calc-table border-spacing-1 w-auto">
         <tbody>
-          <tr>
-            <td>
-              <pokemon-sprite [pokemon]="state.pokemon"></pokemon-sprite>
-            </td>
-            <td colspan="3">
-              <div class="pokemon-base-info">
-                <pokemon-select formControlName="pokemon"></pokemon-select>
-                <a
-                  [href]="state.pokemon.meta.url"
-                  target="_blank"
-                  title="ポケモン徹底攻略で{{ state.pokemon.name }}を見る"
-                  class="info-link"
-                >
-                  <img
-                    src="assets/images/yakkun-32x32.png"
-                    width="16px"
-                    height="16px"
-                    class="inline-block align-text-top"
-                  />
-                </a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="4">
-              <div class="flex flex-row flex-wrap gap-2 text-sm text-gray-500">
-                <span>{{ state.pokemon.baseStats | joinStatValues }}</span>
-                <span>({{ state.pokemon.baseStatsTotal }})</span>
-                <span>{{ state.pokemon.types | join : '/' }}</span>
-              </div>
-            </td>
-          </tr>
           <tr>
             <td>Lv</td>
             <td colspan="3">

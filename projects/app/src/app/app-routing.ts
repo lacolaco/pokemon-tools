@@ -7,6 +7,11 @@ export const routes: Routes = [
     title: 'ステータス計算機 for スカーレット・バイオレット',
   },
   {
+    path: 'speed',
+    loadComponent: () => import('./speed/speed.component').then((m) => m.SpeedPageComponent),
+    title: 'すばやさ比較',
+  },
+  {
     path: '**',
     redirectTo: 'stats',
   },

@@ -7,10 +7,6 @@
 }
 
 .calc-table {
-  tbody tr:first-child td {
-    height: 40px;
-  }
-
   tbody tr td:first-child:not([colspan]) {
     text-align: center;
   }
@@ -40,12 +36,4 @@
   .stat-name {
     background-color: #c7d7ff;
   }
-}
-
-.pokemon-base-info {
-  display: flex;
-  height: 40px;
-  flex-direction: row;
-  align-items: flex-end;
-  column-gap: 8px;
 }

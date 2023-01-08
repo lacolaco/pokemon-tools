@@ -19,10 +19,14 @@ import { RouterLink } from '@angular/router';
           <mat-icon fontIcon="apps"></mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <a mat-menu-item routerLink="/stats" class="text-xs">
+          <a mat-menu-item routerLink="/stats">
             <mat-icon fontIcon="calculate" class="text-gray-600"></mat-icon>
             <span>ステータス計算機</span>
           </a>
+          <!-- <a mat-menu-item routerLink="/speed">
+            <mat-icon fontIcon="speed" class="text-gray-600"></mat-icon>
+            <span>すばやさ比較表</span>
+          </a> -->
         </mat-menu>
       </div>
     </div>
