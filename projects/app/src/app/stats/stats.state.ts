@@ -17,8 +17,8 @@ import {
   sumOfStatValues,
 } from '@lib/stats';
 import { RxState, stateful } from '@rx-angular/state';
-import { combineLatest, filter, map, Observable, shareReplay } from 'rxjs';
-import { debug, distinctUntilStatValuesChanged } from '../utitilites/rx';
+import { combineLatest, map, Observable, shareReplay } from 'rxjs';
+import { debug, distinctUntilStatValuesChanged, filterNonNullable } from '../utitilites/rx';
 
 type State = {
   pokemon: Pokemon | null;
@@ -31,16 +31,14 @@ type State = {
 @Injectable()
 export class StatsPageState extends RxState<State> {
   private readonly stats$: Observable<StatValues<Stat | null>> = combineLatest([
-    this.select('pokemon').pipe(stateful(debug('[change] pokemon'))),
+    this.select('pokemon').pipe(stateful(debug('[change] pokemon'), filterNonNullable())),
     this.select('level').pipe(stateful(debug('[change] level'))),
     this.select('nature').pipe(stateful(debug('[change] nature'))),
     this.select('ivs').pipe(stateful(distinctUntilStatValuesChanged(), debug('[change] ivs'))),
     this.select('evs').pipe(stateful(distinctUntilStatValuesChanged(), debug('[change] evs'))),
   ]).pipe(
-    filter(([pokemon]) => !!pokemon),
     map(([pokemon, level, nature, ivs, evs]) =>
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      calculateAllStats(pokemon!.baseStats as StatValues<Stat>, level, ivs, evs, nature),
+      calculateAllStats(pokemon.baseStats as StatValues<Stat>, level, ivs, evs, nature),
     ),
     distinctUntilStatValuesChanged(),
     debug('[change] stats'),

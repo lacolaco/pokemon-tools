@@ -1,5 +1,5 @@
 export type NatureStat = 'A' | 'B' | 'C' | 'D' | 'S';
-export type NatureValue = 'up' | 'down' | undefined;
+export type NatureValue = 'up' | 'down' | 'neutral';
 export type NatureValues = {
   [key in NatureStat]?: NatureValue;
 };

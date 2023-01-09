@@ -1,17 +1,25 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { SpeedStatFormComponent } from './speed-stat-form/speed-stat-form.component';
 import { SpeedPageState } from './speed.state';
 
 @Component({
   selector: 'app-speed',
   standalone: true,
-  imports: [CommonModule],
+  imports: [SpeedStatFormComponent],
   providers: [SpeedPageState],
   template: `
-    <h1 class="text-xl font-bold">すばやさ比較表</h1>
+    <h1 class="text-xl font-bold mb-4">すばやさ調整</h1>
 
-    <div class="w-full flex flex-col gap-y-2"></div>
+    <div class="w-full flex flex-col gap-y-2">
+      <speed-stat-form></speed-stat-form>
+    </div>
   `,
-  styleUrls: ['./speed.component.scss'],
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+    `,
+  ],
 })
 export class SpeedPageComponent {}

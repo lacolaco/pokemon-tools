@@ -9,7 +9,7 @@ export const routes: Routes = [
   {
     path: 'speed',
     loadComponent: () => import('./speed/speed.component').then((m) => m.SpeedPageComponent),
-    title: 'すばやさ比較',
+    title: 'すばやさ調整',
   },
   {
     path: '**',

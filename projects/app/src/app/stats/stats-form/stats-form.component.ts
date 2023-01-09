@@ -5,7 +5,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angul
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { EV, IV, Stat } from '@lib/stats';
-import { filter, merge, Observable, Subject, takeUntil } from 'rxjs';
+import { merge, Observable, Subject, takeUntil, tap } from 'rxjs';
 import {
   createEVControl,
   createIVControl,
@@ -18,6 +18,7 @@ import { PokemonBaseInfoComponent } from '../../shared/pokemon-base-info.compone
 import { PokemonSelectComponent } from '../../shared/pokemon-select.component';
 import { PokemonSpriteComponent } from '../../shared/pokemon-sprite.component';
 import { getValidValueChanges } from '../../utitilites/forms';
+import { filterNonNullable } from '../../utitilites/rx';
 import { EVInputComponent } from '../controls/ev-input.component';
 import { IVInputComponent } from '../controls/iv-input.component';
 import { LevelInputComponent } from '../controls/level-input.component';
@@ -73,28 +74,12 @@ function getStatValueChanges(group: StatFormGroup): Observable<unknown> {
   ],
 })
 export class StatsFormComponent implements OnInit, OnDestroy {
-  private readonly statsState = inject(StatsPageState);
+  private readonly state = inject(StatsPageState);
   private readonly fb = inject(FormBuilder).nonNullable;
 
   private readonly onDestroy$ = new Subject<void>();
-  readonly state$ = this.statsState.state$;
-
-  readonly form = this.fb.group({
-    pokemon: createPokemonControl(),
-    level: createLevelControl(),
-    nature: createNatureControl(),
-    H: createStatControlGroup(),
-    A: createStatControlGroup(),
-    B: createStatControlGroup(),
-    C: createStatControlGroup(),
-    D: createStatControlGroup(),
-    S: createStatControlGroup(),
-  });
-
-  ngOnInit(): void {
-    // Sync state to form
-    this.state$.subscribe((state) => {
-      const { pokemon, level, ivs, evs, nature, stats } = state;
+  readonly state$ = this.state.state$.pipe(
+    tap(({ pokemon, level, ivs, evs, nature, stats }) => {
       this.form.setValue(
         {
           pokemon,
@@ -109,7 +94,22 @@ export class StatsFormComponent implements OnInit, OnDestroy {
         },
         { emitEvent: false },
       );
-    });
+    }),
+  );
+
+  readonly form = this.fb.group({
+    pokemon: createPokemonControl(),
+    level: createLevelControl(),
+    nature: createNatureControl(),
+    H: createStatControlGroup(),
+    A: createStatControlGroup(),
+    B: createStatControlGroup(),
+    C: createStatControlGroup(),
+    D: createStatControlGroup(),
+    S: createStatControlGroup(),
+  });
+
+  ngOnInit(): void {
     // Calculate stats from form
     merge(
       getValidValueChanges(this.form.controls.level),
@@ -124,7 +124,7 @@ export class StatsFormComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(() => {
         const { pokemon, level, nature, H, A, B, C, D, S } = this.form.getRawValue();
-        this.statsState.set({
+        this.state.set({
           pokemon,
           level,
           nature,
@@ -144,18 +144,15 @@ export class StatsFormComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(() => {
         const { H, A, B, C, D, S } = this.form.getRawValue();
-        this.statsState.updateWithStats({ H: H.stat, A: A.stat, B: B.stat, C: C.stat, D: D.stat, S: S.stat });
+        this.state.updateWithStats({ H: H.stat, A: A.stat, B: B.stat, C: C.stat, D: D.stat, S: S.stat });
       });
     // Reset IVs/EVs when pokemon changes
     getValidValueChanges(this.form.controls.pokemon)
-      .pipe(
-        takeUntil(this.onDestroy$),
-        filter((pokemon) => !!pokemon),
-      )
+      .pipe(takeUntil(this.onDestroy$), filterNonNullable())
       .subscribe(() => {
         const { pokemon } = this.form.getRawValue();
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        this.statsState.resetPokemon(pokemon!);
+        this.state.resetPokemon(pokemon!);
       });
   }
 
@@ -165,10 +162,10 @@ export class StatsFormComponent implements OnInit, OnDestroy {
   }
 
   resetEVs() {
-    this.statsState.resetEVs();
+    this.state.resetEVs();
   }
 
   optimizeDurability() {
-    this.statsState.optimizeDurability();
+    this.state.optimizeDurability();
   }
 }

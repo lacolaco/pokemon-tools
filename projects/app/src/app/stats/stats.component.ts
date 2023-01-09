@@ -9,15 +9,21 @@ import { StatsPageState } from './stats.state';
   standalone: true,
   providers: [StatsPageState],
   template: `
-    <h1 class="text-xl font-bold">ステータス計算機 for スカーレット・バイオレット</h1>
+    <h1 class="text-xl font-bold mb-4">ステータス計算機 for スカーレット・バイオレット</h1>
 
-    <div class="w-full flex flex-col gap-y-2">
+    <div class="w-full flex flex-col gap-y-2 text-sm">
       <app-stats-form class="w-full"></app-stats-form>
 
       <app-stats-textarea class="w-full"></app-stats-textarea>
     </div>
   `,
-  styleUrls: ['./stats.component.scss'],
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+    `,
+  ],
   imports: [CommonModule, StatsFormComponent, StatsTextareaComponent],
 })
 export class StatsPageComponent {}
