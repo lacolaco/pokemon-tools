@@ -3,7 +3,8 @@
   grid-template-rows: auto 1fr auto;
   row-gap: 16px;
   min-height: 100vh;
-  height: fit-content;
+  max-height: 100vh;
+  height: 100%;
   width: 100%;
 }
 

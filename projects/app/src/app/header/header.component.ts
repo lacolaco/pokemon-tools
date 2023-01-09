@@ -23,10 +23,10 @@ import { RouterLink } from '@angular/router';
             <mat-icon fontIcon="calculate" class="text-gray-600"></mat-icon>
             <span>ステータス計算機</span>
           </a>
-          <!-- <a mat-menu-item routerLink="/speed">
+          <a mat-menu-item routerLink="/speed">
             <mat-icon fontIcon="speed" class="text-gray-600"></mat-icon>
-            <span>すばやさ比較表</span>
-          </a> -->
+            <span>すばやさ調整</span>
+          </a>
         </mat-menu>
       </div>
     </div>

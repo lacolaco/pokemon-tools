@@ -4,6 +4,7 @@ specifiers:
   '@angular-devkit/build-angular': ^15.0.4
   '@angular/animations': ^15.0.0
   '@angular/cdk': 15.0.3
+  '@angular/cdk-experimental': ^15.0.4
   '@angular/cli': ~15.0.4
   '@angular/common': ^15.0.0
   '@angular/compiler': ^15.0.0
@@ -15,7 +16,7 @@ specifiers:
   '@angular/platform-browser': ^15.0.0
   '@angular/platform-browser-dynamic': ^15.0.0
   '@angular/router': ^15.0.0
-  '@lacolaco/pokemon-data': ^1.2.0
+  '@lacolaco/pokemon-data': ^1.2.1
   '@rx-angular/state': ^1.7.0
   '@tailwindcss/forms': ^0.5.3
   '@types/jasmine': ~4.3.0
@@ -44,6 +45,7 @@ specifiers:
 dependencies:
   '@angular/animations': 15.0.4_@angular+core@15.0.4
   '@angular/cdk': 15.0.3_zovsh5vworg6kopfdylx55rhum
+  '@angular/cdk-experimental': 15.0.4_wesp7rfsxaf2ef34asxjc3tdla
   '@angular/common': 15.0.4_35fj7bqlhadjjbsew5x5pstq4q
   '@angular/compiler': 15.0.4_@angular+core@15.0.4
   '@angular/core': 15.0.4_rxjs@7.5.7+zone.js@0.12.0
@@ -53,7 +55,7 @@ dependencies:
   '@angular/platform-browser': 15.0.4_bwwplqn6fknm3semymfqlvw5bm
   '@angular/platform-browser-dynamic': 15.0.4_hnn6v3m7xpfwy5wugozvutqsyi
   '@angular/router': 15.0.4_6qoe6dvkj2mvffppuvjrhovg7y
-  '@lacolaco/pokemon-data': 1.2.0_tslib@2.4.1
+  '@lacolaco/pokemon-data': 1.2.1_tslib@2.4.1
   '@rx-angular/state': 1.7.0_kbm7tzcvbc2caog325npmyyft4
   normalize.css: 8.0.1
   rxjs: 7.5.7
@@ -289,6 +291,17 @@ packages:
     peerDependencies:
       '@angular/core': 15.0.4
     dependencies:
+      '@angular/core': 15.0.4_rxjs@7.5.7+zone.js@0.12.0
+      tslib: 2.4.1
+    dev: false
+
+  /@angular/cdk-experimental/15.0.4_wesp7rfsxaf2ef34asxjc3tdla:
+    resolution: {integrity: sha512-ftXeAsfGuBK6oD2TD+TM9QzgD33vozOMhOiScs19nJ8yq2XIEO37KFo4ThC4knV/v6svSVTtLjteEm4plJOWTw==}
+    peerDependencies:
+      '@angular/cdk': 15.0.4
+      '@angular/core': ^15.0.0 || ^16.0.0
+    dependencies:
+      '@angular/cdk': 15.0.3_zovsh5vworg6kopfdylx55rhum
       '@angular/core': 15.0.4_rxjs@7.5.7+zone.js@0.12.0
       tslib: 2.4.1
     dev: false
@@ -2614,8 +2627,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
-  /@lacolaco/pokemon-data/1.2.0_tslib@2.4.1:
-    resolution: {integrity: sha512-6fBjroJMaKrG9Yh6h3H8Tu1xZ9ZudLzKOqi8BzwhHV9KNWyLdQum9DYMGEZyEnF4UwAedlYBhw41mHy3eUy8Eg==, tarball: download/@lacolaco/pokemon-data/1.2.0/7cbd41ad1735a6c602b026bbd9110394efdbe836}
+  /@lacolaco/pokemon-data/1.2.1_tslib@2.4.1:
+    resolution: {integrity: sha512-r4CiqH1IuG+1AdaP9kFnZXh59RXHnlOY7sY2v3SjNqm3T8F9OiY8+RwEfEYBu4JXpLtwDR1I9aY4LqOFEaVrMQ==, tarball: download/@lacolaco/pokemon-data/1.2.1/70cb0e702f3d3235ef954fe1585ffa1acffd6e7a}
     peerDependencies:
       tslib: 2.4.1
     dependencies:

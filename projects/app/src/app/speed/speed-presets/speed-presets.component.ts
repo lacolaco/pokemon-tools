@@ -1,36 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { asEV, asIV } from '@lib/stats';
+import { SpeedPresetKey, speedPresets } from '../speed-presets';
 import { SpeedPageState } from '../speed.state';
-
-const presets = {
-  fastest: {
-    ev: asEV(252),
-    iv: asIV(31),
-    nature: 'up',
-  },
-  fast: {
-    ev: asEV(252),
-    iv: asIV(31),
-    nature: 'neutral',
-  },
-  four: {
-    ev: asEV(4),
-    iv: asIV(31),
-    nature: 'neutral',
-  },
-  none: {
-    ev: asEV(0),
-    iv: asIV(31),
-    nature: 'neutral',
-  },
-  slowest: {
-    ev: asEV(0),
-    iv: asIV(0),
-    nature: 'down',
-  },
-} as const;
-
-type PresetKey = keyof typeof presets;
 
 @Component({
   selector: 'speed-presets',
@@ -56,8 +26,8 @@ type PresetKey = keyof typeof presets;
 export class SpeedPresetsComponent {
   private readonly state = inject(SpeedPageState);
 
-  usePreset(preset: PresetKey) {
-    const { ev, iv, nature } = presets[preset];
+  usePreset(preset: SpeedPresetKey) {
+    const { ev, iv, nature } = speedPresets[preset];
     this.state.set({
       stats: { ev, iv, nature },
     });

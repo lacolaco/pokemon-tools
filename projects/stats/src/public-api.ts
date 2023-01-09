@@ -7,3 +7,5 @@ export * from './lib/models/primitives';
 export * from './lib/calculator/stats';
 export * from './lib/calculator/utilities';
 export * from './lib/calculator/optimizer';
+export * from './lib/calculator/rank';
+export * from './lib/calculator/speed';
