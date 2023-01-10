@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { getPokemonByName, Pokemon } from '@lacolaco/pokemon-data';
+import { inject, Injectable } from '@angular/core';
+import type { Pokemon } from '@lacolaco/pokemon-data';
 import {
   asEV,
   asIV,
@@ -15,6 +15,7 @@ import {
 } from '@lib/stats';
 import { RxState, stateful } from '@rx-angular/state';
 import { combineLatest, distinctUntilChanged, map, Observable, shareReplay } from 'rxjs';
+import { PokemonData } from '../shared/pokemon-data';
 import { debug, filterNonNullable } from '../utitilites/rx';
 
 type State = {
@@ -29,6 +30,8 @@ type State = {
 
 @Injectable()
 export class SpeedPageState extends RxState<State> {
+  private readonly pokemonData = inject(PokemonData);
+
   private readonly stat$: Observable<Stat> = combineLatest([
     this.select('pokemon').pipe(stateful(debug('pokemon'), filterNonNullable())),
     this.select('level').pipe(stateful(debug('level'))),
@@ -54,7 +57,7 @@ export class SpeedPageState extends RxState<State> {
   constructor() {
     super();
 
-    this.resetPokemon(getPokemonByName('ガブリアス'));
+    this.resetPokemon(this.pokemonData.getPokemonByName('ガブリアス'));
   }
 
   resetPokemon(pokemon: Pokemon) {

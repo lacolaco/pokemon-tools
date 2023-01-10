@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { getPokemons, Pokemon } from '@lacolaco/pokemon-data';
+import type { Pokemon } from '@lacolaco/pokemon-data';
 import {
   asStat,
   calculateStatForNonHP,
@@ -13,6 +13,7 @@ import {
 } from '@lib/stats';
 import { RxState, stateful } from '@rx-angular/state';
 import { combineLatest, distinctUntilChanged, map, Observable, shareReplay } from 'rxjs';
+import { PokemonData } from '../../shared/pokemon-data';
 import { speedPresets } from '../speed-presets';
 import { SpeedPageState } from '../speed.state';
 
@@ -53,6 +54,7 @@ export class SpeedComparisonTableState extends RxState<{
   opponentModifier: SpeedModifier;
 }> {
   private readonly pageState = inject(SpeedPageState);
+  private readonly pokemonData = inject(PokemonData);
 
   private readonly allySpeed$: Observable<Stat> = combineLatest([
     this.select('ally').pipe(stateful()),
@@ -103,7 +105,7 @@ export class SpeedComparisonTableState extends RxState<{
   constructor() {
     super();
 
-    const pokemons = getPokemons();
+    const pokemons = this.pokemonData.getPokemons();
     const pokemonsBySpeed = new Map<number, Pokemon[]>();
     for (const pokemon of Object.values(pokemons)) {
       const speed = pokemon.baseStats.S;

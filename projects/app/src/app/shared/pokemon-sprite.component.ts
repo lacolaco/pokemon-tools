@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { getSpriteURL, Pokemon } from '@lacolaco/pokemon-data';
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
+import type { Pokemon } from '@lacolaco/pokemon-data';
+import { PokemonData } from './pokemon-data';
 
 @Component({
   selector: 'pokemon-sprite',
@@ -22,9 +23,11 @@ import { getSpriteURL, Pokemon } from '@lacolaco/pokemon-data';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PokemonSpriteComponent {
+  private readonly pokemonData = inject(PokemonData);
+
   @Input() pokemon!: Pokemon;
 
   get src() {
-    return getSpriteURL(this.pokemon);
+    return this.pokemonData.getSpriteURL(this.pokemon);
   }
 }

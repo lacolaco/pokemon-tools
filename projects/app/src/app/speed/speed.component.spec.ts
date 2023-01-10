@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { PokemonData } from '../shared/pokemon-data';
 
 import { SpeedPageComponent } from './speed.component';
 
@@ -10,6 +11,7 @@ describe('SpeedComponent', () => {
     await TestBed.configureTestingModule({
       imports: [SpeedPageComponent],
     }).compileComponents();
+    await TestBed.inject(PokemonData).initialize();
 
     fixture = TestBed.createComponent(SpeedPageComponent);
     component = fixture.componentInstance;

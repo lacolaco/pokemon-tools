@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { Pokemon } from '@lacolaco/pokemon-data';
+import type { Pokemon } from '@lacolaco/pokemon-data';
 import { SpeedModifier } from '@lib/stats';
 import { combineLatest, map, merge, tap } from 'rxjs';
 import { PokemonSpriteComponent } from '../../shared/pokemon-sprite.component';

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Pokemon } from '@lacolaco/pokemon-data';
+import type { Pokemon } from '@lacolaco/pokemon-data';
 import { JoinPipe, JoinStatValuesPipe } from '../utitilites/pipes';
 
 @Component({

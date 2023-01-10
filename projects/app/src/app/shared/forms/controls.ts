@@ -1,5 +1,5 @@
 import { FormControl, Validators } from '@angular/forms';
-import { Pokemon } from '@lacolaco/pokemon-data';
+import type { Pokemon } from '@lacolaco/pokemon-data';
 import { asEV, asIV, asLevel, EV, IV, Level, Nature, natures, NatureValue, Stat } from '@lib/stats';
 import { zodTypeValidator } from '../../utitilites/forms';
 
