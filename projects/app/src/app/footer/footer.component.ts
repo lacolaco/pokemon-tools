@@ -28,7 +28,6 @@ export class FooterComponent implements AfterViewInit {
   get twitterShareParams() {
     return new URLSearchParams({
       hashtags: 'pokemonbattletools',
-      text: `${document.title} | Pokémon Battle Tools`,
     }).toString();
   }
 
