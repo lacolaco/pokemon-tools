@@ -10,12 +10,14 @@ import { StatsPageComponent } from './stats/stats.component';
   selector: 'app-root',
   standalone: true,
   template: `
-    <header class="w-full z-10 shadow">
-      <app-header class="container mx-auto px-2 sm:px-4"></app-header>
-    </header>
-    <main class="container mx-auto px-2 sm:px-4 overflow-auto">
-      <router-outlet></router-outlet>
-    </main>
+    <div class="grid grid-rows-auto-1fr max-h-screen">
+      <header class="w-full h-16 z-10 shadow">
+        <app-header class="container mx-auto px-2 sm:px-4"></app-header>
+      </header>
+      <main class="container mx-auto px-2 sm:px-4 py-2 overflow-auto">
+        <router-outlet></router-outlet>
+      </main>
+    </div>
     <footer class="w-full">
       <app-footer class="container mx-auto px-2 sm:px-4"></app-footer>
     </footer>

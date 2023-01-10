@@ -9,7 +9,7 @@ import { SpeedPageState } from './speed.state';
   imports: [SpeedStatFormComponent, SpeedComparisonTableComponent],
   providers: [SpeedPageState],
   template: `
-    <h1 class="text-xl font-bold mb-4">すばやさ調整</h1>
+    <h1 class="text-xl font-bold mb-4">すばやさ比較調整ツール</h1>
 
     <div class="w-full flex flex-col gap-y-2 overflow-auto">
       <speed-stat-form></speed-stat-form>
