@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import type { Pokemon } from '@lacolaco/pokemon-data';
 import { SpeedModifier } from '@lib/stats';
@@ -31,6 +31,7 @@ export class SpeedComparisonTableComponent implements OnInit {
   private readonly state = inject(SpeedPageState);
   private readonly tableState = inject(SpeedComparisonTableState);
   private readonly fb = inject(FormBuilder).nonNullable;
+  private readonly ngZone = inject(NgZone);
 
   readonly form = this.fb.group({
     ally: this.fb.group({
@@ -44,9 +45,11 @@ export class SpeedComparisonTableComponent implements OnInit {
   readonly state$ = combineLatest([this.state.state$, this.tableState.rows$]).pipe(
     map(([state, rows]) => ({ ...state, rows })),
     tap(() => {
-      window.requestAnimationFrame(() => {
-        const allyRow = document.querySelector('[data-ally-row]');
-        allyRow?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      this.ngZone.runOutsideAngular(() => {
+        requestAnimationFrame(() => {
+          const allyRow = document.querySelector('[data-ally-row]');
+          allyRow?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        });
       });
     }),
   );
