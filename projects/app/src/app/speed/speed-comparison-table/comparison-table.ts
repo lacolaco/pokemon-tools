@@ -12,6 +12,7 @@ import {
 import { RxState, stateful } from '@rx-angular/state';
 import { combineLatest, distinctUntilChanged, map, Observable, shareReplay } from 'rxjs';
 import { PokemonData } from '../../shared/pokemon-data';
+import { debug } from '../../utitilites/rx';
 import { SpeedPresetKey, speedPresets } from '../speed-presets';
 import { SpeedPageState } from '../speed.state';
 import { comparisonTargetPokemons } from './comparison-targets';
@@ -41,12 +42,19 @@ function calculateSpeedStat(pokemon: Pokemon, level: Level, preset: SpeedPresetK
   return calculateStatForNonHP(asStat(pokemon.baseStats.S), level, iv, ev, nature);
 }
 
-const speedPresetLabels = [
-  ['fastest', '最速'],
-  ['fast', '準速'],
-  ['none', '無振'],
-  ['slowest', '最遅'],
-] as const;
+const speedPresetLabels = {
+  fastest: '最速',
+  fast: '準速',
+  none: '無振',
+  slowest: '最遅',
+} as const;
+
+function getSpeedPresets(baseStat: number): SpeedPresetKey[] {
+  if (baseStat >= 80) {
+    return ['fastest', 'fast', 'none'];
+  }
+  return ['fastest', 'fast', 'none', 'slowest'];
+}
 
 @Injectable()
 export class SpeedComparisonTableState extends RxState<{
@@ -71,6 +79,7 @@ export class SpeedComparisonTableState extends RxState<{
       modifier,
     })),
     distinctUntilChanged(),
+    debug('[speed] allyStat$'),
   );
 
   private readonly opponentsWithStats$ = combineLatest([
@@ -88,6 +97,7 @@ export class SpeedComparisonTableState extends RxState<{
         },
       }));
     }),
+    debug('[speed] opponentsWithStats$'),
   );
 
   private readonly opponentRows$: Observable<SpeedComparisonTableRow[]> = combineLatest([
@@ -96,24 +106,16 @@ export class SpeedComparisonTableState extends RxState<{
   ]).pipe(
     map(([opponents, modifier]) => {
       const statGroupsMap = new Map<Stat, SpeedComparisonGroup[]>();
-      function insert(stat: Stat, label: string, pokemon: Pokemon, modifier?: SpeedModifier) {
-        const groups = statGroupsMap.get(stat) ?? [];
-        const group = groups.find((group) => group.label === label);
-        if (group) {
-          group.pokemons.push(pokemon);
-        } else {
-          groups.push({ label, pokemons: [pokemon], modifier });
-        }
-        statGroupsMap.set(stat, groups);
-      }
+
       for (const opponent of opponents) {
-        for (const [presetKey, presetLabel] of speedPresetLabels) {
+        for (const presetKey of getSpeedPresets(opponent.pokemon.baseStats.S)) {
           const stat = opponent.stats[presetKey];
-          const groupLabel = `${presetLabel}${opponent.pokemon.baseStats.S}族`;
-          insert(stat, groupLabel, opponent.pokemon);
+          const groupLabel = `${speedPresetLabels[presetKey]}${opponent.pokemon.baseStats.S}族`;
+          insertPokemonToMap(statGroupsMap, stat, groupLabel, opponent.pokemon);
 
           if (!isNoopSpeedModifier(modifier)) {
-            insert(
+            insertPokemonToMap(
+              statGroupsMap,
               modifySpeed(stat, modifier),
               `${groupLabel} ${getSpeedModifierLabel(modifier)}`,
               opponent.pokemon,
@@ -122,17 +124,19 @@ export class SpeedComparisonTableState extends RxState<{
           }
         }
       }
-      return [...statGroupsMap.entries()].map(([stat, groups]) => ({ stat, groups }));
+      return Array.from(statGroupsMap.entries()).map(([stat, groups]) => ({ stat, groups }));
     }),
+    debug('[speed] opponentsRows$'),
   );
 
   readonly rows$: Observable<SpeedComparisonTableRow[]> = combineLatest([this.allyStat$, this.opponentRows$]).pipe(
     map(([ally, opponents]) => {
       const sameStatIndex = opponents.findIndex((row) => row.stat === ally.stat);
       if (sameStatIndex >= 0) {
+        const sameStatRow = opponents[sameStatIndex];
         return [
           ...opponents.slice(0, sameStatIndex),
-          { ...opponents[sameStatIndex], isAlly: true },
+          { ...sameStatRow, isAlly: true },
           ...opponents.slice(sameStatIndex + 1),
         ];
       }
@@ -147,6 +151,7 @@ export class SpeedComparisonTableState extends RxState<{
         return b.isAlly ? -1 : 1;
       });
     }),
+    debug('[speed] rows$'),
     shareReplay(1),
   );
 
@@ -170,4 +175,21 @@ export class SpeedComparisonTableState extends RxState<{
       opponentModifier: defaultSpeedModifier,
     });
   }
+}
+
+function insertPokemonToMap(
+  map: Map<Stat, SpeedComparisonGroup[]>,
+  stat: Stat,
+  label: string,
+  pokemon: Pokemon,
+  modifier?: SpeedModifier,
+) {
+  const groups = map.get(stat) ?? [];
+  const group = groups.find((group) => group.label === label);
+  if (group) {
+    group.pokemons.push(pokemon);
+  } else {
+    groups.push({ label, pokemons: [pokemon], modifier });
+  }
+  map.set(stat, groups);
 }

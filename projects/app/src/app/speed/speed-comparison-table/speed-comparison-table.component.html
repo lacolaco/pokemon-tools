@@ -17,16 +17,14 @@
     <div class="flex-auto h-full flex flex-col overflow-auto overscroll-contain">
       <div
         *ngFor="let row of state.rows; trackBy: trackRow"
-        class="px-1 py-2 border-b border-gray-300"
+        class="px-1 py-1 border-b border-gray-300"
         [class.bg-red-200]="row.isAlly"
         [attr.data-ally-row]="row.isAlly"
       >
         <div class="flex flex-row gap-x-2">
-          <span class="text-xs">
-            <span>実数値&nbsp;</span><span class="font-bold">{{ row.stat }}</span>
-          </span>
+          <span class="text-sm font-bold">{{ row.stat }}</span>
         </div>
-        <div class="flex flex-col items-start pl-2">
+        <div class="flex flex-col items-start">
           <div *ngFor="let group of row.groups" class="grid grid-rows-auto-1fr items-start">
             <span class="text-xs">{{ group.label }}</span>
             <div class="flex flex-row flex-wrap items-start">

@@ -33,15 +33,15 @@ export class SpeedPageState extends RxState<State> {
   private readonly pokemonData = inject(PokemonData);
 
   private readonly stat$: Observable<Stat> = combineLatest([
-    this.select('pokemon').pipe(stateful(debug('pokemon'), filterNonNullable())),
-    this.select('level').pipe(stateful(debug('level'))),
-    this.select('stats').pipe(stateful(debug('stats'))),
+    this.select('pokemon').pipe(stateful(debug('[speed] pokemon'), filterNonNullable())),
+    this.select('level').pipe(stateful(debug('[speed] level'))),
+    this.select('stats').pipe(stateful(debug('[speed] stats'))),
   ]).pipe(
     map(([pokemon, level, stats]) => {
       return calculateStatForNonHP(asStat(pokemon.baseStats.S), level, stats.iv, stats.ev, stats.nature);
     }),
     distinctUntilChanged(),
-    debug('stat'),
+    debug('[speed] stat'),
     shareReplay(1),
   );
 
@@ -50,7 +50,7 @@ export class SpeedPageState extends RxState<State> {
       const { pokemon, level, stats } = this.get();
       return { pokemon, level, stats: { ...stats, stat } };
     }),
-    debug('state'),
+    debug('[speed] state'),
     shareReplay(1),
   );
 
