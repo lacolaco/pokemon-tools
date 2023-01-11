@@ -10,7 +10,6 @@ import { CalcStatPipe } from '../../utitilites/pipes';
 import { SpeedModifierControlComponent } from '../speed-modifier-control/speed-modifier-control.component';
 import { SpeedPageState } from '../speed.state';
 import { defaultSpeedModifier, SpeedComparisonTableRow, SpeedComparisonTableState } from './comparison-table';
-import { SpeedModifierPipe } from './speed-modifier.pipe';
 
 @Component({
   selector: 'speed-comparison-table',
@@ -25,14 +24,7 @@ import { SpeedModifierPipe } from './speed-modifier.pipe';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    PokemonSpriteComponent,
-    CalcStatPipe,
-    SpeedModifierControlComponent,
-    SpeedModifierPipe,
-  ],
+  imports: [CommonModule, ReactiveFormsModule, PokemonSpriteComponent, CalcStatPipe, SpeedModifierControlComponent],
   providers: [SpeedComparisonTableState],
 })
 export class SpeedComparisonTableComponent implements OnInit {

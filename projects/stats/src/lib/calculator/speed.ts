@@ -8,6 +8,16 @@ export type SpeedModifier = {
   condition: SpeedCondition;
 };
 
+export function isNoopSpeedModifier(modifier: SpeedModifier): boolean {
+  return (
+    modifier.rank === 0 &&
+    modifier.item === null &&
+    modifier.ability === null &&
+    !modifier.condition.paralysis &&
+    !modifier.condition.tailwind
+  );
+}
+
 export type SpeedItem = 'こだわりスカーフ' | 'くろいてっきゅう';
 
 export function getSpeedItemFactor(item: SpeedItem): number {

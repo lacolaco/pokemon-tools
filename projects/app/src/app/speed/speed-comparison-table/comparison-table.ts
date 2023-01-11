@@ -1,12 +1,21 @@
 import { inject, Injectable } from '@angular/core';
 import type { Pokemon } from '@lacolaco/pokemon-data';
-import { asStat, calculateStatForNonHP, Level, modifySpeed, SpeedModifier, Stat } from '@lib/stats';
+import {
+  asStat,
+  calculateStatForNonHP,
+  isNoopSpeedModifier,
+  Level,
+  modifySpeed,
+  SpeedModifier,
+  Stat,
+} from '@lib/stats';
 import { RxState, stateful } from '@rx-angular/state';
 import { combineLatest, distinctUntilChanged, map, Observable, shareReplay } from 'rxjs';
 import { PokemonData } from '../../shared/pokemon-data';
 import { SpeedPresetKey, speedPresets } from '../speed-presets';
 import { SpeedPageState } from '../speed.state';
 import { comparisonTargetPokemons } from './comparison-targets';
+import { getSpeedModifierLabel } from './speed-modifier-label';
 
 export const defaultSpeedModifier: SpeedModifier = {
   rank: 0,
@@ -18,12 +27,12 @@ export const defaultSpeedModifier: SpeedModifier = {
 export type SpeedComparisonGroup = {
   label: string;
   pokemons: Pokemon[];
+  modifier?: SpeedModifier;
 };
 
 export type SpeedComparisonTableRow = {
   stat: Stat;
   groups: SpeedComparisonGroup[];
-  modifier: SpeedModifier;
   isAlly?: boolean;
 };
 
@@ -87,24 +96,33 @@ export class SpeedComparisonTableState extends RxState<{
   ]).pipe(
     map(([opponents, modifier]) => {
       const statGroupsMap = new Map<Stat, SpeedComparisonGroup[]>();
+      function insert(stat: Stat, label: string, pokemon: Pokemon, modifier?: SpeedModifier) {
+        const groups = statGroupsMap.get(stat) ?? [];
+        const group = groups.find((group) => group.label === label);
+        if (group) {
+          group.pokemons.push(pokemon);
+        } else {
+          groups.push({ label, pokemons: [pokemon], modifier });
+        }
+        statGroupsMap.set(stat, groups);
+      }
       for (const opponent of opponents) {
         for (const [presetKey, presetLabel] of speedPresetLabels) {
+          const stat = opponent.stats[presetKey];
           const groupLabel = `${presetLabel}${opponent.pokemon.baseStats.S}族`;
-          const stat = modifySpeed(opponent.stats[presetKey], modifier);
-          const groups = statGroupsMap.get(stat);
-          if (groups) {
-            const group = groups.find((group) => group.label === groupLabel);
-            if (group) {
-              group.pokemons.push(opponent.pokemon);
-            } else {
-              groups.push({ label: groupLabel, pokemons: [opponent.pokemon] });
-            }
-          } else {
-            statGroupsMap.set(stat, [{ label: groupLabel, pokemons: [opponent.pokemon] }]);
+          insert(stat, groupLabel, opponent.pokemon);
+
+          if (!isNoopSpeedModifier(modifier)) {
+            insert(
+              modifySpeed(stat, modifier),
+              `${groupLabel} ${getSpeedModifierLabel(modifier)}`,
+              opponent.pokemon,
+              modifier,
+            );
           }
         }
       }
-      return [...statGroupsMap.entries()].map(([stat, groups]) => ({ stat, groups, modifier }));
+      return [...statGroupsMap.entries()].map(([stat, groups]) => ({ stat, groups }));
     }),
   );
 
