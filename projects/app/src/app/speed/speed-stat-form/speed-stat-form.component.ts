@@ -11,8 +11,8 @@ import {
   createPokemonControl,
   createStatControl,
 } from '../../shared/forms/controls';
-import { PokemonBaseInfoComponent } from '../../shared/pokemon-base-info.component';
 import { PokemonSelectComponent } from '../../shared/pokemon-select.component';
+import { PokemonYakkunLinkComponent } from '../../shared/pokemon-yakkun-link.component';
 import { EVInputComponent } from '../../stats/controls/ev-input.component';
 import { IVInputComponent } from '../../stats/controls/iv-input.component';
 import { StatInputComponent } from '../../stats/controls/stat-input.component';
@@ -24,18 +24,18 @@ import { SpeedPageState } from '../speed.state';
 @Component({
   selector: 'speed-stat-form',
   standalone: true,
+  templateUrl: './speed-stat-form.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     ReactiveFormsModule,
     PokemonSelectComponent,
-    PokemonBaseInfoComponent,
     StatInputComponent,
     EVInputComponent,
     IVInputComponent,
     SpeedPresetsComponent,
+    PokemonYakkunLinkComponent,
   ],
-  templateUrl: './speed-stat-form.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpeedStatFormComponent implements OnInit, OnDestroy {
   private readonly state = inject(SpeedPageState);

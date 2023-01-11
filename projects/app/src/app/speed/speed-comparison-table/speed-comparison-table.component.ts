@@ -8,9 +8,9 @@ import { PokemonSpriteComponent } from '../../shared/pokemon-sprite.component';
 import { getValidValueChanges } from '../../utitilites/forms';
 import { CalcStatPipe } from '../../utitilites/pipes';
 import { SpeedModifierControlComponent } from '../speed-modifier-control/speed-modifier-control.component';
-import { SpeedPresetKey, speedPresets } from '../speed-presets';
 import { SpeedPageState } from '../speed.state';
 import { defaultSpeedModifier, SpeedComparisonTableRow, SpeedComparisonTableState } from './comparison-table';
+import { SpeedModifierPipe } from './speed-modifier.pipe';
 
 @Component({
   selector: 'speed-comparison-table',
@@ -25,7 +25,14 @@ import { defaultSpeedModifier, SpeedComparisonTableRow, SpeedComparisonTableStat
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, PokemonSpriteComponent, CalcStatPipe, SpeedModifierControlComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    PokemonSpriteComponent,
+    CalcStatPipe,
+    SpeedModifierControlComponent,
+    SpeedModifierPipe,
+  ],
   providers: [SpeedComparisonTableState],
 })
 export class SpeedComparisonTableComponent implements OnInit {
@@ -38,7 +45,6 @@ export class SpeedComparisonTableComponent implements OnInit {
       modifier: this.fb.control<SpeedModifier>(defaultSpeedModifier),
     }),
     opponent: this.fb.group({
-      speedPreset: this.fb.control<SpeedPresetKey>('fastest'),
       modifier: this.fb.control<SpeedModifier>(defaultSpeedModifier),
     }),
   });
@@ -65,21 +71,13 @@ export class SpeedComparisonTableComponent implements OnInit {
           this.tableState.set({ opponentModifier: value });
         }),
       ),
-      getValidValueChanges(this.form.controls.opponent.controls.speedPreset).pipe(
-        tap((value) => {
-          this.tableState.set({ opponent: speedPresets[value] });
-        }),
-      ),
     )
       .pipe()
       .subscribe();
   }
 
-  trackGroup(_: number, item: SpeedComparisonTableRow) {
-    if (item.isAlly) {
-      return null;
-    }
-    return item.baseStat;
+  trackRow(index: number, item: SpeedComparisonTableRow) {
+    return `${index}${item.stat}`;
   }
 
   trackPokemon(_: number, item: Pokemon) {

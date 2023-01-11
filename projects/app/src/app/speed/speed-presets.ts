@@ -11,11 +11,6 @@ export const speedPresets = {
     iv: asIV(31),
     nature: 'neutral',
   },
-  four: {
-    ev: asEV(4),
-    iv: asIV(31),
-    nature: 'neutral',
-  },
   none: {
     ev: asEV(0),
     iv: asIV(31),

@@ -1,21 +1,12 @@
 import { inject, Injectable } from '@angular/core';
 import type { Pokemon } from '@lacolaco/pokemon-data';
-import {
-  asStat,
-  calculateStatForNonHP,
-  EV,
-  IV,
-  Level,
-  modifySpeed,
-  NatureValue,
-  SpeedModifier,
-  Stat,
-} from '@lib/stats';
+import { asStat, calculateStatForNonHP, Level, modifySpeed, SpeedModifier, Stat } from '@lib/stats';
 import { RxState, stateful } from '@rx-angular/state';
 import { combineLatest, distinctUntilChanged, map, Observable, shareReplay } from 'rxjs';
 import { PokemonData } from '../../shared/pokemon-data';
-import { speedPresets } from '../speed-presets';
+import { SpeedPresetKey, speedPresets } from '../speed-presets';
 import { SpeedPageState } from '../speed.state';
+import { comparisonTargetPokemons } from './comparison-targets';
 
 export const defaultSpeedModifier: SpeedModifier = {
   rank: 0,
@@ -24,102 +15,125 @@ export const defaultSpeedModifier: SpeedModifier = {
   condition: { paralysis: false, tailwind: false },
 };
 
-export type SpeedComparisonTableRow =
-  | {
-      stat: Stat;
-      baseStat: number;
-      pokemons: Pokemon[];
-      isAlly?: never;
-    }
-  | {
-      stat: Stat;
-      baseStat?: never;
-      pokemons?: never;
-      isAlly: true;
-    };
+export type SpeedComparisonGroup = {
+  label: string;
+  pokemons: Pokemon[];
+};
+
+export type SpeedComparisonTableRow = {
+  stat: Stat;
+  groups: SpeedComparisonGroup[];
+  modifier: SpeedModifier;
+  isAlly?: boolean;
+};
+
+function calculateSpeedStat(pokemon: Pokemon, level: Level, preset: SpeedPresetKey): Stat {
+  const { iv, ev, nature } = speedPresets[preset];
+  return calculateStatForNonHP(asStat(pokemon.baseStats.S), level, iv, ev, nature);
+}
+
+const speedPresetLabels = [
+  ['fastest', '最速'],
+  ['fast', '準速'],
+  ['none', '無振'],
+  ['slowest', '最遅'],
+] as const;
 
 @Injectable()
 export class SpeedComparisonTableState extends RxState<{
+  opponents: Pokemon[];
   ally: {
     pokemon: Pokemon;
     level: Level;
     stat: Stat;
   };
   allyModifier: SpeedModifier;
-  opponent: {
-    iv: IV;
-    ev: EV;
-    nature: NatureValue;
-  };
   opponentModifier: SpeedModifier;
 }> {
   private readonly pageState = inject(SpeedPageState);
   private readonly pokemonData = inject(PokemonData);
 
-  private readonly allySpeed$: Observable<Stat> = combineLatest([
+  private readonly allyStat$ = combineLatest([
     this.select('ally').pipe(stateful()),
     this.select('allyModifier').pipe(stateful()),
   ]).pipe(
-    map(([ally, modifier]) => {
-      return modifySpeed(ally.stat, modifier);
-    }),
+    map(([ally, modifier]) => ({
+      stat: modifySpeed(ally.stat, modifier),
+      modifier,
+    })),
     distinctUntilChanged(),
   );
 
-  private readonly opponents$ = combineLatest([
+  private readonly opponentsWithStats$ = combineLatest([
     this.select('ally').pipe(stateful(map((ally) => ally.level))),
-    this.select('opponent').pipe(stateful()),
-    this.select('opponentModifier').pipe(stateful()),
+    this.select('opponents').pipe(stateful()),
   ]).pipe(
-    map(([level, opponent, modifier]) => {
-      return this.opponents.map((group) => ({
-        stat: modifySpeed(
-          calculateStatForNonHP(asStat(group.baseStat), level, opponent.iv, opponent.ev, opponent.nature),
-          modifier,
-        ),
-        baseStat: group.baseStat,
-        pokemons: group.pokemons,
+    map(([level, opponents]) => {
+      return opponents.map((pokemon) => ({
+        pokemon,
+        stats: {
+          fastest: calculateSpeedStat(pokemon, level, 'fastest'),
+          fast: calculateSpeedStat(pokemon, level, 'fast'),
+          none: calculateSpeedStat(pokemon, level, 'none'),
+          slowest: calculateSpeedStat(pokemon, level, 'slowest'),
+        },
       }));
     }),
   );
 
-  readonly rows$: Observable<SpeedComparisonTableRow[]> = combineLatest([this.allySpeed$, this.opponents$]).pipe(
+  private readonly opponentRows$: Observable<SpeedComparisonTableRow[]> = combineLatest([
+    this.opponentsWithStats$,
+    this.select('opponentModifier').pipe(stateful()),
+  ]).pipe(
+    map(([opponents, modifier]) => {
+      const statGroupsMap = new Map<Stat, SpeedComparisonGroup[]>();
+      for (const opponent of opponents) {
+        for (const [presetKey, presetLabel] of speedPresetLabels) {
+          const groupLabel = `${presetLabel}${opponent.pokemon.baseStats.S}族`;
+          const stat = modifySpeed(opponent.stats[presetKey], modifier);
+          const groups = statGroupsMap.get(stat);
+          if (groups) {
+            const group = groups.find((group) => group.label === groupLabel);
+            if (group) {
+              group.pokemons.push(opponent.pokemon);
+            } else {
+              groups.push({ label: groupLabel, pokemons: [opponent.pokemon] });
+            }
+          } else {
+            statGroupsMap.set(stat, [{ label: groupLabel, pokemons: [opponent.pokemon] }]);
+          }
+        }
+      }
+      return [...statGroupsMap.entries()].map(([stat, groups]) => ({ stat, groups, modifier }));
+    }),
+  );
+
+  readonly rows$: Observable<SpeedComparisonTableRow[]> = combineLatest([this.allyStat$, this.opponentRows$]).pipe(
     map(([ally, opponents]) => {
-      const allyRow: SpeedComparisonTableRow = {
-        isAlly: true,
-        stat: ally,
-      };
-      return [allyRow, ...opponents].sort((a, b) => {
+      const sameStatIndex = opponents.findIndex((row) => row.stat === ally.stat);
+      if (sameStatIndex >= 0) {
+        return [
+          ...opponents.slice(0, sameStatIndex),
+          { ...opponents[sameStatIndex], isAlly: true },
+          ...opponents.slice(sameStatIndex + 1),
+        ];
+      }
+      return [...opponents, { stat: ally.stat, groups: [], modifier: ally.modifier, isAlly: true }];
+    }),
+    map((rows) => {
+      return [...rows].sort((a, b) => {
         const byStat = b.stat - a.stat;
         if (byStat !== 0) {
           return byStat;
         }
-        return (b.baseStat ?? 0) - (a.baseStat ?? 0);
+        return b.isAlly ? -1 : 1;
       });
     }),
     shareReplay(1),
   );
 
-  private readonly opponents: { baseStat: number; pokemons: Pokemon[] }[];
-
   constructor() {
     super();
-
-    const pokemons = this.pokemonData.getPokemons();
-    const pokemonsBySpeed = new Map<number, Pokemon[]>();
-    for (const pokemon of Object.values(pokemons)) {
-      const speed = pokemon.baseStats.S;
-      if (pokemonsBySpeed.has(speed)) {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        pokemonsBySpeed.get(speed)!.push(pokemon);
-      } else {
-        pokemonsBySpeed.set(speed, [pokemon]);
-      }
-    }
-    this.opponents = Array.from(pokemonsBySpeed.entries()).map(([baseStat, pokemons]) => ({
-      baseStat,
-      pokemons: pokemons.sort((a, b) => b.baseStatsTotal - a.baseStatsTotal),
-    }));
 
     this.connect(
       'ally',
@@ -133,8 +147,8 @@ export class SpeedComparisonTableState extends RxState<{
       ),
     );
     this.set({
+      opponents: comparisonTargetPokemons.map((name) => this.pokemonData.getPokemonByName(name)),
       allyModifier: defaultSpeedModifier,
-      opponent: speedPresets['fastest'],
       opponentModifier: defaultSpeedModifier,
     });
   }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { asIV, IV } from '@lib/stats';
@@ -22,7 +22,7 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
     <div class="buttons">
       <button (click)="onTouched(); setValue(31)" [disabled]="formControl.disabled">31</button>
       <button (click)="onTouched(); setValue(0)" [disabled]="formControl.disabled">0</button>
-      <button (click)="onTouched(); setValue(null)" [disabled]="formControl.disabled">
+      <button *ngIf="!disableNull" (click)="onTouched(); setValue(null)" [disabled]="formControl.disabled">
         <mat-icon fontIcon="close" inline></mat-icon>
       </button>
     </div>
@@ -30,6 +30,8 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
   styleUrls: ['./iv-input.component.scss'],
 })
 export class IVInputComponent extends SimpleControlValueAccessor<IV | null> {
+  @Input() disableNull = false;
+
   readonly formControl = new FormControl<IV | null>(asIV(0), { nonNullable: true });
 
   protected get value() {

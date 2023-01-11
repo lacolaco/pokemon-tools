@@ -1,53 +1,45 @@
 <ng-container *ngIf="state$ | async as state">
   <div class="h-full w-full flex flex-row gap-x-2">
-    <form [formGroup]="form" class="h-full w-1/3 flex-shrink-0 flex flex-col gap-y-1 px-2 text-sm">
+    <form [formGroup]="form" class="h-full w-1/3 flex-shrink-0 flex flex-col gap-y-1 px-2 text-sm overflow-auto">
       <div class="pb-2 border-b border-b-gray-500">
         <span class="font-bold">自分側</span>
-        <div formGroupName="ally" class="flex flex-col gap-y-1 items-start">
+        <div formGroupName="ally" class="flex flex-col">
           <speed-modifier-control formControlName="modifier"></speed-modifier-control>
         </div>
       </div>
       <div>
         <span class="font-bold">相手側</span>
-        <div formGroupName="opponent" class="flex flex-col gap-y-1 items-start">
-          <label class="flex flex-col items-start">
-            <div class="flex flex-wrap gap-x-1">
-              <label><input type="radio" formControlName="speedPreset" value="fastest" />最速</label>
-              <label><input type="radio" formControlName="speedPreset" value="fast" />準速</label>
-              <label><input type="radio" formControlName="speedPreset" value="four" />4振り</label>
-              <label><input type="radio" formControlName="speedPreset" value="none" />無振り</label>
-              <label><input type="radio" formControlName="speedPreset" value="slowest" />最遅</label>
-            </div>
-          </label>
+        <div formGroupName="opponent" class="flex flex-col">
           <speed-modifier-control formControlName="modifier"></speed-modifier-control>
         </div>
       </div>
     </form>
     <div class="flex-auto h-full flex flex-col overflow-auto overscroll-contain">
       <div
-        *ngFor="let row of state.rows; trackBy: trackGroup"
+        *ngFor="let row of state.rows; trackBy: trackRow"
         class="px-1 py-2 border-b border-gray-300"
         [class.bg-red-200]="row.isAlly"
         [attr.data-ally-row]="row.isAlly"
       >
-        <div class="flex flex-row gap-x-2 text-xs">
-          <div>
-            <span>実数値&nbsp;</span>
-            <span class="font-bold">{{ row.stat }}</span>
-          </div>
-          <div *ngIf="row.baseStat">
-            <span>(種族値&nbsp;{{ row.baseStat }})</span>
-          </div>
+        <div class="flex flex-row gap-x-2">
+          <span class="text-xs">
+            <span>実数値&nbsp;</span><span class="font-bold">{{ row.stat }}</span>
+          </span>
         </div>
-        <div *ngIf="row.pokemons" class="flex flex-row flex-wrap items-center justify-start gap-1">
-          <a
-            *ngFor="let pokemon of row.pokemons; trackBy: trackPokemon"
-            target="_blank"
-            [href]="pokemon.meta.url"
-            [title]="pokemon.name"
-          >
-            <pokemon-sprite [pokemon]="pokemon" class="w-10"></pokemon-sprite>
-          </a>
+        <div class="flex flex-col items-start pl-2">
+          <div *ngFor="let group of row.groups" class="grid grid-rows-auto-1fr items-start">
+            <span class="text-xs">{{ group.label }} </span>
+            <div class="flex flex-row flex-wrap items-start">
+              <a
+                *ngFor="let pokemon of group.pokemons; trackBy: trackPokemon"
+                target="_blank"
+                [href]="pokemon.meta.url"
+                [title]="pokemon.name"
+              >
+                <pokemon-sprite [pokemon]="pokemon" class="w-8"></pokemon-sprite>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

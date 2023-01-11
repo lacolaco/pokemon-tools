@@ -9,21 +9,21 @@ import { getValidValueChanges, SimpleControlValueAccessor } from '../../utitilit
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   template: `
-    <label class="flex flex-col items-start">
+    <label class="flex flex-col items-start justify-around">
       <span>ランク補正</span>
-      <select [formControl]="form.controls.rank" class="form-select">
+      <select [formControl]="form.controls.rank" class="form-select w-full">
         <option *ngFor="let option of rankOptions" [ngValue]="option.value">{{ option.label }}</option>
       </select>
     </label>
     <label class="flex flex-col items-start">
       <span>道具</span>
-      <select [formControl]="form.controls.item" class="form-select">
+      <select [formControl]="form.controls.item" class="form-select w-full">
         <option *ngFor="let option of itemOptions" [ngValue]="option.value">{{ option.label }}</option>
       </select>
     </label>
     <label class="flex flex-col items-start">
       <span>特性</span>
-      <select [formControl]="form.controls.ability" class="form-select">
+      <select [formControl]="form.controls.ability" class="form-select w-full">
         <option *ngFor="let option of abilityOptions" [ngValue]="option.value">{{ option.label }}</option>
       </select>
     </label>

@@ -9,8 +9,7 @@ import { SpeedPageState } from '../speed.state';
     <div class="flex flex-row items-center gap-x-1">
       <button class="text-sm leading-none p-1" (click)="usePreset('fastest')">最速</button>
       <button class="text-sm leading-none p-1" (click)="usePreset('fast')">準速</button>
-      <button class="text-sm leading-none p-1" (click)="usePreset('four')">4振り</button>
-      <button class="text-sm leading-none p-1" (click)="usePreset('none')">無振り</button>
+      <button class="text-sm leading-none p-1" (click)="usePreset('none')">無振</button>
       <button class="text-sm leading-none p-1" (click)="usePreset('slowest')">最遅</button>
     </div>
   `,
