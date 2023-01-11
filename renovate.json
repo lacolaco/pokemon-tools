@@ -1,5 +1,15 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:base", "local>lacolaco/renovate-config", "schedule:weekly"],
-  "postUpdateOptions": []
+  "postUpdateOptions": [],
+  "hostRules": [
+    {
+      "matchHost": "https://npm.pkg.github.com/",
+      "hostType": "npm",
+      "encrypted": {
+        "token": "wcFMA/xDdHCJBTolAQ//Thdfv6YZ/PDxNUghirCj/PYozShXaogDwCqMwejhE8BMvuOTTPPWJWyNLzS2Pc8okhWOOk0cf+SEEk1vDJS55xwBlfMGxfzUoWG9jYueqbGrxKyjkUXZSftrhOB255WebaPVrrrAim9D5sIEFEZSrvAoHvTCp/i3mam/QHqzmojbcj4kEQtlA+Ma/Wy5gU+TdUZRUaHQQhbI48N3QmCLBPg1ZSPwvmjp8icRoCYwFBd9O6h/5WPd6cGZqKinvgEPXOybYntuQMZ05g2EGpO0F8QcA4ulUXntjJyymH+lVqRp4WHC2aWD0rnz4RZ/abGu/6j/s4Zi2fnhMrMyOIUrBlRWsxtuMsbuBN6jxpN4KM5kr+GS/RyIlegF8+V1tmhxq8SKGAJBmOX+/dKKJxTy1IcDyFMtKPv4FVNvOJgB9Y8oOaaloPFLpBXv4wRsOuAZDttYAqPy/mhrfsrRoZz/vD6xb6/n+Z45gu3+NFcrNBkePAOWk8IlS3fRz5s4k1YutD66DhfMsG8yARvk1OvV5kVE02R3danCfJRoE0sEV51YHhuSKSfiQ+twAXZ0bDDrTgwZ7J9U/6lZEAOVvKC2ZesKeOJOiOF21Ntq8XEOAkTxxiZ6HpoAAU0SsZeisL9qRuvgd2RWwzPtrcphBZJmI+VSseXCbls301o/UzISSdDShAErPtyN6sqWE/KgwRDkcwRursBD7uIV42xN5MMFKiIBcPFmhB5uD6+n6kp8ikzh+Fc/oaeYRi/MS++mBAg8cLQs+4EhenoI0GDuLMHRgiZg6L60YBetg6qXo+9lAVtucoWVqSQMzsj1gG4lt1ZeTxoCHSAjc+FbQPAnxbejUSjwu+zXlg"
+      }
+    }
+  ],
+  "npmrc": "@lacolaco:registry=https://npm.pkg.github.com/"
 }
