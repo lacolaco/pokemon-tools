@@ -13,7 +13,7 @@ import { MAX_EV_TOTAL } from '@lib/stats';
         努力値合計: <span [class.error]="isTooHigh">{{ usedEVs }}</span> / <span>{{ maxEVTotal }}</span>
       </div>
       <button (click)="reset.emit()" matTooltip="すべての努力値を0にリセットします">リセット</button>
-      <button (click)="optimizeDurability.emit()" matTooltip="総合耐久指数が最大になるようにH,B,Dの努力値を配分します">
+      <button (click)="optimizeDefenseEVs.emit()" matTooltip="総合耐久指数が最大になるようにH,B,Dの努力値を配分します">
         耐久最適化
       </button>
     </div>
@@ -50,7 +50,7 @@ import { MAX_EV_TOTAL } from '@lib/stats';
 export class EVTotalControlComponent {
   @Input() usedEVs = 0;
   @Output() readonly reset = new EventEmitter<void>();
-  @Output() readonly optimizeDurability = new EventEmitter<void>();
+  @Output() readonly optimizeDefenseEVs = new EventEmitter<void>();
 
   readonly maxEVTotal = MAX_EV_TOTAL;
 

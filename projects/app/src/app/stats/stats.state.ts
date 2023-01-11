@@ -11,7 +11,7 @@ import {
   Level,
   Nature,
   natures,
-  optimizeDurability,
+  optimizeDefenseEVs,
   Stat,
   StatValues,
   sumOfStatValues,
@@ -83,10 +83,10 @@ export class StatsPageState extends RxState<State> {
     this.set({ evs: { H: asEV(0), A: asEV(0), B: asEV(0), C: asEV(0), D: asEV(0), S: asEV(0) } });
   }
 
-  optimizeDurability() {
+  optimizeDefenseEVs() {
     const { pokemon, level, nature, ivs, evs } = this.get();
     if (pokemon) {
-      this.set({ evs: optimizeDurability(pokemon.baseStats as StatValues<Stat>, level, ivs, evs, nature) });
+      this.set({ evs: optimizeDefenseEVs(pokemon.baseStats as StatValues<Stat>, level, ivs, evs, nature) });
     }
   }
 }

@@ -165,7 +165,7 @@ export class StatsFormComponent implements OnInit, OnDestroy {
     this.state.resetEVs();
   }
 
-  optimizeDurability() {
-    this.state.optimizeDurability();
+  optimizeDefenseEVs() {
+    this.state.optimizeDefenseEVs();
   }
 }

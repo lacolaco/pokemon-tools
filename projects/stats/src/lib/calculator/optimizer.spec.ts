@@ -2,12 +2,12 @@ import { getPokemonByName } from '@lacolaco/pokemon-data';
 import { natures } from '../models/natures';
 import { Stat, asLevel, asIV, asEV, asStat } from '../models/primitives';
 import { StatValues } from '../models/stat-values';
-import { optimizeDurability } from './optimizer';
+import { optimizeDefenseEVs } from './optimizer';
 
-describe('optimizeDurability', () => {
+describe('optimizeDefenseEVs', () => {
   it('ニンフィア ひかえめ C252 残り耐久', () => {
     const pokemon = getPokemonByName('ニンフィア');
-    const result = optimizeDurability(
+    const result = optimizeDefenseEVs(
       pokemon.baseStats as StatValues<Stat>,
       asLevel(50),
       { H: asIV(31), A: asIV(31), B: asIV(31), C: asIV(31), D: asIV(31), S: asIV(31) },
@@ -26,7 +26,7 @@ describe('optimizeDurability', () => {
   });
 
   it('カミツルギ ようき A252 残り耐久', () => {
-    const result = optimizeDurability(
+    const result = optimizeDefenseEVs(
       { H: asStat(59), A: asStat(181), B: asStat(131), C: asStat(59), D: asStat(31), S: asStat(109) },
       asLevel(50),
       { H: asIV(31), A: asIV(31), B: asIV(31), C: asIV(31), D: asIV(31), S: asIV(31) },
@@ -44,7 +44,7 @@ describe('optimizeDurability', () => {
   });
 
   it('ドリュウズ ようき A252 S4 残り耐久', () => {
-    const result = optimizeDurability(
+    const result = optimizeDefenseEVs(
       { H: asStat(110), A: asStat(135), B: asStat(60), C: asStat(50), D: asStat(65), S: asStat(88) },
       asLevel(50),
       { H: asIV(31), A: asIV(31), B: asIV(31), C: asIV(31), D: asIV(31), S: asIV(31) },
@@ -58,6 +58,24 @@ describe('optimizeDurability', () => {
       C: asEV(0),
       D: asEV(84),
       S: asEV(4),
+    });
+  });
+
+  it('コノヨザル いじっぱり 201(124)-165(116)-104(28)-63-111(4)-140(236)', () => {
+    const result = optimizeDefenseEVs(
+      getPokemonByName('コノヨザル').baseStats as StatValues<Stat>,
+      asLevel(50),
+      { H: asIV(31), A: asIV(31), B: asIV(31), C: asIV(31), D: asIV(31), S: asIV(31) },
+      { H: asEV(0), A: asEV(116), B: asEV(0), C: asEV(0), D: asEV(0), S: asEV(236) },
+      natures['いじっぱり'],
+    );
+    expect(result).toEqual({
+      H: asEV(124),
+      A: asEV(116),
+      B: asEV(28),
+      C: asEV(0),
+      D: asEV(4),
+      S: asEV(236),
     });
   });
 });

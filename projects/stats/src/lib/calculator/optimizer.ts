@@ -1,45 +1,68 @@
 import { Nature } from '../models/natures';
-import { asEV, EV, IV, Level, Stat } from '../models/primitives';
+import { asEV, asStat, EV, IV, Level, Stat } from '../models/primitives';
 import { StatValues } from '../models/stat-values';
-import { calculateAllStats } from './stats';
+import { calculateEVForHP, calculateEVForNonHP, calculateStatForHP, calculateStatForNonHP } from './stats';
 import { sumOfStatValues } from './utilities';
 
 /**
  * 総合耐久指数が最大になるように努力値を振り分ける
  * 参考: ニンフィア・カミツルギの耐久調整 ―― 総合耐久指数 \- 机上論は強い http://firefly1987.blog.fc2.com/blog-entry-5.html
  */
-export function optimizeDurability(
+export function optimizeDefenseEVs(
   base: Readonly<StatValues<Stat>>,
   level: Level,
   ivs: StatValues<IV | null>,
   evs: StatValues<EV>,
   nature: Nature,
 ): StatValues<EV> {
-  const optimizedEVs = { ...evs, H: asEV(0), B: asEV(0), D: asEV(0) };
-  while (sumOfStatValues(optimizedEVs) < 508) {
-    const { H, B, D } = calculateAllStats(base, level, ivs, optimizedEVs, nature);
-    if (H === null || B === null || D === null) {
-      return evs;
+  const { H: ivH, B: ivB, D: ivD } = ivs;
+  if (ivH === null || ivB === null || ivD === null) {
+    return evs;
+  }
+
+  const tempEVs = { ...evs, H: asEV(0), B: asEV(0), D: asEV(0) };
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    const freeEV = 508 - sumOfStatValues(tempEVs);
+    if (freeEV <= 0) {
+      break;
     }
+    const H = calculateStatForHP(base.H, level, ivH, tempEVs.H);
+    const B = calculateStatForNonHP(base.B, level, ivB, tempEVs.B, nature.values.B ?? 'neutral');
+    const D = calculateStatForNonHP(base.D, level, ivD, tempEVs.D, nature.values.D ?? 'neutral');
+
     let { dSdH, dSdB, dSdD } = getDerivatives(H, B, D);
-    // もう振れない場合は微分値を0にする
-    dSdH = optimizedEVs.H >= 252 ? 0 : dSdH;
-    dSdB = optimizedEVs.B >= 252 ? 0 : dSdB;
-    dSdD = optimizedEVs.D >= 252 ? 0 : dSdD;
-    // dSdH, dSdB, dSdDのうち最大のパラメータに+4する
-    // すべての傾きが0になったら中断する
+    // dSdH, dSdB, dSdDのうち最大のステータスを+1できるかチェックする
+    // +1するのに必要な努力値を逆算し、それが残りの努力値を超えていたら+1できないため偏微分を0にする
+    // また、+1前後で必要な努力値が変わらない場合は上限に達しているため偏微分を0にする
+    const nextEVs = {
+      H: calculateEVForHP(base.H, level, ivH, asStat(H + 1)),
+      B: calculateEVForNonHP(base.B, level, ivB, asStat(B + 1), nature.values.B ?? 'neutral'),
+      D: calculateEVForNonHP(base.D, level, ivD, asStat(D + 1), nature.values.D ?? 'neutral'),
+    };
+    if (nextEVs.H === tempEVs.H || nextEVs.H - tempEVs.H > freeEV) {
+      dSdH = 0;
+    }
+    if (nextEVs.B === tempEVs.B || nextEVs.B - tempEVs.B > freeEV) {
+      dSdB = 0;
+    }
+    if (nextEVs.D === tempEVs.D || nextEVs.D - tempEVs.D > freeEV) {
+      dSdD = 0;
+    }
+    // dSdH, dSdB, dSdDのうち最大のステータスを+1する
     if (dSdH > dSdB && dSdH > dSdD) {
-      optimizedEVs.H = asEV(optimizedEVs.H + 4);
+      tempEVs.H = nextEVs.H;
     } else if (dSdB > dSdD) {
-      optimizedEVs.B = asEV(optimizedEVs.B + 4);
+      tempEVs.B = nextEVs.B;
     } else if (dSdD > 0) {
-      optimizedEVs.D = asEV(optimizedEVs.D + 4);
+      tempEVs.D = nextEVs.D;
     } else {
+      // すべての傾きが0になっているので中断する
       break;
     }
   }
 
-  return optimizedEVs;
+  return tempEVs;
 }
 
 /**
