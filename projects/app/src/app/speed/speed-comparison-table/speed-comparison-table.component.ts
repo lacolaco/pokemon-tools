@@ -6,7 +6,6 @@ import { SpeedModifier } from '@lib/stats';
 import { combineLatest, map, merge, tap } from 'rxjs';
 import { PokemonSpriteComponent } from '../../shared/pokemon-sprite.component';
 import { getValidValueChanges } from '../../utitilites/forms';
-import { CalcStatPipe } from '../../utitilites/pipes';
 import { SpeedModifierControlComponent } from '../speed-modifier-control/speed-modifier-control.component';
 import { SpeedPageState } from '../speed.state';
 import { defaultSpeedModifier, SpeedComparisonTableRow, SpeedComparisonTableState } from './comparison-table';
@@ -24,7 +23,7 @@ import { defaultSpeedModifier, SpeedComparisonTableRow, SpeedComparisonTableStat
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, PokemonSpriteComponent, CalcStatPipe, SpeedModifierControlComponent],
+  imports: [CommonModule, ReactiveFormsModule, PokemonSpriteComponent, SpeedModifierControlComponent],
   providers: [SpeedComparisonTableState],
 })
 export class SpeedComparisonTableComponent implements OnInit {
