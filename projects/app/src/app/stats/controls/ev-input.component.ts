@@ -22,21 +22,17 @@ const STEP = 4;
       (click)="onTouched()"
       class="form-input"
     />
-    <div class="buttons-outer">
-      <div class="buttons">
-        <button (click)="onTouched(); increment()" [disabled]="formControl.disabled || isMax">
-          <mat-icon fontIcon="add" inline></mat-icon>
-        </button>
-        <button (click)="onTouched(); decrement()" [disabled]="formControl.disabled || isMin">
-          <mat-icon fontIcon="remove" inline></mat-icon>
-        </button>
-      </div>
-      <div class="buttons">
-        <button (click)="onTouched(); setMaxValue()" [disabled]="formControl.disabled || isMax">
-          <mat-icon fontIcon="keyboard_double_arrow_up" inline></mat-icon>
-        </button>
-        <button (click)="onTouched(); setZero()" [disabled]="formControl.disabled || isMin">0</button>
-      </div>
+    <div class="grid grid-flow-col grid-rows-2 sm:grid-rows-1 gap-1">
+      <button (click)="onTouched(); increment()" [disabled]="formControl.disabled || isMax">
+        <mat-icon fontIcon="add" inline></mat-icon>
+      </button>
+      <button (click)="onTouched(); decrement()" [disabled]="formControl.disabled || isMin">
+        <mat-icon fontIcon="remove" inline></mat-icon>
+      </button>
+      <button (click)="onTouched(); setMaxValue()" [disabled]="formControl.disabled || isMax">
+        <mat-icon fontIcon="keyboard_double_arrow_up" inline></mat-icon>
+      </button>
+      <button (click)="onTouched(); setZero()" [disabled]="formControl.disabled || isMin">0</button>
     </div>
   `,
   styleUrls: ['./ev-input.component.scss'],

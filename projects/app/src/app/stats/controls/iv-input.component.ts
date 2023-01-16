@@ -19,7 +19,7 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
       (click)="onTouched()"
       class="form-input"
     />
-    <div class="buttons">
+    <div class="grid grid-flow-col grid-rows-2 sm:grid-rows-1 gap-1">
       <button (click)="onTouched(); setValue(31)" [disabled]="formControl.disabled">31</button>
       <button (click)="onTouched(); setValue(0)" [disabled]="formControl.disabled">0</button>
       <button *ngIf="!disableNull" (click)="onTouched(); setValue(null)" [disabled]="formControl.disabled">

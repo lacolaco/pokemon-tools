@@ -1,24 +1,16 @@
 <ng-container *ngIf="state$ | async as state">
   <ng-container *ngIf="state.pokemon">
-    <form [formGroup]="form" class="grid grid-cols-1 gap-y-1">
-      <div>
+    <form [formGroup]="form" class="grid grid-cols-1 gap-y-2 sm:justify-items-start w-full">
+      <div class="grid grid-flow-row gap-y-1">
         <pokemon-select formControlName="pokemon"></pokemon-select>
         <pokemon-base-info [pokemon]="state.pokemon"></pokemon-base-info>
       </div>
+      <div class="grid grid-cols-2 gap-x-2">
+        <level-input formControlName="level"></level-input>
+        <nature-select formControlName="nature"></nature-select>
+      </div>
       <table class="calc-table border-spacing-1 w-auto">
         <tbody>
-          <tr>
-            <td>Lv</td>
-            <td colspan="3">
-              <level-input formControlName="level"></level-input>
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td colspan="3">
-              <nature-select formControlName="nature"></nature-select>
-            </td>
-          </tr>
           <tr>
             <td></td>
             <td class="value-label">能力値</td>

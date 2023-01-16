@@ -42,6 +42,7 @@ import { MAX_EV_TOTAL } from '@lib/stats';
       button {
         padding: 4px;
         font-size: 0.85rem;
+        border-style: solid;
       }
     `,
   ],

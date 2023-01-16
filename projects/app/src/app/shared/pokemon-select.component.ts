@@ -2,38 +2,55 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { Pokemon, PokemonName } from '@lacolaco/pokemon-data';
+import { MatInputModule } from '@angular/material/input';
+import type { Pokemon, PokemonName } from '@lacolaco/pokemon-data';
 import { map } from 'rxjs';
 import { SimpleControlValueAccessor } from '../utitilites/forms';
 import { kataToHira } from '../utitilites/strings';
 import { PokemonData } from './pokemon-data';
 import { PokemonSpriteComponent } from './pokemon-sprite.component';
+import { PokemonYakkunLinkComponent } from './pokemon-yakkun-link.component';
 
 @Component({
   selector: 'pokemon-select',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatAutocompleteModule, PokemonSpriteComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    PokemonSpriteComponent,
+    PokemonYakkunLinkComponent,
+  ],
   template: `
-    <div class="flex flex-row gap-1 items-end">
-      <pokemon-sprite *ngIf="value" [pokemon]="value" class="w-10 h-10"></pokemon-sprite>
-      <mat-autocomplete
-        #auto="matAutocomplete"
-        (optionSelected)="selectPokemon($event)"
-        autoActiveFirstOption
-        autoSelectActiveOption
-      >
-        <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
-          {{ option }}
-        </mat-option>
-      </mat-autocomplete>
-      <input
-        [formControl]="formControl"
-        (click)="onTouched()"
-        [matAutocomplete]="auto"
-        placeholder="ポケモンを選択してください"
-        class="form-input"
-      />
+    <div class="flex flex-row gap-x-1 items-center">
+      <div class="mt-[-8px]">
+        <pokemon-sprite *ngIf="value" [pokemon]="value" class="w-10 h-10"></pokemon-sprite>
+      </div>
+      <mat-form-field appearance="outline" hideRequiredMarker subscriptSizing="dynamic" class="text-sm">
+        <input
+          matInput
+          [formControl]="formControl"
+          (click)="onTouched()"
+          [matAutocomplete]="auto"
+          placeholder="ポケモンを選択してください"
+        />
+      </mat-form-field>
+      <div class="px-2 flex items-center">
+        <pokemon-yakkun-link *ngIf="value" [size]="16" [pokemon]="value"></pokemon-yakkun-link>
+      </div>
     </div>
+
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="selectPokemon($event)"
+      autoActiveFirstOption
+      autoSelectActiveOption
+    >
+      <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option" class="text-sm">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
   `,
   styles: [
     `

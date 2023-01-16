@@ -1,46 +1,39 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 import { asLevel, Level } from '@lib/stats';
 import { SimpleControlValueAccessor } from '../../utitilites/forms';
 
 @Component({
   selector: 'level-input',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatInputModule],
   template: `
-    <input
-      type="number"
-      min="1"
-      max="100"
-      required
-      [formControl]="formControl"
-      (click)="onTouched()"
-      class="form-input"
-    />
-    <div class="buttons">
-      <button (click)="onTouched(); setValue(50)" [disabled]="formControl.disabled">50</button>
-      <button (click)="onTouched(); setValue(100)" [disabled]="formControl.disabled">100</button>
-    </div>
+    <mat-form-field
+      appearance="outline"
+      floatLabel="always"
+      hideRequiredMarker
+      subscriptSizing="dynamic"
+      class="w-full text-sm"
+    >
+      <mat-label>レベル</mat-label>
+      <input
+        matInput
+        type="number"
+        min="1"
+        max="100"
+        aria-label="レベル"
+        required
+        [formControl]="formControl"
+        (click)="onTouched()"
+      />
+    </mat-form-field>
   `,
   styles: [
     `
       :host {
-        display: flex;
-        flex-direction: row;
-        column-gap: 4px;
-      }
-      input {
-        width: 3.75em;
-      }
-      button {
-        padding: 0 4px;
-        font-size: 0.85em;
-      }
-      .buttons {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        column-gap: 4px;
+        display: block;
       }
     `,
   ],

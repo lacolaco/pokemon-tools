@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 
-$app-primary: mat.define-palette(mat.$indigo-palette);
-$app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$app-primary: mat.define-palette(mat.$deep-purple-palette);
+$app-accent: mat.define-palette(mat.$deep-orange-palette, A200, A100, A400);
 $app-warn: mat.define-palette(mat.$red-palette);
 $app-theme: mat.define-light-theme(
   (
@@ -19,7 +19,10 @@ $app-theme: mat.define-light-theme(
 @include mat.autocomplete-theme($app-theme);
 @include mat.chips-theme($app-theme);
 @include mat.icon-theme($app-theme);
+@include mat.input-theme($app-theme);
+@include mat.form-field-theme($app-theme);
 @include mat.menu-theme($app-theme);
+@include mat.select-theme($app-theme);
 @include mat.snack-bar-theme($app-theme);
 @include mat.tooltip-theme($app-theme);
 @tailwind components;
@@ -33,6 +36,7 @@ $app-theme: mat.define-light-theme(
     background-color: #fefefe;
   }
 
+  *,
   ::before,
   ::after {
     border-style: unset;
@@ -43,6 +47,7 @@ $app-theme: mat.define-light-theme(
   }
 
   button {
+    border-style: solid;
     line-height: 1.15;
     @apply rounded bg-gray-200 bg-opacity-50 border border-gray-500;
 
@@ -63,7 +68,13 @@ $app-theme: mat.define-light-theme(
   .form-select {
     font-size: inherit;
     line-height: inherit;
-    @apply rounded border-gray-500 focus:border-indigo-300 focus:ring focus:ring-indigo-400 focus:ring-opacity-50;
+    border-style: solid;
+    border-radius: 4px;
+    border-color: mat.get-color-from-palette(mat.$grey-palette, 500);
+
+    &:focus {
+      border-color: mat.get-color-from-palette($app-primary, 500);
+    }
 
     &:disabled {
       @apply bg-gray-200 bg-opacity-50 text-gray-400;
@@ -88,6 +99,20 @@ $app-theme: mat.define-light-theme(
   }
   .mat-mdc-chip {
     border-style: unset;
+  }
+  .mat-mdc-form-field {
+    .mat-mdc-form-field-flex {
+      .mat-mdc-form-field-infix {
+        min-height: unset;
+        padding-top: 0.75em;
+        padding-bottom: 0.75em;
+      }
+    }
+  }
+  .mat-mdc-select {
+    .mat-mdc-select-arrow-wrapper {
+      height: unset;
+    }
   }
 
   .ad {

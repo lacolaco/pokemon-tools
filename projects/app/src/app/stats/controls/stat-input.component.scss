@@ -6,13 +6,6 @@
   column-gap: 4px;
 }
 
-.buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 4px;
-  row-gap: 4px;
-
-  @media screen and (max-width: 600px) {
-    grid-template-columns: 1fr;
-  }
+input {
+  border-style: solid;
 }

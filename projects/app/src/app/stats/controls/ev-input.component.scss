@@ -6,20 +6,6 @@
   column-gap: 4px;
 }
 
-.buttons-outer {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  column-gap: 4px;
-}
-
-.buttons {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  column-gap: 4px;
-  row-gap: 4px;
-
-  @media screen and (max-width: 600px) {
-    grid-template-columns: auto;
-    grid-template-rows: repeat(2, auto);
-  }
+input {
+  border-style: solid;
 }

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { asStat, Stat } from '@lib/stats';
 import { distinctUntilChanged, map } from 'rxjs';
 import { SimpleControlValueAccessor } from '../../utitilites/forms';
@@ -9,7 +10,7 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
 @Component({
   selector: 'stat-input',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatIconModule],
+  imports: [CommonModule, ReactiveFormsModule, MatIconModule, MatInputModule],
   template: `
     <input
       type="number"
@@ -21,7 +22,7 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
       (blur)="dispatchChange.emit()"
       class="form-input"
     />
-    <div class="buttons">
+    <div class="grid grid-flow-col grid-rows-2 sm:grid-rows-1 gap-1">
       <button (click)="onTouched(); increment()" [disabled]="formControl.disabled || value === null || isMax">
         <mat-icon fontIcon="add" inline></mat-icon>
       </button>

@@ -13,7 +13,7 @@ import { formatStats } from './formatter';
   template: `
     <ng-container *ngIf="state$ | async as state">
       <textarea
-        class="form-textarea text-sm w-full"
+        class="form-textarea text-sm w-full border-solid"
         [value]="state.statsText"
         title="クリックしてクリップボードにコピー"
         (click)="copyText(state.statsText)"
