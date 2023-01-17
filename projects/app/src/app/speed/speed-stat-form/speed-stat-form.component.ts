@@ -12,6 +12,7 @@ import {
   createStatControl,
 } from '../../shared/forms/controls';
 import { PokemonSelectComponent } from '../../shared/pokemon-select.component';
+import { PokemonSpriteComponent } from '../../shared/pokemon-sprite.component';
 import { PokemonYakkunLinkComponent } from '../../shared/pokemon-yakkun-link.component';
 import { EVInputComponent } from '../../stats/controls/ev-input.component';
 import { IVInputComponent } from '../../stats/controls/iv-input.component';
@@ -34,6 +35,7 @@ import { SpeedPageState } from '../speed.state';
     EVInputComponent,
     IVInputComponent,
     SpeedPresetsComponent,
+    PokemonSpriteComponent,
     PokemonYakkunLinkComponent,
   ],
 })

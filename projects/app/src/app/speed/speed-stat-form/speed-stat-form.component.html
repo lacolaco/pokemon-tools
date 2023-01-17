@@ -1,7 +1,8 @@
 <ng-container *ngIf="state$ | async as state">
   <ng-container *ngIf="state.pokemon">
-    <form [formGroup]="form" class="text-sm flex flex-col items-start gap-y-2 p-2 rounded border">
-      <div class="flex flex-row items-end gap-x-2">
+    <form [formGroup]="form" class="text-sm flex flex-col items-start gap-y-2 rounded border">
+      <div class="flex flex-row items-end gap-x-2 py-2">
+        <pokemon-sprite [pokemon]="state.pokemon" class="h-10"></pokemon-sprite>
         <pokemon-select formControlName="pokemon"></pokemon-select>
       </div>
       <div class="flex flex-row flex-wrap items-end">

@@ -8,38 +8,22 @@ import { map } from 'rxjs';
 import { SimpleControlValueAccessor } from '../utitilites/forms';
 import { kataToHira } from '../utitilites/strings';
 import { PokemonData } from './pokemon-data';
-import { PokemonSpriteComponent } from './pokemon-sprite.component';
-import { PokemonYakkunLinkComponent } from './pokemon-yakkun-link.component';
 
 @Component({
   selector: 'pokemon-select',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatAutocompleteModule,
-    PokemonSpriteComponent,
-    PokemonYakkunLinkComponent,
-  ],
+  imports: [CommonModule, ReactiveFormsModule, MatInputModule, MatAutocompleteModule],
   template: `
-    <div class="flex flex-row gap-x-1 items-center">
-      <div class="mt-[-8px]">
-        <pokemon-sprite *ngIf="value" [pokemon]="value" class="w-10 h-10"></pokemon-sprite>
-      </div>
-      <mat-form-field appearance="outline" hideRequiredMarker subscriptSizing="dynamic" class="text-sm">
-        <input
-          matInput
-          [formControl]="formControl"
-          (click)="onTouched()"
-          [matAutocomplete]="auto"
-          placeholder="ポケモンを選択してください"
-        />
-      </mat-form-field>
-      <div class="px-2 flex items-center">
-        <pokemon-yakkun-link *ngIf="value" [size]="16" [pokemon]="value"></pokemon-yakkun-link>
-      </div>
-    </div>
+    <mat-form-field appearance="outline" hideRequiredMarker subscriptSizing="dynamic" class="text-sm">
+      <mat-label>ポケモン</mat-label>
+      <input
+        matInput
+        [formControl]="formControl"
+        (click)="onTouched()"
+        [matAutocomplete]="auto"
+        placeholder="ポケモンを選択してください"
+      />
+    </mat-form-field>
 
     <mat-autocomplete
       #auto="matAutocomplete"
@@ -55,7 +39,7 @@ import { PokemonYakkunLinkComponent } from './pokemon-yakkun-link.component';
   styles: [
     `
       :host {
-        display: inline-block;
+        display: block;
       }
     `,
   ],

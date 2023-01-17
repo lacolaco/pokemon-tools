@@ -10,12 +10,12 @@ import { PokemonData } from './pokemon-data';
     `
       :host {
         display: block;
-        height: 100%;
         aspect-ratio: 1/1;
       }
       img {
         width: 100%;
         height: 100%;
+        margin-top: -12%;
         object-fit: contain;
       }
     `,

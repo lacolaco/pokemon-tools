@@ -15,7 +15,7 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
       floatLabel="always"
       hideRequiredMarker
       subscriptSizing="dynamic"
-      class="w-full text-sm"
+      class="text-sm"
     >
       <mat-label>レベル</mat-label>
       <input
@@ -34,6 +34,9 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
     `
       :host {
         display: block;
+      }
+      mat-form-field {
+        width: calc(3em + 32px);
       }
     `,
   ],

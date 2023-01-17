@@ -103,9 +103,28 @@ $app-theme: mat.define-light-theme(
   .mat-mdc-form-field {
     .mat-mdc-form-field-flex {
       .mat-mdc-form-field-infix {
+        width: auto;
         min-height: unset;
         padding-top: 0.75em;
         padding-bottom: 0.75em;
+      }
+    }
+    .mdc-text-field--outlined {
+      padding-left: 0.75em;
+      padding-right: 0.75em;
+
+      .mdc-notched-outline {
+        .mdc-notched-outline__leading {
+          width: 0.75em;
+        }
+        .mdc-notched-outline__notch {
+          border-top: 1px solid rgba(0, 0, 0, 0.38);
+        }
+      }
+      .mat-mdc-floating-label.mdc-floating-label {
+        left: 0;
+        line-height: 1;
+        background-color: #fff;
       }
     }
   }
