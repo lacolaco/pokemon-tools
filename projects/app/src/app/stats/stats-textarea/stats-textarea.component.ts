@@ -2,23 +2,27 @@ import { Clipboard, ClipboardModule } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatInputModule } from '@angular/material/input';
 import { map } from 'rxjs';
-import { StatsPageState } from '../stats.state';
+import { StatsState } from '../stats.state';
 import { formatStats } from './formatter';
 
 @Component({
   selector: 'app-stats-textarea',
   standalone: true,
-  imports: [CommonModule, ClipboardModule, MatSnackBarModule],
+  imports: [CommonModule, ClipboardModule, MatSnackBarModule, MatInputModule],
   template: `
     <ng-container *ngIf="state$ | async as state">
-      <textarea
-        class="form-textarea text-sm w-full border-solid"
-        [value]="state.statsText"
-        title="クリックしてクリップボードにコピー"
-        (click)="copyText(state.statsText)"
-        readonly
-      ></textarea>
+      <mat-form-field appearance="outline" class="w-full text-sm">
+        <textarea
+          matInput
+          class="w-full"
+          [value]="state.statsText"
+          title="クリックしてクリップボードにコピー"
+          (click)="copyText(state.statsText)"
+          readonly
+        ></textarea>
+      </mat-form-field>
     </ng-container>
   `,
   styles: [
@@ -33,7 +37,7 @@ import { formatStats } from './formatter';
 export class StatsTextareaComponent {
   private readonly snackBar = inject(MatSnackBar);
   private readonly clipboard = inject(Clipboard);
-  private readonly statsState = inject(StatsPageState);
+  private readonly statsState = inject(StatsState);
 
   readonly state$ = this.statsState.state$.pipe(
     map(({ pokemon, level, nature, stats, evs }) => ({

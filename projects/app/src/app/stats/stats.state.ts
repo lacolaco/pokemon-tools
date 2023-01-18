@@ -11,13 +11,12 @@ import {
   Level,
   Nature,
   natures,
-  optimizeDefenseEVs,
   Stat,
   StatValues,
   sumOfStatValues,
 } from '@lib/stats';
 import { RxState, stateful } from '@rx-angular/state';
-import { combineLatest, map, Observable, shareReplay } from 'rxjs';
+import { combineLatest, debounceTime, distinctUntilChanged, map, Observable, shareReplay } from 'rxjs';
 import { PokemonData } from '../shared/pokemon-data';
 import { debug, distinctUntilStatValuesChanged, filterNonNullable } from '../utitilites/rx';
 
@@ -27,10 +26,11 @@ type State = {
   nature: Nature;
   ivs: StatValues<IV | null>;
   evs: StatValues<EV>;
+  stats: StatValues<Stat | null>;
 };
 
 @Injectable()
-export class StatsPageState extends RxState<State> {
+export class StatsState extends RxState<State> {
   private readonly pokemonData = inject(PokemonData);
   private readonly stats$: Observable<StatValues<Stat | null>> = combineLatest([
     this.select('pokemon').pipe(stateful(debug('[change] pokemon'), filterNonNullable())),
@@ -47,12 +47,16 @@ export class StatsPageState extends RxState<State> {
     shareReplay(1),
   );
 
-  readonly state$ = combineLatest([this.stats$]).pipe(
-    map(([stats]) => {
-      const { pokemon, level, nature, ivs, evs } = this.get();
-      const usedEVs = sumOfStatValues(evs);
-      return { pokemon, level, nature, ivs, evs, stats, usedEVs };
-    }),
+  readonly state$ = this.select().pipe(
+    stateful(
+      map(() => {
+        const { pokemon, level, nature, ivs, evs, stats } = this.get();
+        const usedEVs = sumOfStatValues(evs);
+        return { pokemon, level, nature, ivs, evs, stats, usedEVs };
+      }),
+    ),
+    distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
+    debounceTime(0),
     debug('[change] state'),
     shareReplay(1),
   );
@@ -60,6 +64,8 @@ export class StatsPageState extends RxState<State> {
   constructor() {
     super();
     this.resetPokemon(this.pokemonData.getPokemonByName('ガブリアス'));
+
+    this.connect('stats', this.stats$);
   }
 
   resetPokemon(pokemon: Pokemon) {
@@ -76,17 +82,6 @@ export class StatsPageState extends RxState<State> {
     const { level, pokemon, ivs, nature } = this.get();
     if (pokemon) {
       this.set({ evs: calculateAllEVs(pokemon.baseStats as StatValues<Stat>, level, ivs, stats, nature) });
-    }
-  }
-
-  resetEVs() {
-    this.set({ evs: { H: asEV(0), A: asEV(0), B: asEV(0), C: asEV(0), D: asEV(0), S: asEV(0) } });
-  }
-
-  optimizeDefenseEVs() {
-    const { pokemon, level, nature, ivs, evs } = this.get();
-    if (pokemon) {
-      this.set({ evs: optimizeDefenseEVs(pokemon.baseStats as StatValues<Stat>, level, ivs, evs, nature) });
     }
   }
 }

@@ -47,7 +47,7 @@ export class SpeedComparisonTableComponent implements OnInit {
       this.ngZone.runOutsideAngular(() => {
         requestAnimationFrame(() => {
           const allyRow = document.querySelector('[data-ally-row]');
-          allyRow?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+          allyRow?.scrollIntoView({ block: 'center', behavior: 'smooth' });
         });
       });
     }),

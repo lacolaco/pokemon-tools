@@ -1,7 +1,8 @@
 import { Nature } from '../models/natures';
 import { asEV, asStat, EV, IV, Level, Stat } from '../models/primitives';
 import { StatValues } from '../models/stat-values';
-import { calculateEVForHP, calculateEVForNonHP, calculateStatForHP, calculateStatForNonHP } from './stats';
+import { calculateEVForHP, calculateEVForNonHP } from './ev';
+import { calculateStatForHP, calculateStatForNonHP } from './stats';
 import { sumOfStatValues } from './utilities';
 
 /**

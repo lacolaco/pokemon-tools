@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { distinctUntilSomeChanged } from '@rx-angular/state';
 import { map, merge, Subject, takeUntil, tap } from 'rxjs';
 import {
@@ -37,6 +39,8 @@ import { SpeedPageState } from '../speed.state';
     SpeedPresetsComponent,
     PokemonSpriteComponent,
     PokemonYakkunLinkComponent,
+    MatSelectModule,
+    MatInputModule,
   ],
 })
 export class SpeedStatFormComponent implements OnInit, OnDestroy {

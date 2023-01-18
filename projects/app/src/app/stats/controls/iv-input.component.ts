@@ -1,33 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { asIV, IV } from '@lib/stats';
 import { SimpleControlValueAccessor } from '../../utitilites/forms';
 
 @Component({
   selector: 'iv-input',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatIconModule],
+  imports: [CommonModule, ReactiveFormsModule, MatInputModule],
   template: `
-    <input
-      type="number"
-      min="0"
-      max="31"
-      required
-      [formControl]="formControl"
-      (click)="onTouched()"
-      class="form-input"
-    />
-    <div class="grid grid-flow-col grid-rows-2 sm:grid-rows-1 gap-1">
-      <button (click)="onTouched(); setValue(31)" [disabled]="formControl.disabled">31</button>
-      <button (click)="onTouched(); setValue(0)" [disabled]="formControl.disabled">0</button>
-      <button *ngIf="!disableNull" (click)="onTouched(); setValue(null)" [disabled]="formControl.disabled">
-        <mat-icon fontIcon="close" inline></mat-icon>
-      </button>
-    </div>
+    <mat-form-field appearance="outline" hideRequiredMarker subscriptSizing="dynamic" class="w-full">
+      <input matInput type="number" min="0" max="31" [formControl]="formControl" (click)="onTouched()" />
+    </mat-form-field>
   `,
-  styleUrls: ['./iv-input.component.scss'],
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+    `,
+  ],
 })
 export class IVInputComponent extends SimpleControlValueAccessor<IV | null> {
   @Input() disableNull = false;

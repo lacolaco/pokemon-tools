@@ -4,8 +4,7 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { EV, IV, Stat } from '@lib/stats';
-import { merge, Observable, Subject, takeUntil, tap } from 'rxjs';
+import { merge, Subject, takeUntil, tap } from 'rxjs';
 import {
   createEVControl,
   createIVControl,
@@ -25,29 +24,12 @@ import { LevelInputComponent } from '../controls/level-input.component';
 import { NatureSelectComponent } from '../controls/nature-select.component';
 import { StatInputComponent } from '../controls/stat-input.component';
 import { StatsIndicatorComponent } from '../stats-indicator/stats-indicator.component';
-import { StatsPageState } from '../stats.state';
-import { EVTotalControlComponent } from './ev-total-control.component';
+import { StatsState } from '../stats.state';
+import { StatUtilsComponent } from './stats-utils.component';
+import { StatCommandsComponent } from './stat-commands.component';
 
-type StatFormGroup = FormGroup<{
-  stat: FormControl<Stat | null>;
-  iv: FormControl<IV | null>;
-  ev: FormControl<EV>;
-}>;
-
-function createStatControlGroup(): StatFormGroup {
-  return new FormGroup({
-    stat: createStatControl(),
-    iv: createIVControl(),
-    ev: createEVControl(),
-  });
-}
-
-function getStatParamsChanges(group: StatFormGroup): Observable<unknown> {
-  return merge(getValidValueChanges(group.controls.ev), getValidValueChanges(group.controls.iv));
-}
-
-function getStatValueChanges(group: StatFormGroup): Observable<unknown> {
-  return merge(getValidValueChanges(group.controls.stat));
+function createStatControls<T>(fn: () => FormControl<T>) {
+  return new FormGroup({ H: fn(), A: fn(), B: fn(), C: fn(), D: fn(), S: fn() });
 }
 
 @Component({
@@ -67,33 +49,34 @@ function getStatValueChanges(group: StatFormGroup): Observable<unknown> {
     StatInputComponent,
     IVInputComponent,
     EVInputComponent,
-    EVTotalControlComponent,
+    StatCommandsComponent,
+    StatUtilsComponent,
     StatsIndicatorComponent,
     PokemonSpriteComponent,
     PokemonBaseInfoComponent,
   ],
 })
 export class StatsFormComponent implements OnInit, OnDestroy {
-  private readonly state = inject(StatsPageState);
+  private readonly state = inject(StatsState);
   private readonly fb = inject(FormBuilder).nonNullable;
 
   private readonly onDestroy$ = new Subject<void>();
   readonly state$ = this.state.state$.pipe(
     tap(({ pokemon, level, ivs, evs, nature, stats }) => {
-      this.form.setValue(
-        {
-          pokemon,
-          level,
-          nature,
-          H: { iv: ivs.H, ev: evs.H, stat: stats.H },
-          A: { iv: ivs.A, ev: evs.A, stat: stats.A },
-          B: { iv: ivs.B, ev: evs.B, stat: stats.B },
-          C: { iv: ivs.C, ev: evs.C, stat: stats.C },
-          D: { iv: ivs.D, ev: evs.D, stat: stats.D },
-          S: { iv: ivs.S, ev: evs.S, stat: stats.S },
-        },
-        { emitEvent: false },
-      );
+      this.form.setValue({ pokemon, level, nature, stats, ivs, evs }, { emitEvent: false });
+
+      for (const key of this.statKeys) {
+        const stat = stats[key];
+        if (stat === null) {
+          this.form.controls.stats.controls[key].disable({ emitEvent: false });
+          this.form.controls.ivs.controls[key].disable({ emitEvent: false });
+          this.form.controls.evs.controls[key].disable({ emitEvent: false });
+        } else {
+          this.form.controls.stats.controls[key].enable({ emitEvent: false });
+          this.form.controls.ivs.controls[key].enable({ emitEvent: false });
+          this.form.controls.evs.controls[key].enable({ emitEvent: false });
+        }
+      }
     }),
   );
 
@@ -101,50 +84,32 @@ export class StatsFormComponent implements OnInit, OnDestroy {
     pokemon: createPokemonControl(),
     level: createLevelControl(),
     nature: createNatureControl(),
-    H: createStatControlGroup(),
-    A: createStatControlGroup(),
-    B: createStatControlGroup(),
-    C: createStatControlGroup(),
-    D: createStatControlGroup(),
-    S: createStatControlGroup(),
+    stats: createStatControls(() => createStatControl()),
+    ivs: createStatControls(() => createIVControl()),
+    evs: createStatControls(() => createEVControl()),
   });
+
+  readonly statKeys = ['H', 'A', 'B', 'C', 'D', 'S'] as const;
 
   ngOnInit(): void {
     // Calculate stats from form
     merge(
       getValidValueChanges(this.form.controls.level),
       getValidValueChanges(this.form.controls.nature),
-      getStatParamsChanges(this.form.controls.H),
-      getStatParamsChanges(this.form.controls.A),
-      getStatParamsChanges(this.form.controls.B),
-      getStatParamsChanges(this.form.controls.C),
-      getStatParamsChanges(this.form.controls.D),
-      getStatParamsChanges(this.form.controls.S),
+      getValidValueChanges(this.form.controls.ivs),
+      getValidValueChanges(this.form.controls.evs),
     )
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(() => {
-        const { pokemon, level, nature, H, A, B, C, D, S } = this.form.getRawValue();
-        this.state.set({
-          pokemon,
-          level,
-          nature,
-          ivs: { H: H.iv, A: A.iv, B: B.iv, C: C.iv, D: D.iv, S: S.iv }, // todo: validation
-          evs: { H: H.ev, A: A.ev, B: B.ev, C: C.ev, D: D.ev, S: S.ev }, // todo: validation
-        });
+        const { pokemon, level, nature, ivs, evs } = this.form.getRawValue();
+        this.state.set({ pokemon, level, nature, ivs, evs });
       });
     // Calculate EVs from stats
-    merge(
-      getStatValueChanges(this.form.controls.H),
-      getStatValueChanges(this.form.controls.A),
-      getStatValueChanges(this.form.controls.B),
-      getStatValueChanges(this.form.controls.C),
-      getStatValueChanges(this.form.controls.D),
-      getStatValueChanges(this.form.controls.S),
-    )
+    merge(getValidValueChanges(this.form.controls.stats))
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(() => {
-        const { H, A, B, C, D, S } = this.form.getRawValue();
-        this.state.updateWithStats({ H: H.stat, A: A.stat, B: B.stat, C: C.stat, D: D.stat, S: S.stat });
+        const { stats } = this.form.getRawValue();
+        this.state.updateWithStats(stats);
       });
     // Reset IVs/EVs when pokemon changes
     getValidValueChanges(this.form.controls.pokemon)
@@ -159,13 +124,5 @@ export class StatsFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.onDestroy$.next();
     this.onDestroy$.complete();
-  }
-
-  resetEVs() {
-    this.state.resetEVs();
-  }
-
-  optimizeDefenseEVs() {
-    this.state.optimizeDefenseEVs();
   }
 }

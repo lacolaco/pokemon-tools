@@ -2,102 +2,55 @@
   <ng-container *ngIf="state.pokemon">
     <form [formGroup]="form" class="grid grid-cols-1 gap-y-1 sm:justify-items-start w-full">
       <div class="grid grid-flow-col gap-x-1 justify-start items-center">
-        <pokemon-sprite [pokemon]="state.pokemon" class="h-10"></pokemon-sprite>
-        <pokemon-base-info [pokemon]="state.pokemon"></pokemon-base-info>
+        <pokemon-sprite [pokemon]="state.pokemon" class="h-10"/>
+        <pokemon-base-info [pokemon]="state.pokemon"/>
       </div>
       <div class="grid grid-flow-col gap-x-1 justify-start w-full pt-2">
-        <pokemon-select formControlName="pokemon"></pokemon-select>
-        <level-input formControlName="level"></level-input>
-        <nature-select formControlName="nature"></nature-select>
+        <pokemon-select formControlName="pokemon"/>
+        <level-input formControlName="level"/>
+        <nature-select formControlName="nature"/>
       </div>
-      <table class="calc-table border-spacing-1 w-auto">
+      <table class="w-auto border-collapse">
+        <thead>
+          <tr class="font-bold text-center">
+            <th></th>
+            <th *ngFor="let key of statKeys">{{ key }}</th>
+          </tr>
+        </thead>
         <tbody>
+          <tr formGroupName="stats">
+            <td></td>
+            <td *ngFor="let key of statKeys">
+              <stat-input
+                class="stat-nature-{{ state.nature.values[key] ?? 'neutral' }}"
+                [formControlName]="key"
+              />
+            </td>
+          </tr>
+          <tr formGroupName="ivs">
+            <td class="text-center break-keep">個体値</td>
+            <td *ngFor="let key of statKeys">
+              <iv-input [formControlName]="key"/>
+            </td>
+          </tr>
+          <tr formGroupName="evs">
+            <td class="text-center break-keep">努力値</td>
+            <td *ngFor="let key of statKeys">
+              <ev-input [formControlName]="key" [usedEVs]="state.usedEVs"/>
+            </td>
+          </tr>
           <tr>
             <td></td>
-            <td class="value-label">能力値</td>
-            <td class="value-label">努力値</td>
-            <td class="value-label">個体値</td>
-          </tr>
-          <tr formGroupName="H">
-            <td class="stat-name">H</td>
-            <td>
-              <stat-input formControlName="stat" [isMin]="state.evs.H === 0" [isMax]="state.evs.H === 252"></stat-input>
+            <td *ngFor="let key of statKeys">
+              <stat-commands [key]="key"/> 
             </td>
-            <td><ev-input formControlName="ev" [usedEVs]="state.usedEVs"></ev-input></td>
-            <td><iv-input formControlName="iv"></iv-input></td>
-          </tr>
-          <tr
-            formGroupName="A"
-            [class.stat-nature-up]="state.nature.values.A === 'up'"
-            [class.stat-nature-down]="state.nature.values.A === 'down'"
-          >
-            <td class="stat-name">A</td>
-            <td>
-              <stat-input formControlName="stat" [isMin]="state.evs.A === 0" [isMax]="state.evs.A === 252"></stat-input>
-            </td>
-            <td><ev-input formControlName="ev" [usedEVs]="state.usedEVs"></ev-input></td>
-            <td><iv-input formControlName="iv"></iv-input></td>
-          </tr>
-          <tr
-            formGroupName="B"
-            [class.stat-nature-up]="state.nature.values.B === 'up'"
-            [class.stat-nature-down]="state.nature.values.B === 'down'"
-          >
-            <td class="stat-name">B</td>
-            <td>
-              <stat-input formControlName="stat" [isMin]="state.evs.B === 0" [isMax]="state.evs.B === 252"></stat-input>
-            </td>
-            <td><ev-input formControlName="ev" [usedEVs]="state.usedEVs"></ev-input></td>
-            <td><iv-input formControlName="iv"></iv-input></td>
-          </tr>
-          <tr
-            formGroupName="C"
-            [class.stat-nature-up]="state.nature.values.C === 'up'"
-            [class.stat-nature-down]="state.nature.values.C === 'down'"
-          >
-            <td class="stat-name">C</td>
-            <td>
-              <stat-input formControlName="stat" [isMin]="state.evs.C === 0" [isMax]="state.evs.C === 252"></stat-input>
-            </td>
-            <td><ev-input formControlName="ev" [usedEVs]="state.usedEVs"></ev-input></td>
-            <td><iv-input formControlName="iv"></iv-input></td>
-          </tr>
-          <tr
-            formGroupName="D"
-            [class.stat-nature-up]="state.nature.values.D === 'up'"
-            [class.stat-nature-down]="state.nature.values.D === 'down'"
-          >
-            <td class="stat-name">D</td>
-            <td>
-              <stat-input formControlName="stat" [isMin]="state.evs.D === 0" [isMax]="state.evs.D === 252"></stat-input>
-            </td>
-            <td><ev-input formControlName="ev" [usedEVs]="state.usedEVs"></ev-input></td>
-            <td><iv-input formControlName="iv"></iv-input></td>
-          </tr>
-          <tr
-            formGroupName="S"
-            [class.stat-nature-up]="state.nature.values.S === 'up'"
-            [class.stat-nature-down]="state.nature.values.S === 'down'"
-          >
-            <td class="stat-name">S</td>
-            <td>
-              <stat-input formControlName="stat" [isMin]="state.evs.S === 0" [isMax]="state.evs.S === 252"></stat-input>
-            </td>
-            <td><ev-input formControlName="ev" [usedEVs]="state.usedEVs"></ev-input></td>
-            <td><iv-input formControlName="iv"></iv-input></td>
           </tr>
         </tbody>
       </table>
     </form>
     <div class="w-full">
-      <ev-total-control
-        class="w-full"
-        [usedEVs]="state.usedEVs"
-        (reset)="resetEVs()"
-        (optimizeDefenseEVs)="optimizeDefenseEVs()"
-      >
-      </ev-total-control>
-      <stats-indicator class="w-full" [stats]="state.stats"></stats-indicator>
+      <stats-utils class="w-full"/>
+      <stats-indicator class="w-full" [stats]="state.stats"/>
     </div>
   </ng-container>
 </ng-container>

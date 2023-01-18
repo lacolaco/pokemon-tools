@@ -1,43 +1,39 @@
 <ng-container *ngIf="state$ | async as state">
   <ng-container *ngIf="state.pokemon">
-    <form [formGroup]="form" class="text-sm flex flex-col items-start gap-y-2 rounded border">
-      <div class="flex flex-row items-end gap-x-2 py-2">
+    <form [formGroup]="form" class="text-sm flex flex-col sm:flex-row sm:flex-wrap sm:items-end gap-1 rounded border">
+      <div class="grid grid-flow-col items-end justify-start gap-x-2 pt-2">
         <pokemon-sprite [pokemon]="state.pokemon" class="h-10"></pokemon-sprite>
         <pokemon-select formControlName="pokemon"></pokemon-select>
       </div>
-      <div class="flex flex-row flex-wrap items-end">
-        <table class="border-spacing-x-2">
-          <thead>
-            <tr class="text-left">
-              <th class="font-normal">実数値</th>
-              <th class="font-normal">努力値</th>
-              <th class="font-normal">個体値</th>
-              <th class="font-normal">性格</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr formGroupName="stats">
-              <td>
-                <stat-input
-                  formControlName="stat"
-                  [isMin]="state.stats.ev === 0"
-                  [isMax]="state.stats.ev === 252"
-                ></stat-input>
-              </td>
-              <td><ev-input formControlName="ev" [usedEVs]="state.stats.ev"></ev-input></td>
-              <td><iv-input formControlName="iv" [disableNull]="true"></iv-input></td>
-              <td>
-                <select formControlName="nature" class="form-select">
-                  <option [ngValue]="'up'">↑</option>
-                  <option [ngValue]="'neutral'">-</option>
-                  <option [ngValue]="'down'">↓</option>
-                </select>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <speed-presets class="mt-2"></speed-presets>
+      <div formGroupName="stats" class="text-sm grid grid-cols-4 gap-x-1">
+        <div>
+          <span>実数値</span>
+          <stat-input
+            formControlName="stat"
+            [isMin]="state.stats.ev === 0"
+            [isMax]="state.stats.ev === 252"
+          ></stat-input>
+        </div>
+        <div>
+          <span>努力値</span>
+          <ev-input formControlName="ev" [usedEVs]="state.stats.ev"></ev-input>
+        </div>
+        <div>
+          <span>個体値</span>
+          <iv-input formControlName="iv" [disableNull]="true"></iv-input>
+        </div>
+        <div>
+          <span>性格補正</span>
+          <mat-form-field appearance="outline" subscriptSizing="dynamic" class="w-full">
+            <select matNativeControl formControlName="nature">
+              <option [ngValue]="'up'">↑</option>
+              <option [ngValue]="'neutral'">-</option>
+              <option [ngValue]="'down'">↓</option>
+            </select>
+          </mat-form-field>
+        </div>
       </div>
+      <speed-presets></speed-presets>
     </form>
   </ng-container>
 </ng-container>

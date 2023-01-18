@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { asEV, EV, MAX_EV_TOTAL, MAX_EV_VALUE } from '@lib/stats';
 import { SimpleControlValueAccessor } from '../../utitilites/forms';
 
@@ -10,19 +10,21 @@ const STEP = 4;
 @Component({
   selector: 'ev-input',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatIconModule],
+  imports: [CommonModule, ReactiveFormsModule, MatInputModule],
   template: `
-    <input
-      type="number"
-      min="0"
-      max="252"
-      step="4"
-      required
-      [formControl]="formControl"
-      (click)="onTouched()"
-      class="form-input"
-    />
-    <div class="grid grid-flow-col grid-rows-2 sm:grid-rows-1 gap-1">
+    <mat-form-field appearance="outline" hideRequiredMarker subscriptSizing="dynamic" class="w-full">
+      <input
+        matInput
+        type="number"
+        min="0"
+        max="252"
+        step="4"
+        required
+        [formControl]="formControl"
+        (click)="onTouched()"
+      />
+    </mat-form-field>
+    <!-- <div class="grid grid-flow-col grid-rows-2 sm:grid-rows-1 gap-1">
       <button (click)="onTouched(); increment()" [disabled]="formControl.disabled || isMax">
         <mat-icon fontIcon="add" inline></mat-icon>
       </button>
@@ -33,9 +35,15 @@ const STEP = 4;
         <mat-icon fontIcon="keyboard_double_arrow_up" inline></mat-icon>
       </button>
       <button (click)="onTouched(); setZero()" [disabled]="formControl.disabled || isMin">0</button>
-    </div>
+    </div> -->
   `,
-  styleUrls: ['./ev-input.component.scss'],
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+    `,
+  ],
 })
 export class EVInputComponent extends SimpleControlValueAccessor<EV> {
   readonly formControl = new FormControl(asEV(0), { nonNullable: true });

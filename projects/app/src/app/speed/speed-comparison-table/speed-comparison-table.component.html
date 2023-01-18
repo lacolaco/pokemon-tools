@@ -1,17 +1,13 @@
 <ng-container *ngIf="state$ | async as state">
-  <div class="h-full w-full flex flex-row gap-x-2">
-    <form [formGroup]="form" class="h-full w-1/3 flex-shrink-0 flex flex-col gap-y-1 text-sm overflow-auto">
-      <div class="pb-2 border-b border-b-gray-500">
-        <span class="font-bold">自分側</span>
-        <div formGroupName="ally" class="flex flex-col">
-          <speed-modifier-control formControlName="modifier"></speed-modifier-control>
-        </div>
+  <div class="h-full w-full grid grid-cols-auto-1fr gap-x-2">
+    <form [formGroup]="form" class="h-full w-[30vw] overflow-auto flex flex-col items-start gap-y-2 text-sm">
+      <div formGroupName="ally" class="w-full grid grid-flow-row gap-y-2 border-b border-b-gray-500">
+        <div class="font-bold">自分側</div>
+        <speed-modifier-control formControlName="modifier" class="w-full"></speed-modifier-control>
       </div>
-      <div>
-        <span class="font-bold">相手側</span>
-        <div formGroupName="opponent" class="flex flex-col">
-          <speed-modifier-control formControlName="modifier"></speed-modifier-control>
-        </div>
+      <div formGroupName="opponent" class="w-full grid grid-flow-row gap-y-2">
+        <div class="font-bold">相手側</div>
+        <speed-modifier-control formControlName="modifier" class="w-full"></speed-modifier-control>
       </div>
     </form>
     <div class="flex-auto h-full flex flex-col overflow-auto overscroll-contain">

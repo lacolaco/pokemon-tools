@@ -14,9 +14,9 @@ $app-theme: mat.define-light-theme(
 );
 
 @include mat.core();
-@tailwind base;
 @include mat.core-theme($app-theme);
 @include mat.autocomplete-theme($app-theme);
+@include mat.button-theme($app-theme);
 @include mat.chips-theme($app-theme);
 @include mat.icon-theme($app-theme);
 @include mat.input-theme($app-theme);
@@ -25,6 +25,7 @@ $app-theme: mat.define-light-theme(
 @include mat.select-theme($app-theme);
 @include mat.snack-bar-theme($app-theme);
 @include mat.tooltip-theme($app-theme);
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -56,44 +57,16 @@ $app-theme: mat.define-light-theme(
     }
   }
 
+  input {
+    border-style: solid;
+  }
+
   table {
     border-collapse: separate;
   }
 }
 
 @layer components {
-  .form-input,
-  .form-checkbox,
-  .form-textarea,
-  .form-select {
-    font-size: inherit;
-    line-height: inherit;
-    border-style: solid;
-    border-radius: 4px;
-    border-color: mat.get-color-from-palette(mat.$grey-palette, 500);
-
-    &:focus {
-      border-color: mat.get-color-from-palette($app-primary, 500);
-    }
-
-    &:disabled {
-      @apply bg-gray-200 bg-opacity-50 text-gray-400;
-    }
-  }
-
-  .form-input {
-    @apply px-2 py-0;
-  }
-  .form-input[type='number'] {
-    @apply pl-2 pr-0 py-0;
-  }
-  .form-textarea {
-    @apply px-2 py-1;
-  }
-  .form-select {
-    @apply pl-2 pr-12 py-0;
-  }
-
   .mdc-tooltip {
     font-size: 0.85rem;
   }
@@ -131,6 +104,13 @@ $app-theme: mat.define-light-theme(
   .mat-mdc-select {
     .mat-mdc-select-arrow-wrapper {
       height: unset;
+    }
+  }
+  .mat-mdc-outlined-button.mat-mdc-button-base {
+    height: fit-content;
+
+    .mat-mdc-button-touch-target {
+      height: 100%;
     }
   }
 

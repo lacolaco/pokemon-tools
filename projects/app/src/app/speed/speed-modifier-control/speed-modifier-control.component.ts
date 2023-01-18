@@ -1,44 +1,52 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SpeedAbility, SpeedItem, SpeedModifier, StatRank } from '@lib/stats';
 import { getValidValueChanges, SimpleControlValueAccessor } from '../../utitilites/forms';
 
 @Component({
   selector: 'speed-modifier-control',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatInputModule, MatSelectModule, MatCheckboxModule],
   template: `
-    <label class="flex flex-col items-start justify-around">
-      <span>ランク補正</span>
-      <select [formControl]="form.controls.rank" class="form-select w-full">
-        <option *ngFor="let option of rankOptions" [ngValue]="option.value">{{ option.label }}</option>
-      </select>
-    </label>
-    <label class="flex flex-col items-start">
-      <span>道具</span>
-      <select [formControl]="form.controls.item" class="form-select w-full">
-        <option *ngFor="let option of itemOptions" [ngValue]="option.value">{{ option.label }}</option>
-      </select>
-    </label>
-    <label class="flex flex-col items-start">
-      <span>特性</span>
-      <select [formControl]="form.controls.ability" class="form-select w-full">
-        <option *ngFor="let option of abilityOptions" [ngValue]="option.value">{{ option.label }}</option>
-      </select>
-    </label>
-    <div [formGroup]="form.controls.condition" class="flex flex-col items-start">
-      <span>その他</span>
-      <label class="grid grid-cols-auto-1fr gap-x-1">
-        <input type="checkbox" formControlName="paralysis" class="form-checkbox text-indigo-600" />
-        <span>まひ</span>
-      </label>
-      <label class="grid grid-cols-auto-1fr gap-x-1">
-        <input type="checkbox" formControlName="tailwind" class="form-checkbox text-indigo-600" />
-        <span>おいかぜ</span>
-      </label>
+    <div class="w-full grid grid-flow-row gap-y-2">
+      <mat-form-field appearance="outline" floatLabel="always" subscriptSizing="dynamic">
+        <mat-label>ランク補正</mat-label>
+        <select matNativeControl [formControl]="form.controls.rank" class="w-full">
+          <option *ngFor="let option of rankOptions" [ngValue]="option.value">{{ option.label }}</option>
+        </select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" subscriptSizing="dynamic">
+        <mat-label>道具</mat-label>
+        <select matNativeControl [formControl]="form.controls.item" class="w-full">
+          <option *ngFor="let option of itemOptions" [ngValue]="option.value">{{ option.label }}</option>
+        </select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" subscriptSizing="dynamic">
+        <mat-label>特性</mat-label>
+        <select matNativeControl [formControl]="form.controls.ability" class="w-full">
+          <option *ngFor="let option of abilityOptions" [ngValue]="option.value">{{ option.label }}</option>
+        </select>
+      </mat-form-field>
+      <div [formGroup]="form.controls.condition" class="grid grid-flow-row gap-y-1">
+        <span class="text-xs">その他</span>
+        <mat-checkbox formControlName="paralysis" class="text-sm">まひ</mat-checkbox>
+        <mat-checkbox formControlName="tailwind" class="text-sm">おいかぜ</mat-checkbox>
+      </div>
     </div>
   `,
+  styles: [
+    `
+      :host {
+        display: block;
+        --mdc-checkbox-state-layer-size: 24px;
+      }
+    `,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpeedModifierControlComponent extends SimpleControlValueAccessor<SpeedModifier> implements OnInit {
   private readonly fb = inject(FormBuilder).nonNullable;

@@ -1,7 +1,8 @@
-export type NatureStat = 'A' | 'B' | 'C' | 'D' | 'S';
+import { StatKey } from './stat-values';
+
 export type NatureValue = 'up' | 'down' | 'neutral';
 export type NatureValues = {
-  [key in NatureStat]?: NatureValue;
+  [key in StatKey]?: NatureValue;
 };
 
 export type Nature = { name: string; values: NatureValues };

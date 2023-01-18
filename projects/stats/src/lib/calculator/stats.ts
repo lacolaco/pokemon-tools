@@ -3,8 +3,9 @@
  */
 
 import { Nature, NatureValue } from '../models/natures';
-import { asEV, asStat, EV, IV, Level, Stat } from '../models/primitives';
+import { asStat, EV, IV, Level, Stat } from '../models/primitives';
 import { StatValues } from '../models/stat-values';
+import { fmul, sum } from './utilities';
 
 /**
  * 種族値と個体値と努力値と性格から能力値を計算する
@@ -40,8 +41,11 @@ export function calculateStatForHP(base: Stat, level: Level, iv: IV | null, ev: 
   // Stat = floor((floor((floor(EV/4) + D) × (Level/100)) + B))
   // D = Base × 2 + IV + A
   // A = 100, B = 10
-  const D = base * 2 + iv + 100;
-  const stat = Math.floor(Math.floor(Math.floor(ev / 4) + D) * (level / 100) + 10);
+  const A = 100;
+  const B = 10;
+  const D = base * 2 + iv + A;
+  const stat = sum(fmul(sum(fmul(ev, 1 / 4), D), level / 100), B);
+
   return asStat(stat);
 }
 
@@ -63,68 +67,12 @@ export function calculateStatForNonHP(
   if (base === null || iv === null) {
     return null;
   }
-  // Stat = floor((floor((floor(EV/4) + D) × (Level/100)) + B) × Nature)
+  // Stat = floor((floor((floor(EV/4) + D) × (Level/100)) + B) × N)
   // D = Base × 2 + IV + A
   // A = 0, B = 5
+  const B = 5;
   const D = base * 2 + iv;
   const N = nature === 'up' ? 1.1 : nature === 'down' ? 0.9 : 1;
-  const stat = Math.floor((Math.floor(Math.floor(ev / 4) + D) * (level / 100) + 5) * N);
+  const stat = fmul(sum(fmul(sum(fmul(ev, 1 / 4), D), level / 100), B), N);
   return asStat(stat);
-}
-
-/**
- * 種族値と個体値と性格と能力値から必要な努力値を計算する
- * @param level レベル
- * @param base 種族値
- * @param ivs 個体値
- * @param nature 性格補正
- * @param stats 能力値
- * @returns 努力値
- */
-export function calculateAllEVs(
-  base: Readonly<StatValues<Stat>>,
-  level: Level,
-  ivs: StatValues<IV | null>,
-  stats: StatValues<Stat | null>,
-  nature: Nature,
-): StatValues<EV> {
-  return {
-    H: calculateEVForHP(base.H, level, ivs.H, stats.H),
-    A: calculateEVForNonHP(base.A, level, ivs.A, stats.A, nature.values.A ?? 'neutral'),
-    B: calculateEVForNonHP(base.B, level, ivs.B, stats.B, nature.values.B ?? 'neutral'),
-    C: calculateEVForNonHP(base.C, level, ivs.C, stats.C, nature.values.C ?? 'neutral'),
-    D: calculateEVForNonHP(base.D, level, ivs.D, stats.D, nature.values.D ?? 'neutral'),
-    S: calculateEVForNonHP(base.S, level, ivs.S, stats.S, nature.values.S ?? 'neutral'),
-  };
-}
-
-export function calculateEVForHP(base: Stat, level: Level, iv: IV | null, stat: Stat | null): EV {
-  if (iv === null || stat === null) {
-    return asEV(0);
-  }
-  // EV = ceil((Stat - B) × (100/Level) - D) * 4
-  // D  = Base×2 + IV + A
-  // A = 100, B = 10
-  const D = base * 2 + iv + 100;
-  const ev = (Math.ceil((stat - 10) * (100 / level)) - D) * 4;
-  return asEV(Math.min(Math.max(ev, 0), 252));
-}
-
-export function calculateEVForNonHP(
-  base: Stat,
-  level: Level,
-  iv: IV | null,
-  stat: Stat | null,
-  nature: NatureValue,
-): EV {
-  if (iv === null || stat === null) {
-    return asEV(0);
-  }
-  // EV = ceil(ceil(Stat / Nature) - B) × (100/Level)) - D) * 4
-  // D  = Base×2 + IV + A
-  // A = 0, B = 5
-  const D = base * 2 + iv;
-  const N = nature === 'up' ? 1.1 : nature === 'down' ? 0.9 : 1;
-  const ev = Math.ceil((Math.ceil(stat / N) - 5) * (100 / level) - D) * 4;
-  return asEV(Math.min(Math.max(ev, 0), 252));
 }

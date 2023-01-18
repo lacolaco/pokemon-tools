@@ -9,3 +9,4 @@ export * from './lib/calculator/utilities';
 export * from './lib/calculator/optimizer';
 export * from './lib/calculator/rank';
 export * from './lib/calculator/speed';
+export * from './lib/calculator/ev';
