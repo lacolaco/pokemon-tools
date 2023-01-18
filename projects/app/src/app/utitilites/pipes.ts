@@ -7,7 +7,7 @@ import { joinStatValues } from './strings';
   standalone: true,
 })
 export class JoinStatValuesPipe implements PipeTransform {
-  transform(value: StatValues<number>, delimiter = '-'): string {
+  transform(value: StatValues<number | null>, delimiter = '-'): string {
     return joinStatValues(value, delimiter);
   }
 }

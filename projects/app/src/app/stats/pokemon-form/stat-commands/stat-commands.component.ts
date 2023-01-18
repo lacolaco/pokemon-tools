@@ -18,12 +18,13 @@ import {
   sumOfStatValues,
 } from '@lib/stats';
 import { map } from 'rxjs';
-import { StatsState } from '../stats.state';
+import { StatsPokemonState } from '../../pokemon-state';
 
 @Component({
   selector: 'stat-commands',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, MatIconModule, MatButtonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container *ngIf="state$ | async as state">
       <div class="grid grid-flow-row gap-y-1 py-1">
@@ -62,12 +63,11 @@ import { StatsState } from '../stats.state';
       }
     `,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatCommandsComponent {
-  private readonly state = inject(StatsState);
+  private readonly state = inject(StatsPokemonState);
 
-  readonly state$ = this.state.select().pipe(
+  readonly state$ = this.state.state$.pipe(
     map((state) => {
       return {
         isMax: state.evs[this.key] === MAX_EV_VALUE,

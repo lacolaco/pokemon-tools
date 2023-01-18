@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { asEV, MAX_EV_TOTAL, optimizeDefenseEVs, Stat, StatValues, sumOfStatValues } from '@lib/stats';
 import { map } from 'rxjs';
-import { StatsState } from '../stats.state';
+import { StatsPokemonState } from '../../pokemon-state';
 
 @Component({
   selector: 'stats-utils',
@@ -46,9 +46,9 @@ import { StatsState } from '../stats.state';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatUtilsComponent {
-  private readonly state = inject(StatsState);
+  private readonly state = inject(StatsPokemonState);
 
-  readonly state$ = this.state.select().pipe(
+  readonly state$ = this.state.state$.pipe(
     map((state) => {
       const usedEVs = sumOfStatValues(state.evs);
       return {

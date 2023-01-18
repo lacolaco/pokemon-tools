@@ -1,0 +1,60 @@
+<ng-container *ngIf="state$ | async as state">
+  <ng-container *ngIf="state.pokemon">
+    <div class="w-full flex flex-col md:flex-row md:flex-wrap justify-between gap-2">
+      <form [formGroup]="form" class="grid grid-cols-1 gap-y-1 sm:justify-items-start">
+        <div class="grid grid-flow-col gap-x-1 justify-start w-full pt-2">
+          <pokemon-select formControlName="pokemon"></pokemon-select>
+          <level-input formControlName="level"></level-input>
+          <nature-select formControlName="nature"></nature-select>
+        </div>
+        <table class="w-auto border-collapse">
+          <thead>
+            <tr class="font-bold text-center">
+              <th></th>
+              <th *ngFor="let key of statKeys">{{ key }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr formGroupName="stats">
+              <td></td>
+              <td *ngFor="let key of statKeys">
+                <stat-input
+                  class="stat-nature-{{ state.nature.values[key] ?? 'neutral' }}"
+                  [formControlName]="key"
+                ></stat-input>
+              </td>
+            </tr>
+            <tr formGroupName="ivs">
+              <td class="text-center break-keep">個体値</td>
+              <td *ngFor="let key of statKeys">
+                <iv-input [formControlName]="key"></iv-input>
+              </td>
+            </tr>
+            <tr formGroupName="evs">
+              <td class="text-center break-keep">努力値</td>
+              <td *ngFor="let key of statKeys">
+                <ev-input [formControlName]="key" [usedEVs]="state.usedEVs"></ev-input>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td *ngFor="let key of statKeys">
+                <stat-commands [key]="key"></stat-commands>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td colspan="6">
+                <stats-utils class="w-full"></stats-utils>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+      <div class="w-full md:max-w-[50%] flex flex-col justify-start">
+        <stats-indicator class="w-full" [stats]="state.stats"></stats-indicator>
+        <app-stats-textarea class="w-full"></app-stats-textarea>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

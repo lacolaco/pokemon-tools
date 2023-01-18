@@ -1,10 +1,10 @@
 import { Clipboard, ClipboardModule } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { map } from 'rxjs';
-import { StatsState } from '../stats.state';
+import { StatsPokemonState } from '../../pokemon-state';
 import { formatStats } from './formatter';
 
 @Component({
@@ -13,7 +13,7 @@ import { formatStats } from './formatter';
   imports: [CommonModule, ClipboardModule, MatSnackBarModule, MatInputModule],
   template: `
     <ng-container *ngIf="state$ | async as state">
-      <mat-form-field appearance="outline" class="w-full text-sm">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="w-full text-sm">
         <textarea
           matInput
           class="w-full"
@@ -37,7 +37,7 @@ import { formatStats } from './formatter';
 export class StatsTextareaComponent {
   private readonly snackBar = inject(MatSnackBar);
   private readonly clipboard = inject(Clipboard);
-  private readonly statsState = inject(StatsState);
+  private readonly statsState = inject(StatsPokemonState);
 
   readonly state$ = this.statsState.state$.pipe(
     map(({ pokemon, level, nature, stats, evs }) => ({

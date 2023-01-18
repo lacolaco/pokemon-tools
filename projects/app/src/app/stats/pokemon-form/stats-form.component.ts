@@ -13,9 +13,7 @@ import {
   createPokemonControl,
   createStatControl,
 } from '../../shared/forms/controls';
-import { PokemonBaseInfoComponent } from '../../shared/pokemon-base-info.component';
 import { PokemonSelectComponent } from '../../shared/pokemon-select.component';
-import { PokemonSpriteComponent } from '../../shared/pokemon-sprite.component';
 import { getValidValueChanges } from '../../utitilites/forms';
 import { filterNonNullable } from '../../utitilites/rx';
 import { EVInputComponent } from '../controls/ev-input.component';
@@ -23,17 +21,18 @@ import { IVInputComponent } from '../controls/iv-input.component';
 import { LevelInputComponent } from '../controls/level-input.component';
 import { NatureSelectComponent } from '../controls/nature-select.component';
 import { StatInputComponent } from '../controls/stat-input.component';
-import { StatsIndicatorComponent } from '../stats-indicator/stats-indicator.component';
-import { StatsState } from '../stats.state';
-import { StatUtilsComponent } from './stats-utils.component';
-import { StatCommandsComponent } from './stat-commands.component';
+import { StatsPokemonState } from '../pokemon-state';
+import { StatCommandsComponent } from './stat-commands/stat-commands.component';
+import { StatsIndicatorComponent } from './stats-indicator/stats-indicator.component';
+import { StatsTextareaComponent } from './stats-textarea/stats-textarea.component';
+import { StatUtilsComponent } from './stats-utils/stats-utils.component';
 
 function createStatControls<T>(fn: () => FormControl<T>) {
   return new FormGroup({ H: fn(), A: fn(), B: fn(), C: fn(), D: fn(), S: fn() });
 }
 
 @Component({
-  selector: 'app-stats-form',
+  selector: 'stats-pokemon-form',
   standalone: true,
   templateUrl: './stats-form.component.html',
   styleUrls: ['./stats-form.component.scss'],
@@ -52,12 +51,11 @@ function createStatControls<T>(fn: () => FormControl<T>) {
     StatCommandsComponent,
     StatUtilsComponent,
     StatsIndicatorComponent,
-    PokemonSpriteComponent,
-    PokemonBaseInfoComponent,
+    StatsTextareaComponent,
   ],
 })
-export class StatsFormComponent implements OnInit, OnDestroy {
-  private readonly state = inject(StatsState);
+export class StatsPokemonFormComponent implements OnInit, OnDestroy {
+  private readonly state = inject(StatsPokemonState);
   private readonly fb = inject(FormBuilder).nonNullable;
 
   private readonly onDestroy$ = new Subject<void>();
