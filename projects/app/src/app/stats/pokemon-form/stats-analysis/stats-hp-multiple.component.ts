@@ -1,27 +1,32 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Stat, StatValues } from '@lib/stats';
 
 @Component({
-  selector: 'stats-indicator',
+  selector: 'stats-hp-multiple',
   standalone: true,
-  imports: [CommonModule, MatTooltipModule, MatChipsModule],
+  imports: [CommonModule, MatDialogModule, MatTooltipModule, MatChipsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div>HP倍数</div>
-    <mat-chip-set>
-      <mat-chip
-        *ngFor="let indicator of hpIndicators; trackBy: trackIndicator"
-        [class.off]="!indicator.value"
-        [highlighted]="indicator.value"
-        disableRipple
-        [matTooltip]="indicator.description"
-        [matTooltipDisabled]="false"
-      >
-        {{ indicator.label }}
-      </mat-chip>
-    </mat-chip-set>
+    <h1 mat-dialog-title>HP倍数の確認</h1>
+    <div mat-dialog-content>
+      <div class="text-sm">実数値: {{ stats.H }}</div>
+      <mat-chip-set class="py-2">
+        <mat-chip
+          *ngFor="let indicator of hpIndicators; trackBy: trackIndicator"
+          [class.off]="!indicator.value"
+          [highlighted]="indicator.value"
+          disableRipple
+          [matTooltip]="indicator.description"
+          [matTooltipDisabled]="false"
+        >
+          {{ indicator.label }}
+        </mat-chip>
+      </mat-chip-set>
+    </div>
   `,
   styles: [
     `
@@ -38,10 +43,10 @@ import { Stat, StatValues } from '@lib/stats';
       }
     `,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StatsIndicatorComponent {
-  @Input() stats!: StatValues<Stat | null>;
+export class StatsHpMultipleComponent {
+  private readonly dialogRef = inject(MatDialogRef);
+  readonly stats = inject<{ stats: StatValues<Stat | null> }>(MAT_DIALOG_DATA).stats;
 
   get hpIndicators() {
     const H = this.stats.H || 0;

@@ -25,11 +25,11 @@ export function calculateAllStats(
 ): StatValues<Stat | null> {
   return {
     H: calculateStatForHP(base.H, level, ivs.H, evs.H),
-    A: calculateStatForNonHP(base.A, level, ivs.A, evs.A, nature.values.A ?? 'neutral'),
-    B: calculateStatForNonHP(base.B, level, ivs.B, evs.B, nature.values.B ?? 'neutral'),
-    C: calculateStatForNonHP(base.C, level, ivs.C, evs.C, nature.values.C ?? 'neutral'),
-    D: calculateStatForNonHP(base.D, level, ivs.D, evs.D, nature.values.D ?? 'neutral'),
-    S: calculateStatForNonHP(base.S, level, ivs.S, evs.S, nature.values.S ?? 'neutral'),
+    A: calculateStatForNonHP(base.A, level, ivs.A, evs.A, nature.values.A),
+    B: calculateStatForNonHP(base.B, level, ivs.B, evs.B, nature.values.B),
+    C: calculateStatForNonHP(base.C, level, ivs.C, evs.C, nature.values.C),
+    D: calculateStatForNonHP(base.D, level, ivs.D, evs.D, nature.values.D),
+    S: calculateStatForNonHP(base.S, level, ivs.S, evs.S, nature.values.S),
   };
 }
 export function calculateStatForHP(base: Stat, level: Level, iv: IV, ev: EV): Stat;
@@ -49,20 +49,20 @@ export function calculateStatForHP(base: Stat, level: Level, iv: IV | null, ev: 
   return asStat(stat);
 }
 
-export function calculateStatForNonHP(base: Stat, level: Level, iv: IV, ev: EV, nature: NatureValue): Stat;
+export function calculateStatForNonHP(base: Stat, level: Level, iv: IV, ev: EV, nature?: NatureValue): Stat;
 export function calculateStatForNonHP(
   base: Stat,
   level: Level,
   iv: IV | null,
   ev: EV,
-  nature: NatureValue,
+  nature?: NatureValue,
 ): Stat | null;
 export function calculateStatForNonHP(
   base: Stat,
   level: Level,
   iv: IV | null,
   ev: EV,
-  nature: NatureValue,
+  nature: NatureValue = 'neutral',
 ): Stat | null {
   if (base === null || iv === null) {
     return null;

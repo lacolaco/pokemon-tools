@@ -7,11 +7,11 @@
           <level-input formControlName="level"></level-input>
           <nature-select formControlName="nature"></nature-select>
         </div>
-        <table class="w-auto border-collapse">
+        <table class="w-full border-collapse">
           <thead>
             <tr class="font-bold text-center">
               <th></th>
-              <th *ngFor="let key of statKeys">{{ key }}</th>
+              <th *ngFor="let key of statKeys" class="text-sm">{{ key }}</th>
             </tr>
           </thead>
           <tbody>
@@ -25,13 +25,13 @@
               </td>
             </tr>
             <tr formGroupName="ivs">
-              <td class="text-center break-keep">個体値</td>
+              <td class="text-center break-keep text-sm">個体値</td>
               <td *ngFor="let key of statKeys">
                 <iv-input [formControlName]="key"></iv-input>
               </td>
             </tr>
             <tr formGroupName="evs">
-              <td class="text-center break-keep">努力値</td>
+              <td class="text-center break-keep text-sm">努力値</td>
               <td *ngFor="let key of statKeys">
                 <ev-input [formControlName]="key" [usedEVs]="state.usedEVs"></ev-input>
               </td>
@@ -42,17 +42,12 @@
                 <stat-commands [key]="key"></stat-commands>
               </td>
             </tr>
-            <tr>
-              <td></td>
-              <td colspan="6">
-                <stats-utils class="w-full"></stats-utils>
-              </td>
-            </tr>
           </tbody>
         </table>
       </form>
-      <div class="w-full md:max-w-[50%] flex flex-col justify-start">
-        <stats-indicator class="w-full" [stats]="state.stats"></stats-indicator>
+      <div class="w-full md:max-w-[50%] flex flex-col justify-start gap-y-1 text-sm">
+        <stats-utils class="w-full"></stats-utils>
+        <stats-analysis class="w-full" [stats]="state.stats"></stats-analysis>
         <app-stats-textarea class="w-full"></app-stats-textarea>
       </div>
     </div>

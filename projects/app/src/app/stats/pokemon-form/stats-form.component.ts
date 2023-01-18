@@ -23,7 +23,7 @@ import { NatureSelectComponent } from '../controls/nature-select.component';
 import { StatInputComponent } from '../controls/stat-input.component';
 import { StatsPokemonState } from '../pokemon-state';
 import { StatCommandsComponent } from './stat-commands/stat-commands.component';
-import { StatsIndicatorComponent } from './stats-indicator/stats-indicator.component';
+import { StatsAnalysisComponent } from './stats-analysis/stats-analysis.component';
 import { StatsTextareaComponent } from './stats-textarea/stats-textarea.component';
 import { StatUtilsComponent } from './stats-utils/stats-utils.component';
 
@@ -50,7 +50,7 @@ function createStatControls<T>(fn: () => FormControl<T>) {
     EVInputComponent,
     StatCommandsComponent,
     StatUtilsComponent,
-    StatsIndicatorComponent,
+    StatsAnalysisComponent,
     StatsTextareaComponent,
   ],
 })
