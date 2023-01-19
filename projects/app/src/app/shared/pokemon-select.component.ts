@@ -14,7 +14,7 @@ import { PokemonData } from './pokemon-data';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, MatInputModule, MatAutocompleteModule],
   template: `
-    <mat-form-field appearance="outline" hideRequiredMarker subscriptSizing="dynamic" class="text-sm">
+    <mat-form-field appearance="outline" hideRequiredMarker subscriptSizing="dynamic" class="w-full">
       <mat-label>ポケモン</mat-label>
       <input
         matInput

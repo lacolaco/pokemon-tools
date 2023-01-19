@@ -10,13 +10,7 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, MatInputModule],
   template: `
-    <mat-form-field
-      appearance="outline"
-      floatLabel="always"
-      hideRequiredMarker
-      subscriptSizing="dynamic"
-      class="text-sm"
-    >
+    <mat-form-field appearance="outline" floatLabel="always" hideRequiredMarker subscriptSizing="dynamic" class="">
       <mat-label>レベル</mat-label>
       <input
         matInput

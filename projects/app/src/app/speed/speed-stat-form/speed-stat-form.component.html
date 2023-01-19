@@ -1,39 +1,29 @@
 <ng-container *ngIf="state$ | async as state">
   <ng-container *ngIf="state.pokemon">
-    <form [formGroup]="form" class="text-sm flex flex-col sm:flex-row sm:flex-wrap sm:items-end gap-1 rounded border">
-      <div class="grid grid-flow-col items-end justify-start gap-x-2 pt-2">
+    <form [formGroup]="form" class="text-sm flex flex-col sm:flex-row sm:flex-wrap gap-x-1 gap-y-2 pt-2">
+      <div class="w-full sm:w-1/2 grid grid-cols-[auto_1fr] items-end justify-start gap-x-2">
         <pokemon-sprite [pokemon]="state.pokemon" class="h-10"></pokemon-sprite>
         <pokemon-select formControlName="pokemon"></pokemon-select>
       </div>
-      <div formGroupName="stats" class="text-sm grid grid-cols-4 gap-x-1">
-        <div>
-          <span>実数値</span>
-          <stat-input
-            formControlName="stat"
-            [isMin]="state.stats.ev === 0"
-            [isMax]="state.stats.ev === 252"
-          ></stat-input>
-        </div>
-        <div>
-          <span>努力値</span>
-          <ev-input formControlName="ev" [usedEVs]="state.stats.ev"></ev-input>
-        </div>
-        <div>
-          <span>個体値</span>
-          <iv-input formControlName="iv" [disableNull]="true"></iv-input>
-        </div>
-        <div>
-          <span>性格補正</span>
-          <mat-form-field appearance="outline" subscriptSizing="dynamic" class="w-full">
-            <select matNativeControl formControlName="nature">
-              <option [ngValue]="'up'">↑</option>
-              <option [ngValue]="'neutral'">-</option>
-              <option [ngValue]="'down'">↓</option>
-            </select>
-          </mat-form-field>
-        </div>
+      <div formGroupName="stats" class="w-full sm:w-1/2 text-sm grid grid-cols-4 gap-x-1">
+        <stat-input
+          formControlName="stat"
+          [showLabel]="true"
+          [isMin]="state.stats.ev === 0"
+          [isMax]="state.stats.ev === 252"
+        ></stat-input>
+        <ev-input formControlName="ev" [showLabel]="true" [usedEVs]="state.stats.ev"></ev-input>
+        <iv-input formControlName="iv" [showLabel]="true" [disableNull]="true"></iv-input>
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="min-w-[5em] w-full">
+          <mat-label>性格補正</mat-label>
+          <select matNativeControl formControlName="nature">
+            <option [ngValue]="'up'">↑</option>
+            <option [ngValue]="'neutral'">-</option>
+            <option [ngValue]="'down'">↓</option>
+          </select>
+        </mat-form-field>
       </div>
-      <speed-presets></speed-presets>
+      <speed-presets class="w-full sm:w-1/2"></speed-presets>
     </form>
   </ng-container>
 </ng-container>

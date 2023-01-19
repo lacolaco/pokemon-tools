@@ -11,6 +11,7 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
   imports: [CommonModule, ReactiveFormsModule, MatInputModule],
   template: `
     <mat-form-field appearance="outline" hideRequiredMarker subscriptSizing="dynamic" class="w-full">
+      <mat-label *ngIf="showLabel">個体値</mat-label>
       <input matInput type="number" min="0" max="31" [formControl]="formControl" (click)="onTouched()" />
     </mat-form-field>
   `,
@@ -23,6 +24,7 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
   ],
 })
 export class IVInputComponent extends SimpleControlValueAccessor<IV | null> {
+  @Input() showLabel = false;
   @Input() disableNull = false;
 
   readonly formControl = new FormControl<IV | null>(asIV(0), { nonNullable: true });

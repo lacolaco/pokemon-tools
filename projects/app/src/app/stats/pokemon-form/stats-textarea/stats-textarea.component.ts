@@ -13,7 +13,7 @@ import { formatStats } from './formatter';
   imports: [CommonModule, ClipboardModule, MatSnackBarModule, MatInputModule],
   template: `
     <ng-container *ngIf="state$ | async as state">
-      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="w-full text-sm">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="w-full">
         <textarea
           matInput
           class="w-full"

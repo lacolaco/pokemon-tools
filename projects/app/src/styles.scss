@@ -56,8 +56,6 @@ $app-theme: mat.define-light-theme(
   a {
     color: mat.get-color-from-palette($app-primary, 500);
   }
-
-
 }
 
 @layer components {
@@ -69,17 +67,17 @@ $app-theme: mat.define-light-theme(
       .mat-mdc-form-field-infix {
         width: auto;
         min-height: unset;
-        padding-top: 0.75em;
-        padding-bottom: 0.75em;
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
       }
     }
     .mdc-text-field--outlined {
-      padding-left: 0.75em;
-      padding-right: 0.75em;
+      padding-left: 0.5em;
+      padding-right: 0.5em;
 
       .mdc-notched-outline {
         .mdc-notched-outline__leading {
-          width: 0.75em;
+          width: 0.5em;
         }
         .mdc-notched-outline__notch {
           border-top: 1px solid rgba(0, 0, 0, 0.38);

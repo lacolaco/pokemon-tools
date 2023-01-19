@@ -13,6 +13,7 @@ const STEP = 4;
   imports: [CommonModule, ReactiveFormsModule, MatInputModule],
   template: `
     <mat-form-field appearance="outline" hideRequiredMarker subscriptSizing="dynamic" class="w-full">
+      <mat-label *ngIf="showLabel">努力値</mat-label>
       <input
         matInput
         type="number"
@@ -24,18 +25,6 @@ const STEP = 4;
         (click)="onTouched()"
       />
     </mat-form-field>
-    <!-- <div class="grid grid-flow-col grid-rows-2 sm:grid-rows-1 gap-1">
-      <button (click)="onTouched(); increment()" [disabled]="formControl.disabled || isMax">
-        <mat-icon fontIcon="add" inline></mat-icon>
-      </button>
-      <button (click)="onTouched(); decrement()" [disabled]="formControl.disabled || isMin">
-        <mat-icon fontIcon="remove" inline></mat-icon>
-      </button>
-      <button (click)="onTouched(); setMaxValue()" [disabled]="formControl.disabled || isMax">
-        <mat-icon fontIcon="keyboard_double_arrow_up" inline></mat-icon>
-      </button>
-      <button (click)="onTouched(); setZero()" [disabled]="formControl.disabled || isMin">0</button>
-    </div> -->
   `,
   styles: [
     `
@@ -48,6 +37,7 @@ const STEP = 4;
 export class EVInputComponent extends SimpleControlValueAccessor<EV> {
   readonly formControl = new FormControl(asEV(0), { nonNullable: true });
 
+  @Input() showLabel = false;
   @Input() usedEVs = 0;
 
   get max(): number {

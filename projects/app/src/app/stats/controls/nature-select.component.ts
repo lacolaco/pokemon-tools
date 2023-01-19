@@ -16,11 +16,11 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
       floatLabel="always"
       hideRequiredMarker
       subscriptSizing="dynamic"
-      class="text-sm"
+      class="w-full"
     >
       <mat-label>性格</mat-label>
       <select matNativeControl [formControl]="formControl" (click)="onTouched()">
-        <option *ngFor="let option of options; trackBy: trackNature" [ngValue]="option" class="text-sm">
+        <option *ngFor="let option of options; trackBy: trackNature" [ngValue]="option">
           {{ option.name }}
         </option>
       </select>

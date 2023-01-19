@@ -12,6 +12,7 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
   imports: [CommonModule, ReactiveFormsModule, MatInputModule],
   template: `
     <mat-form-field appearance="outline" hideRequiredMarker subscriptSizing="dynamic" class="w-full">
+      <mat-label *ngIf="showLabel">能力値</mat-label>
       <input
         matInput
         type="number"
@@ -35,6 +36,7 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
 export class StatInputComponent extends SimpleControlValueAccessor<Stat> implements OnInit {
   readonly formControl = new FormControl(asStat(1), { nonNullable: true });
 
+  @Input() showLabel = false;
   @Input() isMin = false;
   @Input() isMax = false;
 
