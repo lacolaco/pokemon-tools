@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { map } from 'rxjs';
 import { PokemonDecoratedStatsComponent } from '../../shared/pokemon-decorated-stats.component';
 import { PokemonSpriteComponent } from '../../shared/pokemon-sprite.component';
-import { StatsPokemonState } from '../pokemon-state';
+import { PokemonState } from '../pokemon-state';
 
 @Component({
   selector: 'stats-pokemon-summary',
@@ -34,7 +34,7 @@ import { StatsPokemonState } from '../pokemon-state';
   ],
 })
 export class StatsSummaryComponent {
-  private readonly state = inject(StatsPokemonState);
+  private readonly state = inject(PokemonState);
 
   readonly state$ = this.state.state$.pipe(
     map((state) => ({

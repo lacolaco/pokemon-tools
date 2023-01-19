@@ -1,17 +1,18 @@
 import { CdkAccordionItem } from '@angular/cdk/accordion';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { StatsPokemonFormComponent } from '../pokemon-form/stats-form.component';
-import { StatsPokemonState } from '../pokemon-state';
+import { PokemonState } from '../pokemon-state';
 import { StatsSummaryComponent } from '../pokemon-summary/stats-pokemon-summary.component';
+import { PokemonStateKey, StatsState } from '../stats.state';
 
 @Component({
   selector: 'stats-pokemons-item',
   standalone: true,
   imports: [CommonModule, StatsPokemonFormComponent, StatsSummaryComponent, MatIconModule, MatButtonModule],
-  providers: [StatsPokemonState],
+  providers: [PokemonState],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="w-full flex flex-col gap-y-2 rounded-md p-2 border border-solid border-gray-500">
@@ -40,7 +41,15 @@ import { StatsSummaryComponent } from '../pokemon-summary/stats-pokemon-summary.
     `,
   ],
 })
-export class StatsPokemonsItemComponent {
+export class StatsPokemonsItemComponent implements OnInit {
+  private readonly state = inject(StatsState);
+  private readonly pokemonState = inject(PokemonState);
+
   @Input() cdkAccordionItem!: CdkAccordionItem;
+  @Input() key!: PokemonStateKey;
   @Output() remove = new EventEmitter<void>();
+
+  ngOnInit() {
+    this.state.registerChild(this.key, this.pokemonState);
+  }
 }

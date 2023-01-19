@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { map } from 'rxjs';
-import { StatsPokemonState } from '../../pokemon-state';
+import { PokemonState } from '../../pokemon-state';
 import { formatStats } from './formatter';
 
 @Component({
@@ -37,7 +37,7 @@ import { formatStats } from './formatter';
 export class StatsTextareaComponent {
   private readonly snackBar = inject(MatSnackBar);
   private readonly clipboard = inject(Clipboard);
-  private readonly statsState = inject(StatsPokemonState);
+  private readonly statsState = inject(PokemonState);
 
   readonly state$ = this.statsState.state$.pipe(
     map(({ pokemon, level, nature, stats, evs }) => ({

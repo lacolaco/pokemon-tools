@@ -17,6 +17,7 @@ $app-theme: mat.define-light-theme(
   )
 );
 
+@tailwind base;
 @include mat.core();
 @include mat.core-theme($app-theme);
 @include mat.autocomplete-theme($app-theme);
@@ -32,7 +33,6 @@ $app-theme: mat.define-light-theme(
 @include mat.select-theme($app-theme);
 @include mat.snack-bar-theme($app-theme);
 @include mat.tooltip-theme($app-theme);
-@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -103,6 +103,10 @@ $app-theme: mat.define-light-theme(
     .mat-mdc-button-touch-target {
       height: 100%;
     }
+  }
+  .mdc-icon-button {
+    font-family: system-ui;
+    line-height: normal;
   }
 
   .ad {

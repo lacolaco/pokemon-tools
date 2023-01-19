@@ -5,7 +5,7 @@ export type NatureValues = {
   [key in StatKey]?: NatureValue;
 };
 
-export type Nature = { name: string; values: NatureValues };
+export type Nature = { name: NatureName; values: NatureValues };
 
 export const natures = {
   // A up

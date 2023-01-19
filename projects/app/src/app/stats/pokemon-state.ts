@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import type { Pokemon } from '@lacolaco/pokemon-data';
+import type { Pokemon, PokemonName } from '@lacolaco/pokemon-data';
 import {
   asEV,
   asIV,
@@ -10,6 +10,7 @@ import {
   IV,
   Level,
   Nature,
+  NatureName,
   natures,
   Stat,
   StatValues,
@@ -19,6 +20,7 @@ import { RxState, stateful } from '@rx-angular/state';
 import { combineLatest, debounceTime, distinctUntilChanged, map, Observable, shareReplay } from 'rxjs';
 import { PokemonData } from '../shared/pokemon-data';
 import { debug, distinctUntilStatValuesChanged, filterNonNullable } from '../utitilites/rx';
+import { StatsChildState } from './stats.state';
 
 type State = {
   pokemon: Pokemon | null;
@@ -29,8 +31,16 @@ type State = {
   stats: StatValues<Stat | null>;
 };
 
+type SerializedState = {
+  pokemon: PokemonName;
+  level: Level;
+  nature: NatureName;
+  ivs: StatValues<IV | null>;
+  evs: StatValues<EV>;
+};
+
 @Injectable()
-export class StatsPokemonState extends RxState<State> {
+export class PokemonState extends RxState<State> implements StatsChildState<SerializedState> {
   private readonly pokemonData = inject(PokemonData);
 
   private readonly stats$: Observable<StatValues<Stat | null>> = combineLatest([
@@ -84,5 +94,20 @@ export class StatsPokemonState extends RxState<State> {
     if (pokemon) {
       this.set({ evs: calculateAllEVs(pokemon.baseStats as StatValues<Stat>, level, ivs, stats, nature) });
     }
+  }
+
+  serialize(): SerializedState {
+    const { pokemon, level, nature, ivs, evs } = this.get();
+    return { pokemon: pokemon?.name ?? 'ガブリアス', level, nature: nature.name, ivs, evs };
+  }
+
+  deserialize(serialized: SerializedState) {
+    this.set({
+      pokemon: this.pokemonData.getPokemonByName(serialized.pokemon),
+      level: serialized.level,
+      nature: natures[serialized.nature],
+      ivs: serialized.ivs,
+      evs: serialized.evs,
+    });
   }
 }

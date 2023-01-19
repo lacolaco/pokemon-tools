@@ -10,13 +10,16 @@ import { StatsPokemonsItemComponent } from './stats-pokemons-item.component';
   selector: 'stats-pokemons',
   standalone: true,
   imports: [CommonModule, CdkAccordionModule, StatsPokemonsItemComponent, MatIconModule, MatButtonModule],
-  providers: [StatsState],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container *ngIf="state$ | async as state">
       <cdk-accordion class="flex flex-col gap-y-2">
         <cdk-accordion-item *ngFor="let key of state.pokemons" #accordionItem="cdkAccordionItem" expanded>
-          <stats-pokemons-item [cdkAccordionItem]="accordionItem" (remove)="removePokemon(key)"></stats-pokemons-item>
+          <stats-pokemons-item
+            [cdkAccordionItem]="accordionItem"
+            [key]="key"
+            (remove)="removePokemon(key)"
+          ></stats-pokemons-item>
         </cdk-accordion-item>
 
         <button
@@ -44,7 +47,6 @@ import { StatsPokemonsItemComponent } from './stats-pokemons-item.component';
 })
 export class StatsPokemonsComponent {
   private readonly state = inject(StatsState);
-
   readonly state$ = this.state.state$;
 
   addPokemon() {

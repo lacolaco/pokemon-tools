@@ -21,7 +21,7 @@ import { IVInputComponent } from '../controls/iv-input.component';
 import { LevelInputComponent } from '../controls/level-input.component';
 import { NatureSelectComponent } from '../controls/nature-select.component';
 import { StatInputComponent } from '../controls/stat-input.component';
-import { StatsPokemonState } from '../pokemon-state';
+import { PokemonState } from '../pokemon-state';
 import { StatCommandsComponent } from './stat-commands/stat-commands.component';
 import { StatsAnalysisComponent } from './stats-analysis/stats-analysis.component';
 import { StatsTextareaComponent } from './stats-textarea/stats-textarea.component';
@@ -55,7 +55,7 @@ function createStatControls<T>(fn: () => FormControl<T>) {
   ],
 })
 export class StatsPokemonFormComponent implements OnInit, OnDestroy {
-  private readonly state = inject(StatsPokemonState);
+  private readonly state = inject(PokemonState);
   private readonly fb = inject(FormBuilder).nonNullable;
 
   private readonly onDestroy$ = new Subject<void>();

@@ -18,7 +18,7 @@ import {
   sumOfStatValues,
 } from '@lib/stats';
 import { map } from 'rxjs';
-import { StatsPokemonState } from '../../pokemon-state';
+import { PokemonState } from '../../pokemon-state';
 
 @Component({
   selector: 'stat-commands',
@@ -65,7 +65,7 @@ import { StatsPokemonState } from '../../pokemon-state';
   ],
 })
 export class StatCommandsComponent {
-  private readonly state = inject(StatsPokemonState);
+  private readonly state = inject(PokemonState);
 
   readonly state$ = this.state.state$.pipe(
     map((state) => {
