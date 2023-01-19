@@ -16,8 +16,8 @@ import { PokemonStateKey, StatsState } from '../stats.state';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="w-full flex flex-col gap-y-2 rounded-md p-2 border border-solid border-gray-500">
-      <div class="grid grid-cols-[1fr_auto] items-center">
-        <stats-pokemon-summary></stats-pokemon-summary>
+      <div class="flex flex-row items-center">
+        <stats-pokemon-summary class="flex-auto"></stats-pokemon-summary>
         <button mat-icon-button (click)="cdkAccordionItem.toggle()">
           <mat-icon [fontIcon]="cdkAccordionItem.expanded ? 'unfold_less' : 'unfold_more'"></mat-icon>
         </button>
