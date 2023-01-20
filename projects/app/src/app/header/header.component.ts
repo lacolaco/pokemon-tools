@@ -11,7 +11,7 @@ import { RouterLink } from '@angular/router';
   template: `
     <div class="flex items-center gap-y-2 py-2">
       <div class="flex-auto flex items-center gap-x-2">
-        <img src="assets/images/poke.png" alt="Pokémon Battle Tools" class="h-8" />
+        <img src="assets/images/icon.png" alt="Pokémon Battle Tools" class="h-6" />
         <span class="text-lg font-bold">Pokémon Battle Tools</span>
       </div>
       <div>
