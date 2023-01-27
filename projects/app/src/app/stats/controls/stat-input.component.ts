@@ -1,20 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { asStat, Stat } from '@lib/stats';
 import { distinctUntilChanged, map } from 'rxjs';
+import { FormFieldModule } from '../../shared/forms/form-field.component';
 import { SimpleControlValueAccessor } from '../../utitilites/forms';
 
 @Component({
   selector: 'stat-input',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatInputModule],
+  imports: [CommonModule, ReactiveFormsModule, FormFieldModule],
   template: `
-    <mat-form-field appearance="outline" hideRequiredMarker subscriptSizing="dynamic" class="w-full">
-      <mat-label *ngIf="showLabel">能力値</mat-label>
+    <app-form-field class="w-full" label="能力値" [showLabel]="showLabel">
       <input
-        matInput
+        app-form-control
         type="number"
         min="1"
         max="999"
@@ -23,7 +22,7 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
         (click)="onTouched(); dispatchChange.emit()"
         (blur)="dispatchChange.emit()"
       />
-    </mat-form-field>
+    </app-form-field>
   `,
   styles: [
     `

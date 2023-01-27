@@ -5,7 +5,7 @@ import { PokemonData } from './pokemon-data';
 @Component({
   selector: 'pokemon-sprite',
   standalone: true,
-  template: `<img [src]="src" />`,
+  template: `<img [attr.src]="src" loading="lazy" />`,
   styles: [
     `
       :host {

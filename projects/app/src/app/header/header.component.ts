@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterLink } from '@angular/router';
@@ -7,15 +6,15 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, MatMenuModule, RouterLink],
+  imports: [MatIconModule, MatMenuModule, RouterLink],
   template: `
-    <div class="flex items-center gap-y-2 py-2">
+    <div class="h-full flex items-center gap-y-2 py-2">
       <div class="flex-auto flex items-center gap-x-2">
         <img src="assets/images/icon.png" alt="Pokémon Battle Tools" class="h-6" />
         <span class="text-lg font-bold">Pokémon Battle Tools</span>
       </div>
       <div>
-        <button mat-icon-button [matMenuTriggerFor]="menu">
+        <button class="h-12 w-12 p-3 rounded-full" [matMenuTriggerFor]="menu">
           <mat-icon fontIcon="apps"></mat-icon>
         </button>
         <mat-menu #menu="matMenu">
@@ -31,7 +30,14 @@ import { RouterLink } from '@angular/router';
       </div>
     </div>
   `,
-  styleUrls: ['./header.component.scss'],
+  styles: [
+    `
+      :host {
+        display: block;
+        height: 100%;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {}

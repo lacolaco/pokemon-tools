@@ -1,19 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { asLevel, Level } from '@lib/stats';
+import { FormFieldModule } from '../../shared/forms/form-field.component';
 import { SimpleControlValueAccessor } from '../../utitilites/forms';
 
 @Component({
   selector: 'level-input',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatInputModule],
+  imports: [CommonModule, ReactiveFormsModule, FormFieldModule],
   template: `
-    <mat-form-field appearance="outline" floatLabel="always" hideRequiredMarker subscriptSizing="dynamic" class="">
-      <mat-label>レベル</mat-label>
+    <app-form-field label="レベル" [showLabel]="true">
       <input
-        matInput
+        app-form-control
         type="number"
         min="1"
         max="100"
@@ -22,14 +21,14 @@ import { SimpleControlValueAccessor } from '../../utitilites/forms';
         [formControl]="formControl"
         (click)="onTouched()"
       />
-    </mat-form-field>
+    </app-form-field>
   `,
   styles: [
     `
       :host {
         display: block;
       }
-      mat-form-field {
+      app-form-field {
         width: calc(3em + 32px);
       }
     `,

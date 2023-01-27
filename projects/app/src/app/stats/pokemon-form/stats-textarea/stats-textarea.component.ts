@@ -1,28 +1,28 @@
 import { Clipboard, ClipboardModule } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { map } from 'rxjs';
+import { FormFieldModule } from '../../../shared/forms/form-field.component';
 import { PokemonState } from '../../pokemon-state';
 import { formatStats } from './formatter';
 
 @Component({
   selector: 'app-stats-textarea',
   standalone: true,
-  imports: [CommonModule, ClipboardModule, MatSnackBarModule, MatInputModule],
+  imports: [CommonModule, ClipboardModule, MatSnackBarModule, FormFieldModule],
   template: `
     <ng-container *ngIf="state$ | async as state">
-      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="w-full">
+      <app-form-field class="w-full">
         <textarea
-          matInput
+          app-form-control
           class="w-full"
           [value]="state.statsText"
           title="クリックしてクリップボードにコピー"
           (click)="copyText(state.statsText)"
           readonly
         ></textarea>
-      </mat-form-field>
+      </app-form-field>
     </ng-container>
   `,
   styles: [

@@ -1,37 +1,29 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { Nature, natures } from '@lib/stats';
+import { FormFieldModule } from '../../shared/forms/form-field.component';
 import { SimpleControlValueAccessor } from '../../utitilites/forms';
 
 @Component({
   selector: 'nature-select',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatInputModule, MatSelectModule],
+  imports: [CommonModule, ReactiveFormsModule, FormFieldModule],
   template: `
-    <mat-form-field
-      appearance="outline"
-      floatLabel="always"
-      hideRequiredMarker
-      subscriptSizing="dynamic"
-      class="w-full"
-    >
-      <mat-label>性格</mat-label>
-      <select matNativeControl [formControl]="formControl" (click)="onTouched()">
+    <app-form-field label="性格" [showLabel]="true">
+      <select app-form-control [formControl]="formControl" (click)="onTouched()">
         <option *ngFor="let option of options; trackBy: trackNature" [ngValue]="option">
           {{ option.name }}
         </option>
       </select>
-    </mat-form-field>
+    </app-form-field>
   `,
   styles: [
     `
       :host {
         display: block;
       }
-      mat-form-field {
+      app-form-field {
         width: calc(5em + 48px);
       }
     `,

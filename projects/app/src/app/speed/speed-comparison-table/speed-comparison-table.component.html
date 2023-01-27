@@ -10,7 +10,9 @@
         <speed-modifier-control formControlName="modifier" class="w-full"></speed-modifier-control>
       </div>
     </form>
-    <div class="flex-auto h-full flex flex-col overflow-auto overscroll-contain border border-solid border-gray-400 rounded">
+    <div
+      class="flex-auto h-full flex flex-col overflow-auto overscroll-contain border border-solid border-gray-400 rounded"
+    >
       <div
         *ngFor="let row of state.rows; trackBy: trackRow"
         class="px-1 py-1 border-b border-gray-300"

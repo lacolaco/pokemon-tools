@@ -1,19 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { asIV, IV } from '@lib/stats';
+import { FormFieldModule } from '../../shared/forms/form-field.component';
 import { SimpleControlValueAccessor } from '../../utitilites/forms';
 
 @Component({
   selector: 'iv-input',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatInputModule],
+  imports: [CommonModule, ReactiveFormsModule, FormFieldModule],
   template: `
-    <mat-form-field appearance="outline" hideRequiredMarker subscriptSizing="dynamic" class="w-full">
-      <mat-label *ngIf="showLabel">個体値</mat-label>
-      <input matInput type="number" min="0" max="31" [formControl]="formControl" (click)="onTouched()" />
-    </mat-form-field>
+    <app-form-field class="w-full" label="個体値" [showLabel]="showLabel">
+      <input app-form-control type="number" min="0" max="31" [formControl]="formControl" (click)="onTouched()" />
+    </app-form-field>
   `,
   styles: [
     `

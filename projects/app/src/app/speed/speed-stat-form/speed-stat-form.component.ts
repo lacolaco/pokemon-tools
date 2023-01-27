@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { distinctUntilSomeChanged } from '@rx-angular/state';
 import { map, merge, Subject, takeUntil, tap } from 'rxjs';
 import {
@@ -23,6 +21,7 @@ import { getValidValueChanges } from '../../utitilites/forms';
 import { filterNonNullable } from '../../utitilites/rx';
 import { SpeedPresetsComponent } from '../speed-presets/speed-presets.component';
 import { SpeedPageState } from '../speed.state';
+import { FormControlDirective, FormFieldComponent } from '../../shared/forms/form-field.component';
 
 @Component({
   selector: 'speed-stat-form',
@@ -39,26 +38,15 @@ import { SpeedPageState } from '../speed.state';
     SpeedPresetsComponent,
     PokemonSpriteComponent,
     PokemonYakkunLinkComponent,
-    MatSelectModule,
-    MatInputModule,
+    FormFieldComponent,
+    FormControlDirective,
   ],
 })
 export class SpeedStatFormComponent implements OnInit, OnDestroy {
   private readonly state = inject(SpeedPageState);
   private readonly fb = inject(FormBuilder).nonNullable;
 
-  readonly state$ = this.state.state$.pipe(
-    tap(({ pokemon, level, stats }) => {
-      this.form.setValue(
-        {
-          pokemon,
-          level,
-          stats: { stat: stats.stat, ev: stats.ev, iv: stats.iv, nature: stats.nature },
-        },
-        { emitEvent: false },
-      );
-    }),
-  );
+  readonly state$ = this.state.state$;
 
   readonly form = this.fb.group({
     pokemon: createPokemonControl(),
@@ -74,6 +62,17 @@ export class SpeedStatFormComponent implements OnInit, OnDestroy {
   private readonly onDestroy$ = new Subject<void>();
 
   ngOnInit() {
+    this.state.hold(this.state$, ({ pokemon, level, stats }) => {
+      this.form.setValue(
+        {
+          pokemon,
+          level,
+          stats: { stat: stats.stat, ev: stats.ev, iv: stats.iv, nature: stats.nature },
+        },
+        { emitEvent: false },
+      );
+    });
+
     merge(
       getValidValueChanges(this.form.controls.pokemon).pipe(
         map(() => this.form.getRawValue().pokemon),

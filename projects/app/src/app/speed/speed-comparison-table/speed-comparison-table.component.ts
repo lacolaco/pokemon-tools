@@ -43,17 +43,18 @@ export class SpeedComparisonTableComponent implements OnInit {
 
   readonly state$ = combineLatest([this.state.state$, this.tableState.rows$]).pipe(
     map(([state, rows]) => ({ ...state, rows })),
-    tap(() => {
+  );
+
+  ngOnInit() {
+    this.state.hold(this.state$, () => {
       this.ngZone.runOutsideAngular(() => {
         requestAnimationFrame(() => {
           const allyRow = document.querySelector('[data-ally-row]');
           allyRow?.scrollIntoView({ block: 'center', behavior: 'smooth' });
         });
       });
-    }),
-  );
+    });
 
-  ngOnInit() {
     merge(
       getValidValueChanges(this.form.controls.ally.controls.modifier).pipe(
         tap((value) => {

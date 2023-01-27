@@ -12,7 +12,6 @@ import {
 import { RxState, stateful } from '@rx-angular/state';
 import { combineLatest, distinctUntilChanged, map, Observable, shareReplay } from 'rxjs';
 import { PokemonData } from '../../shared/pokemon-data';
-import { debug } from '../../utitilites/rx';
 import { SpeedPresetKey, speedPresets } from '../speed-presets';
 import { SpeedPageState } from '../speed.state';
 import { comparisonTargetPokemons } from './comparison-targets';
@@ -78,8 +77,7 @@ export class SpeedComparisonTableState extends RxState<{
       stat: modifySpeed(ally.stat, modifier),
       modifier,
     })),
-    distinctUntilChanged(),
-    debug('[speed] allyStat$'),
+    distinctUntilChanged((a, b) => a.stat === b.stat && a.modifier === b.modifier),
   );
 
   private readonly opponentsWithStats$ = combineLatest([
@@ -97,7 +95,6 @@ export class SpeedComparisonTableState extends RxState<{
         },
       }));
     }),
-    debug('[speed] opponentsWithStats$'),
   );
 
   private readonly opponentRows$: Observable<SpeedComparisonTableRow[]> = combineLatest([
@@ -126,7 +123,6 @@ export class SpeedComparisonTableState extends RxState<{
       }
       return Array.from(statGroupsMap.entries()).map(([stat, groups]) => ({ stat, groups }));
     }),
-    debug('[speed] opponentsRows$'),
   );
 
   readonly rows$: Observable<SpeedComparisonTableRow[]> = combineLatest([this.allyStat$, this.opponentRows$]).pipe(
@@ -151,7 +147,6 @@ export class SpeedComparisonTableState extends RxState<{
         return b.isAlly ? -1 : 1;
       });
     }),
-    debug('[speed] rows$'),
     shareReplay(1),
   );
 

@@ -27,10 +27,8 @@ $app-theme: mat.define-light-theme(
 @include mat.icon-theme($app-theme);
 @include mat.icon-button-theme($app-theme);
 @include mat.input-theme($app-theme);
-@include mat.form-field-theme($app-theme);
 @include mat.menu-theme($app-theme);
 @include mat.ripple-theme($app-theme);
-@include mat.select-theme($app-theme);
 @include mat.snack-bar-theme($app-theme);
 @include mat.tooltip-theme($app-theme);
 @tailwind components;
@@ -61,39 +59,6 @@ $app-theme: mat.define-light-theme(
 @layer components {
   .mdc-tooltip {
     font-size: 0.85rem;
-  }
-  .mat-mdc-form-field {
-    .mat-mdc-form-field-flex {
-      .mat-mdc-form-field-infix {
-        width: auto;
-        min-height: unset;
-        padding-top: 0.5em;
-        padding-bottom: 0.5em;
-      }
-    }
-    .mdc-text-field--outlined {
-      padding-left: 0.5em;
-      padding-right: 0.5em;
-
-      .mdc-notched-outline {
-        .mdc-notched-outline__leading {
-          width: 0.5em;
-        }
-        .mdc-notched-outline__notch {
-          border-top: 1px solid rgba(0, 0, 0, 0.38);
-        }
-      }
-      .mat-mdc-floating-label.mdc-floating-label {
-        left: 0;
-        line-height: 1;
-        background-color: #fff;
-      }
-    }
-  }
-  .mat-mdc-select {
-    .mat-mdc-select-arrow-wrapper {
-      height: unset;
-    }
   }
   .mat-mdc-outlined-button.mat-mdc-button-base {
     height: fit-content;

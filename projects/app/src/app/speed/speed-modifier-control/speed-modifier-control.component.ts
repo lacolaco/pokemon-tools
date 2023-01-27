@@ -1,36 +1,38 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SpeedAbility, SpeedItem, SpeedModifier, StatRank } from '@lib/stats';
+import { FormFieldModule } from '../../shared/forms/form-field.component';
 import { getValidValueChanges, SimpleControlValueAccessor } from '../../utitilites/forms';
 
 @Component({
   selector: 'speed-modifier-control',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatInputModule, MatSelectModule, MatCheckboxModule],
+  imports: [CommonModule, ReactiveFormsModule, FormFieldModule, MatCheckboxModule],
   template: `
     <div class="w-full grid grid-flow-row gap-y-2">
-      <mat-form-field appearance="outline" floatLabel="always" subscriptSizing="dynamic">
-        <mat-label>ランク補正</mat-label>
-        <select matNativeControl [formControl]="form.controls.rank" class="w-full">
-          <option *ngFor="let option of rankOptions" [ngValue]="option.value">{{ option.label }}</option>
+      <app-form-field label="ランク補正" [showLabel]="true">
+        <select app-form-control [formControl]="form.controls.rank">
+          <option *ngFor="let option of rankOptions; trackBy: trackByValue" [ngValue]="option.value">
+            {{ option.label }}
+          </option>
         </select>
-      </mat-form-field>
-      <mat-form-field appearance="outline" floatLabel="always" subscriptSizing="dynamic">
-        <mat-label>道具</mat-label>
-        <select matNativeControl [formControl]="form.controls.item" class="w-full">
-          <option *ngFor="let option of itemOptions" [ngValue]="option.value">{{ option.label }}</option>
+      </app-form-field>
+      <app-form-field label="道具" [showLabel]="true">
+        <select app-form-control [formControl]="form.controls.item">
+          <option *ngFor="let option of itemOptions; trackBy: trackByValue" [ngValue]="option.value">
+            {{ option.label }}
+          </option>
         </select>
-      </mat-form-field>
-      <mat-form-field appearance="outline" floatLabel="always" subscriptSizing="dynamic">
-        <mat-label>特性</mat-label>
-        <select matNativeControl [formControl]="form.controls.ability" class="w-full">
-          <option *ngFor="let option of abilityOptions" [ngValue]="option.value">{{ option.label }}</option>
+      </app-form-field>
+      <app-form-field label="特性" [showLabel]="true">
+        <select app-form-control [formControl]="form.controls.ability">
+          <option *ngFor="let option of abilityOptions; trackBy: trackByValue" [ngValue]="option.value">
+            {{ option.label }}
+          </option>
         </select>
-      </mat-form-field>
+      </app-form-field>
       <div [formGroup]="form.controls.condition" class="grid grid-flow-row gap-y-1">
         <span class="text-xs">その他</span>
         <mat-checkbox formControlName="paralysis" class="text-sm">まひ</mat-checkbox>
@@ -106,5 +108,9 @@ export class SpeedModifierControlComponent extends SimpleControlValueAccessor<Sp
   }
   writeValue(value: SpeedModifier): void {
     this.form.setValue(value);
+  }
+
+  trackByValue(_: number, option: { value: unknown }) {
+    return option.value;
   }
 }

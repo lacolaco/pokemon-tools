@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { asEV, EV, MAX_EV_TOTAL, MAX_EV_VALUE } from '@lib/stats';
+import { FormFieldModule } from '../../shared/forms/form-field.component';
 import { SimpleControlValueAccessor } from '../../utitilites/forms';
 
 const STEP = 4;
@@ -10,12 +10,11 @@ const STEP = 4;
 @Component({
   selector: 'ev-input',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatInputModule],
+  imports: [CommonModule, ReactiveFormsModule, FormFieldModule],
   template: `
-    <mat-form-field appearance="outline" hideRequiredMarker subscriptSizing="dynamic" class="w-full">
-      <mat-label *ngIf="showLabel">努力値</mat-label>
+    <app-form-field class="w-full" label="努力値" [showLabel]="showLabel">
       <input
-        matInput
+        app-form-control
         type="number"
         min="0"
         max="252"
@@ -24,7 +23,7 @@ const STEP = 4;
         [formControl]="formControl"
         (click)="onTouched()"
       />
-    </mat-form-field>
+    </app-form-field>
   `,
   styles: [
     `

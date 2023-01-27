@@ -16,7 +16,7 @@ import {
 import { RxState, stateful } from '@rx-angular/state';
 import { combineLatest, distinctUntilChanged, map, Observable, shareReplay } from 'rxjs';
 import { PokemonData } from '../shared/pokemon-data';
-import { debug, filterNonNullable } from '../utitilites/rx';
+import { filterNonNullable } from '../utitilites/rx';
 
 type State = {
   pokemon: Pokemon | null;
@@ -33,15 +33,14 @@ export class SpeedPageState extends RxState<State> {
   private readonly pokemonData = inject(PokemonData);
 
   private readonly stat$: Observable<Stat> = combineLatest([
-    this.select('pokemon').pipe(stateful(debug('[speed] pokemon'), filterNonNullable())),
-    this.select('level').pipe(stateful(debug('[speed] level'))),
-    this.select('stats').pipe(stateful(debug('[speed] stats'))),
+    this.select('pokemon').pipe(stateful(filterNonNullable())),
+    this.select('level').pipe(stateful()),
+    this.select('stats').pipe(stateful()),
   ]).pipe(
     map(([pokemon, level, stats]) => {
       return calculateStatForNonHP(asStat(pokemon.baseStats.S), level, stats.iv, stats.ev, stats.nature);
     }),
     distinctUntilChanged(),
-    debug('[speed] stat'),
     shareReplay(1),
   );
 
@@ -50,7 +49,6 @@ export class SpeedPageState extends RxState<State> {
       const { pokemon, level, stats } = this.get();
       return { pokemon, level, stats: { ...stats, stat } };
     }),
-    debug('[speed] state'),
     shareReplay(1),
   );
 

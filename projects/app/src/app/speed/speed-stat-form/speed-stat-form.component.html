@@ -14,14 +14,13 @@
         ></stat-input>
         <ev-input formControlName="ev" [showLabel]="true" [usedEVs]="state.stats.ev"></ev-input>
         <iv-input formControlName="iv" [showLabel]="true" [disableNull]="true"></iv-input>
-        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="min-w-[5em] w-full">
-          <mat-label>性格補正</mat-label>
-          <select matNativeControl formControlName="nature">
+        <app-form-field class="min-w-[5em] w-full" label="性格補正" [showLabel]="true">
+          <select app-form-control formControlName="nature">
             <option [ngValue]="'up'">↑</option>
             <option [ngValue]="'neutral'">-</option>
             <option [ngValue]="'down'">↓</option>
           </select>
-        </mat-form-field>
+        </app-form-field>
       </div>
       <speed-presets class="w-full sm:w-1/2"></speed-presets>
     </form>

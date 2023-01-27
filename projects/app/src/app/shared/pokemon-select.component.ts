@@ -2,28 +2,21 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatInputModule } from '@angular/material/input';
 import type { Pokemon, PokemonName } from '@lacolaco/pokemon-data';
 import { map } from 'rxjs';
 import { SimpleControlValueAccessor } from '../utitilites/forms';
 import { kataToHira } from '../utitilites/strings';
+import { FormFieldModule } from './forms/form-field.component';
 import { PokemonData } from './pokemon-data';
 
 @Component({
   selector: 'pokemon-select',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatInputModule, MatAutocompleteModule],
+  imports: [CommonModule, ReactiveFormsModule, FormFieldModule, MatAutocompleteModule],
   template: `
-    <mat-form-field appearance="outline" hideRequiredMarker subscriptSizing="dynamic" class="w-full">
-      <mat-label>ポケモン</mat-label>
-      <input
-        matInput
-        [formControl]="formControl"
-        (click)="onTouched()"
-        [matAutocomplete]="auto"
-        placeholder="ポケモンを選択してください"
-      />
-    </mat-form-field>
+    <app-form-field class="w-full" label="ポケモン" [showLabel]="true">
+      <input app-form-control type="text" [formControl]="formControl" (click)="onTouched()" [matAutocomplete]="auto" />
+    </app-form-field>
 
     <mat-autocomplete
       #auto="matAutocomplete"
@@ -58,9 +51,9 @@ export class PokemonSelectComponent extends SimpleControlValueAccessor<Pokemon> 
 
   readonly filteredOptions$ = this.formControl.valueChanges.pipe(
     map((value) => {
-      return this.pokemonNames.filter(
-        (pokemonName) => pokemonName.includes(value) || kataToHira(pokemonName).includes(value),
-      );
+      return this.pokemonNames
+        .filter((pokemonName) => pokemonName.includes(value) || kataToHira(pokemonName).includes(value))
+        .slice(0, 50);
     }),
   );
 
