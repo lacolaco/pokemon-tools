@@ -7,7 +7,7 @@ let nextUniqueId = 0;
   standalone: true,
   host: {
     class:
-      'block p-2 w-full text-base text-gray-900 rounded border border-solid border-gray-400 appearance-none placeholder:text-transparent focus:outline-none focus:ring-0 focus:border-purple-700 peer',
+      'block p-2 w-full text-base text-gray-900 bg-white rounded border border-solid border-gray-400 appearance-none placeholder:text-transparent focus:outline-none focus:ring-0 focus:border-purple-700 peer',
     '[attr.id]': 'id',
   },
 })
