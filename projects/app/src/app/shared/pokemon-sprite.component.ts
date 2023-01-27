@@ -5,21 +5,21 @@ import { PokemonData } from './pokemon-data';
 @Component({
   selector: 'pokemon-sprite',
   standalone: true,
-  template: `<img [attr.src]="src" loading="lazy" />`,
+  template: ``,
   styles: [
     `
       :host {
         display: block;
         aspect-ratio: 1/1;
-      }
-      img {
-        width: 100%;
-        height: 100%;
-        margin-top: -12%;
-        object-fit: contain;
+        background-size: contain;
+        background-repeat: no-repeat;
+        margin-top: -10%;
       }
     `,
   ],
+  host: {
+    '[style.background-image]': '"url(" + src + ")"',
+  },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PokemonSpriteComponent {

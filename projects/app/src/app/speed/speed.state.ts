@@ -11,12 +11,20 @@ import {
   IV,
   Level,
   NatureValue,
+  SpeedModifier,
   Stat,
 } from '@lib/stats';
 import { RxState, stateful } from '@rx-angular/state';
 import { combineLatest, distinctUntilChanged, map, Observable, shareReplay } from 'rxjs';
 import { PokemonData } from '../shared/pokemon-data';
 import { filterNonNullable } from '../utitilites/rx';
+
+export const defaultSpeedModifier: SpeedModifier = {
+  rank: 0,
+  item: null,
+  ability: null,
+  condition: { paralysis: false, tailwind: false },
+};
 
 type State = {
   pokemon: Pokemon | null;
@@ -26,6 +34,8 @@ type State = {
     ev: EV;
     nature: NatureValue;
   };
+  allyModifier: SpeedModifier;
+  opponentModifier: SpeedModifier;
 };
 
 @Injectable()
@@ -44,10 +54,14 @@ export class SpeedPageState extends RxState<State> {
     shareReplay(1),
   );
 
-  readonly state$ = combineLatest([this.stat$]).pipe(
+  readonly state$ = combineLatest([
+    this.stat$,
+    this.select('allyModifier').pipe(stateful()),
+    this.select('opponentModifier').pipe(stateful()),
+  ]).pipe(
     map(([stat]) => {
-      const { pokemon, level, stats } = this.get();
-      return { pokemon, level, stats: { ...stats, stat } };
+      const { pokemon, level, stats, allyModifier, opponentModifier } = this.get();
+      return { pokemon, level, stats: { ...stats, stat }, allyModifier, opponentModifier };
     }),
     shareReplay(1),
   );
@@ -59,7 +73,13 @@ export class SpeedPageState extends RxState<State> {
   }
 
   resetPokemon(pokemon: Pokemon) {
-    this.set({ pokemon, level: asLevel(50), stats: { iv: asIV(31), ev: asEV(252), nature: 'up' } });
+    this.set({
+      pokemon,
+      level: asLevel(50),
+      stats: { iv: asIV(31), ev: asEV(252), nature: 'up' },
+      allyModifier: defaultSpeedModifier,
+      opponentModifier: defaultSpeedModifier,
+    });
   }
 
   calculateEV(stat: Stat) {

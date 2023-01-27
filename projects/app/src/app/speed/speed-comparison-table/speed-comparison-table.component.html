@@ -1,40 +1,28 @@
 <ng-container *ngIf="state$ | async as state">
-  <div class="h-full w-full grid grid-cols-auto-1fr gap-x-2">
-    <form [formGroup]="form" class="h-full w-[30vw] overflow-auto flex flex-col items-start gap-y-2 text-sm">
-      <div formGroupName="ally" class="w-full grid grid-flow-row gap-y-2 border-b border-b-gray-500">
-        <div class="font-bold">自分側</div>
-        <speed-modifier-control formControlName="modifier" class="w-full"></speed-modifier-control>
-      </div>
-      <div formGroupName="opponent" class="w-full grid grid-flow-row gap-y-2">
-        <div class="font-bold">相手側</div>
-        <speed-modifier-control formControlName="modifier" class="w-full"></speed-modifier-control>
-      </div>
-    </form>
+  <div
+    class="flex-auto h-full flex flex-col overflow-auto overscroll-contain border border-solid border-gray-400 rounded"
+  >
     <div
-      class="flex-auto h-full flex flex-col overflow-auto overscroll-contain border border-solid border-gray-400 rounded"
+      *ngFor="let row of state.rows; trackBy: trackRow"
+      class="px-1 py-1 border-b border-gray-300"
+      [class.bg-red-200]="row.isAlly"
+      [attr.data-ally-row]="row.isAlly"
     >
-      <div
-        *ngFor="let row of state.rows; trackBy: trackRow"
-        class="px-1 py-1 border-b border-gray-300"
-        [class.bg-red-200]="row.isAlly"
-        [attr.data-ally-row]="row.isAlly"
-      >
-        <div class="flex flex-row gap-x-2">
-          <span class="text-sm font-bold">{{ row.stat }}</span>
-        </div>
-        <div class="flex flex-col items-start">
-          <div *ngFor="let group of row.groups" class="grid grid-rows-auto-1fr items-start">
-            <span class="text-xs">{{ group.label }}</span>
-            <div class="flex flex-row flex-wrap items-start">
-              <a
-                *ngFor="let pokemon of group.pokemons; trackBy: trackPokemon"
-                target="_blank"
-                [href]="pokemon.meta.url"
-                [title]="pokemon.name"
-              >
-                <pokemon-sprite [pokemon]="pokemon" class="w-8"></pokemon-sprite>
-              </a>
-            </div>
+      <div class="flex flex-row gap-x-2">
+        <span class="text-sm font-bold">{{ row.stat }}</span>
+      </div>
+      <div class="flex flex-col items-start">
+        <div *ngFor="let group of row.groups" class="grid grid-rows-auto-1fr items-start">
+          <span class="text-xs">{{ group.label }}</span>
+          <div class="flex flex-row flex-wrap items-start">
+            <a
+              *ngFor="let pokemon of group.pokemons; trackBy: trackPokemon"
+              target="_blank"
+              [href]="pokemon.meta.url"
+              [title]="pokemon.name"
+            >
+              <pokemon-sprite [pokemon]="pokemon" class="w-8 h-8"></pokemon-sprite>
+            </a>
           </div>
         </div>
       </div>

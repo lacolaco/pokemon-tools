@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SpeedAbility, SpeedItem, SpeedModifier, StatRank } from '@lib/stats';
+import { CheckboxFieldModule } from '../../shared/forms/checkbox.component';
 import { FormFieldModule } from '../../shared/forms/form-field.component';
 import { getValidValueChanges, SimpleControlValueAccessor } from '../../utitilites/forms';
 
 @Component({
   selector: 'speed-modifier-control',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormFieldModule, MatCheckboxModule],
+  imports: [CommonModule, ReactiveFormsModule, FormFieldModule, CheckboxFieldModule],
   template: `
     <div class="w-full grid grid-flow-row gap-y-2">
       <app-form-field label="ランク補正" [showLabel]="true">
@@ -35,8 +35,12 @@ import { getValidValueChanges, SimpleControlValueAccessor } from '../../utitilit
       </app-form-field>
       <div [formGroup]="form.controls.condition" class="grid grid-flow-row gap-y-1">
         <span class="text-xs">その他</span>
-        <mat-checkbox formControlName="paralysis" class="text-sm">まひ</mat-checkbox>
-        <mat-checkbox formControlName="tailwind" class="text-sm">おいかぜ</mat-checkbox>
+        <app-form-checkbox label="まひ">
+          <input type="checkbox" formControlName="paralysis" class="text-sm" />
+        </app-form-checkbox>
+        <app-form-checkbox label="おいかぜ">
+          <input type="checkbox" formControlName="tailwind" class="text-sm" />
+        </app-form-checkbox>
       </div>
     </div>
   `,
@@ -44,7 +48,6 @@ import { getValidValueChanges, SimpleControlValueAccessor } from '../../utitilit
     `
       :host {
         display: block;
-        --mdc-checkbox-state-layer-size: 24px;
       }
     `,
   ],

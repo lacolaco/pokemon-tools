@@ -17,13 +17,6 @@ import { SpeedPageState } from '../speed.state';
 import { comparisonTargetPokemons } from './comparison-targets';
 import { getSpeedModifierLabel } from './speed-modifier-label';
 
-export const defaultSpeedModifier: SpeedModifier = {
-  rank: 0,
-  item: null,
-  ability: null,
-  condition: { paralysis: false, tailwind: false },
-};
-
 export type SpeedComparisonGroup = {
   label: string;
   pokemons: Pokemon[];
@@ -154,20 +147,21 @@ export class SpeedComparisonTableState extends RxState<{
     super();
 
     this.connect(
-      'ally',
       this.pageState.state$.pipe(
         map((state) => ({
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          pokemon: state.pokemon!,
-          level: state.level,
-          stat: state.stats.stat,
+          ally: {
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            pokemon: state.pokemon!,
+            level: state.level,
+            stat: state.stats.stat,
+          },
+          allyModifier: state.allyModifier,
+          opponentModifier: state.opponentModifier,
         })),
       ),
     );
     this.set({
       opponents: comparisonTargetPokemons.map((name) => this.pokemonData.getPokemonByName(name)),
-      allyModifier: defaultSpeedModifier,
-      opponentModifier: defaultSpeedModifier,
     });
   }
 }
