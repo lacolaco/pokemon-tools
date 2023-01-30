@@ -1,49 +1,19 @@
 import { inject, Injectable } from '@angular/core';
-import type { Pokemon, PokemonName } from '@lacolaco/pokemon-data';
-import {
-  asEV,
-  asIV,
-  asLevel,
-  compareStatValues,
-  EV,
-  IV,
-  Level,
-  Nature,
-  NatureName,
-  natures,
-  StatValues,
-} from '@lib/stats';
+import type { Pokemon } from '@lacolaco/pokemon-data';
 import { RxState, stateful } from '@rx-angular/state';
 import { compressToBase64, decompressFromBase64 } from 'lz-string';
 import { combineLatest, distinctUntilChanged, map, shareReplay } from 'rxjs';
 import { PokemonData } from '../shared/pokemon-data';
 import { debug, filterNonNullable } from '../utitilites/rx';
-
-export type PokemonState = {
-  pokemon: Pokemon;
-  level: Level;
-  nature: Nature;
-  ivs: StatValues<IV | null>;
-  evs: StatValues<EV>;
-};
-
-type PokemonStateJSON = {
-  pokemon: PokemonName;
-  level: number;
-  nature: NatureName;
-  ivs: StatValues<number | null>;
-  evs: StatValues<number>;
-};
-
-function comparePokemonState(a: PokemonState, b: PokemonState): boolean {
-  return (
-    a.pokemon === b.pokemon &&
-    a.level === b.level &&
-    a.nature === b.nature &&
-    compareStatValues(a.ivs, b.ivs) &&
-    compareStatValues(a.evs, b.evs)
-  );
-}
+import {
+  clonePokemonState,
+  comparePokemonState,
+  createPokemonState,
+  deserializePokemonState,
+  PokemonState,
+  PokemonStateJSON,
+  serializePokemonState,
+} from './models/pokemon-state';
 
 type State = {
   pokemons: PokemonState[];
@@ -59,13 +29,9 @@ export class StatsState extends RxState<State> {
     shareReplay(1),
   );
 
-  constructor() {
-    super();
-  }
-
   initialize() {
     this.set({
-      pokemons: [createPokemonState(this.pokemonData.getPokemonByName('ガブリアス'))],
+      pokemons: [createPokemonState(this.getDefaultPokemon())],
     });
   }
 
@@ -96,7 +62,7 @@ export class StatsState extends RxState<State> {
     });
   }
 
-  update(index: number, input: PokemonStateInput) {
+  update(index: number, input: Partial<PokemonState>) {
     const current = this.getByIndex(index);
     const next = { ...current, ...input };
     if (comparePokemonState(current, next)) {
@@ -111,9 +77,8 @@ export class StatsState extends RxState<State> {
 
   addPokemon() {
     this.set('pokemons', ({ pokemons }) => {
-      const last = pokemons[pokemons.length - 1];
-      const pokemon = last?.pokemon ?? this.pokemonData.getPokemonByName('ガブリアス');
-      return [...pokemons, createPokemonState(pokemon)];
+      const base = pokemons[pokemons.length - 1] ?? createPokemonState(this.getDefaultPokemon());
+      return [...pokemons, clonePokemonState(base)];
     });
   }
 
@@ -127,10 +92,7 @@ export class StatsState extends RxState<State> {
 
   serialize() {
     const { pokemons } = this.get();
-    const serialized = pokemons.map((item, index) => {
-      const { pokemon, level, nature, ivs, evs } = item;
-      return [index, { pokemon: pokemon.name, level, nature: nature.name, ivs, evs } as PokemonStateJSON];
-    });
+    const serialized = pokemons.map((item, index) => [index, serializePokemonState(item)]);
     const token = compressToBase64(JSON.stringify(serialized));
     return token;
   }
@@ -140,25 +102,13 @@ export class StatsState extends RxState<State> {
     if (data.length === 0) {
       return;
     }
-    const pokemons = data.map(([, item]) => ({
-      pokemon: this.pokemonData.getPokemonByName(item.pokemon),
-      level: asLevel(item.level),
-      nature: natures[item.nature],
-      ivs: item.ivs as StatValues<IV | null>,
-      evs: item.evs as StatValues<EV>,
-    }));
+    const pokemons = data.map(([, item]) =>
+      deserializePokemonState(item, (name) => this.pokemonData.getPokemonByName(name)),
+    );
     this.set({ pokemons });
   }
-}
 
-export type PokemonStateInput = Partial<PokemonState>;
-
-function createPokemonState(pokemon: Pokemon): PokemonState {
-  return {
-    pokemon,
-    level: asLevel(50),
-    nature: natures['いじっぱり'],
-    evs: { H: asEV(0), A: asEV(0), B: asEV(0), C: asEV(0), D: asEV(0), S: asEV(0) },
-    ivs: { H: asIV(31), A: asIV(31), B: asIV(31), C: asIV(31), D: asIV(31), S: asIV(31) },
-  };
+  private getDefaultPokemon(): Pokemon {
+    return this.pokemonData.getPokemonByName('ガブリアス');
+  }
 }

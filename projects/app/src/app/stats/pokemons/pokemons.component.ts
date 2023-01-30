@@ -13,7 +13,7 @@ import { StatsPokemonsItemComponent } from './pokemons-item.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container *ngIf="state$ | async as state">
-      <cdk-accordion class="flex flex-col gap-y-2">
+      <cdk-accordion class="flex flex-col gap-y-2" multi>
         <cdk-accordion-item
           *ngFor="let item of state.pokemons; trackBy: trackByIndex; let index = index"
           #cdkAccordionItem="cdkAccordionItem"

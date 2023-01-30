@@ -21,7 +21,8 @@ import {
 } from '@lib/stats';
 import { distinctUntilChanged, map, Observable, shareReplay } from 'rxjs';
 import { debug } from '../../utitilites/rx';
-import { PokemonState, PokemonStateInput, StatsState } from '../stats.state';
+import { PokemonState } from '../models/pokemon-state';
+import { StatsState } from '../stats.state';
 
 export type PokemonsItemState = PokemonState & {
   index: number;
@@ -64,7 +65,7 @@ export class PokemonsItemUsecase {
     this.state.reset(index, pokemon);
   }
 
-  update(index: number, input: PokemonStateInput) {
+  update(index: number, input: Partial<PokemonState>) {
     this.state.update(index, input);
   }
 
