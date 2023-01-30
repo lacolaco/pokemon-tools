@@ -111,7 +111,8 @@ export class StatsState extends RxState<State> {
 
   addPokemon() {
     this.set('pokemons', ({ pokemons }) => {
-      const pokemon = pokemons[0]?.pokemon ?? this.pokemonData.getPokemonByName('ガブリアス');
+      const last = pokemons[pokemons.length - 1];
+      const pokemon = last?.pokemon ?? this.pokemonData.getPokemonByName('ガブリアス');
       return [...pokemons, createPokemonState(pokemon)];
     });
   }
