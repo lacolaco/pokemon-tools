@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { PokemonStateKey, StatsState } from '../stats.state';
-import { StatsPokemonsItemComponent } from './stats-pokemons-item.component';
+import { StatsState } from '../stats.state';
+import { StatsPokemonsItemComponent } from './pokemons-item.component';
 
 @Component({
   selector: 'stats-pokemons',
@@ -14,12 +14,13 @@ import { StatsPokemonsItemComponent } from './stats-pokemons-item.component';
   template: `
     <ng-container *ngIf="state$ | async as state">
       <cdk-accordion class="flex flex-col gap-y-2">
-        <cdk-accordion-item *ngFor="let key of state.pokemons" #accordionItem="cdkAccordionItem" expanded>
-          <stats-pokemons-item
-            [cdkAccordionItem]="accordionItem"
-            [key]="key"
-            (remove)="removePokemon(key)"
-          ></stats-pokemons-item>
+        <cdk-accordion-item
+          *ngFor="let item of state.pokemons; trackBy: trackByIndex; let index = index"
+          #cdkAccordionItem="cdkAccordionItem"
+          expanded
+        >
+          <stats-pokemons-item [index]="index" [cdkAccordionItem]="cdkAccordionItem" (remove)="remove(index)">
+          </stats-pokemons-item>
         </cdk-accordion-item>
 
         <button
@@ -53,7 +54,11 @@ export class StatsPokemonsComponent {
     this.state.addPokemon();
   }
 
-  removePokemon(key: PokemonStateKey) {
-    this.state.removePokemon(key);
+  remove(index: number) {
+    this.state.remove(index);
+  }
+
+  trackByIndex(index: number) {
+    return index;
   }
 }

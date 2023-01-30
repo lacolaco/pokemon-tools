@@ -3,16 +3,16 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
-import { StatsPokemonsComponent } from './pokemons/stats-pokemons.component';
+import { StatsPokemonsComponent } from './pokemons/pokemons.component';
 import { StatsState } from './stats.state';
 
 @Component({
   selector: 'app-stats',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule, MatTooltipModule, StatsPokemonsComponent],
+  imports: [CommonModule, MatSnackBarModule, MatButtonModule, MatIconModule, MatTooltipModule, StatsPokemonsComponent],
   providers: [StatsState],
   template: `
     <header class="grid grid-cols-[1fr_auto] items-center mb-4">
@@ -43,6 +43,8 @@ export class StatsPageComponent implements OnInit {
     const token = this.route.snapshot.queryParamMap.get('token');
     if (token) {
       this.state.deserialize(token);
+    } else {
+      this.state.initialize();
     }
   }
 

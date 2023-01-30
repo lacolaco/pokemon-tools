@@ -6,8 +6,10 @@ let nextUniqueId = 0;
   selector: '[app-form-control]',
   standalone: true,
   host: {
-    class:
-      'block p-2 w-full text-base text-gray-900 bg-white rounded border border-solid border-gray-400 appearance-none placeholder:text-transparent focus:outline-none focus:ring-0 focus:border-purple-700 peer',
+    class: `
+    block p-2 w-full text-base text-gray-900 bg-white rounded border border-solid border-gray-400 appearance-none placeholder:text-transparent peer
+    focus:outline-none focus:ring-0 focus:border-purple-700 
+    disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed`,
     '[attr.id]': 'id',
   },
 })
