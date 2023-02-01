@@ -9,7 +9,7 @@ import { JoinPipe, JoinStatValuesPipe } from './utitilites/pipes';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, JoinStatValuesPipe, JoinPipe],
   template: `
-    <div class="grid grid-flow-row justify-start items-center gap-1 text-sm leading-none text-gray-500">
+    <div class="flex flex-row justify-start items-center gap-x-1 leading-none">
       <span>{{ pokemon.baseStats | joinStatValues }}</span>
       <span>{{ pokemon.types | join : '/' }}</span>
     </div>
