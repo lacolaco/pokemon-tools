@@ -17,7 +17,6 @@ import { distinctUntilChanged, map } from 'rxjs';
         type="number"
         min="1"
         max="999"
-        required
         [formControl]="formControl"
         (click)="onTouched(); dispatchChange.emit()"
         (blur)="dispatchChange.emit()"
