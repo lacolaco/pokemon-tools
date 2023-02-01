@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterLink } from '@angular/router';
-import { AppIconButton } from '@app/shared/ui/icon-button';
+import { AppIconButton } from '@app/shared/ui/buttons';
 
 @Component({
   selector: 'app-header',

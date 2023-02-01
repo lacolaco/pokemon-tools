@@ -2,7 +2,7 @@ import { CdkAccordionItem } from '@angular/cdk/accordion';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { AppIconButton } from '@app/shared/ui/icon-button';
+import { AppIconButton } from '@app/shared/ui/buttons';
 import { StatsPokemonFormComponent } from '../pokemon-form/stats-form.component';
 import { StatsSummaryComponent } from '../pokemon-summary/stats-pokemon-summary.component';
 import { PokemonsItemUsecase } from './pokemons-item.usecase';

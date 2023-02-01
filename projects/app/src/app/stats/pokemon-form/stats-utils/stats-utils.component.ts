@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AppStrokedButton } from '@app/shared/ui/buttons';
 import { MAX_EV_TOTAL } from '@lib/stats';
 import { PokemonsItemState } from '../../pokemons/pokemons-item.usecase';
 
@@ -9,7 +9,7 @@ import { PokemonsItemState } from '../../pokemons/pokemons-item.usecase';
   selector: 'stats-utils',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, MatTooltipModule, MatButtonModule],
+  imports: [CommonModule, MatTooltipModule, AppStrokedButton],
   template: `
     <div class="grid grid-flow-row gap-y-1">
       <div class="flex flex-row items-center justify-end gap-x-2">
@@ -17,7 +17,7 @@ import { PokemonsItemState } from '../../pokemons/pokemons-item.usecase';
           努力値合計: <span class="{{ isTooHigh ? 'text-red-500 font-bold' : '' }}">{{ state.usedEVs }}</span> /
           <span>{{ maxEVTotal }}</span>
         </div>
-        <button mat-stroked-button class="py-1" (click)="resetEVs.emit()" matTooltip="すべての努力値をリセットします">
+        <button app-stroked-button class="" (click)="resetEVs.emit()" matTooltip="すべての努力値をリセットします">
           リセット
         </button>
       </div>
@@ -26,7 +26,7 @@ import { PokemonsItemState } from '../../pokemons/pokemons-item.usecase';
           総合耐久指数: <span>{{ state.usedEVs }}</span>
         </div>
         <button
-          mat-stroked-button
+          app-stroked-button
           (click)="optimizeDefenseEVs.emit()"
           matTooltip="総合耐久指数が最大になるように努力値を配分します"
         >
@@ -39,10 +39,6 @@ import { PokemonsItemState } from '../../pokemons/pokemons-item.usecase';
     `
       :host {
         display: block;
-      }
-      button {
-        padding-top: 0.25em;
-        padding-bottom: 0.25em;
       }
     `,
   ],

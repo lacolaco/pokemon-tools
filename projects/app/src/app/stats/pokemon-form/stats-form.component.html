@@ -42,15 +42,9 @@
           <tr>
             <td></td>
             <td *ngFor="let key of statKeys">
-              <stat-commands
-                [key]="key"
-                [state]="state"
-                (maximize)="maximize(key)"
-                (minimize)="minimize(key)"
-                (increment)="increment(key)"
-                (decrement)="decrement(key)"
-                (toggleIgnored)="toggleIgnored(key)"
-              ></stat-commands>
+              <button app-stroked-button #button class="w-full" (click)="openStatCommands(key, button)">
+                <mat-icon inline fontIcon="tune"></mat-icon>
+              </button>
             </td>
           </tr>
         </tbody>

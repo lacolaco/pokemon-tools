@@ -1,18 +1,27 @@
 import { Clipboard } from '@angular/cdk/clipboard';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppIconButton } from '@app/shared/ui/icon-button';
+import { AppIconButton } from '@app/shared/ui/buttons';
 import { StatsPokemonsComponent } from './pokemons/pokemons.component';
 import { StatsState } from './stats.state';
 
 @Component({
   selector: 'app-stats',
   standalone: true,
-  imports: [CommonModule, MatSnackBarModule, MatIconModule, MatTooltipModule, StatsPokemonsComponent, AppIconButton],
+  imports: [
+    CommonModule,
+    OverlayModule,
+    MatSnackBarModule,
+    MatIconModule,
+    MatTooltipModule,
+    StatsPokemonsComponent,
+    AppIconButton,
+  ],
   providers: [StatsState],
   template: `
     <header class="grid grid-cols-[1fr_auto] items-center mb-4">

@@ -1,10 +1,13 @@
+import { Overlay } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, Injector, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { AppStrokedButton } from '@app/shared/ui/buttons';
 import { StatKey } from '@lib/stats';
 import { RxState, stateful } from '@rx-angular/state';
-import { distinctUntilChanged, merge, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { distinctUntilChanged, merge, Subject, switchMap, take, takeUntil, tap } from 'rxjs';
 import { EVInputComponent } from '../../shared/ev-input.component';
 import {
   createEVControl,
@@ -46,17 +49,21 @@ function createStatControls<T>(fn: () => FormControl<T>) {
     StatInputComponent,
     IVInputComponent,
     EVInputComponent,
-    StatCommandsComponent,
     StatUtilsComponent,
     StatsAnalysisComponent,
     StatsTextareaComponent,
+    AppStrokedButton,
   ],
 })
 export class StatsPokemonFormComponent implements OnInit, OnDestroy {
   private readonly usecase = inject(PokemonsItemUsecase);
+  private readonly overlay = inject(Overlay);
+  private readonly injector = inject(Injector);
   private readonly inputs$ = new RxState<{ index: number }>();
   private readonly fb = inject(FormBuilder).nonNullable;
   private readonly onDestroy$ = new Subject<void>();
+
+  @ViewChild('statCommandsTemplate') statCommandsTemplate!: TemplateRef<{ key: StatKey }>;
 
   @Input() set index(value: number) {
     this.inputs$.set({ index: value });
@@ -134,32 +141,42 @@ export class StatsPokemonFormComponent implements OnInit, OnDestroy {
     this.onDestroy$.complete();
   }
 
-  maximize(key: StatKey) {
-    this.usecase.maximize(this.index, key);
-  }
-
-  minimize(key: StatKey) {
-    this.usecase.minimize(this.index, key);
-  }
-
-  increment(key: StatKey) {
-    this.usecase.increment(this.index, key);
-  }
-
-  decrement(key: StatKey) {
-    this.usecase.decrement(this.index, key);
-  }
-
-  toggleIgnored(key: StatKey) {
-    this.usecase.toggleIgnored(this.index, key);
-  }
-
   resetEVs() {
     this.usecase.resetEVs(this.index);
   }
 
   optimizeDefenseEVs() {
     this.usecase.optimizeDefenseEVs(this.index);
+  }
+
+  openStatCommands(key: StatKey, origin: HTMLElement) {
+    const overlayRef = this.overlay.create({
+      hasBackdrop: true,
+      backdropClass: 'bg-transparent',
+      positionStrategy: this.overlay
+        .position()
+        .flexibleConnectedTo(origin)
+        .withPositions([
+          { originX: 'start', overlayX: 'start', originY: 'bottom', overlayY: 'top' },
+          { originX: 'end', overlayX: 'end', originY: 'bottom', overlayY: 'top' },
+        ]),
+    });
+    const detach$ = overlayRef.detachments().pipe(take(1));
+    overlayRef
+      .backdropClick()
+      .pipe(takeUntil(detach$))
+      .subscribe(() => overlayRef.dispose());
+    const portal = new ComponentPortal(
+      StatCommandsComponent,
+      null,
+      Injector.create({
+        providers: [{ provide: StatCommandsComponent, useValue: this }],
+        parent: this.injector,
+      }),
+    );
+    const ref = portal.attach(overlayRef);
+    ref.setInput('key', key);
+    ref.changeDetectorRef.detectChanges();
   }
 
   private setFormValues(state: PokemonsItemState) {

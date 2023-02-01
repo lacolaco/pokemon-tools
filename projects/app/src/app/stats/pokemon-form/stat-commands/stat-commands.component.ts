@@ -1,44 +1,45 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { AppStrokedButton } from '@app/shared/ui/buttons';
 import { EV_STEP, MAX_EV_TOTAL, MAX_EV_VALUE, StatKey } from '@lib/stats';
-import { PokemonsItemState } from '../../pokemons/pokemons-item.usecase';
+import { map } from 'rxjs';
+import { PokemonsItemUsecase } from '../../pokemons/pokemons-item.usecase';
+import { StatsPokemonFormComponent } from '../stats-form.component';
 
 @Component({
   selector: 'stat-commands',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, ReactiveFormsModule, MatIconModule, AppStrokedButton],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="grid grid-flow-row gap-y-1 py-1">
-      <button mat-stroked-button (click)="maximize.emit()" [disabled]="isMax || isIgnored">
-        <span class="flex"><mat-icon fontIcon="keyboard_double_arrow_up" inline></mat-icon></span>
-      </button>
-      <button mat-stroked-button (click)="increment.emit()" [disabled]="isMax || isIgnored">
-        <span class="flex"><mat-icon fontIcon="add" inline></mat-icon></span>
-      </button>
-      <button mat-stroked-button (click)="decrement.emit()" [disabled]="isMin || isIgnored">
-        <span class="flex"><mat-icon fontIcon="remove" inline></mat-icon></span>
-      </button>
-      <button mat-stroked-button (click)="minimize.emit()" [disabled]="isMin || isIgnored">
-        <span class="flex">0</span>
-      </button>
-      <button mat-stroked-button (click)="toggleIgnored.emit()">
-        <span class="flex"><mat-icon [fontIcon]="isIgnored ? 'refresh' : 'close'" inline></mat-icon></span>
-      </button>
-    </div>
+    <ng-container *ngIf="state$ | async as state">
+      <div class="bg-white p-2 rounded border border-solid border-gray-500 shadow">
+        <div class="grid grid-flow-row gap-y-2">
+          <button app-stroked-button class="w-16" (click)="maximize()" [disabled]="state.isMax || state.isIgnored">
+            <span class="flex"><mat-icon fontIcon="keyboard_double_arrow_up" inline></mat-icon></span>
+          </button>
+          <button app-stroked-button class="w-16" (click)="increment()" [disabled]="state.isMax || state.isIgnored">
+            <span class="flex"><mat-icon fontIcon="add" inline></mat-icon></span>
+          </button>
+          <button app-stroked-button class="w-16" (click)="decrement()" [disabled]="state.isMin || state.isIgnored">
+            <span class="flex"><mat-icon fontIcon="remove" inline></mat-icon></span>
+          </button>
+          <button app-stroked-button class="w-16" (click)="minimize()" [disabled]="state.isMin || state.isIgnored">
+            <span class="flex">0</span>
+          </button>
+          <button app-stroked-button class="w-16" (click)="toggleIgnored()">
+            <span class="flex"><mat-icon [fontIcon]="state.isIgnored ? 'refresh' : 'close'" inline></mat-icon></span>
+          </button>
+        </div>
+      </div>
+    </ng-container>
   `,
   styles: [
     `
       :host {
         display: block;
-      }
-      button {
-        min-width: unset;
-        padding-top: 0.25em;
-        padding-bottom: 0.25em;
       }
       mat-icon {
         min-width: unset;
@@ -49,25 +50,43 @@ import { PokemonsItemState } from '../../pokemons/pokemons-item.usecase';
   ],
 })
 export class StatCommandsComponent {
+  private readonly context = inject(StatsPokemonFormComponent);
+  private readonly usecase = inject(PokemonsItemUsecase);
+
   @Input() key!: StatKey;
-  @Input() state!: PokemonsItemState;
 
-  @Output() maximize = new EventEmitter<void>();
-  @Output() minimize = new EventEmitter<void>();
-  @Output() increment = new EventEmitter<void>();
-  @Output() decrement = new EventEmitter<void>();
-  @Output() toggleIgnored = new EventEmitter<void>();
-
-  get isMax() {
-    const free = MAX_EV_TOTAL - this.state.usedEVs;
-    return free < EV_STEP || this.state.evs[this.key] === MAX_EV_VALUE;
+  get index() {
+    return this.context.index;
   }
 
-  get isMin() {
-    return this.state.evs[this.key] === 0;
+  get state$() {
+    return this.context.state$.pipe(
+      map((state) => ({
+        ...state,
+        isMax: MAX_EV_TOTAL - state.usedEVs < EV_STEP || state.evs[this.key] === MAX_EV_VALUE,
+        isMin: state.evs[this.key] === 0,
+        isIgnored: state.ivs[this.key] === null,
+      })),
+    );
   }
 
-  get isIgnored() {
-    return this.state.ivs[this.key] === null;
+  maximize() {
+    this.usecase.maximize(this.index, this.key);
+  }
+
+  minimize() {
+    this.usecase.minimize(this.index, this.key);
+  }
+
+  increment() {
+    this.usecase.increment(this.index, this.key);
+  }
+
+  decrement() {
+    this.usecase.decrement(this.index, this.key);
+  }
+
+  toggleIgnored() {
+    this.usecase.toggleIgnored(this.index, this.key);
   }
 }
