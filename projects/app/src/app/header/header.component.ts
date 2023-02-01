@@ -2,11 +2,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterLink } from '@angular/router';
+import { AppIconButton } from '@app/shared/ui/icon-button';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatIconModule, MatMenuModule, RouterLink],
+  imports: [MatIconModule, MatMenuModule, RouterLink, AppIconButton],
   template: `
     <div class="h-full flex items-center gap-y-2 py-2">
       <div class="flex-auto flex items-center gap-x-2">
@@ -14,7 +15,7 @@ import { RouterLink } from '@angular/router';
         <span class="text-lg font-bold">Pokémon Battle Tools</span>
       </div>
       <div>
-        <button class="h-12 w-12 p-3 rounded-full" [matMenuTriggerFor]="menu">
+        <button app-icon-button [matMenuTriggerFor]="menu">
           <mat-icon fontIcon="apps"></mat-icon>
         </button>
         <mat-menu #menu="matMenu">

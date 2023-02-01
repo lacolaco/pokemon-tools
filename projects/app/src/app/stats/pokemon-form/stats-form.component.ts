@@ -1,12 +1,11 @@
-import { ClipboardModule } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { StatKey } from '@lib/stats';
 import { RxState, stateful } from '@rx-angular/state';
 import { distinctUntilChanged, merge, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { EVInputComponent } from '../../shared/ev-input.component';
 import {
   createEVControl,
   createIVControl,
@@ -15,14 +14,13 @@ import {
   createPokemonControl,
   createStatControl,
 } from '../../shared/forms/controls';
-import { PokemonSelectComponent } from '../../shared/pokemon-select.component';
-import { getValidValueChanges } from '../../shared/utitilites/forms';
-import { distinctUntilStatValuesChanged, filterNonNullable } from '../../shared/utitilites/rx';
-import { EVInputComponent } from '../../shared/ev-input.component';
 import { IVInputComponent } from '../../shared/iv-input.component';
 import { LevelInputComponent } from '../../shared/level-input.component';
 import { NatureSelectComponent } from '../../shared/nature-select.component';
+import { PokemonSelectComponent } from '../../shared/pokemon-select.component';
 import { StatInputComponent } from '../../shared/stat-input.component';
+import { getValidValueChanges } from '../../shared/utitilites/forms';
+import { distinctUntilStatValuesChanged, filterNonNullable } from '../../shared/utitilites/rx';
 import { PokemonsItemState, PokemonsItemUsecase } from '../pokemons/pokemons-item.usecase';
 import { StatCommandsComponent } from './stat-commands/stat-commands.component';
 import { StatsAnalysisComponent } from './stats-analysis/stats-analysis.component';
@@ -42,8 +40,6 @@ function createStatControls<T>(fn: () => FormControl<T>) {
     CommonModule,
     ReactiveFormsModule,
     MatIconModule,
-    MatSnackBarModule,
-    ClipboardModule,
     PokemonSelectComponent,
     LevelInputComponent,
     NatureSelectComponent,
@@ -85,7 +81,6 @@ export class StatsPokemonFormComponent implements OnInit, OnDestroy {
   readonly statKeys = ['H', 'A', 'B', 'C', 'D', 'S'] as const;
 
   ngOnInit(): void {
-    // Calculate stats from form
     merge(
       getValidValueChanges(this.form.controls.pokemon).pipe(
         distinctUntilChanged(),
