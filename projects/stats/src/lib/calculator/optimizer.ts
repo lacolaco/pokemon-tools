@@ -80,3 +80,10 @@ function getDerivatives(H: Stat, B: Stat, D: Stat): { dSdH: number; dSdB: number
     dSdD: (H * Math.pow(B, 2)) / Math.pow(B + D, 2),
   };
 }
+
+export function calculateDefenseFactor(H: Stat | null, B: Stat | null, D: Stat | null): number | null {
+  if (H === null || B === null || D === null) {
+    return null;
+  }
+  return (H * B * D) / (B + D);
+}

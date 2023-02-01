@@ -8,6 +8,7 @@ import {
   calculateAllStats,
   calculateDecrementedEVForHP,
   calculateDecrementedEVForNonHP,
+  calculateDefenseFactor,
   calculateIncrementedEVForHP,
   calculateIncrementedEVForNonHP,
   compareStatValues,
@@ -27,6 +28,7 @@ import { StatsState } from '../stats.state';
 export type PokemonsItemState = PokemonState & {
   index: number;
   usedEVs: number;
+  defenseFactor: number | null;
   stats: StatValues<Stat | null>;
 };
 
@@ -45,7 +47,8 @@ export class PokemonsItemUsecase {
         const { pokemon, evs, ivs, level, nature } = state;
         const stats = calculateAllStats(pokemon.baseStats as StatValues<Stat>, level, ivs, evs, nature);
         const usedEVs = sumOfStatValues(evs);
-        return { ...state, index, stats, usedEVs };
+        const defenseFactor = calculateDefenseFactor(stats.H, stats.B, stats.D);
+        return { ...state, index, stats, usedEVs, defenseFactor };
       }),
       distinctUntilChanged((a, b) => {
         return comparePokemonState(a, b) && compareStatValues(a.stats, b.stats);

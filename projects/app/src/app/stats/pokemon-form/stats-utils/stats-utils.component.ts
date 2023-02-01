@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatNumber } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AppStrokedButton } from '@app/shared/ui/buttons';
@@ -11,20 +11,20 @@ import { PokemonsItemState } from '../../pokemons/pokemons-item.usecase';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, MatTooltipModule, AppStrokedButton],
   template: `
-    <div class="grid grid-flow-row gap-y-1">
-      <div class="flex flex-row items-center justify-end gap-x-2">
+    <div class="flex flex-col gap-y-1">
+      <div class="flex flex-col items-start">
         <div>
           努力値合計: <span class="{{ isTooHigh ? 'text-red-500 font-bold' : '' }}">{{ state.usedEVs }}</span> /
           <span>{{ maxEVTotal }}</span>
         </div>
+        <div>
+          総合耐久指数: <span>{{ defenseFactorString }}</span>
+        </div>
+      </div>
+      <div class="flex flex-row items-center justify-start gap-x-1">
         <button app-stroked-button class="" (click)="resetEVs.emit()" matTooltip="すべての努力値をリセットします">
           リセット
         </button>
-      </div>
-      <div class="flex flex-row items-center justify-end gap-x-2">
-        <div>
-          総合耐久指数: <span>{{ state.usedEVs }}</span>
-        </div>
         <button
           app-stroked-button
           (click)="optimizeDefenseEVs.emit()"
@@ -51,5 +51,10 @@ export class StatUtilsComponent {
   get isTooHigh() {
     return this.state.usedEVs > MAX_EV_TOTAL;
   }
+
+  get defenseFactorString() {
+    return this.state.defenseFactor ? formatNumber(this.state.defenseFactor, 'en-US', '1.0-0') : '-';
+  }
+
   readonly maxEVTotal = MAX_EV_TOTAL;
 }

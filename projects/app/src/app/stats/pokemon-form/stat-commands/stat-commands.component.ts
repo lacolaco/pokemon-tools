@@ -16,7 +16,7 @@ import { StatsPokemonFormComponent } from '../stats-form.component';
   template: `
     <ng-container *ngIf="state$ | async as state">
       <div class="bg-white p-2 rounded border border-solid border-gray-500 shadow">
-        <div class="grid grid-flow-row gap-y-2">
+        <div class="grid grid-flow-row gap-y-1">
           <button app-stroked-button class="w-16" (click)="maximize()" [disabled]="state.isMax || state.isIgnored">
             <span class="flex"><mat-icon fontIcon="keyboard_double_arrow_up" inline></mat-icon></span>
           </button>

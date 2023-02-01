@@ -1,13 +1,12 @@
 <ng-container *ngIf="state$ | async as state">
   <div class="w-full flex flex-col lg:flex-row lg:flex-wrap justify-between gap-2 lg:gap-4">
     <form [formGroup]="form" class="w-full lg:w-auto lg:flex-1 grid grid-cols-1 gap-y-1 lg:justify-items-start">
-      <div class="grid grid-cols-[1fr_auto] gap-x-1">
+      <div class="w-full grid grid-cols-[1fr_auto_auto] gap-x-1">
         <pokemon-select formControlName="pokemon"></pokemon-select>
+        <nature-select formControlName="nature"></nature-select>
         <level-input formControlName="level"></level-input>
       </div>
-      <div class="grid grid-flow-col gap-x-1 justify-start w-full pt-2">
-        <nature-select formControlName="nature"></nature-select>
-      </div>
+      <div class="grid grid-flow-col gap-x-1 justify-start w-full pt-2"></div>
       <table class="w-full border-collapse">
         <thead>
           <tr class="font-bold text-center">
@@ -47,17 +46,27 @@
               </button>
             </td>
           </tr>
+          <tr>
+            <td></td>
+            <td colspan="6">
+              <stats-utils
+                class="w-full text-sm"
+                [state]="state"
+                (resetEVs)="resetEVs()"
+                (optimizeDefenseEVs)="optimizeDefenseEVs()"
+              ></stats-utils>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td colspan="6">
+              <stats-analysis class="w-full text-sm" [stats]="state.stats"></stats-analysis>
+            </td>
+          </tr>
         </tbody>
       </table>
     </form>
     <div class="w-full lg:w-auto lg:flex-1 flex flex-col justify-start gap-y-1 text-sm">
-      <stats-utils
-        class="w-full"
-        [state]="state"
-        (resetEVs)="resetEVs()"
-        (optimizeDefenseEVs)="optimizeDefenseEVs()"
-      ></stats-utils>
-      <stats-analysis class="w-full" [stats]="state.stats"></stats-analysis>
       <app-stats-textarea class="w-full" [state]="state"></app-stats-textarea>
     </div>
   </div>

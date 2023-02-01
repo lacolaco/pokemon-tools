@@ -25,7 +25,7 @@ import { SimpleControlValueAccessor } from './utitilites/forms';
         display: block;
       }
       app-form-field {
-        width: calc(5em + 48px);
+        width: calc(7em);
       }
     `,
   ],
