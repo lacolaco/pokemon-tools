@@ -16,13 +16,13 @@ import {
   createStatControl,
 } from '../../shared/forms/controls';
 import { PokemonSelectComponent } from '../../shared/pokemon-select.component';
-import { getValidValueChanges } from '../../utitilites/forms';
-import { distinctUntilStatValuesChanged, filterNonNullable } from '../../utitilites/rx';
-import { EVInputComponent } from '../controls/ev-input.component';
-import { IVInputComponent } from '../controls/iv-input.component';
-import { LevelInputComponent } from '../controls/level-input.component';
-import { NatureSelectComponent } from '../controls/nature-select.component';
-import { StatInputComponent } from '../controls/stat-input.component';
+import { getValidValueChanges } from '../../shared/utitilites/forms';
+import { distinctUntilStatValuesChanged, filterNonNullable } from '../../shared/utitilites/rx';
+import { EVInputComponent } from '../../shared/ev-input.component';
+import { IVInputComponent } from '../../shared/iv-input.component';
+import { LevelInputComponent } from '../../shared/level-input.component';
+import { NatureSelectComponent } from '../../shared/nature-select.component';
+import { StatInputComponent } from '../../shared/stat-input.component';
 import { PokemonsItemState, PokemonsItemUsecase } from '../pokemons/pokemons-item.usecase';
 import { StatCommandsComponent } from './stat-commands/stat-commands.component';
 import { StatsAnalysisComponent } from './stats-analysis/stats-analysis.component';

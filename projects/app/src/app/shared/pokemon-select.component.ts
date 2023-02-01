@@ -4,8 +4,8 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import type { Pokemon, PokemonName } from '@lacolaco/pokemon-data';
 import { map } from 'rxjs';
-import { SimpleControlValueAccessor } from '../utitilites/forms';
-import { kataToHira } from '../utitilites/strings';
+import { SimpleControlValueAccessor } from './utitilites/forms';
+import { kataToHira } from './utitilites/strings';
 import { FormFieldModule } from './forms/form-field.component';
 import { PokemonData } from './pokemon-data';
 

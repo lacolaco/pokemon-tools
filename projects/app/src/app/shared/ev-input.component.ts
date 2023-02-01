@@ -1,15 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { asEV, EV, MAX_EV_TOTAL, MAX_EV_VALUE } from '@lib/stats';
-import { FormFieldModule } from '../../shared/forms/form-field.component';
-import { SimpleControlValueAccessor } from '../../utitilites/forms';
+import { FormFieldModule } from './forms/form-field.component';
+import { SimpleControlValueAccessor } from './utitilites/forms';
 
 const STEP = 4;
 
 @Component({
   selector: 'ev-input',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, ReactiveFormsModule, FormFieldModule],
   template: `
     <app-form-field class="w-full" label="努力値" [showLabel]="showLabel">

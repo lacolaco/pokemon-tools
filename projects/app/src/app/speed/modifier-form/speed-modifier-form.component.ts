@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SpeedModifier } from '@lib/stats';
 import { merge, tap } from 'rxjs';
-import { getValidValueChanges } from '../../utitilites/forms';
+import { getValidValueChanges } from '../../shared/utitilites/forms';
 import { SpeedModifierControlComponent } from '../speed-modifier-control/speed-modifier-control.component';
 import { defaultSpeedModifier, SpeedPageState } from '../speed.state';
 

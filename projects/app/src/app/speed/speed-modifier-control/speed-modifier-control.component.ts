@@ -4,7 +4,7 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SpeedAbility, SpeedItem, SpeedModifier, StatRank } from '@lib/stats';
 import { CheckboxFieldModule } from '../../shared/forms/checkbox.component';
 import { FormFieldModule } from '../../shared/forms/form-field.component';
-import { getValidValueChanges, SimpleControlValueAccessor } from '../../utitilites/forms';
+import { getValidValueChanges, SimpleControlValueAccessor } from '../../shared/utitilites/forms';
 
 @Component({
   selector: 'speed-modifier-control',

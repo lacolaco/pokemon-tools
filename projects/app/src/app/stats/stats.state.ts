@@ -4,7 +4,7 @@ import { RxState, stateful } from '@rx-angular/state';
 import { compressToBase64, decompressFromBase64 } from 'lz-string';
 import { combineLatest, distinctUntilChanged, map, shareReplay } from 'rxjs';
 import { PokemonData } from '../shared/pokemon-data';
-import { debug, filterNonNullable } from '../utitilites/rx';
+import { debug, filterNonNullable } from '../shared/utitilites/rx';
 import {
   clonePokemonState,
   comparePokemonState,

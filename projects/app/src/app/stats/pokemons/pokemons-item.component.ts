@@ -14,7 +14,7 @@ import { PokemonsItemUsecase } from './pokemons-item.usecase';
   providers: [PokemonsItemUsecase],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="w-full flex flex-col gap-y-2 rounded-md p-2 border border-solid border-gray-500">
+    <div class="w-full flex flex-col gap-y-2 rounded-md p-2 md:p-4 border border-solid border-gray-500">
       <div class="flex flex-row items-center">
         <stats-pokemon-summary class="flex-auto" [index]="index"></stats-pokemon-summary>
         <button mat-icon-button type="button" (click)="cdkAccordionItem.toggle()">

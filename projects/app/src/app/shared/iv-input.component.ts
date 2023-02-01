@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { asIV, IV } from '@lib/stats';
-import { FormFieldModule } from '../../shared/forms/form-field.component';
-import { SimpleControlValueAccessor } from '../../utitilites/forms';
+import { FormFieldModule } from './forms/form-field.component';
+import { SimpleControlValueAccessor } from './utitilites/forms';
 
 @Component({
   selector: 'iv-input',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, ReactiveFormsModule, FormFieldModule],
   template: `
     <app-form-field class="w-full" label="個体値" [showLabel]="showLabel">

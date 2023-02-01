@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormFieldModule } from '@app/shared/forms/form-field.component';
+import { SimpleControlValueAccessor } from '@app/shared/utitilites/forms';
 import { asStat, Stat } from '@lib/stats';
 import { distinctUntilChanged, map } from 'rxjs';
-import { FormFieldModule } from '../../shared/forms/form-field.component';
-import { SimpleControlValueAccessor } from '../../utitilites/forms';
 
 @Component({
   selector: 'stat-input',

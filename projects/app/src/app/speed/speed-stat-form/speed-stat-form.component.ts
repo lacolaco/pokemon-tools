@@ -14,11 +14,11 @@ import {
 import { PokemonSelectComponent } from '../../shared/pokemon-select.component';
 import { PokemonSpriteComponent } from '../../shared/pokemon-sprite.component';
 import { PokemonYakkunLinkComponent } from '../../shared/pokemon-yakkun-link.component';
-import { EVInputComponent } from '../../stats/controls/ev-input.component';
-import { IVInputComponent } from '../../stats/controls/iv-input.component';
-import { StatInputComponent } from '../../stats/controls/stat-input.component';
-import { getValidValueChanges } from '../../utitilites/forms';
-import { filterNonNullable } from '../../utitilites/rx';
+import { EVInputComponent } from '../../shared/ev-input.component';
+import { IVInputComponent } from '../../shared/iv-input.component';
+import { StatInputComponent } from '../../shared/stat-input.component';
+import { getValidValueChanges } from '../../shared/utitilites/forms';
+import { filterNonNullable } from '../../shared/utitilites/rx';
 import { SpeedPresetsComponent } from '../speed-presets/speed-presets.component';
 import { SpeedPageState } from '../speed.state';
 import { FormControlDirective, FormFieldComponent } from '../../shared/forms/form-field.component';

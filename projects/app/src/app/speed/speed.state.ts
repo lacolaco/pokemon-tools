@@ -17,7 +17,7 @@ import {
 import { RxState, stateful } from '@rx-angular/state';
 import { combineLatest, distinctUntilChanged, map, Observable, shareReplay } from 'rxjs';
 import { PokemonData } from '../shared/pokemon-data';
-import { filterNonNullable } from '../utitilites/rx';
+import { filterNonNullable } from '../shared/utitilites/rx';
 
 export const defaultSpeedModifier: SpeedModifier = {
   rank: 0,

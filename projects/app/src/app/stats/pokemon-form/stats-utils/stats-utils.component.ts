@@ -12,14 +12,19 @@ import { PokemonsItemState } from '../../pokemons/pokemons-item.usecase';
   imports: [CommonModule, MatTooltipModule, MatButtonModule],
   template: `
     <div class="grid grid-flow-row gap-y-1">
-      <div class="flex flex-row items-center gap-x-1">
-        努力値合計: <span class="{{ isTooHigh ? 'text-red-500 font-bold' : '' }}">{{ state.usedEVs }}</span> /
-        <span>{{ maxEVTotal }}</span>
-      </div>
-      <div class="grid grid-flow-col justify-start items-center gap-x-1">
+      <div class="flex flex-row items-center justify-end gap-x-2">
+        <div>
+          努力値合計: <span class="{{ isTooHigh ? 'text-red-500 font-bold' : '' }}">{{ state.usedEVs }}</span> /
+          <span>{{ maxEVTotal }}</span>
+        </div>
         <button mat-stroked-button class="py-1" (click)="resetEVs.emit()" matTooltip="すべての努力値をリセットします">
           リセット
         </button>
+      </div>
+      <div class="flex flex-row items-center justify-end gap-x-2">
+        <div>
+          総合耐久指数: <span>{{ state.usedEVs }}</span>
+        </div>
         <button
           mat-stroked-button
           (click)="optimizeDefenseEVs.emit()"

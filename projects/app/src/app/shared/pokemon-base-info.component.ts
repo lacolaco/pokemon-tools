@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import type { Pokemon } from '@lacolaco/pokemon-data';
-import { JoinPipe, JoinStatValuesPipe } from '../utitilites/pipes';
+import { JoinPipe, JoinStatValuesPipe } from './utitilites/pipes';
 
 @Component({
   selector: 'pokemon-base-info',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, JoinStatValuesPipe, JoinPipe],
   template: `
     <div class="grid grid-flow-row justify-start items-center gap-1 text-sm leading-none text-gray-500">
@@ -20,7 +21,6 @@ import { JoinPipe, JoinStatValuesPipe } from '../utitilites/pipes';
       }
     `,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PokemonBaseInfoComponent {
   @Input() pokemon!: Pokemon;

@@ -20,8 +20,8 @@ import {
   sumOfStatValues,
 } from '@lib/stats';
 import { distinctUntilChanged, map, Observable, shareReplay } from 'rxjs';
-import { debug } from '../../utitilites/rx';
-import { PokemonState } from '../models/pokemon-state';
+import { debug } from '../../shared/utitilites/rx';
+import { comparePokemonState, PokemonState } from '../models/pokemon-state';
 import { StatsState } from '../stats.state';
 
 export type PokemonsItemState = PokemonState & {
@@ -48,7 +48,7 @@ export class PokemonsItemUsecase {
         return { ...state, index, stats, usedEVs };
       }),
       distinctUntilChanged((a, b) => {
-        return compareStatValues(a.stats, b.stats);
+        return comparePokemonState(a, b) && compareStatValues(a.stats, b.stats);
       }),
       debug('[change] computed state'),
       shareReplay(1),

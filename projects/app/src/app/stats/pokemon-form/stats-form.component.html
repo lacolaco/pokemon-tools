@@ -1,6 +1,6 @@
 <ng-container *ngIf="state$ | async as state">
-  <div class="w-full flex flex-col md:flex-row md:flex-wrap justify-between gap-2">
-    <form [formGroup]="form" class="grid grid-cols-1 gap-y-1 sm:justify-items-start">
+  <div class="w-full flex flex-col lg:flex-row lg:flex-wrap justify-between gap-2 lg:gap-4">
+    <form [formGroup]="form" class="w-full lg:w-auto lg:flex-1 grid grid-cols-1 gap-y-1 lg:justify-items-start">
       <div class="grid grid-cols-[1fr_auto] gap-x-1">
         <pokemon-select formControlName="pokemon"></pokemon-select>
         <level-input formControlName="level"></level-input>
@@ -56,7 +56,7 @@
         </tbody>
       </table>
     </form>
-    <div class="w-full md:max-w-[50%] flex flex-col justify-start gap-y-1 text-sm">
+    <div class="w-full lg:w-auto lg:flex-1 flex flex-col justify-start gap-y-1 text-sm">
       <stats-utils
         class="w-full"
         [state]="state"
