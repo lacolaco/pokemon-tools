@@ -1,16 +1,14 @@
 <ng-container *ngIf="state$ | async as state">
   <div class="w-full flex flex-col lg:flex-row lg:flex-wrap justify-between gap-2 lg:gap-4">
     <form [formGroup]="form" class="w-full lg:w-auto lg:flex-1 grid grid-cols-1 gap-y-1 lg:justify-items-start">
-      <div class="w-full grid grid-cols-[1fr_auto_auto] gap-x-1">
+      <div class="w-full grid grid-cols-[1fr_auto_auto] gap-x-1 pt-1">
         <pokemon-select formControlName="pokemon"></pokemon-select>
         <nature-select formControlName="nature"></nature-select>
         <level-input formControlName="level"></level-input>
       </div>
-      <div class="grid grid-flow-col gap-x-1 justify-start w-full pt-2"></div>
       <table class="w-full border-collapse">
         <thead>
           <tr class="font-bold text-center">
-            <th></th>
             <th *ngFor="let key of statKeys" class="text-sm stat-nature-{{ state.nature.values[key] ?? 'neutral' }}">
               {{ key }}
             </th>
@@ -18,7 +16,6 @@
         </thead>
         <tbody>
           <tr formGroupName="stats">
-            <td></td>
             <td *ngFor="let key of statKeys">
               <stat-input
                 class="stat-nature-{{ state.nature.values[key] ?? 'neutral' }}"
@@ -26,47 +23,40 @@
               ></stat-input>
             </td>
           </tr>
+          <tr>
+            <td colspan="6" class="leading-none text-gray-700 text-xs px-1">個体値</td>
+          </tr>
           <tr formGroupName="ivs">
-            <td class="text-center leading-none break-all text-xs px-1">個体値</td>
             <td *ngFor="let key of statKeys">
               <iv-input [formControlName]="key"></iv-input>
             </td>
           </tr>
+          <tr>
+            <td colspan="6" class="leading-none text-gray-700 text-xs px-1">努力値</td>
+          </tr>
           <tr formGroupName="evs">
-            <td class="text-center leading-none break-all text-xs px-1">努力値</td>
             <td *ngFor="let key of statKeys">
               <ev-input [formControlName]="key" [usedEVs]="state.usedEVs"></ev-input>
             </td>
           </tr>
           <tr>
-            <td></td>
             <td *ngFor="let key of statKeys">
               <button app-stroked-button #button class="w-full" (click)="openStatCommands(key, button)">
                 <mat-icon inline fontIcon="tune"></mat-icon>
               </button>
             </td>
           </tr>
-          <tr>
-            <td></td>
-            <td colspan="6">
-              <stats-utils
-                class="w-full text-sm"
-                [state]="state"
-                (resetEVs)="resetEVs()"
-                (optimizeDefenseEVs)="optimizeDefenseEVs()"
-              ></stats-utils>
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td colspan="6">
-              <stats-analysis class="w-full text-sm" [stats]="state.stats"></stats-analysis>
-            </td>
-          </tr>
         </tbody>
       </table>
     </form>
-    <div class="w-full lg:w-auto lg:flex-1 flex flex-col justify-start gap-y-1 text-sm">
+    <div class="w-full lg:w-auto lg:flex-1 flex flex-col justify-start gap-y-1">
+      <stats-utils
+        class="w-full"
+        [state]="state"
+        (resetEVs)="resetEVs()"
+        (optimizeDefenseEVs)="optimizeDefenseEVs()"
+      ></stats-utils>
+      <stats-hp-multiple class="w-full" [state]="state"></stats-hp-multiple>
       <app-stats-textarea class="w-full" [state]="state"></app-stats-textarea>
     </div>
   </div>

@@ -25,6 +25,7 @@ export class FormControlDirective {
     <ng-content select="[app-form-control]"></ng-content>
     <label
       [style.display]="label && showLabel ? undefined : 'none'"
+      [attr.aria-hidden]="'false'"
       [attr.for]="inputId"
       class="absolute text-xs text-gray-500 peer-focus:text-purple-700 origin-[0] bg-white px-1 top-2 -translate-y-4 left-1"
     >

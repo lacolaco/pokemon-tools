@@ -22,11 +22,17 @@ import { PokemonsItemState } from '../../pokemons/pokemons-item.usecase';
         </div>
       </div>
       <div class="flex flex-row items-center justify-start gap-x-1">
-        <button app-stroked-button class="" (click)="resetEVs.emit()" matTooltip="すべての努力値をリセットします">
+        <button
+          app-stroked-button
+          class="text-sm"
+          (click)="resetEVs.emit()"
+          matTooltip="すべての努力値をリセットします"
+        >
           リセット
         </button>
         <button
           app-stroked-button
+          class="text-sm"
           (click)="optimizeDefenseEVs.emit()"
           matTooltip="総合耐久指数が最大になるように努力値を配分します"
         >

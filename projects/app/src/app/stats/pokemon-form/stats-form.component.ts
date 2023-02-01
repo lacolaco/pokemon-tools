@@ -26,7 +26,7 @@ import { getValidValueChanges } from '../../shared/utitilites/forms';
 import { distinctUntilStatValuesChanged, filterNonNullable } from '../../shared/utitilites/rx';
 import { PokemonsItemState, PokemonsItemUsecase } from '../pokemons/pokemons-item.usecase';
 import { StatCommandsComponent } from './stat-commands/stat-commands.component';
-import { StatsAnalysisComponent } from './stats-analysis/stats-analysis.component';
+import { StatsHpMultipleComponent } from './stats-analysis/stats-hp-multiple.component';
 import { StatsTextareaComponent } from './stats-textarea/stats-textarea.component';
 import { StatUtilsComponent } from './stats-utils/stats-utils.component';
 
@@ -50,7 +50,7 @@ function createStatControls<T>(fn: () => FormControl<T>) {
     IVInputComponent,
     EVInputComponent,
     StatUtilsComponent,
-    StatsAnalysisComponent,
+    StatsHpMultipleComponent,
     StatsTextareaComponent,
     AppStrokedButton,
   ],

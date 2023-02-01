@@ -1,20 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Stat, StatValues } from '@lib/stats';
+import { PokemonsItemState } from '../../pokemons/pokemons-item.usecase';
 
 @Component({
   selector: 'stats-hp-multiple',
   standalone: true,
-  imports: [CommonModule, MatDialogModule, MatTooltipModule, MatChipsModule],
+  imports: [CommonModule, MatTooltipModule, MatChipsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <h1 mat-dialog-title>HP倍数の確認</h1>
-    <div mat-dialog-content>
-      <div class="text-sm">実数値: {{ stats.H }}</div>
-      <mat-chip-set class="py-2">
+    <span>HP倍数チェック</span>
+    <div class="px-2">
+      <mat-chip-set>
         <mat-chip
           *ngFor="let indicator of hpIndicators; trackBy: trackIndicator"
           [class.off]="!indicator.value"
@@ -38,6 +36,9 @@ import { Stat, StatValues } from '@lib/stats';
         font-size: 12px;
         --mdc-chip-container-height: 20px;
       }
+      .mdc-evolution-chip-set .mdc-evolution-chip {
+        margin-top: unset;
+      }
       mat-chip.off {
         --mdc-chip-label-text-color: #999;
       }
@@ -45,11 +46,10 @@ import { Stat, StatValues } from '@lib/stats';
   ],
 })
 export class StatsHpMultipleComponent {
-  private readonly dialogRef = inject(MatDialogRef);
-  readonly stats = inject<{ stats: StatValues<Stat | null> }>(MAT_DIALOG_DATA).stats;
+  @Input() state!: PokemonsItemState;
 
   get hpIndicators() {
-    const H = this.stats.H || 0;
+    const H = this.state.stats.H || 0;
     return [
       { label: '2n+1', value: H % 2 === 1, description: 'じこさいせい等の回復量を最大化する' },
       { label: '3n', value: H % 3 === 0, description: 'さいせいりょく、混乱きのみの回復量を最大化する' },
