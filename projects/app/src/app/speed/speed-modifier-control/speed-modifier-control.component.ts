@@ -26,13 +26,13 @@ import { getValidValueChanges, SimpleControlValueAccessor } from '../../shared/u
           </option>
         </select>
       </app-form-field>
-      <app-form-field label="特性" [showLabel]="true">
+      <!-- <app-form-field label="特性" [showLabel]="true">
         <select app-form-control [formControl]="form.controls.ability">
           <option *ngFor="let option of abilityOptions; trackBy: trackByValue" [ngValue]="option.value">
             {{ option.label }}
           </option>
         </select>
-      </app-form-field>
+      </app-form-field> -->
       <div [formGroup]="form.controls.condition" class="grid grid-flow-row gap-y-1">
         <span class="text-xs">その他</span>
         <app-form-checkbox label="まひ">
@@ -88,17 +88,16 @@ export class SpeedModifierControlComponent extends SimpleControlValueAccessor<Sp
     { label: 'くろいてっきゅう', value: 'くろいてっきゅう' },
   ];
 
-  readonly abilityOptions: { label: string; value: SpeedAbility | null }[] = [
-    { label: '-', value: null },
-    { label: 'かるわざ', value: 'かるわざ' },
-    { label: 'すいすい', value: 'すいすい' },
-    { label: 'すなかき', value: 'すなかき' },
-    { label: 'ゆきかき', value: 'ゆきかき' },
-    { label: 'ようりょくそ', value: 'ようりょくそ' },
-    { label: 'はやあし', value: 'はやあし' },
-    { label: 'スロースタート', value: 'スロースタート' },
-    { label: 'サーフテール', value: 'サーフテール' },
-  ];
+  // readonly abilityOptions: { label: string; value: SpeedAbility | null }[] = [
+  //   { label: '-', value: null },
+  //   { label: 'かるわざ', value: 'かるわざ' },
+  //   { label: 'すいすい', value: 'すいすい' },
+  //   { label: 'すなかき', value: 'すなかき' },
+  //   { label: 'ゆきかき', value: 'ゆきかき' },
+  //   { label: 'ようりょくそ', value: 'ようりょくそ' },
+  //   { label: 'はやあし', value: 'はやあし' },
+  //   { label: 'スロースタート', value: 'スロースタート' },
+  // ];
 
   ngOnInit() {
     getValidValueChanges(this.form)

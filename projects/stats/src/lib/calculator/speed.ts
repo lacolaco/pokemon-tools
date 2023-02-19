@@ -30,15 +30,19 @@ export function getSpeedItemFactor(item: SpeedItem): number {
       return 1;
   }
 }
-export type SpeedAbility =
-  | 'かるわざ'
-  | 'すいすい'
-  | 'すなかき'
-  | 'ゆきかき'
-  | 'はやあし'
-  | 'サーフテール'
-  | 'スロースタート'
-  | 'ようりょくそ';
+
+export const speedAbilities = [
+  'かるわざ',
+  'すいすい',
+  'すなかき',
+  'ゆきかき',
+  'はやあし',
+  // 'サーフテール',
+  'スロースタート',
+  'ようりょくそ',
+] as const;
+
+export type SpeedAbility = typeof speedAbilities[number];
 
 export function getSpeedAvilityFactor(ability: SpeedAbility): number {
   switch (ability) {
@@ -47,7 +51,7 @@ export function getSpeedAvilityFactor(ability: SpeedAbility): number {
     case 'すなかき':
     case 'ゆきかき':
     case 'ようりょくそ':
-    case 'サーフテール':
+      // case 'サーフテール':
       return 2;
     case 'はやあし':
       return 1.5;

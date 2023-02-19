@@ -1,18 +1,20 @@
 import { inject, Injectable } from '@angular/core';
 import type { Pokemon } from '@lacolaco/pokemon-data';
 import {
+  asEV,
+  asIV,
   asStat,
   calculateStatForNonHP,
   isNoopSpeedModifier,
   Level,
   modifySpeed,
+  SpeedAbility,
   SpeedModifier,
   Stat,
 } from '@lib/stats';
 import { RxState, stateful } from '@rx-angular/state';
 import { combineLatest, distinctUntilChanged, map, Observable, shareReplay } from 'rxjs';
 import { PokemonData } from '../../shared/pokemon-data';
-import { SpeedPresetKey, speedPresets } from '../speed-presets';
 import { SpeedPageState } from '../speed.state';
 import { comparisonTargetPokemons } from './comparison-targets';
 import { getSpeedModifierLabel } from './speed-modifier-label';
@@ -28,25 +30,6 @@ export type SpeedComparisonTableRow = {
   groups: SpeedComparisonGroup[];
   isAlly?: boolean;
 };
-
-function calculateSpeedStat(pokemon: Pokemon, level: Level, preset: SpeedPresetKey): Stat {
-  const { iv, ev, nature } = speedPresets[preset];
-  return calculateStatForNonHP(asStat(pokemon.baseStats.S), level, iv, ev, nature);
-}
-
-const speedPresetLabels = {
-  fastest: '最速',
-  fast: '準速',
-  none: '無振',
-  slowest: '最遅',
-} as const;
-
-function getSpeedPresets(baseStat: number): SpeedPresetKey[] {
-  if (baseStat >= 80) {
-    return ['fastest', 'fast', 'none'];
-  }
-  return ['fastest', 'fast', 'none', 'slowest'];
-}
 
 @Injectable()
 export class SpeedComparisonTableState extends RxState<{
@@ -80,12 +63,7 @@ export class SpeedComparisonTableState extends RxState<{
     map(([level, opponents]) => {
       return opponents.map((pokemon) => ({
         pokemon,
-        stats: {
-          fastest: calculateSpeedStat(pokemon, level, 'fastest'),
-          fast: calculateSpeedStat(pokemon, level, 'fast'),
-          none: calculateSpeedStat(pokemon, level, 'none'),
-          slowest: calculateSpeedStat(pokemon, level, 'slowest'),
-        },
+        stats: getDefaultSpeedStats(pokemon, level),
       }));
     }),
   );
@@ -97,18 +75,16 @@ export class SpeedComparisonTableState extends RxState<{
     map(([opponents, modifier]) => {
       const statGroupsMap = new Map<Stat, SpeedComparisonGroup[]>();
 
-      for (const opponent of opponents) {
-        for (const presetKey of getSpeedPresets(opponent.pokemon.baseStats.S)) {
-          const stat = opponent.stats[presetKey];
-          const groupLabel = `${speedPresetLabels[presetKey]}${opponent.pokemon.baseStats.S}族`;
-          insertPokemonToMap(statGroupsMap, stat, groupLabel, opponent.pokemon);
+      for (const { pokemon, stats } of opponents) {
+        for (const { stat, label } of stats) {
+          insertPokemonToMap(statGroupsMap, stat, label, pokemon);
 
           if (!isNoopSpeedModifier(modifier)) {
             insertPokemonToMap(
               statGroupsMap,
               modifySpeed(stat, modifier),
-              `${groupLabel} ${getSpeedModifierLabel(modifier)}`,
-              opponent.pokemon,
+              `${label} ${getSpeedModifierLabel(modifier)}`,
+              pokemon,
               modifier,
             );
           }
@@ -181,4 +157,73 @@ function insertPokemonToMap(
     groups.push({ label, pokemons: [pokemon], modifier });
   }
   map.set(stat, groups);
+}
+
+const doubleSpeedAbilities: SpeedAbility[] = ['すいすい', 'すなかき', 'ゆきかき', 'ようりょくそ'];
+const rankUpAbilities = ['こだいかっせい', 'クォークチャージ'] as const;
+
+function getDefaultSpeedStats(pokemon: Pokemon, level: Level): { stat: Stat; label: string }[] {
+  const stats: { stat: Stat; label: string }[] = [];
+  const baseStat = pokemon.baseStats.S as Stat;
+  const doubleSpeedAbility = doubleSpeedAbilities.find((a) => [...pokemon.abilities].includes(a));
+  const rankUpAbility = rankUpAbilities.find((a) => [...pokemon.abilities].includes(a));
+
+  // 最遅: 80族未満のみ
+  if (baseStat < 80) {
+    const stat = calculateStatForNonHP(asStat(baseStat), level, asIV(0), asEV(0), 'down');
+    stats.push({ stat, label: `最遅${baseStat}族` });
+  }
+  // 無振り: すべて
+  {
+    const stat = calculateStatForNonHP(asStat(baseStat), level, asIV(31), asEV(0), 'neutral');
+    stats.push({ stat, label: `無振${baseStat}族` });
+  }
+  // 準速: 50族以上
+  if (baseStat >= 50) {
+    const stat = calculateStatForNonHP(asStat(baseStat), level, asIV(31), asEV(252), 'neutral');
+    stats.push({ stat, label: `準速${baseStat}族` });
+    if (doubleSpeedAbility) {
+      const modified = modifySpeed(stat, {
+        item: null,
+        rank: 0,
+        condition: { paralysis: false, tailwind: false },
+        ability: doubleSpeedAbility,
+      });
+      stats.push({ stat: modified, label: `準速${baseStat}族 (×2)` });
+    }
+    if (rankUpAbility) {
+      const modified = modifySpeed(stat, {
+        item: null,
+        rank: 1,
+        condition: { paralysis: false, tailwind: false },
+        ability: null,
+      });
+      stats.push({ stat: modified, label: `準速${baseStat}族 (×1.5)` });
+    }
+  }
+  // 最速: 50族以上
+  if (baseStat >= 50) {
+    const stat = calculateStatForNonHP(asStat(baseStat), level, asIV(31), asEV(252), 'up');
+    stats.push({ stat, label: `最速${baseStat}族` });
+    if (doubleSpeedAbility) {
+      const modified = modifySpeed(stat, {
+        item: null,
+        rank: 0,
+        condition: { paralysis: false, tailwind: false },
+        ability: doubleSpeedAbility,
+      });
+      stats.push({ stat: modified, label: `最速${baseStat}族 (×2)` });
+    }
+    if (rankUpAbility) {
+      const modified = modifySpeed(stat, {
+        item: null,
+        rank: 1,
+        condition: { paralysis: false, tailwind: false },
+        ability: null,
+      });
+      stats.push({ stat: modified, label: `最速${baseStat}族 (×1.5)` });
+    }
+  }
+
+  return stats;
 }
