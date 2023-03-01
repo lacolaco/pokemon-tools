@@ -22,6 +22,11 @@ export class PokemonData {
   }
 
   getSpriteURL(pokemon: Pokemon): string {
-    return this.core.getSpriteURL(pokemon);
+    const url = this.core.getSpriteURL(pokemon);
+    if (!url) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      return this.core.getSpriteURL(this.core.getPokemonByName('メタモン'))!;
+    }
+    return url;
   }
 }
