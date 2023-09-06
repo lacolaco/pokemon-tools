@@ -11,7 +11,7 @@ import { JoinPipe, JoinStatValuesPipe } from './utitilites/pipes';
   template: `
     <div class="flex flex-row justify-start items-center gap-x-1 leading-none">
       <span>{{ pokemon.baseStats | joinStatValues }}</span>
-      <span>{{ pokemon.types | join : '/' }}</span>
+      <span>{{ pokemon.types | join: '/' }}</span>
     </div>
   `,
   styles: [
