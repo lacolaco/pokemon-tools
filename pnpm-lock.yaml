@@ -107,8 +107,8 @@ devDependencies:
     specifier: ^5.0.0
     version: 5.0.0(eslint@8.31.0)(prettier@3.0.3)
   jasmine-core:
-    specifier: ~4.6.0
-    version: 4.6.0
+    specifier: ~5.1.0
+    version: 5.1.1
   karma:
     specifier: ~6.4.0
     version: 6.4.1
@@ -122,8 +122,8 @@ devDependencies:
     specifier: ~5.1.0
     version: 5.1.0(karma@6.4.1)
   karma-jasmine-html-reporter:
-    specifier: ~2.0.0
-    version: 2.0.0(jasmine-core@4.6.0)(karma-jasmine@5.1.0)(karma@6.4.1)
+    specifier: ~2.1.0
+    version: 2.1.0(jasmine-core@5.1.1)(karma-jasmine@5.1.0)(karma@6.4.1)
   ng-packagr:
     specifier: ^16.2.2
     version: 16.2.2(@angular/compiler-cli@16.2.3)(tailwindcss@3.2.4)(tslib@2.4.1)(typescript@5.1.6)
@@ -7266,6 +7266,10 @@ packages:
     resolution: {integrity: sha512-O236+gd0ZXS8YAjFx8xKaJ94/erqUliEkJTDedyE7iHvv4ZVqi+q+8acJxu05/WJDKm512EUNn809In37nWlAQ==}
     dev: true
 
+  /jasmine-core@5.1.1:
+    resolution: {integrity: sha512-UrzO3fL7nnxlQXlvTynNAenL+21oUQRlzqQFsA2U11ryb4+NLOCOePZ70PTojEaUKhiFugh7dG0Q+I58xlPdWg==}
+    dev: true
+
   /jest-worker@27.5.1:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
@@ -7415,14 +7419,14 @@ packages:
       - supports-color
     dev: true
 
-  /karma-jasmine-html-reporter@2.0.0(jasmine-core@4.6.0)(karma-jasmine@5.1.0)(karma@6.4.1):
-    resolution: {integrity: sha512-SB8HNNiazAHXM1vGEzf8/tSyEhkfxuDdhYdPBX2Mwgzt0OuF2gicApQ+uvXLID/gXyJQgvrM9+1/2SxZFUUDIA==}
+  /karma-jasmine-html-reporter@2.1.0(jasmine-core@5.1.1)(karma-jasmine@5.1.0)(karma@6.4.1):
+    resolution: {integrity: sha512-sPQE1+nlsn6Hwb5t+HHwyy0A1FNCVKuL1192b+XNauMYWThz2kweiBVW1DqloRpVvZIJkIoHVB7XRpK78n1xbQ==}
     peerDependencies:
-      jasmine-core: ^4.0.0
+      jasmine-core: ^4.0.0 || ^5.0.0
       karma: ^6.0.0
       karma-jasmine: ^5.0.0
     dependencies:
-      jasmine-core: 4.6.0
+      jasmine-core: 5.1.1
       karma: 6.4.1
       karma-jasmine: 5.1.0(karma@6.4.1)
     dev: true
