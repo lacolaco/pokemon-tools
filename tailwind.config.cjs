@@ -8,7 +8,7 @@ module.exports = {
       },
       gridTemplateRows: {
         'auto-1fr': 'auto 1fr',
-        layout: '64px minmax(calc(100dvh - 64px), 1fr) auto',
+        'header-main': '64px minmax(calc(100dvh - 64px), 1fr)',
       },
       gridTemplateColumns: {
         'auto-1fr': 'auto 1fr',

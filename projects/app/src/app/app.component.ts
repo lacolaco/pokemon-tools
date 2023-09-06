@@ -10,18 +10,20 @@ import { StatsPageComponent } from './stats/stats.component';
   selector: 'app-root',
   standalone: true,
   template: `
-    <header class="w-full h-16 z-10 shadow bg-gradation-sv text-white">
-      <app-header class="container mx-auto px-2 sm:px-4"></app-header>
-    </header>
-    <main class="container mx-auto px-2 sm:px-4 py-2 overflow-auto">
-      <router-outlet></router-outlet>
-    </main>
+    <div class="grid grid-rows-header-main h-[100dvh] w-[100vw]">
+      <header class="w-full h-16 z-10 shadow bg-gradation-sv text-white">
+        <app-header class="container mx-auto px-2 sm:px-4"></app-header>
+      </header>
+      <main class="container mx-auto px-2 sm:px-4 py-2 overflow-auto">
+        <router-outlet></router-outlet>
+      </main>
+    </div>
     <footer class="w-full">
       <app-footer class="container mx-auto px-2 sm:px-4"></app-footer>
     </footer>
   `,
   host: {
-    class: 'grid grid-rows-layout h-[100dvh] w-[100vw]',
+    class: 'block',
   },
   imports: [RouterOutlet, StatsPageComponent, HeaderComponent, FooterComponent],
 })
