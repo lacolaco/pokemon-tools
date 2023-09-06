@@ -15,7 +15,7 @@ import { PokemonsItemUsecase } from '../pokemons/pokemons-item.usecase';
   template: `
     <ng-container *ngIf="state$ | async as state">
       <div class="grid grid-cols-[auto_auto] justify-start items-end gap-x-1 pb-1">
-        <pokemon-sprite [pokemon]="state.pokemon" class="w-10"></pokemon-sprite>
+        <pokemon-sprite [pokemon]="state.pokemon" class="w-10" [size]="40"></pokemon-sprite>
         <div class="flex flex-col">
           <span class="text-lg font-bold leading-none">{{ state.pokemon.name }}</span>
           <pokemon-base-info [pokemon]="state.pokemon" class="text-xs text-gray-500"></pokemon-base-info>

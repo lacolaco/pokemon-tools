@@ -2,7 +2,7 @@
   <ng-container *ngIf="state.pokemon">
     <form [formGroup]="form" class="text-sm flex flex-col sm:flex-row sm:flex-wrap gap-x-1 gap-y-2 pt-2">
       <div class="w-full sm:w-1/2 grid grid-cols-[auto_1fr] items-end justify-start gap-x-2">
-        <pokemon-sprite [pokemon]="state.pokemon" class="h-10"></pokemon-sprite>
+        <pokemon-sprite [pokemon]="state.pokemon" class="h-10" [size]="40"></pokemon-sprite>
         <pokemon-select formControlName="pokemon"></pokemon-select>
       </div>
       <div formGroupName="stats" class="w-full sm:w-1/2 text-sm grid grid-cols-4 gap-x-1">
