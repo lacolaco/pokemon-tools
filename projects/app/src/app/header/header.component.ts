@@ -31,14 +31,7 @@ import { AppIconButton } from '@app/shared/ui/buttons';
       </div>
     </div>
   `,
-  styles: [
-    `
-      :host {
-        display: block;
-        height: 100%;
-      }
-    `,
-  ],
+  host: { class: 'block h-max' },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {}
