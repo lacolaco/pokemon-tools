@@ -7,9 +7,9 @@ declare const twttr: { ready: () => void };
   standalone: true,
   template: `
     <div class="flex flex-col items-start gap-y-2 text-gray-600 text-xs py-1">
-      <div class="h-5">
+      <!-- <div class="h-5">
         <a class="twitter-share-button" href="https://twitter.com/intent/tweet?{{ twitterShareParams }}"> Tweet</a>
-      </div>
+      </div> -->
       <div>
         <p>
           ポケットモンスター・ポケモン・Pokémonは任天堂・クリーチャーズ・ゲームフリークの登録商標です。
@@ -21,7 +21,7 @@ declare const twttr: { ready: () => void };
       <p>&copy; 2022 <a href="https://github.com/lacolaco">@lacolaco</a></p>
     </div>
   `,
-  styleUrls: ['./footer.component.scss'],
+  host: { class: 'block' },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent implements AfterViewInit {
