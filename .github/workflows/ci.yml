@@ -1,6 +1,10 @@
 name: CI
 on: push
 
+permissions:
+  contents: read
+  packages: read
+
 jobs:
   lint:
     runs-on: ubuntu-latest
