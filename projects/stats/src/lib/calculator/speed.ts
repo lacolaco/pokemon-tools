@@ -42,7 +42,7 @@ export const speedAbilities = [
   'ようりょくそ',
 ] as const;
 
-export type SpeedAbility = typeof speedAbilities[number];
+export type SpeedAbility = (typeof speedAbilities)[number];
 
 export function getSpeedAvilityFactor(ability: SpeedAbility): number {
   switch (ability) {
