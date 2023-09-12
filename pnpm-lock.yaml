@@ -42,8 +42,8 @@ dependencies:
     specifier: ^16.2.3
     version: 16.2.3(@angular/common@16.2.3)(@angular/core@16.2.3)(@angular/platform-browser@16.2.3)(rxjs@7.8.1)
   '@lacolaco/pokemon-data':
-    specifier: ^1.4.3
-    version: 1.4.3
+    specifier: ^1.4.4
+    version: 1.4.4
   '@rx-angular/state':
     specifier: ^1.7.0
     version: 1.7.0(@angular-devkit/core@16.2.1)(@angular-devkit/schematics@16.2.1)(@angular/core@16.2.3)(@angular/platform-browser@16.2.3)(rxjs@7.8.1)
@@ -3157,8 +3157,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
-  /@lacolaco/pokemon-data@1.4.3:
-    resolution: {integrity: sha512-QRLde3LevaCYWnKkkqSCMNbxO/g3BH6unHjOx3tAVkkX3dmcITxFt9EFgqCDZPTSgrNLh15u8lZwSBGHUEJC4w==, tarball: https://npm.pkg.github.com/download/@lacolaco/pokemon-data/1.4.3/ed2bd8e93880c3c21cd6cfe4709ec405daa66d12}
+  /@lacolaco/pokemon-data@1.4.4:
+    resolution: {integrity: sha512-P6MeXrhkMmCwbAPP6MFxCvFgshyrIFoIiiLLOW8XiBBxzI+1ajmX8jMYaLlE4TONuNZJaHn8x05wwyslStmilw==, tarball: https://npm.pkg.github.com/download/@lacolaco/pokemon-data/1.4.4/3439812362622e39a65648456c40c15aa1f1aeef}
     dependencies:
       tslib: 2.4.1
     dev: false
@@ -5226,7 +5226,7 @@ packages:
       normalize-path: 3.0.0
       readdirp: 3.6.0
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
 
   /chownr@2.0.0:
     resolution: {integrity: sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==}
@@ -6541,8 +6541,8 @@ packages:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
     dev: true
 
-  /fsevents@2.3.2:
-    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+  /fsevents@2.3.3:
+    resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
     requiresBuild: true
@@ -6686,6 +6686,10 @@ packages:
 
   /graceful-fs@4.2.10:
     resolution: {integrity: sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==}
+
+  /graceful-fs@4.2.11:
+    resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
+    dev: true
 
   /grapheme-splitter@1.0.4:
     resolution: {integrity: sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==}
@@ -7535,7 +7539,7 @@ packages:
       tslib: 2.6.1
     optionalDependencies:
       errno: 0.1.8
-      graceful-fs: 4.2.10
+      graceful-fs: 4.2.11
       image-size: 0.5.5
       make-dir: 2.1.0
       mime: 1.6.0
@@ -8208,7 +8212,7 @@ packages:
     dependencies:
       env-paths: 2.2.1
       glob: 7.2.3
-      graceful-fs: 4.2.10
+      graceful-fs: 4.2.11
       make-fetch-happen: 10.2.1
       nopt: 6.0.0
       npmlog: 6.0.2
@@ -9240,7 +9244,7 @@ packages:
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: true
 
   /rollup@3.9.0:
@@ -9248,7 +9252,7 @@ packages:
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: true
 
   /run-applescript@5.0.0:
@@ -10276,7 +10280,7 @@ packages:
       sass: 1.64.1
       terser: 5.19.2
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: true
 
   /void-elements@2.0.1:
