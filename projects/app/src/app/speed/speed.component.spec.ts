@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PokemonData } from '../shared/pokemon-data';
-
-import { SpeedPageComponent } from './speed.component';
+import SpeedPageComponent from './speed.component';
 
 describe('SpeedComponent', () => {
   let component: SpeedPageComponent;

@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PokemonData } from '../shared/pokemon-data';
-
-import { StatsPageComponent } from './stats.component';
+import StatsPageComponent from './stats.component';
 
 describe('StatsComponent', () => {
   let component: StatsPageComponent;

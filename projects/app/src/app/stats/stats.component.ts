@@ -1,11 +1,11 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AppIconButton } from '@app/shared/ui/buttons';
 import { StatsPokemonsComponent } from './pokemons/pokemons.component';
 import { StatsState } from './stats.state';
@@ -41,17 +41,17 @@ import { StatsState } from './stats.state';
     `,
   ],
 })
-export class StatsPageComponent implements OnInit {
+export default class StatsPageComponent implements OnInit {
   private readonly state = inject(StatsState);
   private readonly router = inject(Router);
-  private readonly route = inject(ActivatedRoute);
   private readonly clipboard = inject(Clipboard);
   private readonly snackBar = inject(MatSnackBar);
 
+  @Input() token?: string;
+
   ngOnInit() {
-    const token = this.route.snapshot.queryParamMap.get('token');
-    if (token) {
-      this.state.deserialize(token);
+    if (this.token) {
+      this.state.deserialize(this.token);
     } else {
       this.state.initialize();
     }

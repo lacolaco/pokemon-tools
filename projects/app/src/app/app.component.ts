@@ -4,7 +4,6 @@ import { Meta } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
-import { StatsPageComponent } from './stats/stats.component';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +24,7 @@ import { StatsPageComponent } from './stats/stats.component';
   host: {
     class: 'block',
   },
-  imports: [RouterOutlet, StatsPageComponent, HeaderComponent, FooterComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent],
 })
 export class AppComponent implements OnInit {
   readonly loc = inject(Location);

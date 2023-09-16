@@ -30,4 +30,4 @@ import { SpeedPageState } from './speed.state';
     `,
   ],
 })
-export class SpeedPageComponent {}
+export default class SpeedPageComponent {}
