@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test --no-watch",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "format": "prettier --cache --write ."
   },
   "private": true,
   "dependencies": {
@@ -24,7 +25,7 @@
     "@angular/platform-browser": "^16.2.3",
     "@angular/platform-browser-dynamic": "^16.2.3",
     "@angular/router": "^16.2.3",
-    "@lacolaco/pokemon-data": "^1.4.4",
+    "@lacolaco/pokemon-data": "^1.5.1",
     "@rx-angular/state": "^1.7.0",
     "lz-string": "^1.4.4",
     "normalize.css": "^8.0.1",
