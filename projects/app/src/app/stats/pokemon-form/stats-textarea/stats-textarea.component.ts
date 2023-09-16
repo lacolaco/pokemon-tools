@@ -1,9 +1,9 @@
 import { Clipboard, ClipboardModule } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormFieldModule } from '../../../shared/forms/form-field.component';
-import { PokemonsItemState } from '../../pokemons/pokemons-item.usecase';
+import { PokemonWithStats } from '../../models/pokemon-state';
 import { formatStats } from './formatter';
 
 @Component({
@@ -35,7 +35,7 @@ export class StatsTextareaComponent {
   private readonly snackBar = inject(MatSnackBar);
   private readonly clipboard = inject(Clipboard);
 
-  @Input() state!: PokemonsItemState;
+  @Input() state!: PokemonWithStats;
 
   get statsText() {
     const { pokemon, level, stats, nature, evs } = this.state;

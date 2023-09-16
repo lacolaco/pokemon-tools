@@ -1,13 +1,26 @@
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
-import { Component, inject, Injector, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ComponentRef,
+  Injector,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  TemplateRef,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { AppStrokedButton } from '@app/shared/ui/buttons';
 import { StatKey } from '@lib/stats';
-import { RxState, stateful } from '@rx-angular/state';
-import { distinctUntilChanged, merge, Subject, switchMap, take, takeUntil, tap } from 'rxjs';
+import { RxState } from '@rx-angular/state';
+import { Subject, distinctUntilChanged, merge, take, takeUntil, tap } from 'rxjs';
 import { EVInputComponent } from '../../shared/ev-input.component';
 import {
   createEVControl,
@@ -24,7 +37,8 @@ import { PokemonSelectComponent } from '../../shared/pokemon-select.component';
 import { StatInputComponent } from '../../shared/stat-input.component';
 import { getValidValueChanges } from '../../shared/utitilites/forms';
 import { distinctUntilStatValuesChanged, filterNonNullable } from '../../shared/utitilites/rx';
-import { PokemonsItemState, PokemonsItemUsecase } from '../pokemons/pokemons-item.usecase';
+import { PokemonWithStats } from '../models/pokemon-state';
+import { PokemonsItemUsecase } from '../pokemons/pokemons-item.usecase';
 import { StatCommandsComponent } from './stat-commands/stat-commands.component';
 import { StatsHpMultipleComponent } from './stats-analysis/stats-hp-multiple.component';
 import { StatsTextareaComponent } from './stats-textarea/stats-textarea.component';
@@ -54,8 +68,12 @@ function createStatControls<T>(fn: () => FormControl<T>) {
     StatsTextareaComponent,
     AppStrokedButton,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'block',
+  },
 })
-export class StatsPokemonFormComponent implements OnInit, OnDestroy {
+export class StatsPokemonFormComponent implements OnInit, OnDestroy, OnChanges {
   private readonly usecase = inject(PokemonsItemUsecase);
   private readonly overlay = inject(Overlay);
   private readonly injector = inject(Injector);
@@ -71,10 +89,9 @@ export class StatsPokemonFormComponent implements OnInit, OnDestroy {
   get index() {
     return this.inputs$.get().index;
   }
+  @Input({ required: true }) pokemon!: PokemonWithStats;
 
-  readonly state$ = this.inputs$
-    .select('index')
-    .pipe(stateful(switchMap((index) => this.usecase.selectComputedState$(index))));
+  #commandsRef: ComponentRef<StatCommandsComponent> | null = null;
 
   readonly form = this.fb.group({
     pokemon: createPokemonControl(),
@@ -126,11 +143,6 @@ export class StatsPokemonFormComponent implements OnInit, OnDestroy {
           this.usecase.updateByStats(this.index, value);
         }),
       ),
-      this.state$.pipe(
-        tap((state) => {
-          this.setFormValues(state);
-        }),
-      ),
     )
       .pipe(takeUntil(this.onDestroy$))
       .subscribe();
@@ -139,6 +151,13 @@ export class StatsPokemonFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.onDestroy$.next();
     this.onDestroy$.complete();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if ('pokemon' in changes) {
+      this.setFormValues(this.pokemon);
+      this.#updateStatCommandsInputs();
+    }
   }
 
   resetEVs() {
@@ -150,6 +169,10 @@ export class StatsPokemonFormComponent implements OnInit, OnDestroy {
   }
 
   openStatCommands(key: StatKey, origin: HTMLElement) {
+    if (this.#commandsRef) {
+      this.#commandsRef.destroy();
+    }
+
     const overlayRef = this.overlay.create({
       hasBackdrop: true,
       backdropClass: 'bg-transparent',
@@ -174,12 +197,12 @@ export class StatsPokemonFormComponent implements OnInit, OnDestroy {
         parent: this.injector,
       }),
     );
-    const ref = portal.attach(overlayRef);
-    ref.setInput('key', key);
-    ref.changeDetectorRef.detectChanges();
+    this.#commandsRef = portal.attach(overlayRef);
+    this.#commandsRef.setInput('key', key);
+    this.#updateStatCommandsInputs();
   }
 
-  private setFormValues(state: PokemonsItemState) {
+  private setFormValues(state: PokemonWithStats) {
     const { pokemon, level, ivs, evs, nature, stats } = state;
 
     this.form.setValue({ pokemon, level, nature, stats, ivs, evs }, { emitEvent: false });
@@ -195,5 +218,15 @@ export class StatsPokemonFormComponent implements OnInit, OnDestroy {
         this.form.controls.evs.controls[key].enable({ emitEvent: false });
       }
     }
+  }
+
+  #updateStatCommandsInputs() {
+    const ref = this.#commandsRef;
+    if (!ref) {
+      return;
+    }
+    ref.setInput('index', this.index);
+    ref.setInput('pokemon', this.pokemon);
+    ref.changeDetectorRef.detectChanges();
   }
 }

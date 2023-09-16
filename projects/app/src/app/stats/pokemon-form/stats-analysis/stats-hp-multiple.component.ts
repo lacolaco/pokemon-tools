@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { PokemonsItemState } from '../../pokemons/pokemons-item.usecase';
+import { PokemonWithStats } from '../../models/pokemon-state';
 
 @Component({
   selector: 'stats-hp-multiple',
@@ -28,10 +28,6 @@ import { PokemonsItemState } from '../../pokemons/pokemons-item.usecase';
   `,
   styles: [
     `
-      :host {
-        display: grid;
-        grid-template-columns: 1fr;
-      }
       mat-chip-set {
         font-size: 12px;
         --mdc-chip-container-height: 20px;
@@ -44,9 +40,12 @@ import { PokemonsItemState } from '../../pokemons/pokemons-item.usecase';
       }
     `,
   ],
+  host: {
+    class: 'grid grid-cols-[1fr]',
+  },
 })
 export class StatsHpMultipleComponent {
-  @Input() state!: PokemonsItemState;
+  @Input() state!: PokemonWithStats;
 
   get hpIndicators() {
     const H = this.state.stats.H || 0;

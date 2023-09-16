@@ -5,10 +5,8 @@ import {
   asIV,
   asStat,
   calculateAllEVs,
-  calculateAllStats,
   calculateDecrementedEVForHP,
   calculateDecrementedEVForNonHP,
-  calculateDefenseFactor,
   calculateIncrementedEVForHP,
   calculateIncrementedEVForNonHP,
   compareStatValues,
@@ -22,34 +20,21 @@ import {
 } from '@lib/stats';
 import { distinctUntilChanged, map, Observable, shareReplay } from 'rxjs';
 import { debug } from '../../shared/utitilites/rx';
-import { comparePokemonState, PokemonState } from '../models/pokemon-state';
+import { comparePokemonState, PokemonWithStats, PokemonState, calculatePokemonStats } from '../models/pokemon-state';
 import { StatsState } from '../stats.state';
-
-export type PokemonsItemState = PokemonState & {
-  index: number;
-  usedEVs: number;
-  defenseFactor: number | null;
-  stats: StatValues<Stat | null>;
-};
 
 @Injectable()
 export class PokemonsItemUsecase {
   private readonly state = inject(StatsState);
-  private readonly computedStateCache = new Map<number, Observable<PokemonsItemState>>();
+  private readonly computedStateCache = new Map<number, Observable<PokemonWithStats>>();
 
-  selectComputedState$(index: number): Observable<PokemonsItemState> {
+  selectComputedState$(index: number): Observable<PokemonWithStats> {
     if (this.computedStateCache.has(index)) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       return this.computedStateCache.get(index)!;
     }
     const obs = this.state.selectByIndex(index).pipe(
-      map((state) => {
-        const { pokemon, evs, ivs, level, nature } = state;
-        const stats = calculateAllStats(pokemon.baseStats as StatValues<Stat>, level, ivs, evs, nature);
-        const usedEVs = sumOfStatValues(evs);
-        const defenseFactor = calculateDefenseFactor(stats.H, stats.B, stats.D);
-        return { ...state, index, stats, usedEVs, defenseFactor };
-      }),
+      map((state) => calculatePokemonStats(state)),
       distinctUntilChanged((a, b) => {
         return comparePokemonState(a, b) && compareStatValues(a.stats, b.stats);
       }),

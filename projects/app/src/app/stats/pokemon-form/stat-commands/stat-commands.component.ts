@@ -4,9 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { AppStrokedButton } from '@app/shared/ui/buttons';
 import { EV_STEP, MAX_EV_TOTAL, MAX_EV_VALUE, StatKey } from '@lib/stats';
-import { map } from 'rxjs';
+import { PokemonWithStats } from '../../models/pokemon-state';
 import { PokemonsItemUsecase } from '../../pokemons/pokemons-item.usecase';
-import { StatsPokemonFormComponent } from '../stats-form.component';
 
 @Component({
   selector: 'stat-commands',
@@ -14,27 +13,25 @@ import { StatsPokemonFormComponent } from '../stats-form.component';
   imports: [CommonModule, ReactiveFormsModule, MatIconModule, AppStrokedButton],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="state$ | async as state">
-      <div class="bg-white p-2 rounded border border-solid border-gray-500 shadow">
-        <div class="grid grid-flow-row gap-y-1">
-          <button app-stroked-button class="w-16" (click)="maximize()" [disabled]="state.isMax || state.isIgnored">
-            <span class="flex"><mat-icon fontIcon="keyboard_double_arrow_up" inline></mat-icon></span>
-          </button>
-          <button app-stroked-button class="w-16" (click)="increment()" [disabled]="state.isMax || state.isIgnored">
-            <span class="flex"><mat-icon fontIcon="add" inline></mat-icon></span>
-          </button>
-          <button app-stroked-button class="w-16" (click)="decrement()" [disabled]="state.isMin || state.isIgnored">
-            <span class="flex"><mat-icon fontIcon="remove" inline></mat-icon></span>
-          </button>
-          <button app-stroked-button class="w-16" (click)="minimize()" [disabled]="state.isMin || state.isIgnored">
-            <span class="flex">0</span>
-          </button>
-          <button app-stroked-button class="w-16" (click)="toggleIgnored()">
-            <span class="flex"><mat-icon [fontIcon]="state.isIgnored ? 'refresh' : 'close'" inline></mat-icon></span>
-          </button>
-        </div>
+    <div class="bg-white p-2 rounded border border-solid border-gray-500 shadow">
+      <div class="grid grid-flow-row gap-y-1">
+        <button app-stroked-button class="w-16" (click)="maximize()" [disabled]="state.isMax || state.isIgnored">
+          <span class="flex"><mat-icon fontIcon="keyboard_double_arrow_up" inline></mat-icon></span>
+        </button>
+        <button app-stroked-button class="w-16" (click)="increment()" [disabled]="state.isMax || state.isIgnored">
+          <span class="flex"><mat-icon fontIcon="add" inline></mat-icon></span>
+        </button>
+        <button app-stroked-button class="w-16" (click)="decrement()" [disabled]="state.isMin || state.isIgnored">
+          <span class="flex"><mat-icon fontIcon="remove" inline></mat-icon></span>
+        </button>
+        <button app-stroked-button class="w-16" (click)="minimize()" [disabled]="state.isMin || state.isIgnored">
+          <span class="flex">0</span>
+        </button>
+        <button app-stroked-button class="w-16" (click)="toggleIgnored()">
+          <span class="flex"><mat-icon [fontIcon]="state.isIgnored ? 'refresh' : 'close'" inline></mat-icon></span>
+        </button>
       </div>
-    </ng-container>
+    </div>
   `,
   styles: [
     `
@@ -50,24 +47,18 @@ import { StatsPokemonFormComponent } from '../stats-form.component';
   ],
 })
 export class StatCommandsComponent {
-  private readonly context = inject(StatsPokemonFormComponent);
   private readonly usecase = inject(PokemonsItemUsecase);
 
-  @Input() key!: StatKey;
+  @Input({ required: true }) index!: number;
+  @Input({ required: true }) pokemon!: PokemonWithStats;
+  @Input({ required: true }) key!: StatKey;
 
-  get index() {
-    return this.context.index;
-  }
-
-  get state$() {
-    return this.context.state$.pipe(
-      map((state) => ({
-        ...state,
-        isMax: MAX_EV_TOTAL - state.usedEVs < EV_STEP || state.evs[this.key] === MAX_EV_VALUE,
-        isMin: state.evs[this.key] === 0,
-        isIgnored: state.ivs[this.key] === null,
-      })),
-    );
+  get state() {
+    return {
+      isMax: MAX_EV_TOTAL - this.pokemon.usedEVs < EV_STEP || this.pokemon.evs[this.key] === MAX_EV_VALUE,
+      isMin: this.pokemon.evs[this.key] === 0,
+      isIgnored: this.pokemon.ivs[this.key] === null,
+    };
   }
 
   maximize() {

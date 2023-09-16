@@ -19,8 +19,12 @@ import { StatsPokemonsItemComponent } from './pokemons-item.component';
           #cdkAccordionItem="cdkAccordionItem"
           expanded
         >
-          <stats-pokemons-item [index]="index" [cdkAccordionItem]="cdkAccordionItem" (remove)="remove(index)">
-          </stats-pokemons-item>
+          <stats-pokemons-item
+            [index]="index"
+            [pokemon]="item"
+            [cdkAccordionItem]="cdkAccordionItem"
+            (remove)="remove(index)"
+          />
         </cdk-accordion-item>
 
         <button
