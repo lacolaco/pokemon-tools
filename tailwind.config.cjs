@@ -10,7 +10,7 @@ module.exports = {
       },
       gridTemplateRows: {
         'auto-1fr': 'auto 1fr',
-        'header-main': '64px 1fr',
+        'header-main': '64px calc(100dvh - 64px)',
       },
       gridTemplateColumns: {
         'auto-1fr': 'auto 1fr',
