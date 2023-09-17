@@ -11,6 +11,7 @@ import {
   PokemonStateJSON,
   serializePokemonState,
 } from './models/pokemon-state';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Injectable()
 export class StatsState {
@@ -43,6 +44,14 @@ export class StatsState {
     this.$pokemons.update((pokemons) => {
       const newPokemons = [...pokemons];
       newPokemons.splice(index, 1);
+      return newPokemons;
+    });
+  }
+
+  move(from: number, to: number) {
+    this.$pokemons.update((pokemons) => {
+      const newPokemons = [...pokemons];
+      moveItemInArray(newPokemons, from, to);
       return newPokemons;
     });
   }

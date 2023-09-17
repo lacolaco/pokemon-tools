@@ -1,4 +1,5 @@
 import { Clipboard } from '@angular/cdk/clipboard';
+import { CdkDrag, CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Output, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,15 +14,23 @@ import { StatsState } from '../../state';
   selector: 'stats-toolbar',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, AppIconButton, PokemonSpriteComponent, MatIconModule, MatTooltipModule],
+  imports: [CommonModule, CdkDropList, CdkDrag, AppIconButton, PokemonSpriteComponent, MatIconModule, MatTooltipModule],
   template: `
     <div class="grid grid-cols-[1fr_auto] items-center gap-x-2">
-      <div class="h-full flex flex-row flex-wrap gap-2 items-center">
+      <div
+        class="h-full flex flex-row flex-wrap gap-2 items-center"
+        cdkDropList
+        [cdkDropListOrientation]="'horizontal'"
+        (cdkDropListDropped)="changeOrder($event)"
+      >
         <ng-container *ngFor="let item of state.$pokemons(); let index = index">
           <button
+            cdkDrag
             app-icon-button
             class="border border-solid border-gray-500 bg-white"
             (click)="scrollByIndex.emit(index)"
+            matTooltip="ドラッグで並び替えできます"
+            [matTooltipShowDelay]="500"
           >
             <pokemon-sprite [pokemon]="item().pokemon" [size]="40" />
           </button>
@@ -43,6 +52,7 @@ import { StatsState } from '../../state';
   host: {
     class: 'block',
   },
+  styleUrls: ['./stats-toolbar.component.css'],
 })
 export class StatsToolbarComponent {
   readonly #router = inject(Router);
@@ -69,5 +79,10 @@ export class StatsToolbarComponent {
     const index = this.state.$pokemons().length - 1;
     // NOTE: Wait for the DOM to be updated.
     setTimeout(() => this.scrollByIndex.emit(index), 0);
+  }
+
+  changeOrder(event: CdkDragDrop<unknown>) {
+    console.log(event);
+    this.state.move(event.previousIndex, event.currentIndex);
   }
 }
