@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AppStrokedButton } from '@app/shared/ui/buttons';
 import { MAX_EV_TOTAL } from '@lib/stats';
-import { PokemonWithStats } from '../../models/pokemon-state';
+import { PokemonStats } from '../../../models/pokemon-state';
 
 @Component({
   selector: 'stats-utils',
@@ -46,7 +46,7 @@ import { PokemonWithStats } from '../../models/pokemon-state';
   },
 })
 export class StatUtilsComponent {
-  @Input() state!: PokemonWithStats;
+  @Input() state!: PokemonStats;
   @Output() resetEVs = new EventEmitter<void>();
   @Output() optimizeDefenseEVs = new EventEmitter<void>();
 

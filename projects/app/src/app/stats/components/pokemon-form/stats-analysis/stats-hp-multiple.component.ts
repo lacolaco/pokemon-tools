@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { PokemonWithStats } from '../../models/pokemon-state';
+import { PokemonStats } from '../../../models/pokemon-state';
 
 @Component({
   selector: 'stats-hp-multiple',
@@ -45,10 +45,10 @@ import { PokemonWithStats } from '../../models/pokemon-state';
   },
 })
 export class StatsHpMultipleComponent {
-  @Input() state!: PokemonWithStats;
+  @Input({ required: true }) stats!: PokemonStats;
 
   get hpIndicators() {
-    const H = this.state.stats.H || 0;
+    const H = this.stats.values.H || 0;
     return [
       { label: '2n+1', value: H % 2 === 1, description: 'じこさいせい等の回復量を最大化する' },
       { label: '3n', value: H % 3 === 0, description: 'さいせいりょく、混乱きのみの回復量を最大化する' },

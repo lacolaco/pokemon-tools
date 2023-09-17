@@ -8,7 +8,7 @@
     <table class="w-full border-collapse">
       <thead>
         <tr class="font-bold text-center">
-          <th *ngFor="let key of statKeys" class="text-sm stat-nature-{{ pokemon.nature.values[key] ?? 'neutral' }}">
+          <th *ngFor="let key of statKeys" class="text-sm stat-nature-{{ $state().nature.values[key] ?? 'neutral' }}">
             {{ key }}
           </th>
         </tr>
@@ -17,7 +17,7 @@
         <tr formGroupName="stats">
           <td *ngFor="let key of statKeys">
             <stat-input
-              class="stat-nature-{{ pokemon.nature.values[key] ?? 'neutral' }}"
+              class="stat-nature-{{ $state().nature.values[key] ?? 'neutral' }}"
               [formControlName]="key"
             ></stat-input>
           </td>
@@ -35,7 +35,7 @@
         </tr>
         <tr formGroupName="evs">
           <td *ngFor="let key of statKeys">
-            <ev-input [formControlName]="key" [usedEVs]="pokemon.usedEVs"></ev-input>
+            <ev-input [formControlName]="key" [usedEVs]="$stats().usedEVs"></ev-input>
           </td>
         </tr>
         <tr>
@@ -51,11 +51,11 @@
   <div class="w-full lg:w-auto lg:flex-1 flex flex-col justify-start gap-y-1">
     <stats-utils
       class="w-full text-sm"
-      [state]="pokemon"
+      [state]="$stats()"
       (resetEVs)="resetEVs()"
       (optimizeDefenseEVs)="optimizeDefenseEVs()"
     ></stats-utils>
-    <stats-hp-multiple class="w-full text-sm" [state]="pokemon"></stats-hp-multiple>
-    <app-stats-textarea class="w-full text-sm" [state]="pokemon"></app-stats-textarea>
+    <stats-hp-multiple class="w-full text-sm" [stats]="$stats()"></stats-hp-multiple>
+    <app-stats-textarea class="w-full text-sm" [pokemon]="$state()" [stats]="$stats()"></app-stats-textarea>
   </div>
 </div>
