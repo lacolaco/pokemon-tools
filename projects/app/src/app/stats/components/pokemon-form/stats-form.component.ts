@@ -4,23 +4,22 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   Injector,
   Input,
-  OnDestroy,
   OnInit,
   Signal,
-  TemplateRef,
-  ViewChild,
   WritableSignal,
   effect,
   inject,
   untracked,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { AppStrokedButton } from '@app/shared/ui/buttons';
 import { StatKey } from '@lib/stats';
-import { Subject, distinctUntilChanged, merge, take, takeUntil, tap } from 'rxjs';
+import { distinctUntilChanged, merge, take, takeUntil, tap } from 'rxjs';
 import { EVInputComponent } from '../../../shared/ev-input.component';
 import {
   createEVControl,
@@ -84,19 +83,17 @@ function createStatControls<T>(fn: () => FormControl<T>) {
     `,
   ],
 })
-export class StatsPokemonFormComponent implements OnInit, OnDestroy {
+export class StatsPokemonFormComponent implements OnInit {
+  readonly #overlay = inject(Overlay);
+  readonly #injector = inject(Injector);
+  readonly #fb = inject(FormBuilder).nonNullable;
+  readonly #destroyRef = inject(DestroyRef);
   readonly state = inject(StatsState);
-  private readonly overlay = inject(Overlay);
-  private readonly injector = inject(Injector);
-  private readonly fb = inject(FormBuilder).nonNullable;
-  private readonly onDestroy$ = new Subject<void>();
-
-  @ViewChild('statCommandsTemplate') statCommandsTemplate!: TemplateRef<{ key: StatKey }>;
 
   @Input({ required: true }) $state!: WritableSignal<PokemonState>;
   @Input({ required: true }) $stats!: Signal<PokemonStats>;
 
-  readonly form = this.fb.group({
+  readonly form = this.#fb.group({
     pokemon: createPokemonControl(),
     level: createLevelControl(),
     nature: createNatureControl(),
@@ -113,10 +110,10 @@ export class StatsPokemonFormComponent implements OnInit, OnDestroy {
         const pokemon = this.$state();
         const stats = this.$stats();
         untracked(() => {
-          this.setFormValues(pokemon, stats);
+          this.#setFormValues(pokemon, stats);
         });
       },
-      { injector: this.injector },
+      { injector: this.#injector },
     );
     merge(
       getValidValueChanges(this.form.controls.pokemon).pipe(
@@ -157,13 +154,8 @@ export class StatsPokemonFormComponent implements OnInit, OnDestroy {
         }),
       ),
     )
-      .pipe(takeUntil(this.onDestroy$))
+      .pipe(takeUntilDestroyed(this.#destroyRef))
       .subscribe();
-  }
-
-  ngOnDestroy(): void {
-    this.onDestroy$.next();
-    this.onDestroy$.complete();
   }
 
   resetEVs() {
@@ -175,10 +167,10 @@ export class StatsPokemonFormComponent implements OnInit, OnDestroy {
   }
 
   openStatCommands(key: StatKey, origin: HTMLElement) {
-    const overlayRef = this.overlay.create({
+    const overlayRef = this.#overlay.create({
       hasBackdrop: true,
       backdropClass: 'bg-transparent',
-      positionStrategy: this.overlay
+      positionStrategy: this.#overlay
         .position()
         .flexibleConnectedTo(origin)
         .withPositions([
@@ -191,14 +183,7 @@ export class StatsPokemonFormComponent implements OnInit, OnDestroy {
       .backdropClick()
       .pipe(takeUntil(detach$))
       .subscribe(() => overlayRef.dispose());
-    const portal = new ComponentPortal(
-      StatCommandsComponent,
-      null,
-      Injector.create({
-        providers: [{ provide: StatCommandsComponent, useValue: this }],
-        parent: this.injector,
-      }),
-    );
+    const portal = new ComponentPortal(StatCommandsComponent);
     const ref = portal.attach(overlayRef);
     ref.setInput('$pokemon', this.$state);
     ref.setInput('$stats', this.$stats);
@@ -206,7 +191,7 @@ export class StatsPokemonFormComponent implements OnInit, OnDestroy {
     ref.changeDetectorRef.detectChanges();
   }
 
-  private setFormValues(pokemon: PokemonState, stats: PokemonStats) {
+  #setFormValues(pokemon: PokemonState, stats: PokemonStats) {
     this.form.setValue(
       {
         pokemon: pokemon.pokemon,

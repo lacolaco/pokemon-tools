@@ -50,12 +50,12 @@ import { StatsState } from '../../../state';
 export class StatCommandsComponent {
   readonly state = inject(StatsState);
 
-  @Input({ required: true }) $pokemon!: WritableSignal<PokemonState>;
+  @Input({ required: true }) $state!: WritableSignal<PokemonState>;
   @Input({ required: true }) $stats!: Signal<PokemonStats>;
   @Input({ required: true }) key!: StatKey;
 
   readonly status = computed(() => {
-    const { ivs, evs } = this.$pokemon();
+    const { ivs, evs } = this.$state();
     const { usedEVs } = this.$stats();
 
     return {
@@ -66,22 +66,22 @@ export class StatCommandsComponent {
   });
 
   maximize() {
-    commands.maximizeStat(this.$pokemon, this.key);
+    commands.maximizeStat(this.$state, this.key);
   }
 
   minimize() {
-    commands.minimizeStat(this.$pokemon, this.key);
+    commands.minimizeStat(this.$state, this.key);
   }
 
   increment() {
-    commands.incrementStat(this.$pokemon, this.key);
+    commands.incrementStat(this.$state, this.key);
   }
 
   decrement() {
-    commands.decrementStat(this.$pokemon, this.key);
+    commands.decrementStat(this.$state, this.key);
   }
 
   toggleIgnored() {
-    commands.toggleIgnored(this.$pokemon, this.key);
+    commands.toggleIgnored(this.$state, this.key);
   }
 }
