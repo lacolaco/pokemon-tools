@@ -11,16 +11,17 @@ import { PokemonState, PokemonStats } from '../../models/pokemon-state';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, PokemonSpriteComponent, PokemonDecoratedStatsComponent, PokemonBaseInfoComponent],
   template: `
-    <div class="grid grid-cols-[auto_auto] justify-start items-end gap-x-1 pb-1">
-      <pokemon-sprite [pokemon]="state.pokemon" class="w-10" [size]="40"></pokemon-sprite>
-      <div class="flex flex-col">
-        <span class="text-lg font-bold leading-none">{{ state.pokemon.name }}</span>
-        <pokemon-base-info [pokemon]="state.pokemon" class="text-xs text-gray-500"></pokemon-base-info>
+    <div class="grid grid-cols-[auto_auto] justify-start gap-1">
+      <pokemon-sprite [pokemon]="state.pokemon" [size]="40" />
+      <div class="grid grid-rows-[1fr_auto] h-full">
+        <div class="flex items-center">
+          <span class="text-lg font-bold leading-none">{{ state.pokemon.name }}</span>
+        </div>
+        <pokemon-base-info [pokemon]="state.pokemon" class="text-xs text-gray-500" />
       </div>
-    </div>
-    <div>
-      <pokemon-decorated-stats [stats]="stats.values" [nature]="state.nature" [evs]="state.evs" class="text-sm">
-      </pokemon-decorated-stats>
+      <div *ngIf="showStats" class="col-start-2">
+        <pokemon-decorated-stats [stats]="stats.values" [nature]="state.nature" [evs]="state.evs" />
+      </div>
     </div>
   `,
   host: {
@@ -30,4 +31,6 @@ import { PokemonState, PokemonStats } from '../../models/pokemon-state';
 export class StatsSummaryComponent {
   @Input({ required: true }) state!: PokemonState;
   @Input({ required: true }) stats!: PokemonStats;
+
+  @Input() showStats = false;
 }

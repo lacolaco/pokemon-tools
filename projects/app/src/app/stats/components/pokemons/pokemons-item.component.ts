@@ -22,8 +22,13 @@ import { StatsSummaryComponent } from '../pokemon-summary/stats-pokemon-summary.
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="w-full flex flex-col gap-y-2 rounded-md p-2 md:p-4 border border-solid border-gray-500">
-      <div class="flex flex-row items-center">
-        <stats-pokemon-summary class="flex-auto" [state]="$state()" [stats]="$stats()" />
+      <div class="flex flex-row">
+        <stats-pokemon-summary
+          class="flex-auto"
+          [state]="$state()"
+          [stats]="$stats()"
+          [showStats]="!cdkAccordionItem.expanded"
+        />
         <button app-icon-button (click)="cdkAccordionItem.toggle()">
           <mat-icon [fontIcon]="cdkAccordionItem.expanded ? 'unfold_less' : 'unfold_more'"></mat-icon>
         </button>

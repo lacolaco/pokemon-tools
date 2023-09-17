@@ -7,15 +7,13 @@ import { PokemonData } from './pokemon-data';
   selector: 'pokemon-sprite',
   standalone: true,
   imports: [NgOptimizedImage],
-  template: `<img [ngSrc]="src" [width]="size" [height]="size" [alt]="pokemon.name" />`,
-  styles: [
-    `
-      img {
-        aspect-ratio: 1/1;
-        margin-top: -10%;
-      }
-    `,
-  ],
+  template: `<img
+    class="aspect-square mt-[-10%] mb-[10%]"
+    [ngSrc]="src"
+    [width]="size"
+    [height]="size"
+    [alt]="pokemon.name"
+  />`,
   host: {
     class: 'block',
   },
@@ -24,7 +22,7 @@ import { PokemonData } from './pokemon-data';
 export class PokemonSpriteComponent {
   private readonly pokemonData = inject(PokemonData);
 
-  @Input() pokemon!: Pokemon;
+  @Input({ required: true }) pokemon!: Pokemon;
 
   @Input() size = 32;
 

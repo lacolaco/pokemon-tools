@@ -20,14 +20,8 @@ import { SpeedPageState } from './speed.state';
       </div>
     </div>
   `,
-  styles: [
-    `
-      :host {
-        display: grid;
-        grid-template-rows: auto 1fr;
-        height: 100%;
-      }
-    `,
-  ],
+  host: {
+    class: 'grid grid-rows-auto-1fr h-full py-2 container mx-auto px-2 sm:px-4',
+  },
 })
 export default class SpeedPageComponent {}

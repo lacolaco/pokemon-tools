@@ -1,6 +1,6 @@
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, NgZone, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { AppStrokedButton } from '@app/shared/ui/buttons';
 import { StatsState } from '../../state';
@@ -14,7 +14,7 @@ import { StatsPokemonsItemComponent } from './pokemons-item.component';
   template: `
     <cdk-accordion class="flex flex-col gap-y-2" multi>
       <cdk-accordion-item
-        *ngFor="let item of state.$pokemons(); trackBy: trackByIndex; let index = index"
+        *ngFor="let item of state.$pokemons(); let index = index"
         #cdkAccordionItem="cdkAccordionItem"
         expanded
       >
@@ -37,8 +37,16 @@ import { StatsPokemonsItemComponent } from './pokemons-item.component';
 })
 export class StatsPokemonsComponent {
   readonly state = inject(StatsState);
+  readonly #ngZone = inject(NgZone);
+  readonly #hostElement = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
 
-  trackByIndex(index: number) {
-    return index;
+  scrollByIndex(index: number) {
+    this.#ngZone.runOutsideAngular(() => {
+      const elements = this.#hostElement.querySelectorAll(`stats-pokemons-item`);
+      const element = elements.item(index);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
   }
 }

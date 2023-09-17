@@ -1,6 +1,8 @@
+const createPlugin = require('tailwindcss/plugin');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./projects/app/src/**/*.{html,ts,scss}'],
+  content: ['./projects/app/src/**/*.{html,ts}'],
   theme: {
     extend: {
       backgroundImage: {
@@ -8,12 +10,12 @@ module.exports = {
       },
       gridTemplateRows: {
         'auto-1fr': 'auto 1fr',
-        'header-main': '64px minmax(calc(100dvh - 64px), 1fr)',
+        'header-main': '64px 1fr',
       },
       gridTemplateColumns: {
         'auto-1fr': 'auto 1fr',
       },
     },
   },
-  plugins: [],
+  plugins: [createPlugin(({}) => {})],
 };

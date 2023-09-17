@@ -31,7 +31,6 @@
             "tsConfig": "projects/app/tsconfig.app.json",
             "assets": ["projects/app/src/assets"],
             "styles": ["projects/app/src/styles.scss"],
-            "inlineStyleLanguage": "scss",
             "scripts": []
           },
           "configurations": {

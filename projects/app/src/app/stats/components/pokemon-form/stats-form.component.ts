@@ -183,9 +183,9 @@ export class StatsPokemonFormComponent implements OnInit {
       .backdropClick()
       .pipe(takeUntil(detach$))
       .subscribe(() => overlayRef.dispose());
-    const portal = new ComponentPortal(StatCommandsComponent);
+    const portal = new ComponentPortal(StatCommandsComponent, null, this.#injector);
     const ref = portal.attach(overlayRef);
-    ref.setInput('$pokemon', this.$state);
+    ref.setInput('$state', this.$state);
     ref.setInput('$stats', this.$stats);
     ref.setInput('key', key);
     ref.changeDetectorRef.detectChanges();

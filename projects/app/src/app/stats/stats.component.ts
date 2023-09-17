@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { AppIconButton } from '@app/shared/ui/buttons';
 import { StatsPokemonsComponent } from './components/pokemons/pokemons.component';
 import { StatsState } from './state';
+import { PokemonSpriteComponent } from '@app/shared/pokemon-sprite.component';
 
 @Component({
   selector: 'app-stats',
@@ -21,17 +22,29 @@ import { StatsState } from './state';
     MatTooltipModule,
     StatsPokemonsComponent,
     AppIconButton,
+    PokemonSpriteComponent,
   ],
   providers: [StatsState],
   template: `
-    <header class="grid grid-cols-[1fr_auto] items-center mb-4">
-      <h1 class="text-xl font-bold">ステータス計算ツール</h1>
-      <button app-icon-button class="text-gray-500" (click)="share()" matTooltip="URLでステータス調整をシェア">
-        <mat-icon fontIcon="share"></mat-icon>
-      </button>
+    <header class="py-2 mb-2 sticky top-0 bg-white z-10 drop-shadow-md">
+      <div class="container mx-auto px-2 sm:px-4 grid grid-cols-[1fr_auto] items-center gap-x-2">
+        <div class="h-full flex flex-row flex-wrap gap-2 items-center">
+          <ng-container *ngFor="let item of state.$pokemons(); let index = index">
+            <button
+              class="border border-solid border-gray-500 rounded-full aspect-square bg-white hover:bg-blue-200 focus-visible:outline-none focus-visible:bg-blue-200"
+              (click)="pokemons.scrollByIndex(index)"
+            >
+              <pokemon-sprite [pokemon]="item().pokemon" [size]="40" />
+            </button>
+          </ng-container>
+        </div>
+        <button app-icon-button class="text-gray-500" (click)="share()" matTooltip="現在の状態をURLに保存します">
+          <mat-icon fontIcon="save"></mat-icon>
+        </button>
+      </div>
     </header>
 
-    <stats-pokemons class="w-full"></stats-pokemons>
+    <stats-pokemons #pokemons class="container mx-auto px-2 sm:px-4" />
   `,
   styles: [
     `
@@ -42,10 +55,10 @@ import { StatsState } from './state';
   ],
 })
 export default class StatsPageComponent implements OnInit {
-  private readonly state = inject(StatsState);
-  private readonly router = inject(Router);
-  private readonly clipboard = inject(Clipboard);
-  private readonly snackBar = inject(MatSnackBar);
+  readonly #router = inject(Router);
+  readonly #clipboard = inject(Clipboard);
+  readonly #snackBar = inject(MatSnackBar);
+  readonly state = inject(StatsState);
 
   @Input() token?: string;
 
@@ -59,9 +72,9 @@ export default class StatsPageComponent implements OnInit {
 
   share() {
     const token = this.state.serialize();
-    this.router.navigate([''], { queryParams: { token } });
-    this.clipboard.copy(window.location.href);
-    this.snackBar.open('URLをコピーしました', undefined, {
+    this.#router.navigate([''], { queryParams: { token } });
+    this.#clipboard.copy(window.location.href);
+    this.#snackBar.open('現在の状態をURLに保存しました。', undefined, {
       duration: 2000,
       horizontalPosition: 'center',
       verticalPosition: 'top',
