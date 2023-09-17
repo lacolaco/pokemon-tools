@@ -82,7 +82,9 @@ export class StatsToolbarComponent {
   }
 
   changeOrder(event: CdkDragDrop<unknown>) {
-    console.log(event);
     this.state.move(event.previousIndex, event.currentIndex);
+    // Scroll to the new position.
+    // NOTE: Wait for the DOM to be updated.
+    setTimeout(() => this.scrollByIndex.emit(event.currentIndex), 0);
   }
 }
