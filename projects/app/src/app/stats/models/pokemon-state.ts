@@ -3,6 +3,8 @@ import {
   asEV,
   asIV,
   asLevel,
+  calculateAllStats,
+  calculateDefenseFactor,
   compareStatValues,
   EV,
   IV,
@@ -10,7 +12,9 @@ import {
   Nature,
   NatureName,
   natures,
+  Stat,
   StatValues,
+  sumOfStatValues,
 } from '@lib/stats';
 
 export type PokemonState = {
@@ -75,4 +79,18 @@ export function deserializePokemonState(
     ivs: json.ivs as StatValues<IV | null>,
     evs: json.evs as StatValues<EV>,
   };
+}
+
+export type PokemonStats = {
+  usedEVs: number;
+  defenseFactor: number | null;
+  values: StatValues<Stat | null>;
+};
+
+export function calculatePokemonStats(state: PokemonState): PokemonStats {
+  const { pokemon, evs, ivs, level, nature } = state;
+  const stats = calculateAllStats(pokemon.baseStats as StatValues<Stat>, level, ivs, evs, nature);
+  const usedEVs = sumOfStatValues(evs);
+  const defenseFactor = calculateDefenseFactor(stats.H, stats.B, stats.D);
+  return { values: stats, usedEVs, defenseFactor };
 }

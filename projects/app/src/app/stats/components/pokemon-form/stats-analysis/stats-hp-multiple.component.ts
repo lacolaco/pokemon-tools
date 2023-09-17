@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { PokemonsItemState } from '../../pokemons/pokemons-item.usecase';
+import { PokemonStats } from '../../../models/pokemon-state';
 
 @Component({
   selector: 'stats-hp-multiple',
@@ -28,10 +28,6 @@ import { PokemonsItemState } from '../../pokemons/pokemons-item.usecase';
   `,
   styles: [
     `
-      :host {
-        display: grid;
-        grid-template-columns: 1fr;
-      }
       mat-chip-set {
         font-size: 12px;
         --mdc-chip-container-height: 20px;
@@ -44,12 +40,15 @@ import { PokemonsItemState } from '../../pokemons/pokemons-item.usecase';
       }
     `,
   ],
+  host: {
+    class: 'grid grid-cols-[1fr]',
+  },
 })
 export class StatsHpMultipleComponent {
-  @Input() state!: PokemonsItemState;
+  @Input({ required: true }) stats!: PokemonStats;
 
   get hpIndicators() {
-    const H = this.state.stats.H || 0;
+    const H = this.stats.values.H || 0;
     return [
       { label: '2n+1', value: H % 2 === 1, description: 'じこさいせい等の回復量を最大化する' },
       { label: '3n', value: H % 3 === 0, description: 'さいせいりょく、混乱きのみの回復量を最大化する' },

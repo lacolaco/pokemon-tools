@@ -7,8 +7,8 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { AppIconButton } from '@app/shared/ui/buttons';
-import { StatsPokemonsComponent } from './pokemons/pokemons.component';
-import { StatsState } from './stats.state';
+import { StatsPokemonsComponent } from './components/pokemons/pokemons.component';
+import { StatsState } from './state';
 
 @Component({
   selector: 'app-stats',
