@@ -79,7 +79,7 @@ describe('optimizeDefenseEVs', () => {
     });
   });
 
-  it('オーガポン いじっぱり 171(124)-176(116)-105(28)-72-117(4)-158(220)', () => {
+  it('オーガポン いじっぱり 171(124)-176(116)-105(4)-72-117(4)-158(220)', () => {
     const result = optimizeDefenseEVs(
       getPokemonByName('オーガポン').baseStats as StatValues<Stat>,
       asLevel(50),
