@@ -50,6 +50,11 @@ export function optimizeDefenseEVs(
     if (nextEVs.D === tempEVs.D || nextEVs.D - tempEVs.D > freeEV) {
       dSdD = 0;
     }
+    // ステータスを+1するのに必要な努力値の逆数を偏微分に掛ける
+    // これにより、ステータスを+1するのに必要な努力値が少ないほど偏微分が大きくなり、4振りの優先度が高くなる
+    dSdH *= 1 / (nextEVs.H - tempEVs.H);
+    dSdB *= 1 / (nextEVs.B - tempEVs.B);
+    dSdD *= 1 / (nextEVs.D - tempEVs.D);
     // dSdH, dSdB, dSdDのうち最大のステータスを+1する
     if (dSdH > dSdB && dSdH > dSdD) {
       tempEVs.H = nextEVs.H;

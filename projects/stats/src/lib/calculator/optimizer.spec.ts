@@ -78,4 +78,22 @@ describe('optimizeDefenseEVs', () => {
       S: asEV(236),
     });
   });
+
+  it('オーガポン いじっぱり 171(124)-176(116)-105(28)-72-117(4)-158(220)', () => {
+    const result = optimizeDefenseEVs(
+      getPokemonByName('オーガポン').baseStats as StatValues<Stat>,
+      asLevel(50),
+      { H: asIV(31), A: asIV(31), B: asIV(31), C: asIV(31), D: asIV(31), S: asIV(31) },
+      { H: asEV(0), A: asEV(156), B: asEV(0), C: asEV(0), D: asEV(0), S: asEV(220) },
+      natures['いじっぱり'],
+    );
+    expect(result).toEqual({
+      H: asEV(124),
+      A: asEV(156),
+      B: asEV(4),
+      C: asEV(0),
+      D: asEV(4),
+      S: asEV(220),
+    });
+  });
 });
