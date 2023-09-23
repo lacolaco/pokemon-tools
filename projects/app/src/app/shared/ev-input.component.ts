@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, booleanAttribute } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { asEV, EV, MAX_EV_TOTAL, MAX_EV_VALUE } from '@lib/stats';
 import { FormFieldModule } from './forms/form-field.component';
@@ -26,18 +26,14 @@ const STEP = 4;
       />
     </app-form-field>
   `,
-  styles: [
-    `
-      :host {
-        display: block;
-      }
-    `,
-  ],
+  host: {
+    class: 'block',
+  },
 })
 export class EVInputComponent extends SimpleControlValueAccessor<EV> {
   readonly formControl = new FormControl(asEV(0), { nonNullable: true });
 
-  @Input() showLabel = false;
+  @Input({ transform: booleanAttribute }) showLabel = false;
   @Input() usedEVs = 0;
 
   get max(): number {

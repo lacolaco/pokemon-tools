@@ -5,6 +5,9 @@ module.exports = {
   content: ['./projects/app/src/**/*.{html,ts}'],
   theme: {
     extend: {
+      height: {
+        'main-fill': 'calc(100dvh - 64px)',
+      },
       backgroundImage: {
         'gradation-sv': 'linear-gradient(45deg, #552277, #9f2a22)',
       },

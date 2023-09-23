@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, booleanAttribute } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FormFieldModule } from '@app/shared/forms/form-field.component';
 import { SimpleControlValueAccessor } from '@app/shared/utitilites/forms';
@@ -11,7 +11,7 @@ import { distinctUntilChanged, map } from 'rxjs';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormFieldModule],
   template: `
-    <app-form-field class="w-full" label="能力値" [showLabel]="showLabel">
+    <app-form-field class="w-full" [label]="label" [showLabel]="showLabel">
       <input
         app-form-control
         type="number"
@@ -23,18 +23,15 @@ import { distinctUntilChanged, map } from 'rxjs';
       />
     </app-form-field>
   `,
-  styles: [
-    `
-      :host {
-        display: block;
-      }
-    `,
-  ],
+  host: {
+    class: 'block',
+  },
 })
 export class StatInputComponent extends SimpleControlValueAccessor<Stat> implements OnInit {
   readonly formControl = new FormControl(asStat(1), { nonNullable: true });
 
-  @Input() showLabel = false;
+  @Input() label = '能力値';
+  @Input({ transform: booleanAttribute }) showLabel = false;
   @Input() isMin = false;
   @Input() isMax = false;
 

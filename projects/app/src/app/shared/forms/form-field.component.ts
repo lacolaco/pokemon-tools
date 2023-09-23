@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, ContentChild, Directive, Input, NgModule } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ContentChild,
+  Directive,
+  Input,
+  NgModule,
+  booleanAttribute,
+} from '@angular/core';
 
 let nextUniqueId = 0;
 
@@ -32,18 +40,13 @@ export class FormControlDirective {
       {{ label }}
     </label>
   `,
-  styles: [
-    `
-      :host {
-        display: block;
-        position: relative;
-      }
-    `,
-  ],
+  host: {
+    class: 'block relative',
+  },
 })
 export class FormFieldComponent {
-  @Input() showLabel = false;
   @Input() label = '';
+  @Input({ transform: booleanAttribute }) showLabel = false;
   @ContentChild(FormControlDirective) formControl?: FormControlDirective;
 
   get inputId() {

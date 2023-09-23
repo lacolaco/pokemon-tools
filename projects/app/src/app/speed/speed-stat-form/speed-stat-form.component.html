@@ -2,19 +2,20 @@
   <ng-container *ngIf="state.pokemon">
     <form [formGroup]="form" class="text-sm flex flex-col sm:flex-row sm:flex-wrap gap-x-1 gap-y-2 pt-2">
       <div class="w-full sm:w-1/2 grid grid-cols-[auto_1fr] items-end justify-start gap-x-2">
-        <pokemon-sprite [pokemon]="state.pokemon" class="h-10" [size]="40"></pokemon-sprite>
-        <pokemon-select formControlName="pokemon"></pokemon-select>
+        <pokemon-sprite [pokemon]="state.pokemon" class="h-10" [size]="40" />
+        <pokemon-select formControlName="pokemon" />
       </div>
       <div formGroupName="stats" class="w-full sm:w-1/2 text-sm grid grid-cols-4 gap-x-1">
         <stat-input
           formControlName="stat"
-          [showLabel]="true"
+          label="すばやさ"
+          showLabel
           [isMin]="state.stats.ev === 0"
           [isMax]="state.stats.ev === 252"
-        ></stat-input>
-        <ev-input formControlName="ev" [showLabel]="true" [usedEVs]="state.stats.ev"></ev-input>
-        <iv-input formControlName="iv" [showLabel]="true" [disableNull]="true"></iv-input>
-        <app-form-field class="min-w-[5em] w-full" label="性格補正" [showLabel]="true">
+        />
+        <ev-input formControlName="ev" showLabel [usedEVs]="state.stats.ev" />
+        <iv-input formControlName="iv" showLabel disableNull />
+        <app-form-field class="min-w-[5em] w-full" label="性格補正" showLabel>
           <select app-form-control formControlName="nature">
             <option [ngValue]="'up'">↑</option>
             <option [ngValue]="'neutral'">-</option>
@@ -22,7 +23,7 @@
           </select>
         </app-form-field>
       </div>
-      <speed-presets class="w-full sm:w-1/2"></speed-presets>
+      <speed-presets class="w-full sm:w-1/2" />
     </form>
   </ng-container>
 </ng-container>

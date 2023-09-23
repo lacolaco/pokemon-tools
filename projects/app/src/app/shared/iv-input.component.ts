@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, booleanAttribute } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { asIV, IV } from '@lib/stats';
 import { distinctUntilChanged, map } from 'rxjs';
@@ -24,17 +24,13 @@ import { SimpleControlValueAccessor } from './utitilites/forms';
       />
     </app-form-field>
   `,
-  styles: [
-    `
-      :host {
-        display: block;
-      }
-    `,
-  ],
+  host: {
+    class: 'block',
+  },
 })
 export class IVInputComponent extends SimpleControlValueAccessor<IV | null> {
-  @Input() showLabel = false;
-  @Input() disableNull = false;
+  @Input({ transform: booleanAttribute }) showLabel = false;
+  @Input({ transform: booleanAttribute }) disableNull = false;
 
   protected readonly dispatchChange = new EventEmitter<void>();
   readonly formControl = new FormControl<IV | null>(asIV(0), { nonNullable: true });
