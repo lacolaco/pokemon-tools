@@ -45,8 +45,8 @@ dependencies:
     specifier: ^1.5.1
     version: 1.5.1
   '@rx-angular/state':
-    specifier: ^1.7.0
-    version: 1.7.0(@angular-devkit/core@16.2.2)(@angular-devkit/schematics@16.2.2)(@angular/core@16.2.3)(@angular/platform-browser@16.2.3)(rxjs@7.8.1)
+    specifier: ^16.0.0
+    version: 16.0.0(@angular-devkit/core@16.2.2)(@angular-devkit/schematics@16.2.2)(@angular/core@16.2.3)(rxjs@7.8.1)
   '@sentry/angular-ivy':
     specifier: ^7.70.0
     version: 7.70.0(@angular/common@16.2.3)(@angular/core@16.2.3)(@angular/router@16.2.3)(rxjs@7.8.1)
@@ -4022,19 +4022,16 @@ packages:
       rollup: 3.9.0
     dev: true
 
-  /@rx-angular/state@1.7.0(@angular-devkit/core@16.2.2)(@angular-devkit/schematics@16.2.2)(@angular/core@16.2.3)(@angular/platform-browser@16.2.3)(rxjs@7.8.1):
-    resolution: {integrity: sha512-rrM5qlI6lDsSbTVo+uBoGpOuZ//msi2q72WYvw1MESPDrb9TnOLtVceDaYL0FBMDBhcqtmUsdOs6OoICaroSew==}
-    engines: {node: '>=10.12.0', npm: '>=5.3.0', yarn: '>=1.9.2'}
+  /@rx-angular/state@16.0.0(@angular-devkit/core@16.2.2)(@angular-devkit/schematics@16.2.2)(@angular/core@16.2.3)(rxjs@7.8.1):
+    resolution: {integrity: sha512-16/cOD132Mi2ovvGr0oSkOXfaXQgpHIkr+3javPclzKzSAm52RB+YqfX8qzX4uyt2i4Gt56Or398nxtiQ+rOyA==}
     peerDependencies:
-      '@angular/core': '>=12.0.0'
-      '@angular/platform-browser': '>=12.0.0'
-      rxjs: '>=6.5.5'
+      '@angular/core': ^16.0.0
+      rxjs: ^6.5.3 || ^7.4.0
     dependencies:
       '@angular/core': 16.2.3(rxjs@7.8.1)(zone.js@0.13.1)
-      '@angular/platform-browser': 16.2.3(@angular/animations@16.2.3)(@angular/common@16.2.3)(@angular/core@16.2.3)
-      ng-morph: 2.1.1(@angular-devkit/core@16.2.2)(@angular-devkit/schematics@16.2.2)
+      ng-morph: 2.2.5(@angular-devkit/core@16.2.2)(@angular-devkit/schematics@16.2.2)
       rxjs: 7.8.1
-      tslib: 2.4.1
+      tslib: 2.6.1
     transitivePeerDependencies:
       - '@angular-devkit/core'
       - '@angular-devkit/schematics'
@@ -7929,8 +7926,8 @@ packages:
     resolution: {integrity: sha512-UtJcAD4yEaGtjPezWuO9wC4nwUnVH/8/Im3yEHQP4b67cXlD/Qr9hdITCU1xDbSEXg2XKNaP8jsReV7vQd00/A==}
     dev: true
 
-  /minimatch@3.0.4:
-    resolution: {integrity: sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==}
+  /minimatch@3.0.5:
+    resolution: {integrity: sha512-tUpxzX0VAzJHjLu0xUfFv1gwVp9ba3IOuRAVH2EGuRW8a5emA2FlACLqiT/lDVtS1W+TGNwqz3sWaNyLgDJWuw==}
     dependencies:
       brace-expansion: 1.1.11
     dev: false
@@ -8142,8 +8139,8 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
 
-  /ng-morph@2.1.1(@angular-devkit/core@16.2.2)(@angular-devkit/schematics@16.2.2):
-    resolution: {integrity: sha512-mUziQxQm0YnP9WOCy2WRZVq6xNf+WgAvosdPU+hwmGUinoZ6vBrP3GECoRmM7Aor0PDG1KNIarJsDNS7BlxTLQ==}
+  /ng-morph@2.2.5(@angular-devkit/core@16.2.2)(@angular-devkit/schematics@16.2.2):
+    resolution: {integrity: sha512-plxrHfcz7aNRcTCxS9tUxI1F5Vfx5CZAAw8NAnJCyCb41Js6S+EyPDvn2v7H2QyfZzXU1H0BAqtiRQv/rE2zTA==}
     peerDependencies:
       '@angular-devkit/core': '>=11.0.0'
       '@angular-devkit/schematics': '>=11.0.0'
@@ -8151,7 +8148,7 @@ packages:
       '@angular-devkit/core': 16.2.2(chokidar@3.5.3)
       '@angular-devkit/schematics': 16.2.2
       jsonc-parser: 3.0.0
-      minimatch: 3.0.4
+      minimatch: 3.0.5
       multimatch: 5.0.0
       ts-morph: 10.0.2
     dev: false
