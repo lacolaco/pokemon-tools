@@ -27,6 +27,7 @@
     "@angular/router": "^16.2.3",
     "@lacolaco/pokemon-data": "^1.5.1",
     "@rx-angular/state": "^1.7.0",
+    "@sentry/angular-ivy": "^7.70.0",
     "lz-string": "^1.4.4",
     "normalize.css": "^8.0.1",
     "rxjs": "~7.8.0",

@@ -46,7 +46,10 @@ dependencies:
     version: 1.5.1
   '@rx-angular/state':
     specifier: ^1.7.0
-    version: 1.7.0(@angular-devkit/core@16.2.1)(@angular-devkit/schematics@16.2.1)(@angular/core@16.2.3)(@angular/platform-browser@16.2.3)(rxjs@7.8.1)
+    version: 1.7.0(@angular-devkit/core@16.2.2)(@angular-devkit/schematics@16.2.2)(@angular/core@16.2.3)(@angular/platform-browser@16.2.3)(rxjs@7.8.1)
+  '@sentry/angular-ivy':
+    specifier: ^7.70.0
+    version: 7.70.0(@angular/common@16.2.3)(@angular/core@16.2.3)(@angular/router@16.2.3)(rxjs@7.8.1)
   lz-string:
     specifier: ^1.4.4
     version: 1.4.4
@@ -341,7 +344,6 @@ packages:
       picomatch: 2.3.1
       rxjs: 7.8.1
       source-map: 0.7.4
-    dev: true
 
   /@angular-devkit/schematics@16.2.1:
     resolution: {integrity: sha512-rXXO5zSI/iN6JtU3oU+vKfOB1N8n1iCH9aLudtJfO5zT9r29FIvV4YMmHO0iu78i4IhQAeJdr42cvrGPp8Y41A==}
@@ -367,7 +369,6 @@ packages:
       rxjs: 7.8.1
     transitivePeerDependencies:
       - chokidar
-    dev: true
 
   /@angular/animations@16.2.3(@angular/core@16.2.3):
     resolution: {integrity: sha512-MEjCWjN7RcHNFHkDYB3ZvEQqt94EzwevVXfld6rcOZNwJxcOVyi7+nQQ1YhWLPSW81HF76bpwD3RWWhZpKdXQQ==}
@@ -4021,7 +4022,7 @@ packages:
       rollup: 3.9.0
     dev: true
 
-  /@rx-angular/state@1.7.0(@angular-devkit/core@16.2.1)(@angular-devkit/schematics@16.2.1)(@angular/core@16.2.3)(@angular/platform-browser@16.2.3)(rxjs@7.8.1):
+  /@rx-angular/state@1.7.0(@angular-devkit/core@16.2.2)(@angular-devkit/schematics@16.2.2)(@angular/core@16.2.3)(@angular/platform-browser@16.2.3)(rxjs@7.8.1):
     resolution: {integrity: sha512-rrM5qlI6lDsSbTVo+uBoGpOuZ//msi2q72WYvw1MESPDrb9TnOLtVceDaYL0FBMDBhcqtmUsdOs6OoICaroSew==}
     engines: {node: '>=10.12.0', npm: '>=5.3.0', yarn: '>=1.9.2'}
     peerDependencies:
@@ -4031,7 +4032,7 @@ packages:
     dependencies:
       '@angular/core': 16.2.3(rxjs@7.8.1)(zone.js@0.13.1)
       '@angular/platform-browser': 16.2.3(@angular/animations@16.2.3)(@angular/common@16.2.3)(@angular/core@16.2.3)
-      ng-morph: 2.1.1(@angular-devkit/core@16.2.1)(@angular-devkit/schematics@16.2.1)
+      ng-morph: 2.1.1(@angular-devkit/core@16.2.2)(@angular-devkit/schematics@16.2.2)
       rxjs: 7.8.1
       tslib: 2.4.1
     transitivePeerDependencies:
@@ -4060,6 +4061,78 @@ packages:
     transitivePeerDependencies:
       - chokidar
     dev: true
+
+  /@sentry-internal/tracing@7.70.0:
+    resolution: {integrity: sha512-SpbE6wZhs6QwG2ORWCt8r28o1T949qkWx/KeRTCdK4Ub95PQ3Y3DgnqD8Wz//3q50Wt6EZDEibmz4t067g6PPg==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/core': 7.70.0
+      '@sentry/types': 7.70.0
+      '@sentry/utils': 7.70.0
+      tslib: 2.6.1
+    dev: false
+
+  /@sentry/angular-ivy@7.70.0(@angular/common@16.2.3)(@angular/core@16.2.3)(@angular/router@16.2.3)(rxjs@7.8.1):
+    resolution: {integrity: sha512-nbp5AUB4jtKe9L+O/eF1E8csLHjizCDeNeUStAWDCmvqSK7pVsgnAUzkzA/q8w/1lm6NFlEKYqQ6E+Kf2e/WQg==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      '@angular/common': '>= 12.x <= 16.x'
+      '@angular/core': '>= 12.x <= 16.x'
+      '@angular/router': '>= 12.x <= 16.x'
+      rxjs: ^6.5.5 || ^7.x
+    dependencies:
+      '@angular/common': 16.2.3(@angular/core@16.2.3)(rxjs@7.8.1)
+      '@angular/core': 16.2.3(rxjs@7.8.1)(zone.js@0.13.1)
+      '@angular/router': 16.2.3(@angular/common@16.2.3)(@angular/core@16.2.3)(@angular/platform-browser@16.2.3)(rxjs@7.8.1)
+      '@sentry/browser': 7.70.0
+      '@sentry/types': 7.70.0
+      '@sentry/utils': 7.70.0
+      rxjs: 7.8.1
+      tslib: 2.6.1
+    dev: false
+
+  /@sentry/browser@7.70.0:
+    resolution: {integrity: sha512-PB+IP49/TLcnDHCj9eJ5tcHE0pzXg23wBakmF3KGMSd5nxEbUvmOsaFPZcgUUlL9JlU3v1Y40We7HdPStrY6oA==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry-internal/tracing': 7.70.0
+      '@sentry/core': 7.70.0
+      '@sentry/replay': 7.70.0
+      '@sentry/types': 7.70.0
+      '@sentry/utils': 7.70.0
+      tslib: 2.6.1
+    dev: false
+
+  /@sentry/core@7.70.0:
+    resolution: {integrity: sha512-voUsGVM+jwRp99AQYFnRvr7sVd2tUhIMj1L6F42LtD3vp7t5ZnKp3NpXagtFW2vWzXESfyJUBhM0qI/bFvn7ZA==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/types': 7.70.0
+      '@sentry/utils': 7.70.0
+      tslib: 2.6.1
+    dev: false
+
+  /@sentry/replay@7.70.0:
+    resolution: {integrity: sha512-XjnyE6ORREz9kBWWHdXaIjS9P2Wo7uEw+y23vfLQwzV0Nx3xJ+FG4dwf8onyIoeCZDKbz7cqQIbugU1gkgUtZw==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@sentry/core': 7.70.0
+      '@sentry/types': 7.70.0
+      '@sentry/utils': 7.70.0
+    dev: false
+
+  /@sentry/types@7.70.0:
+    resolution: {integrity: sha512-rY4DqpiDBtXSk4MDNBH3dwWqfPbNBI/9GA7Y5WJSIcObBtfBKp0fzYliHJZD0pgM7d4DPFrDn42K9Iiumgymkw==}
+    engines: {node: '>=8'}
+    dev: false
+
+  /@sentry/utils@7.70.0:
+    resolution: {integrity: sha512-0cChMH0lsGp+5I3D4wOHWwjFN19HVrGUs7iWTLTO5St3EaVbdeLbI1vFXHxMxvopbwgpeZafbreHw/loIdZKpw==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/types': 7.70.0
+      tslib: 2.6.1
+    dev: false
 
   /@sigstore/bundle@1.1.0:
     resolution: {integrity: sha512-PFutXEy0SmQxYI4texPw3dd2KewuNqv7OuK1ZFtY2fM754yhvG2KdgwIhRnoEE2uHdtdGNQ8s0lb94dW9sELog==}
@@ -4771,7 +4844,6 @@ packages:
     dependencies:
       normalize-path: 3.0.0
       picomatch: 2.3.1
-    dev: true
 
   /aproba@2.0.0:
     resolution: {integrity: sha512-lYe4Gx7QT+MKGbDsA+Z+he/Wtef0BiwDOlK/XkBrdfsh9J/jPPXbX0tE9x9cl27Tmu5gg3QUbUrQYa/y+KOHPQ==}
@@ -4966,7 +5038,6 @@ packages:
   /binary-extensions@2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
     engines: {node: '>=8'}
-    dev: true
 
   /bl@4.1.0:
     resolution: {integrity: sha512-1W07cM9gS6DcLperZfFSj+bWLtaPGSOHWhPiGzXmvVJbRLdG82sH/Kn8EtW1VqWVA54AKf2h5k5BbnIbwF3h6w==}
@@ -5224,7 +5295,6 @@ packages:
       readdirp: 3.6.0
     optionalDependencies:
       fsevents: 2.3.3
-    dev: true
 
   /chownr@2.0.0:
     resolution: {integrity: sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==}
@@ -6544,7 +6614,6 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
     requiresBuild: true
-    dev: true
     optional: true
 
   /function-bind@1.1.1:
@@ -7085,7 +7154,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       binary-extensions: 2.2.0
-    dev: true
 
   /is-builtin-module@3.2.0:
     resolution: {integrity: sha512-phDA4oSGt7vl1n5tJvTWooWWAsXLY+2xCnxNqvKhGEzujg+A43wPlPOyDg3C8XQHN+6k/JTQWJ/j0dQh/qr+Hw==}
@@ -8074,14 +8142,14 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
 
-  /ng-morph@2.1.1(@angular-devkit/core@16.2.1)(@angular-devkit/schematics@16.2.1):
+  /ng-morph@2.1.1(@angular-devkit/core@16.2.2)(@angular-devkit/schematics@16.2.2):
     resolution: {integrity: sha512-mUziQxQm0YnP9WOCy2WRZVq6xNf+WgAvosdPU+hwmGUinoZ6vBrP3GECoRmM7Aor0PDG1KNIarJsDNS7BlxTLQ==}
     peerDependencies:
       '@angular-devkit/core': '>=11.0.0'
       '@angular-devkit/schematics': '>=11.0.0'
     dependencies:
-      '@angular-devkit/core': 16.2.1
-      '@angular-devkit/schematics': 16.2.1
+      '@angular-devkit/core': 16.2.2(chokidar@3.5.3)
+      '@angular-devkit/schematics': 16.2.2
       jsonc-parser: 3.0.0
       minimatch: 3.0.4
       multimatch: 5.0.0
@@ -8224,7 +8292,6 @@ packages:
   /normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /normalize-range@0.1.2:
     resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
@@ -9057,7 +9124,6 @@ packages:
     engines: {node: '>=8.10.0'}
     dependencies:
       picomatch: 2.3.1
-    dev: true
 
   /reflect-metadata@0.1.13:
     resolution: {integrity: sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==}
