@@ -1,16 +1,23 @@
-import { inject } from '@angular/core';
-import { ScreenTrackingService } from '@angular/fire/analytics';
-import { TraceService } from '@sentry/angular-ivy';
-import { PokemonData } from './shared/pokemon-data';
+import {
+  APP_INITIALIZER,
+  EnvironmentInjector,
+  EnvironmentProviders,
+  inject,
+  makeEnvironmentProviders,
+  runInInjectionContext,
+} from '@angular/core';
 
-export const appInitializer = () => {
-  // start performance monitoring
-  inject(TraceService);
-  // start screen tracking
-  inject(ScreenTrackingService);
-  const pokemonData = inject(PokemonData);
-
-  return async () => {
-    await pokemonData.initialize();
-  };
-};
+export function provideAppInitializer(fn: () => unknown): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      useFactory: () => {
+        const envInjector = inject(EnvironmentInjector);
+        return async () => {
+          await runInInjectionContext(envInjector, fn);
+        };
+      },
+    },
+  ]);
+}

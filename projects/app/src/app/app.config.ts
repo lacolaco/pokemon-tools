@@ -1,29 +1,44 @@
-import { APP_INITIALIZER, ApplicationConfig, ErrorHandler, importProvidersFrom } from '@angular/core';
-import { ScreenTrackingService, getAnalytics, provideAnalytics } from '@angular/fire/analytics';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { ApplicationConfig, ErrorHandler, NgZone, inject } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { NavigationEnd, Router, provideRouter, withComponentInputBinding } from '@angular/router';
 import { TraceService, createErrorHandler } from '@sentry/angular-ivy';
-import { firebaseConfig } from '../config/firebase';
-import { appInitializer } from './app-initializer';
+import { provideAppInitializer } from './app-initializer';
 import { routes } from './app-routing';
+import { PokemonData } from './shared/pokemon-data';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),
     provideRouter(routes, withComponentInputBinding()),
-    importProvidersFrom(provideFirebaseApp(() => initializeApp(firebaseConfig))),
-    importProvidersFrom(provideAnalytics(() => getAnalytics())),
-    ScreenTrackingService,
-    TraceService,
     {
       provide: ErrorHandler,
       useValue: createErrorHandler(),
     },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: appInitializer,
-      multi: true,
-    },
+    TraceService,
+    provideAppInitializer(() => {
+      // start performance monitoring
+      inject(TraceService);
+    }),
+    provideAppInitializer(() => {
+      const ngZone = inject(NgZone);
+      const router = inject(Router);
+      router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          ngZone.runOutsideAngular(() => {
+            // wait for the next tick to ensure the title is updated
+            setTimeout(() => {
+              gtag('event', 'page_view', {
+                page_title: document.title,
+                page_location: document.location.href,
+              });
+            }, 0);
+          });
+        }
+      });
+    }),
+    provideAppInitializer(async () => {
+      const pokemonData = inject(PokemonData);
+      await pokemonData.initialize();
+    }),
   ],
 };
