@@ -59,8 +59,8 @@ export function toggleIgnored($pokemon: WritableSignal<PokemonState>, key: core.
   const isIgnored = ivs[key] === null;
   $pokemon.update((state) => ({
     ...state,
-    ivs: { ...ivs, [key]: isIgnored ? core.asStat(31) : null },
-    evs: { ...evs, [key]: core.asStat(0) },
+    ivs: { ...ivs, [key]: isIgnored ? core.asIV(31) : null },
+    evs: { ...evs, [key]: core.asEV(0) },
   }));
 }
 
