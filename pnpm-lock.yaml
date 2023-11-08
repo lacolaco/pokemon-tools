@@ -9,11 +9,11 @@ dependencies:
     specifier: ^16.2.3
     version: 16.2.3(@angular/core@16.2.3)
   '@angular/cdk':
-    specifier: 16.2.2
-    version: 16.2.2(@angular/common@16.2.3)(@angular/core@16.2.3)(rxjs@7.8.1)
+    specifier: 16.2.12
+    version: 16.2.12(@angular/common@16.2.3)(@angular/core@16.2.3)(rxjs@7.8.1)
   '@angular/cdk-experimental':
     specifier: ^16.2.2
-    version: 16.2.2(@angular/cdk@16.2.2)(@angular/core@16.2.3)
+    version: 16.2.2(@angular/cdk@16.2.12)(@angular/core@16.2.3)
   '@angular/common':
     specifier: ^16.2.3
     version: 16.2.3(@angular/core@16.2.3)(rxjs@7.8.1)
@@ -27,8 +27,8 @@ dependencies:
     specifier: ^16.2.3
     version: 16.2.3(@angular/common@16.2.3)(@angular/core@16.2.3)(@angular/platform-browser@16.2.3)(rxjs@7.8.1)
   '@angular/material':
-    specifier: 16.2.2
-    version: 16.2.2(@angular/animations@16.2.3)(@angular/cdk@16.2.2)(@angular/common@16.2.3)(@angular/core@16.2.3)(@angular/forms@16.2.3)(@angular/platform-browser@16.2.3)(rxjs@7.8.1)
+    specifier: 16.2.12
+    version: 16.2.12(@angular/animations@16.2.3)(@angular/cdk@16.2.12)(@angular/common@16.2.3)(@angular/core@16.2.3)(@angular/forms@16.2.3)(@angular/platform-browser@16.2.3)(rxjs@7.8.1)
   '@angular/platform-browser':
     specifier: ^16.2.3
     version: 16.2.3(@angular/animations@16.2.3)(@angular/common@16.2.3)(@angular/core@16.2.3)
@@ -350,19 +350,19 @@ packages:
       tslib: 2.4.1
     dev: false
 
-  /@angular/cdk-experimental@16.2.2(@angular/cdk@16.2.2)(@angular/core@16.2.3):
+  /@angular/cdk-experimental@16.2.2(@angular/cdk@16.2.12)(@angular/core@16.2.3):
     resolution: {integrity: sha512-yM5HdepD5yurjY6HJY/gpl46FF0TwosEHqn+q5PwVcs9eqlp0P+21jvTpI5c+A1sO/QO2sQl/7Oaval9l591nw==}
     peerDependencies:
       '@angular/cdk': 16.2.2
       '@angular/core': ^16.0.0 || ^17.0.0
     dependencies:
-      '@angular/cdk': 16.2.2(@angular/common@16.2.3)(@angular/core@16.2.3)(rxjs@7.8.1)
+      '@angular/cdk': 16.2.12(@angular/common@16.2.3)(@angular/core@16.2.3)(rxjs@7.8.1)
       '@angular/core': 16.2.3(rxjs@7.8.1)(zone.js@0.13.1)
       tslib: 2.4.1
     dev: false
 
-  /@angular/cdk@16.2.2(@angular/common@16.2.3)(@angular/core@16.2.3)(rxjs@7.8.1):
-    resolution: {integrity: sha512-luUmeIFuEX4N3EOLhg1DM2hgsR+Is1Qd0a5xflbo30hZFnufppyzjaOvljNYUFtNTD9BaQRXaZDFA2cyTgfzZw==}
+  /@angular/cdk@16.2.12(@angular/common@16.2.3)(@angular/core@16.2.3)(rxjs@7.8.1):
+    resolution: {integrity: sha512-wT8/265zm2WKY0BDaRoYbrAT4kadrmejTRLjuimQIEUKnw4vBsJMWCwQkpFo3s6zr6eznGqYVAFb8KKPVLKGBg==}
     peerDependencies:
       '@angular/common': ^16.0.0 || ^17.0.0
       '@angular/core': ^16.0.0 || ^17.0.0
@@ -371,7 +371,7 @@ packages:
       '@angular/common': 16.2.3(@angular/core@16.2.3)(rxjs@7.8.1)
       '@angular/core': 16.2.3(rxjs@7.8.1)(zone.js@0.13.1)
       rxjs: 7.8.1
-      tslib: 2.4.1
+      tslib: 2.6.1
     optionalDependencies:
       parse5: 7.1.2
     dev: false
@@ -478,11 +478,11 @@ packages:
       tslib: 2.4.1
     dev: false
 
-  /@angular/material@16.2.2(@angular/animations@16.2.3)(@angular/cdk@16.2.2)(@angular/common@16.2.3)(@angular/core@16.2.3)(@angular/forms@16.2.3)(@angular/platform-browser@16.2.3)(rxjs@7.8.1):
-    resolution: {integrity: sha512-0SaBPZsZ1jxq5yJeey+V2k7nq1Izw63fjxkyLx7rCcdowwwoBnG/dZsY97/5Qs2cZX0J+Z0iNpMYVJZd72GsvQ==}
+  /@angular/material@16.2.12(@angular/animations@16.2.3)(@angular/cdk@16.2.12)(@angular/common@16.2.3)(@angular/core@16.2.3)(@angular/forms@16.2.3)(@angular/platform-browser@16.2.3)(rxjs@7.8.1):
+    resolution: {integrity: sha512-k1DGRfP1mMmhg/nLJjZBOPzX3SyAjgbRBY2KauKOV8OFCXJGoMn/oLgMBh+qB1WugzIna/31dBV8ruHD3Uvp2w==}
     peerDependencies:
       '@angular/animations': ^16.0.0 || ^17.0.0
-      '@angular/cdk': 16.2.2
+      '@angular/cdk': 16.2.12
       '@angular/common': ^16.0.0 || ^17.0.0
       '@angular/core': ^16.0.0 || ^17.0.0
       '@angular/forms': ^16.0.0 || ^17.0.0
@@ -490,7 +490,7 @@ packages:
       rxjs: ^6.5.3 || ^7.4.0
     dependencies:
       '@angular/animations': 16.2.3(@angular/core@16.2.3)
-      '@angular/cdk': 16.2.2(@angular/common@16.2.3)(@angular/core@16.2.3)(rxjs@7.8.1)
+      '@angular/cdk': 16.2.12(@angular/common@16.2.3)(@angular/core@16.2.3)(rxjs@7.8.1)
       '@angular/common': 16.2.3(@angular/core@16.2.3)(rxjs@7.8.1)
       '@angular/core': 16.2.3(rxjs@7.8.1)(zone.js@0.13.1)
       '@angular/forms': 16.2.3(@angular/common@16.2.3)(@angular/core@16.2.3)(@angular/platform-browser@16.2.3)(rxjs@7.8.1)
@@ -543,7 +543,7 @@ packages:
       '@material/touch-target': 15.0.0-canary.bc9ae6c9c.0
       '@material/typography': 15.0.0-canary.bc9ae6c9c.0
       rxjs: 7.8.1
-      tslib: 2.4.1
+      tslib: 2.6.1
     dev: false
 
   /@angular/platform-browser-dynamic@16.2.3(@angular/common@16.2.3)(@angular/compiler@16.2.3)(@angular/core@16.2.3)(@angular/platform-browser@16.2.3):
