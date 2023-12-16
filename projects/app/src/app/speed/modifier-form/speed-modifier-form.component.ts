@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SpeedModifier } from '@lib/stats';
@@ -30,7 +29,7 @@ import { defaultSpeedModifier, SpeedPageState } from '../speed.state';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, SpeedModifierControlComponent],
+  imports: [ReactiveFormsModule, SpeedModifierControlComponent],
 })
 export class SpeedModifierFormComponent implements OnInit {
   private readonly state = inject(SpeedPageState);

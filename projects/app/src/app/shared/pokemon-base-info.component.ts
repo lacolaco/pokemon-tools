@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import type { Pokemon } from '@lacolaco/pokemon-data';
 import { JoinPipe, JoinStatValuesPipe } from './utitilites/pipes';
@@ -7,7 +6,7 @@ import { JoinPipe, JoinStatValuesPipe } from './utitilites/pipes';
   selector: 'pokemon-base-info',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, JoinStatValuesPipe, JoinPipe],
+  imports: [JoinStatValuesPipe, JoinPipe],
   template: `
     <div class="flex flex-row justify-start items-center gap-x-1 leading-none">
       <span>{{ pokemon.baseStats | joinStatValues }}</span>

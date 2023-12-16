@@ -1,4 +1,4 @@
-import { CommonModule, formatNumber } from '@angular/common';
+import { formatNumber } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AppStrokedButton } from '@app/shared/ui/buttons';
@@ -9,7 +9,7 @@ import { PokemonStats } from '../../../models/pokemon-state';
   selector: 'stats-utils',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, MatTooltipModule, AppStrokedButton],
+  imports: [MatTooltipModule, AppStrokedButton],
   template: `
     <div class="flex flex-col gap-y-1">
       <div class="flex flex-col items-start">

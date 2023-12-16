@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { asLevel, Level } from '@lib/stats';
@@ -9,7 +8,7 @@ import { SimpleControlValueAccessor } from './utitilites/forms';
   selector: 'level-input',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, FormFieldModule],
+  imports: [ReactiveFormsModule, FormFieldModule],
   template: `
     <app-form-field label="レベル" [showLabel]="true">
       <input app-form-control type="number" min="1" max="100" [formControl]="formControl" (click)="onTouched()" />

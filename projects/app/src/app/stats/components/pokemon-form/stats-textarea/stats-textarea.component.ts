@@ -1,5 +1,5 @@
 import { Clipboard, ClipboardModule } from '@angular/cdk/clipboard';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormFieldModule } from '../../../../shared/forms/form-field.component';
@@ -10,7 +10,7 @@ import { formatStats } from './formatter';
   selector: 'app-stats-textarea',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ClipboardModule, MatSnackBarModule, FormFieldModule],
+  imports: [ClipboardModule, MatSnackBarModule, FormFieldModule],
   template: `
     <app-form-field class="w-full">
       <textarea

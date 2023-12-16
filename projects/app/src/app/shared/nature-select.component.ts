@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Nature, natures } from '@lib/stats';
@@ -9,13 +8,15 @@ import { SimpleControlValueAccessor } from './utitilites/forms';
   selector: 'nature-select',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, FormFieldModule],
+  imports: [ReactiveFormsModule, FormFieldModule],
   template: `
     <app-form-field label="性格" [showLabel]="true">
       <select app-form-control [formControl]="formControl" (click)="onTouched()">
-        <option *ngFor="let option of options; trackBy: trackNature" [ngValue]="option">
-          {{ option.name }}
-        </option>
+        @for (option of options; track trackNature($index, option)) {
+          <option [ngValue]="option">
+            {{ option.name }}
+          </option>
+        }
       </select>
     </app-form-field>
   `,

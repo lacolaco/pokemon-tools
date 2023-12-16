@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { StatsPokemonsComponent } from './components/pokemons/pokemons.component';
 import { StatsToolbarComponent } from './components/toolbar/stats-toolbar.component';
@@ -7,7 +6,7 @@ import { StatsState } from './state';
 @Component({
   selector: 'app-stats',
   standalone: true,
-  imports: [CommonModule, StatsPokemonsComponent, StatsToolbarComponent],
+  imports: [StatsPokemonsComponent, StatsToolbarComponent],
   providers: [StatsState],
   template: `
     <header class="py-2 mb-2 sticky top-0 bg-white z-10 drop-shadow-md">

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { PokemonBaseInfoComponent } from '@app/shared/pokemon-base-info.component';
 import { PokemonDecoratedStatsComponent } from '../../../shared/pokemon-decorated-stats.component';
@@ -9,7 +8,7 @@ import { PokemonState, PokemonStats } from '../../models/pokemon-state';
   selector: 'stats-pokemon-summary',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, PokemonSpriteComponent, PokemonDecoratedStatsComponent, PokemonBaseInfoComponent],
+  imports: [PokemonSpriteComponent, PokemonDecoratedStatsComponent, PokemonBaseInfoComponent],
   template: `
     <div class="grid grid-cols-[auto_auto] justify-start gap-1">
       <pokemon-sprite [pokemon]="state.pokemon" [size]="40" />
@@ -19,9 +18,11 @@ import { PokemonState, PokemonStats } from '../../models/pokemon-state';
         </div>
         <pokemon-base-info [pokemon]="state.pokemon" class="text-xs text-gray-500" />
       </div>
-      <div *ngIf="showStats" class="col-start-2">
-        <pokemon-decorated-stats [stats]="stats.values" [nature]="state.nature" [evs]="state.evs" />
-      </div>
+      @if (showStats) {
+        <div class="col-start-2">
+          <pokemon-decorated-stats [stats]="stats.values" [nature]="state.nature" [evs]="state.evs" />
+        </div>
+      }
     </div>
   `,
   host: {

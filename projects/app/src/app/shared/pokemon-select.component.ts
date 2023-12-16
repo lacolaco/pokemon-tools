@@ -24,9 +24,11 @@ import { PokemonData } from './pokemon-data';
       autoActiveFirstOption
       autoSelectActiveOption
     >
-      <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option" class="text-sm">
-        {{ option }}
-      </mat-option>
+      @for (option of filteredOptions$ | async; track option) {
+        <mat-option [value]="option" class="text-sm">
+          {{ option }}
+        </mat-option>
+      }
     </mat-autocomplete>
   `,
   styles: [

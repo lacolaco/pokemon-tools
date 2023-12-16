@@ -1,6 +1,6 @@
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -53,7 +53,6 @@ function createStatControls<T>(fn: () => FormControl<T>) {
   standalone: true,
   templateUrl: './stats-form.component.html',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatIconModule,
     PokemonSelectComponent,

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SpeedAbility, SpeedItem, SpeedModifier, StatRank } from '@lib/stats';
@@ -9,30 +8,34 @@ import { getValidValueChanges, SimpleControlValueAccessor } from '../../shared/u
 @Component({
   selector: 'speed-modifier-control',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormFieldModule, CheckboxFieldModule],
+  imports: [ReactiveFormsModule, FormFieldModule, CheckboxFieldModule],
   template: `
     <div class="w-full grid grid-flow-row gap-y-2">
       <app-form-field label="ランク補正" [showLabel]="true">
         <select app-form-control [formControl]="form.controls.rank">
-          <option *ngFor="let option of rankOptions; trackBy: trackByValue" [ngValue]="option.value">
-            {{ option.label }}
-          </option>
+          @for (option of rankOptions; track trackByValue($index, option)) {
+            <option [ngValue]="option.value">
+              {{ option.label }}
+            </option>
+          }
         </select>
       </app-form-field>
       <app-form-field label="道具" [showLabel]="true">
         <select app-form-control [formControl]="form.controls.item">
-          <option *ngFor="let option of itemOptions; trackBy: trackByValue" [ngValue]="option.value">
-            {{ option.label }}
-          </option>
+          @for (option of itemOptions; track trackByValue($index, option)) {
+            <option [ngValue]="option.value">
+              {{ option.label }}
+            </option>
+          }
         </select>
       </app-form-field>
       <!-- <app-form-field label="特性" [showLabel]="true">
-        <select app-form-control [formControl]="form.controls.ability">
-          <option *ngFor="let option of abilityOptions; trackBy: trackByValue" [ngValue]="option.value">
-            {{ option.label }}
-          </option>
-        </select>
-      </app-form-field> -->
+      <select app-form-control [formControl]="form.controls.ability">
+        <option *ngFor="let option of abilityOptions; trackBy: trackByValue" [ngValue]="option.value">
+          {{ option.label }}
+        </option>
+      </select>
+    </app-form-field> -->
       <div [formGroup]="form.controls.condition" class="grid grid-flow-row gap-y-1">
         <span class="text-xs">その他</span>
         <app-form-checkbox label="まひ">

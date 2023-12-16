@@ -8,42 +8,52 @@
     <table class="w-full border-collapse">
       <thead>
         <tr class="font-bold text-center">
-          <th *ngFor="let key of statKeys" class="text-sm stat-nature-{{ $state().nature.values[key] ?? 'neutral' }}">
-            {{ key }}
-          </th>
+          @for (key of statKeys; track key) {
+            <th class="text-sm stat-nature-{{ $state().nature.values[key] ?? 'neutral' }}">
+              {{ key }}
+            </th>
+          }
         </tr>
       </thead>
       <tbody>
         <tr formGroupName="stats">
-          <td *ngFor="let key of statKeys">
-            <stat-input
-              class="stat-nature-{{ $state().nature.values[key] ?? 'neutral' }}"
-              [formControlName]="key"
-            ></stat-input>
-          </td>
+          @for (key of statKeys; track key) {
+            <td>
+              <stat-input
+                class="stat-nature-{{ $state().nature.values[key] ?? 'neutral' }}"
+                [formControlName]="key"
+              ></stat-input>
+            </td>
+          }
         </tr>
         <tr>
           <td colspan="6" class="leading-none text-gray-700 text-xs px-1">個体値</td>
         </tr>
         <tr formGroupName="ivs">
-          <td *ngFor="let key of statKeys">
-            <iv-input [formControlName]="key"></iv-input>
-          </td>
+          @for (key of statKeys; track key) {
+            <td>
+              <iv-input [formControlName]="key"></iv-input>
+            </td>
+          }
         </tr>
         <tr>
           <td colspan="6" class="leading-none text-gray-700 text-xs px-1">努力値</td>
         </tr>
         <tr formGroupName="evs">
-          <td *ngFor="let key of statKeys">
-            <ev-input [formControlName]="key" [usedEVs]="$stats().usedEVs"></ev-input>
-          </td>
+          @for (key of statKeys; track key) {
+            <td>
+              <ev-input [formControlName]="key" [usedEVs]="$stats().usedEVs"></ev-input>
+            </td>
+          }
         </tr>
         <tr>
-          <td *ngFor="let key of statKeys">
-            <button app-stroked-button #button class="w-full" (click)="openStatCommands(key, button)">
-              <mat-icon inline fontIcon="tune"></mat-icon>
-            </button>
-          </td>
+          @for (key of statKeys; track key) {
+            <td>
+              <button app-stroked-button #button class="w-full" (click)="openStatCommands(key, button)">
+                <mat-icon inline fontIcon="tune"></mat-icon>
+              </button>
+            </td>
+          }
         </tr>
       </tbody>
     </table>

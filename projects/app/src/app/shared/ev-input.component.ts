@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, booleanAttribute } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { asEV, EV, MAX_EV_TOTAL, MAX_EV_VALUE } from '@lib/stats';
@@ -11,7 +10,7 @@ const STEP = 4;
   selector: 'ev-input',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, FormFieldModule],
+  imports: [ReactiveFormsModule, FormFieldModule],
   template: `
     <app-form-field class="w-full" label="努力値" [showLabel]="showLabel">
       <input

@@ -1,6 +1,6 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { CdkDrag, CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, EventEmitter, Output, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,7 +14,7 @@ import { StatsState } from '../../state';
   selector: 'stats-toolbar',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, CdkDropList, CdkDrag, AppIconButton, PokemonSpriteComponent, MatIconModule, MatTooltipModule],
+  imports: [CdkDropList, CdkDrag, AppIconButton, PokemonSpriteComponent, MatIconModule, MatTooltipModule],
   template: `
     <div class="grid grid-cols-[1fr_auto] items-center gap-x-2">
       <div
@@ -23,7 +23,7 @@ import { StatsState } from '../../state';
         [cdkDropListOrientation]="'horizontal'"
         (cdkDropListDropped)="changeOrder($event)"
       >
-        <ng-container *ngFor="let item of state.$pokemons(); let index = index">
+        @for (item of state.$pokemons(); track item; let index = $index) {
           <button
             cdkDrag
             app-icon-button
@@ -34,7 +34,7 @@ import { StatsState } from '../../state';
           >
             <pokemon-sprite [pokemon]="item().pokemon" [size]="40" />
           </button>
-        </ng-container>
+        }
         <button
           app-icon-button
           class="border border-solid border-gray-500 bg-white text-gray-500"

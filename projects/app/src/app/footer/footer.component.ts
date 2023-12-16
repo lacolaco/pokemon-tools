@@ -18,7 +18,7 @@ declare const twttr: { ready: () => void };
           >様で公開されているものを使用しています。下記はサイト独自の内容にのみ関する著作権を示すものです。
         </p>
       </div>
-      <p>&copy; 2022 <a href="https://github.com/lacolaco">@lacolaco</a></p>
+      <p>&copy; 2022 <a href="https://github.com/lacolaco">&#64;lacolaco</a></p>
     </div>
   `,
   host: { class: 'block' },

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AppStrokedButton } from '@app/shared/ui/buttons';
 import { SpeedPresetKey, speedPresets } from '../speed-presets';
@@ -7,7 +6,7 @@ import { SpeedPageState } from '../speed.state';
 @Component({
   selector: 'speed-presets',
   standalone: true,
-  imports: [CommonModule, AppStrokedButton],
+  imports: [AppStrokedButton],
   template: `
     <div class="grid grid-flow-col items-center gap-x-1">
       <button app-stroked-button class="text-sm leading-none p-1" (click)="usePreset('fastest')">最速</button>

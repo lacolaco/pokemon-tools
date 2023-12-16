@@ -1,11 +1,10 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { EV, Nature, Stat, StatValues } from '@lib/stats';
 
 @Component({
   selector: 'pokemon-decorated-stats',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
     <span class="{{ evs.H > 0 ? 'ev' : '' }} nature-{{ nature.values.H ?? 'neutral' }}">{{ stats.H ?? 'x' }}</span>
     <span>-</span>

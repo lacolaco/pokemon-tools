@@ -1,5 +1,5 @@
 import { CdkAccordionModule } from '@angular/cdk/accordion';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, ElementRef, NgZone, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { AppStrokedButton } from '@app/shared/ui/buttons';
@@ -9,17 +9,15 @@ import { StatsPokemonsItemComponent } from './pokemons-item.component';
 @Component({
   selector: 'stats-pokemons',
   standalone: true,
-  imports: [CommonModule, CdkAccordionModule, StatsPokemonsItemComponent, MatIconModule, AppStrokedButton],
+  imports: [CdkAccordionModule, StatsPokemonsItemComponent, MatIconModule, AppStrokedButton],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <cdk-accordion class="flex flex-col gap-y-2" multi>
-      <cdk-accordion-item
-        *ngFor="let item of state.$pokemons(); let index = index"
-        #cdkAccordionItem="cdkAccordionItem"
-        expanded
-      >
-        <stats-pokemons-item [$state]="item" [cdkAccordionItem]="cdkAccordionItem" (remove)="state.remove(index)" />
-      </cdk-accordion-item>
+      @for (item of state.$pokemons(); track item; let index = $index) {
+        <cdk-accordion-item #cdkAccordionItem="cdkAccordionItem" expanded>
+          <stats-pokemons-item [$state]="item" [cdkAccordionItem]="cdkAccordionItem" (remove)="state.remove(index)" />
+        </cdk-accordion-item>
+      }
 
       <button
         app-stroked-button

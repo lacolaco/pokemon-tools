@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, Input, Signal, WritableSignal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,7 +10,7 @@ import { StatsState } from '../../../state';
 @Component({
   selector: 'stat-commands',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatIconModule, AppStrokedButton],
+  imports: [ReactiveFormsModule, MatIconModule, AppStrokedButton],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="bg-white p-2 rounded border border-solid border-gray-500 shadow">

@@ -1,5 +1,5 @@
 import { CdkAccordionItem } from '@angular/cdk/accordion';
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -18,7 +18,7 @@ import { StatsSummaryComponent } from '../pokemon-summary/stats-pokemon-summary.
 @Component({
   selector: 'stats-pokemons-item',
   standalone: true,
-  imports: [CommonModule, StatsPokemonFormComponent, StatsSummaryComponent, MatIconModule, AppIconButton],
+  imports: [StatsPokemonFormComponent, StatsSummaryComponent, MatIconModule, AppIconButton],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="w-full flex flex-col gap-y-2 rounded-md p-2 md:p-4 border border-solid border-gray-500">

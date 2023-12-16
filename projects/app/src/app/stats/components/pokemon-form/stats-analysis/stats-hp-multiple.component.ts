@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -7,22 +6,23 @@ import { PokemonStats } from '../../../models/pokemon-state';
 @Component({
   selector: 'stats-hp-multiple',
   standalone: true,
-  imports: [CommonModule, MatTooltipModule, MatChipsModule],
+  imports: [MatTooltipModule, MatChipsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <span>HP倍数チェック</span>
     <div class="px-2">
       <mat-chip-set>
-        <mat-chip
-          *ngFor="let indicator of hpIndicators; trackBy: trackIndicator"
-          [class.off]="!indicator.value"
-          [highlighted]="indicator.value"
-          disableRipple
-          [matTooltip]="indicator.description"
-          [matTooltipDisabled]="false"
-        >
-          {{ indicator.label }}
-        </mat-chip>
+        @for (indicator of hpIndicators; track trackIndicator($index, indicator)) {
+          <mat-chip
+            [class.off]="!indicator.value"
+            [highlighted]="indicator.value"
+            disableRipple
+            [matTooltip]="indicator.description"
+            [matTooltipDisabled]="false"
+          >
+            {{ indicator.label }}
+          </mat-chip>
+        }
       </mat-chip-set>
     </div>
   `,

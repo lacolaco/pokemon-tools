@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, booleanAttribute } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FormFieldModule } from '@app/shared/forms/form-field.component';
@@ -9,7 +8,7 @@ import { distinctUntilChanged, map } from 'rxjs';
 @Component({
   selector: 'stat-input',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormFieldModule],
+  imports: [ReactiveFormsModule, FormFieldModule],
   template: `
     <app-form-field class="w-full" [label]="label" [showLabel]="showLabel">
       <input
