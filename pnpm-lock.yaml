@@ -39,8 +39,8 @@ dependencies:
     specifier: ^16.2.3
     version: 16.2.3(@angular/common@16.2.3)(@angular/core@16.2.3)(@angular/platform-browser@16.2.3)(rxjs@7.8.1)
   '@lacolaco/pokemon-data':
-    specifier: ^1.5.1
-    version: 1.5.1
+    specifier: ^1.6.0
+    version: 1.6.0
   '@rx-angular/state':
     specifier: ^1.7.0
     version: 1.7.0(@angular-devkit/core@16.2.2)(@angular-devkit/schematics@16.2.2)(@angular/core@16.2.3)(@angular/platform-browser@16.2.3)(rxjs@7.8.1)
@@ -2576,8 +2576,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
-  /@lacolaco/pokemon-data@1.5.1:
-    resolution: {integrity: sha512-vuhXFOjz0ThGHkjq8Du/LfP+ftd1kdLgYKrcHF6Vbs85taVByTEY/qmnCdVoHE1oyjJ1zvijjCl+4x+ZIiveig==, tarball: https://npm.pkg.github.com/download/@lacolaco/pokemon-data/1.5.1/8b3b7f0ef1f693a636abc802ef21a7e80c67dc80}
+  /@lacolaco/pokemon-data@1.6.0:
+    resolution: {integrity: sha512-8senf11lHxQi7sP7AZWMsODQYhBEQF5KlQn5mueFiN3nGD1Cw5NpH64OW1XNg5Lvt4iNm/hKArV+FCPPC0CGNA==, tarball: https://npm.pkg.github.com/download/@lacolaco/pokemon-data/1.6.0/1b9c66521c9be2d41073d65143314d4cf032abed}
     dependencies:
       tslib: 2.6.1
     dev: false
