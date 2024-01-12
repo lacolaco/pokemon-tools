@@ -24,7 +24,7 @@
     "@angular/platform-browser": "^17.0.7",
     "@angular/platform-browser-dynamic": "^17.0.7",
     "@angular/router": "^17.0.7",
-    "@lacolaco/pokemon-data": "^1.6.0",
+    "@lacolaco/pokemon-data": "^1.6.1",
     "@rx-angular/state": "^1.7.0",
     "@sentry/angular-ivy": "^7.88.0",
     "lz-string": "^1.4.4",
