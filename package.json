@@ -33,7 +33,7 @@
     "tslib": "^2.3.0",
     "uuid": "^9.0.0",
     "zod": "^3.20.2",
-    "zone.js": "~0.14.2"
+    "zone.js": "~0.15.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.0.7",
