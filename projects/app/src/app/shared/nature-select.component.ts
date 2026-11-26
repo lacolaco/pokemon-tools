@@ -6,7 +6,6 @@ import { SimpleControlValueAccessor } from './utitilites/forms';
 
 @Component({
   selector: 'nature-select',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, FormFieldModule],
   template: `

@@ -7,7 +7,6 @@ import { getValidValueChanges, SimpleControlValueAccessor } from '../../shared/u
 
 @Component({
   selector: 'speed-modifier-control',
-  standalone: true,
   imports: [ReactiveFormsModule, FormFieldModule, CheckboxFieldModule],
   template: `
     <div class="w-full grid grid-flow-row gap-y-2">

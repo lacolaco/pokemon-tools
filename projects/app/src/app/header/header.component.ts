@@ -6,7 +6,6 @@ import { AppIconButton } from '@app/shared/ui/buttons';
 
 @Component({
   selector: 'app-header',
-  standalone: true,
   imports: [MatIconModule, MatMenuModule, RouterLink, AppIconButton],
   template: `
     <div class="h-full flex items-center gap-y-2 py-2">

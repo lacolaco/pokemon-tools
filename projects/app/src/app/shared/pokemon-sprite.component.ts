@@ -5,7 +5,6 @@ import { PokemonData } from './pokemon-data';
 
 @Component({
   selector: 'pokemon-sprite',
-  standalone: true,
   imports: [NgOptimizedImage],
   template: `<img
     class="aspect-square mt-[-10%] mb-[10%]"

@@ -9,7 +9,6 @@ import { StatsState } from '../../../state';
 
 @Component({
   selector: 'stat-commands',
-  standalone: true,
   imports: [ReactiveFormsModule, MatIconModule, AppStrokedButton],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `

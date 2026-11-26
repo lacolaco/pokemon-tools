@@ -17,7 +17,6 @@ import { StatsSummaryComponent } from '../pokemon-summary/stats-pokemon-summary.
 
 @Component({
   selector: 'stats-pokemons-item',
-  standalone: true,
   imports: [StatsPokemonFormComponent, StatsSummaryComponent, MatIconModule, AppIconButton],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `

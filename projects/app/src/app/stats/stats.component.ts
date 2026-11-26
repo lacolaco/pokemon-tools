@@ -5,7 +5,6 @@ import { StatsState } from './state';
 
 @Component({
   selector: 'app-stats',
-  standalone: true,
   imports: [StatsPokemonsComponent, StatsToolbarComponent],
   providers: [StatsState],
   template: `

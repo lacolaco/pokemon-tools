@@ -11,7 +11,6 @@ import { PokemonData } from './pokemon-data';
 
 @Component({
   selector: 'pokemon-select',
-  standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormFieldModule, MatAutocompleteModule],
   template: `
     <app-form-field class="w-full" label="ポケモン" [showLabel]="true">

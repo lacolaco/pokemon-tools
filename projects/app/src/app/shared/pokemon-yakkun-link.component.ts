@@ -3,7 +3,6 @@ import type { Pokemon } from '@lacolaco/pokemon-data';
 
 @Component({
   selector: 'pokemon-yakkun-link',
-  standalone: true,
   imports: [],
   template: `
     <a [href]="pokemon.meta.url" target="_blank" title="ポケモン徹底攻略で{{ pokemon.name }}を見る">

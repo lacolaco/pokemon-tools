@@ -12,7 +12,6 @@ import { StatsState } from '../../state';
 
 @Component({
   selector: 'stats-toolbar',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CdkDropList, CdkDrag, AppIconButton, PokemonSpriteComponent, MatIconModule, MatTooltipModule],
   template: `

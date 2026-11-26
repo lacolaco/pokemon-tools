@@ -6,7 +6,6 @@ import { SimpleControlValueAccessor } from './utitilites/forms';
 
 @Component({
   selector: 'level-input',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, FormFieldModule],
   template: `

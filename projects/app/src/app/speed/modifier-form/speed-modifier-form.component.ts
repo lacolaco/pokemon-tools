@@ -8,7 +8,6 @@ import { defaultSpeedModifier, SpeedPageState } from '../speed.state';
 
 @Component({
   selector: 'speed-modifier-form',
-  standalone: true,
   template: `
     <form [formGroup]="form" class="h-full w-[30vw] overflow-auto flex flex-col items-start gap-y-2 text-sm">
       <div formGroupName="ally" class="w-full grid grid-flow-row gap-y-2 border-b border-b-gray-500">

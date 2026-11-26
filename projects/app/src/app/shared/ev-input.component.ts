@@ -8,7 +8,6 @@ const STEP = 4;
 
 @Component({
   selector: 'ev-input',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, FormFieldModule],
   template: `

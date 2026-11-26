@@ -7,7 +7,6 @@ import { SimpleControlValueAccessor } from './utitilites/forms';
 
 @Component({
   selector: 'iv-input',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, FormFieldModule],
   template: `

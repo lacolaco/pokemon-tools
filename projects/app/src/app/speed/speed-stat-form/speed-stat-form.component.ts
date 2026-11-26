@@ -25,7 +25,6 @@ import { FormControlDirective, FormFieldComponent } from '../../shared/forms/for
 
 @Component({
   selector: 'speed-stat-form',
-  standalone: true,
   templateUrl: './speed-stat-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [

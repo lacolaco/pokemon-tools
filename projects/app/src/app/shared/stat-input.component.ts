@@ -7,7 +7,6 @@ import { distinctUntilChanged, map } from 'rxjs';
 
 @Component({
   selector: 'stat-input',
-  standalone: true,
   imports: [ReactiveFormsModule, FormFieldModule],
   template: `
     <app-form-field class="w-full" [label]="label" [showLabel]="showLabel">
