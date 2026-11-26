@@ -1,7 +1,7 @@
 import { ApplicationConfig, ErrorHandler, NgZone, inject } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { NavigationEnd, Router, provideRouter, withComponentInputBinding } from '@angular/router';
-import { TraceService, createErrorHandler } from '@sentry/angular-ivy';
+import { TraceService, createErrorHandler } from '@sentry/angular';
 import { provideAppInitializer } from './app-initializer';
 import { routes } from './app-routing';
 import { PokemonData } from './shared/pokemon-data';

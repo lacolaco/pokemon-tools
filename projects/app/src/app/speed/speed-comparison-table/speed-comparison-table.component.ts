@@ -8,7 +8,6 @@ import { SpeedComparisonTableRow, SpeedComparisonTableState } from './comparison
 
 @Component({
   selector: 'speed-comparison-table',
-  standalone: true,
   templateUrl: './speed-comparison-table.component.html',
   styles: [
     `

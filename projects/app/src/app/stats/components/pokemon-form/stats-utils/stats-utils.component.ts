@@ -7,7 +7,6 @@ import { PokemonStats } from '../../../models/pokemon-state';
 
 @Component({
   selector: 'stats-utils',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatTooltipModule, AppStrokedButton],
   template: `

@@ -3,7 +3,6 @@ import { EV, Nature, Stat, StatValues } from '@lib/stats';
 
 @Component({
   selector: 'pokemon-decorated-stats',
-  standalone: true,
   imports: [],
   template: `
     <span class="{{ evs.H > 0 ? 'ev' : '' }} nature-{{ nature.values.H ?? 'neutral' }}">{{ stats.H ?? 'x' }}</span>

@@ -8,7 +8,6 @@ import { StatsPokemonsItemComponent } from './pokemons-item.component';
 
 @Component({
   selector: 'stats-pokemons',
-  standalone: true,
   imports: [CdkAccordionModule, StatsPokemonsItemComponent, MatIconModule, AppStrokedButton],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `

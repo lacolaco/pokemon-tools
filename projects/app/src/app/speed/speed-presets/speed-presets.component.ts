@@ -5,7 +5,6 @@ import { SpeedPageState } from '../speed.state';
 
 @Component({
   selector: 'speed-presets',
-  standalone: true,
   imports: [AppStrokedButton],
   template: `
     <div class="grid grid-flow-col items-center gap-x-1">

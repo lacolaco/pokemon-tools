@@ -6,7 +6,6 @@ import { PokemonState, PokemonStats } from '../../models/pokemon-state';
 
 @Component({
   selector: 'stats-pokemon-summary',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [PokemonSpriteComponent, PokemonDecoratedStatsComponent, PokemonBaseInfoComponent],
   template: `

@@ -6,7 +6,6 @@ import { SpeedPageState } from './speed.state';
 
 @Component({
   selector: 'app-speed',
-  standalone: true,
   imports: [SpeedStatFormComponent, SpeedModifierFormComponent, SpeedComparisonTableComponent],
   providers: [SpeedPageState],
   template: `

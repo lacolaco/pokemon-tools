@@ -4,7 +4,6 @@ import { JoinPipe, JoinStatValuesPipe } from './utitilites/pipes';
 
 @Component({
   selector: 'pokemon-base-info',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [JoinStatValuesPipe, JoinPipe],
   template: `

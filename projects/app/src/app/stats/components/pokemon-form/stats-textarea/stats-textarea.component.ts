@@ -8,7 +8,6 @@ import { formatStats } from './formatter';
 
 @Component({
   selector: 'app-stats-textarea',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ClipboardModule, MatSnackBarModule, FormFieldModule],
   template: `

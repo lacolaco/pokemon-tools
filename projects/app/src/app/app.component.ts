@@ -7,7 +7,6 @@ import { HeaderComponent } from './header/header.component';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   template: `
     <div class="grid grid-rows-header-main min-h-[100dvh] w-[100vw]">
       <header class="w-full h-16 z-10 shadow bg-gradation-sv text-white">

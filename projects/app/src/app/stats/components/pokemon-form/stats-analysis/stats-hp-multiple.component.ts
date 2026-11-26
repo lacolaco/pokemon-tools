@@ -5,7 +5,6 @@ import { PokemonStats } from '../../../models/pokemon-state';
 
 @Component({
   selector: 'stats-hp-multiple',
-  standalone: true,
   imports: [MatTooltipModule, MatChipsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -30,13 +29,13 @@ import { PokemonStats } from '../../../models/pokemon-state';
     `
       mat-chip-set {
         font-size: 12px;
-        --mdc-chip-container-height: 20px;
+        --mat-chip-container-height: 20px;
       }
       .mdc-evolution-chip-set .mdc-evolution-chip {
         margin-top: unset;
       }
       mat-chip.off {
-        --mdc-chip-label-text-color: #999;
+        --mat-chip-label-text-color: #999;
       }
     `,
   ],

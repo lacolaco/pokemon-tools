@@ -50,7 +50,6 @@ function createStatControls<T>(fn: () => FormControl<T>) {
 
 @Component({
   selector: 'stats-pokemon-form',
-  standalone: true,
   templateUrl: './stats-form.component.html',
   imports: [
     ReactiveFormsModule,
